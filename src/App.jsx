@@ -212,7 +212,7 @@ const Hero = ({ onRequestService }) => (
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end border-t border-white/10 pt-8 gap-8">
         <div className="text-[clamp(1rem,1.5vw,1.25rem)] leading-relaxed max-w-[380px] drop-shadow-md hero-content-animate">
           <strong className="block mb-2 font-semibold text-[1.1em]">Tired of missed pickups?</strong>
-          Rankin Waste Management is a family-owned trash company run by Tommy and Sydney Rankin right here in Hubbard. We show up every week, on schedule, because that's what neighbors do.
+          Rankin Waste Management is a family-owned trash company based out of Hubbard. We show up every week, on schedule, because that's what we do.
         </div>
 
         <div className="flex items-center gap-4 hero-buttons-animate">
@@ -240,13 +240,13 @@ const BusinessDescription = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           <div ref={textRef} className="reveal-left">
             <span className="text-orange-500 font-semibold text-sm uppercase tracking-wider mb-4 block">About Rankin Waste</span>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-medium tracking-tight leading-tight mb-6">Your neighbors,<br />your trash company.</h2>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-medium tracking-tight leading-tight mb-6">Your local team,<br />your trash company.</h2>
             <div className="border-l-2 border-orange-500 pl-6 md:pl-8">
               <p className="text-text-muted text-base sm:text-lg leading-relaxed mb-4">
                 Rankin Waste Management is a locally family-owned and operated small business proudly serving Hubbard, Axtell, Dawson, Malone, Mertens, Purdon, TX, and surrounding rural communities.
               </p>
               <p className="text-text-muted text-base sm:text-lg leading-relaxed">
-                We specialize in reliable, affordable trash service with a personal touch. When you choose Rankin Waste Management, you're not just getting great service - you're supporting your neighbors.
+                We specialize in reliable, affordable trash service with a personal touch. When you choose Rankin Waste Management, you're not just getting great service - you're supporting a local family business.
               </p>
             </div>
             <div className="flex items-center gap-6 mt-8">
@@ -436,11 +436,12 @@ const ServiceCard = ({ service: s, index: i }) => {
 
 const ServiceAreaMap = () => {
   const ref = useReveal();
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
   return (
-    <div ref={ref} className="reveal-scale mt-10 md:mt-12 rounded-sm overflow-hidden border border-border-subtle" style={{ height: 'clamp(300px, 50vw, 500px)' }}>
+    <div ref={ref} className="reveal-scale mt-10 md:mt-12 rounded-sm overflow-hidden border border-border-subtle" style={{ height: 'clamp(350px, 55vw, 500px)' }}>
       <MapContainer
-        center={[31.84, -96.85]}
-        zoom={10}
+        center={isMobile ? [31.82, -96.95] : [31.84, -96.85]}
+        zoom={isMobile ? 9 : 10}
         scrollWheelZoom={false}
         style={{ height: '100%', width: '100%' }}
         attributionControl={false}
@@ -623,7 +624,7 @@ const FinalCTA = ({ onRequestService }) => {
         <p className="text-text-muted max-w-[700px] mx-auto leading-relaxed text-sm sm:text-base mb-6">
           Stop dealing with missed pickups and companies that don't answer the phone. Rankin Waste Management serves Hubbard, Axtell, Dawson, Malone, Purdon, Mertens, Whitney, Mount Calm, Peoria, Birome, Prairie Hill, Navarro Mills, and surrounding rural communities across Hill County, Navarro County, Limestone County, and McLennan County.
         </p>
-        <p className="font-semibold text-base sm:text-lg mb-6">Tommy and Sydney Rankin. Your neighbors, your trash company.</p>
+        <p className="font-semibold text-base sm:text-lg mb-6">Tommy and Sydney Rankin. Your local team, your trash company.</p>
         <div className="flex flex-wrap justify-center gap-3">
           <a href={PHONE_LINK} className="bg-white text-dark px-6 py-3 rounded-full font-bold text-[0.9rem] btn-smooth min-h-[44px] flex items-center gap-2">
             <PhoneIcon className="w-4 h-4" />
