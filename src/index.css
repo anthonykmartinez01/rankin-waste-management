@@ -1,0 +1,203 @@
+@import "tailwindcss";
+
+@theme {
+  /* Orange palette */
+  --color-orange-50: #FFF3E8;
+  --color-orange-100: #FDDBB3;
+  --color-orange-300: #F6A84E;
+  --color-orange-500: #E8751A;
+  --color-orange-600: #C45A0E;
+  --color-orange-800: #7A3D0A;
+
+  /* Dark palette (pure black/warm, no green) */
+  --color-dark: #080808;
+  --color-dark-card: #101010;
+  --color-dark-elevated: #181818;
+  --color-dark-warm: #0f0c0a;
+
+  /* Text on dark */
+  --color-text-main: #ffffff;
+  --color-text-muted: rgba(255, 255, 255, 0.6);
+  --color-text-faint: rgba(255, 255, 255, 0.2);
+  --color-border-subtle: rgba(255, 255, 255, 0.1);
+
+  /* Star color */
+  --color-star: #F59E0B;
+
+  /* Font */
+  --font-sans: 'Lato', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+@layer base {
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    margin: 0;
+    font-family: var(--font-sans);
+    background-color: var(--color-dark);
+    color: var(--color-text-main);
+    line-height: 1.5;
+    overflow-x: hidden;
+  }
+}
+
+/* ═══════ SCROLL REVEAL ANIMATIONS ═══════ */
+
+@layer utilities {
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .reveal-left {
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .reveal-left.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .reveal-scale {
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .reveal-scale.visible {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  /* Stagger delays for grid children */
+  .stagger-1 { transition-delay: 0.1s; }
+  .stagger-2 { transition-delay: 0.2s; }
+  .stagger-3 { transition-delay: 0.3s; }
+  .stagger-4 { transition-delay: 0.4s; }
+
+  /* Hero entrance animations */
+  @keyframes heroFadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes heroFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes heroBadgeSlide {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes heroImageScale {
+    from {
+      transform: scale(1.08);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
+
+  .hero-image-animate {
+    animation: heroImageScale 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .hero-badge-animate {
+    animation: heroBadgeSlide 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+  }
+
+  .hero-title-animate {
+    animation: heroFadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+  }
+
+  .hero-content-animate {
+    animation: heroFadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
+  }
+
+  .hero-buttons-animate {
+    animation: heroFadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.7s both;
+  }
+
+  /* Card hover lift effect */
+  .card-hover {
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Smooth button hover */
+  .btn-smooth {
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .btn-smooth:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(232, 117, 26, 0.25);
+  }
+}
+
+/* Leaflet tooltip dark theme */
+.service-area-label {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+.service-area-label::before {
+  display: none !important;
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .reveal-left, .reveal-scale {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .hero-image-animate,
+  .hero-badge-animate,
+  .hero-title-animate,
+  .hero-content-animate,
+  .hero-buttons-animate {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  .card-hover:hover {
+    transform: none;
+  }
+}
