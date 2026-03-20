@@ -48,126 +48,124 @@
 
 /* ═══════ SCROLL REVEAL ANIMATIONS ═══════ */
 
-@layer utilities {
-  .reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-  }
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
 
-  .reveal.visible {
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-30px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-scale.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Stagger delays for grid children */
+.stagger-1 { transition-delay: 0.1s; }
+.stagger-2 { transition-delay: 0.2s; }
+.stagger-3 { transition-delay: 0.3s; }
+.stagger-4 { transition-delay: 0.4s; }
+
+/* Hero entrance animations */
+@keyframes heroFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
     opacity: 1;
     transform: translateY(0);
   }
+}
 
-  .reveal-left {
+@keyframes heroFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes heroBadgeSlide {
+  from {
     opacity: 0;
-    transform: translateX(-30px);
-    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateX(-20px);
   }
-
-  .reveal-left.visible {
+  to {
     opacity: 1;
     transform: translateX(0);
   }
+}
 
-  .reveal-scale {
-    opacity: 0;
-    transform: scale(0.95);
-    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-                transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+@keyframes heroImageScale {
+  from {
+    transform: scale(1.08);
   }
-
-  .reveal-scale.visible {
-    opacity: 1;
+  to {
     transform: scale(1);
   }
+}
 
-  /* Stagger delays for grid children */
-  .stagger-1 { transition-delay: 0.1s; }
-  .stagger-2 { transition-delay: 0.2s; }
-  .stagger-3 { transition-delay: 0.3s; }
-  .stagger-4 { transition-delay: 0.4s; }
+.hero-image-animate {
+  animation: heroImageScale 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
 
-  /* Hero entrance animations */
-  @keyframes heroFadeUp {
-    from {
-      opacity: 0;
-      transform: translateY(40px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+.hero-badge-animate {
+  animation: heroBadgeSlide 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+}
 
-  @keyframes heroFadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
+.hero-title-animate {
+  animation: heroFadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+}
 
-  @keyframes heroBadgeSlide {
-    from {
-      opacity: 0;
-      transform: translateX(-20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
+.hero-content-animate {
+  animation: heroFadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
+}
 
-  @keyframes heroImageScale {
-    from {
-      transform: scale(1.08);
-    }
-    to {
-      transform: scale(1);
-    }
-  }
+.hero-buttons-animate {
+  animation: heroFadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.7s both;
+}
 
-  .hero-image-animate {
-    animation: heroImageScale 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  }
+/* Card hover lift effect */
+.card-hover {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
 
-  .hero-badge-animate {
-    animation: heroBadgeSlide 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
-  }
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
 
-  .hero-title-animate {
-    animation: heroFadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
-  }
+/* Smooth button hover */
+.btn-smooth {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
 
-  .hero-content-animate {
-    animation: heroFadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
-  }
-
-  .hero-buttons-animate {
-    animation: heroFadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.7s both;
-  }
-
-  /* Card hover lift effect */
-  .card-hover {
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-                box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .card-hover:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-  }
-
-  /* Smooth button hover */
-  .btn-smooth {
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .btn-smooth:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(232, 117, 26, 0.25);
-  }
+.btn-smooth:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(232, 117, 26, 0.25);
 }
 
 /* Leaflet tooltip dark theme */

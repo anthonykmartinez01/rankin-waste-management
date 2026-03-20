@@ -26,13 +26,17 @@ const useReveal = (options = {}) => {
 
 /* ═══════════════════════ DESIGN ELEMENTS ═══════════════════════ */
 
-const LogoMark = ({ opacity = 1 }) => (
-  <div className="flex gap-[2px]" style={{ opacity }}>
-    <span className="w-1 h-3 bg-white block" />
-    <span className="w-1 h-4 bg-white block -translate-y-0.5" />
-    <span className="w-1 h-5 bg-white block -translate-y-1" />
-  </div>
-);
+const LogoMark = ({ opacity = 1, size = 'sm' }) => {
+  const sizes = { sm: 'h-6 w-auto', md: 'h-8 w-auto', lg: 'h-10 w-auto' };
+  return (
+    <img
+      src="/rw-logo.png"
+      alt="RW"
+      className={`${sizes[size] || sizes.sm} object-contain brightness-0 invert`}
+      style={{ opacity }}
+    />
+  );
+};
 
 const Tag = ({ children, bright = false }) => (
   <span className={`text-xs uppercase tracking-wider px-3 py-1 border rounded-full ${bright ? 'text-white border-white' : 'text-text-muted border-border-subtle'}`}>
