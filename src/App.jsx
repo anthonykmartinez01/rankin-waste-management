@@ -323,41 +323,35 @@ const WhyCard = ({ card, index }) => {
 
 const Reviews = () => {
   const headerRef = useReveal();
-  const reviews = [
-    { text: 'Reliable service every single week. Never had a missed pickup.', from: 'Customer in Hubbard' },
-    { text: 'Finally found a trash company that actually answers the phone. Tommy and Sydney are great people.', from: 'Customer in Axtell' },
-    { text: 'Best price in the area and they come all the way out to our place on the county road. Highly recommend.', from: 'Customer in Dawson' },
-  ];
+  const widgetRef = useReveal();
+
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://reputationhub.site/reputation/assets/review-widget.js';
+    script.type = 'text/javascript';
+    script.async = true;
+    document.body.appendChild(script);
+    return () => { if (script.parentNode) script.parentNode.removeChild(script); };
+  }, []);
 
   return (
     <section id="reviews" className="bg-dark-elevated px-6 lg:px-[clamp(2rem,5vw,4rem)] py-[clamp(4rem,8vw,6rem)]">
       <div className="max-w-[1400px] mx-auto">
         <div ref={headerRef} className="reveal flex flex-col md:flex-row justify-between items-baseline mb-10 md:mb-12 gap-4">
           <h2 className="text-2xl md:text-3xl font-medium tracking-tight">What Our Customers Say</h2>
-          <p className="text-text-muted text-sm">[Google review embed will be added here]</p>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-px bg-border-subtle border border-border-subtle rounded-sm">
-          {reviews.map((r, i) => (
-            <ReviewCard key={i} review={r} index={i} />
-          ))}
+        <div ref={widgetRef} className="reveal">
+          <iframe
+            className="lc_reviews_widget"
+            src="https://reputationhub.site/reputation/widgets/review_widget/rFlq3Y1VRHN6jfB22fkr?widgetId=69bdce0ddeb65e7ddada83c5"
+            frameBorder="0"
+            scrolling="no"
+            style={{ minWidth: '100%', width: '100%' }}
+            title="Customer Reviews"
+          />
         </div>
       </div>
     </section>
-  );
-};
-
-const ReviewCard = ({ review, index }) => {
-  const ref = useReveal();
-  return (
-    <div ref={ref} className={`reveal stagger-${index + 1} bg-dark-card p-6 sm:p-8 flex flex-col justify-between min-h-[200px] sm:min-h-[220px] card-hover`}>
-      <div>
-        <div className="flex gap-1 mb-4">
-          {[...Array(5)].map((_, s) => <StarIcon key={s} />)}
-        </div>
-        <p className="text-text-muted leading-relaxed italic">"{review.text}"</p>
-      </div>
-      <p className="text-sm font-semibold mt-6">- {review.from}</p>
-    </div>
   );
 };
 
