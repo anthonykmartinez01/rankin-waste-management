@@ -588,7 +588,7 @@ const About = () => {
           <h2 className="text-2xl md:text-3xl font-medium tracking-tight">About Tommy and Sydney Rankin</h2>
           <span className="font-mono text-xs text-text-muted tracking-wider">OUR FAMILY.</span>
         </div>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           <div ref={textRef} className="reveal-left space-y-5 sm:space-y-6">
             <p className="text-text-muted text-base sm:text-lg leading-relaxed">
               Rankin Waste Management isn't a corporation. It's Tommy and Sydney Rankin and their family, serving the same communities they live in.
@@ -600,8 +600,8 @@ const About = () => {
               We believe trash pickup should be simple. Show up on time, do the job right, charge a fair price, and treat people the way you'd want to be treated. That's it. No corporate jargon, no runaround.
             </p>
           </div>
-          <div ref={photoRef} className="reveal-scale rounded-sm overflow-hidden h-64 sm:h-72 lg:h-96">
-            <img src="/tommy-sydney.jpg" alt="Tommy and Sydney Rankin, owners of Rankin Waste Management" className="w-full h-full object-cover object-top" />
+          <div ref={photoRef} className="reveal-scale rounded-sm overflow-hidden aspect-[3/4] max-h-[500px]">
+            <img src="/tommy-sydney.jpg" alt="Tommy and Sydney Rankin, owners of Rankin Waste Management" className="w-full h-full object-cover object-[50%_25%]" />
           </div>
         </div>
       </div>
