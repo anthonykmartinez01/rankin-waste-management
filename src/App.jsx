@@ -240,7 +240,7 @@ const BusinessDescription = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           <div ref={textRef} className="reveal-left">
             <span className="text-orange-500 font-semibold text-sm uppercase tracking-wider mb-4 block">About Rankin Waste</span>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-medium tracking-tight leading-tight mb-6">Your local team,<br />your trash company.</h2>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-medium tracking-tight leading-tight mb-6">Your Local Trash Company</h2>
             <div className="border-l-2 border-orange-500 pl-6 md:pl-8">
               <p className="text-text-muted text-base sm:text-lg leading-relaxed mb-4">
                 Rankin Waste Management is a locally family-owned and operated small business proudly serving Hubbard, Axtell, Dawson, Malone, Mertens, Purdon, TX, and surrounding rural communities.
@@ -624,7 +624,7 @@ const FinalCTA = ({ onRequestService }) => {
         <p className="text-text-muted max-w-[700px] mx-auto leading-relaxed text-sm sm:text-base mb-6">
           Stop dealing with missed pickups and companies that don't answer the phone. Rankin Waste Management serves Hubbard, Axtell, Dawson, Malone, Purdon, Mertens, Whitney, Mount Calm, Peoria, Birome, Prairie Hill, Navarro Mills, and surrounding rural communities across Hill County, Navarro County, Limestone County, and McLennan County.
         </p>
-        <p className="font-semibold text-base sm:text-lg mb-6">Tommy and Sydney Rankin. Your local team, your trash company.</p>
+        <p className="font-semibold text-base sm:text-lg mb-6">Tommy and Sydney Rankin. Your Local Trash Company.</p>
         <div className="flex flex-wrap justify-center gap-3">
           <a href={PHONE_LINK} className="bg-white text-dark px-6 py-3 rounded-full font-bold text-[0.9rem] btn-smooth min-h-[44px] flex items-center gap-2">
             <PhoneIcon className="w-4 h-4" />
