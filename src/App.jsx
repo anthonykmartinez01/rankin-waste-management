@@ -600,8 +600,8 @@ const About = () => {
               We believe trash pickup should be simple. Show up on time, do the job right, charge a fair price, and treat people the way you'd want to be treated. That's it. No corporate jargon, no runaround.
             </p>
           </div>
-          <div ref={photoRef} className="reveal-scale bg-white/5 border border-border-subtle rounded-sm h-64 sm:h-72 lg:h-80 flex items-center justify-center text-text-muted font-medium">
-            [Photo: Tommy and Sydney Rankin]
+          <div ref={photoRef} className="reveal-scale rounded-sm overflow-hidden h-64 sm:h-72 lg:h-96">
+            <img src="/tommy-sydney.jpg" alt="Tommy and Sydney Rankin, owners of Rankin Waste Management" className="w-full h-full object-cover object-top" />
           </div>
         </div>
       </div>
