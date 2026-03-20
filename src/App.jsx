@@ -598,7 +598,7 @@ const About = () => {
               When you call <a href={PHONE_LINK} className="text-orange-500 hover:text-orange-300 font-semibold transition-colors duration-300">{PHONE}</a>, you're talking to the people who own the truck and run the routes. That means if there's ever a problem, you're not waiting on hold with a national call center. You're talking to someone who actually cares about getting it fixed.
             </p>
             <p className="text-text-muted text-base sm:text-lg leading-relaxed">
-              We believe trash pickup should be simple. Show up on time, do the job right, charge a fair price, and treat people the way you'd want to be treated. That's it. No corporate jargon, no runaround.
+              We believe trash pickup should be simple. Show up on time, do the job right, charge a fair price, and treat people the way you'd want to be treated.
             </p>
           </div>
           <div ref={photoRef} className="reveal-scale rounded-sm overflow-hidden aspect-[3/4] max-h-[500px]">
