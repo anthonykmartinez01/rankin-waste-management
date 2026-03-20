@@ -281,7 +281,7 @@ const WhyChooseUs = () => {
   const headerRef = useReveal();
   const cards = [
     { num: '01', title: 'We Actually Show Up', desc: "Every week, same day, rain or shine. If something comes up, we'll call you instead of leaving you guessing why your trash is still sitting at the curb." },
-    { num: '02', title: "We're Local and We're Not Going Anywhere", desc: "Tommy and Sydney live right here. You'll see us at the grocery store, at church, at the football game. When you call our number, you're talking to us, not a call center in another state." },
+    { num: '02', title: "We're Local and We're Not Going Anywhere", desc: "Rankin Waste Management is based right here in Hubbard, TX. When you call our number, you're talking to the people who own the business and run the routes, not a call center in another state." },
     { num: '03', title: 'We Keep It Affordable', desc: "Rural families shouldn't have to overpay for a basic service. We offer one flat rate with no environmental fees, no fuel surcharges, and no long-term contracts. The price we quote is the price you pay." },
     { num: '04', title: 'We Serve the Areas Big Companies Skip', desc: "If you live outside city limits on a county road between Hubbard and Dawson, or down a private road past Malone, we'll come to you. That's the whole point." },
   ];
