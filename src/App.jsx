@@ -187,7 +187,7 @@ const Nav = ({ mobileMenuOpen, setMobileMenuOpen }) => (
 
 /* ═══════════════════════ HERO ═══════════════════════ */
 
-const Hero = ({ onRequestService }) => (
+const Hero = () => (
   <header id="top" className="min-h-[80vh] md:min-h-[85vh] w-full flex flex-col justify-center items-center text-center px-6 relative overflow-hidden">
     {/* Background image */}
     <div className="absolute inset-0">
@@ -197,13 +197,13 @@ const Hero = ({ onRequestService }) => (
 
     <div className="relative z-10 max-w-[900px] mx-auto">
       <h1 className="text-[clamp(2rem,6vw,4rem)] font-bold leading-[1.1] tracking-tight drop-shadow-lg mb-4 hero-title-animate">
-        Hubbard's Trash Pickup Experts
+        Welcome to Rankin Waste Management
       </h1>
       <p className="text-orange-500 text-lg sm:text-xl font-semibold mb-5 hero-badge-animate">
-        Family-Owned &amp; Serving 12+ Rural Texas Communities
+        Locally Family-Owned &amp; Operated
       </p>
       <p className="text-white/80 text-base sm:text-lg max-w-[600px] mx-auto mb-8 hero-content-animate">
-        Reliable weekly service, no contracts, and real people who answer the phone. Call <a href={PHONE_LINK} className="text-orange-500 font-semibold hover:text-orange-300 transition-colors">{PHONE}</a>.
+        Proudly serving Hubbard, Axtell, Dawson, Malone, Mertens, Purdon, TX, and surrounding rural communities with reliable, affordable trash service.
       </p>
 
       <div className="flex flex-wrap justify-center gap-4 hero-buttons-animate">
@@ -211,9 +211,9 @@ const Hero = ({ onRequestService }) => (
           <PhoneIcon className="w-5 h-5" />
           Call Now {PHONE}
         </a>
-        <button onClick={onRequestService} className="bg-white/10 backdrop-blur-sm border border-white/30 text-white px-7 py-3.5 rounded-full font-semibold text-base hover:bg-white/20 transition-all duration-300 min-h-[44px]">
-          Request Service
-        </button>
+        <Link to="/contact-us" className="bg-white/10 backdrop-blur-sm border border-white/30 text-white px-7 py-3.5 rounded-full font-semibold text-base hover:bg-white/20 transition-all duration-300 min-h-[44px]">
+          New Service Request
+        </Link>
       </div>
     </div>
 
@@ -253,10 +253,13 @@ const BusinessDescription = () => {
           <div ref={text.ref} style={text.style}>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-medium tracking-tight leading-tight mb-6">Your Local Trash Company</h2>
             <p className="text-text-muted text-base sm:text-lg leading-relaxed mb-4">
-              Rankin Waste Management is a family-owned and operated business proudly serving Hubbard, Axtell, Dawson, Malone, Mertens, Purdon, TX, and surrounding rural communities.
+              Rankin Waste Management is a locally family-owned and operated small business proudly serving Hubbard, Axtell, Dawson, Malone, Mertens, Purdon, TX, and surrounding rural communities. We specialize in reliable, affordable trash service with a personal touch.
+            </p>
+            <p className="text-text-muted text-base sm:text-lg leading-relaxed mb-4">
+              As a part of the community, we understand the unique needs of rural areas and are committed to providing dependable weekly pickup and trash trailer rentals at competitive prices.
             </p>
             <p className="text-text-muted text-base sm:text-lg leading-relaxed mb-8">
-              We specialize in reliable, affordable trash service with a personal touch. When you choose Rankin Waste, you're supporting a local family business.
+              When you choose Rankin Waste Management, you're not just getting great service — you're supporting your neighbors. Let us take care of your waste so you can focus on what matters most.
             </p>
             <a href={PHONE_LINK} className="inline-flex items-center gap-2 bg-orange-500 text-white px-7 py-3.5 rounded-full font-bold text-base hover:bg-orange-600 transition-colors duration-300 min-h-[44px]">
               <PhoneIcon className="w-4 h-4" />
@@ -357,14 +360,17 @@ const Services = () => {
     {
       title: 'Weekly Pickup',
       desc: "Curbside collection on your scheduled day. Set your bags or cans out and we take care of the rest. No sorting, no complicated rules. Serving homes throughout Hubbard and across Hill, Navarro, Limestone, and McLennan County.",
+      link: '/residential',
     },
     {
       title: 'Bulk Pickup',
       desc: "Old furniture, appliances, mattresses, or a pile of junk from cleaning out the garage — we can handle it. We'll schedule a pickup that fits your timeline.",
+      link: null,
     },
     {
       title: 'Dump Trailer Rentals',
       desc: "For bigger jobs — renovations, land clearing, property cleanouts. We deliver the trailer, you load it on your schedule, and we haul it away when you're done.",
+      link: '/trash-trailer-rentals',
     },
   ];
 
@@ -395,7 +401,8 @@ const ServiceCard = ({ service: s, delay }) => {
   return (
     <div ref={anim.ref} style={anim.style} className="bg-dark-card border border-border-subtle rounded-sm p-6 sm:p-8">
       <h3 className="text-xl sm:text-2xl font-semibold tracking-tight mb-3">{s.title}</h3>
-      <p className="text-text-muted text-sm sm:text-base leading-relaxed">{s.desc}</p>
+      <p className="text-text-muted text-sm sm:text-base leading-relaxed mb-4">{s.desc}</p>
+      {s.link && <Link to={s.link} className="text-orange-500 hover:text-orange-300 font-semibold text-sm transition-colors duration-300">Learn more &rarr;</Link>}
     </div>
   );
 };
@@ -566,7 +573,7 @@ const About = () => {
 
 /* ═══════════════════════ FINAL CTA ═══════════════════════ */
 
-const FinalCTA = ({ onRequestService }) => {
+const FinalCTA = () => {
   const anim = useReveal();
   return (
     <section className="px-6 lg:px-[clamp(2rem,5vw,4rem)] py-20 md:py-28 text-center">
@@ -582,9 +589,9 @@ const FinalCTA = ({ onRequestService }) => {
             <PhoneIcon className="w-5 h-5" />
             Call {PHONE}
           </a>
-          <button onClick={onRequestService} className="border border-white/30 text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white/10 transition-colors duration-300 min-h-[44px]">
-            Request Service
-          </button>
+          <Link to="/contact-us" className="border border-white/30 text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white/10 transition-colors duration-300 min-h-[44px]">
+            New Service Request
+          </Link>
         </div>
       </div>
     </section>
@@ -791,12 +798,12 @@ const ServiceRequestModal = ({ isOpen, onClose }) => {
 
 /* ═══════════════════════ HOMEPAGE ═══════════════════════ */
 
-const HomePage = ({ onRequestService }) => (
+const HomePage = () => (
   <>
-    <Hero onRequestService={onRequestService} />
+    <Hero />
     <BusinessDescription />
     <Services />
-    <FinalCTA onRequestService={onRequestService} />
+    <FinalCTA />
   </>
 );
 
@@ -821,14 +828,13 @@ const ScrollToHash = () => {
 
 const AppInner = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [serviceModalOpen, setServiceModalOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-dark text-white">
       <ScrollToHash />
       <Nav mobileMenuOpen={mobileMenuOpen} setMobileMenuOpen={setMobileMenuOpen} />
       <Routes>
-        <Route path="/" element={<HomePage onRequestService={() => setServiceModalOpen(true)} />} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/residential" element={<Residential />} />
         <Route path="/trash-trailer-rentals" element={<TrashTrailerRentals />} />
         <Route path="/about-us" element={<AboutUs />} />
@@ -836,7 +842,6 @@ const AppInner = () => {
         <Route path="/reviews" element={<ReviewsPage />} />
       </Routes>
       <Footer />
-      <ServiceRequestModal isOpen={serviceModalOpen} onClose={() => setServiceModalOpen(false)} />
     </div>
   );
 };
