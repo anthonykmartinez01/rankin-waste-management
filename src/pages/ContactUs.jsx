@@ -24,10 +24,23 @@ export default function ContactUs() {
     if (errors[name]) setErrors(prev => ({ ...prev, [name]: '' }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const v = validate();
     if (Object.keys(v).length > 0) { setErrors(v); return; }
+    try {
+      await fetch('https://services.leadconnectorhq.com/hooks/vrdSkDWOcShwwiFFpzlV/webhook-trigger/44fa6fbc-14dc-4bbd-8e3c-9b6b5d935b3f', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          phone: formData.phone,
+          address: formData.address,
+        }),
+      });
+    } catch (_) { /* submit succeeds visually even if webhook fails */ }
     setSubmitted(true);
   };
 
