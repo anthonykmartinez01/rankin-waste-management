@@ -237,9 +237,9 @@ const BusinessDescription = () => {
   const text = useReveal();
   const img = useReveal(0.15);
   return (
-    <section className="bg-dark-elevated px-6 lg:px-[clamp(2rem,5vw,4rem)] py-[clamp(4rem,8vw,6rem)]">
+    <section className="bg-dark-elevated px-6 lg:px-[clamp(2rem,5vw,4rem)] py-20 md:py-28">
       <div className="max-w-[1200px] mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           <div ref={text.ref} style={text.style}>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-medium tracking-tight leading-tight mb-6">Your Local Trash Company</h2>
             <p className="text-text-muted text-base sm:text-lg leading-relaxed mb-4">
@@ -278,12 +278,12 @@ const WhyChooseUs = () => {
   ];
 
   return (
-    <section className="px-6 lg:px-[clamp(2rem,5vw,4rem)] py-[clamp(4rem,8vw,6rem)]">
+    <section className="px-6 lg:px-[clamp(2rem,5vw,4rem)] py-20 md:py-28">
       <div className="max-w-[1200px] mx-auto">
-        <div ref={header.ref} style={header.style} className="mb-10 md:mb-12">
-          <h2 className="text-2xl md:text-3xl font-medium tracking-tight">Why Families Choose Rankin Waste</h2>
+        <div ref={header.ref} style={header.style} className="text-center mb-12 md:mb-16">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-medium tracking-tight">Why Families Choose Rankin Waste</h2>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {cards.map((card, i) => (
             <WhyCard key={card.title} card={card} delay={i * 0.1} />
           ))}
@@ -319,10 +319,10 @@ const Reviews = () => {
   }, []);
 
   return (
-    <section id="reviews" className="bg-dark-elevated px-6 lg:px-[clamp(2rem,5vw,4rem)] py-[clamp(4rem,8vw,6rem)]">
+    <section id="reviews" className="bg-dark-elevated px-6 lg:px-[clamp(2rem,5vw,4rem)] py-20 md:py-28">
       <div className="max-w-[1200px] mx-auto">
-        <div ref={header.ref} style={header.style} className="mb-10 md:mb-12">
-          <h2 className="text-2xl md:text-3xl font-medium tracking-tight">What Our Customers Say</h2>
+        <div ref={header.ref} style={header.style} className="text-center mb-12 md:mb-16">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-medium tracking-tight">What Our Customers Say</h2>
         </div>
         <div ref={widget.ref} style={widget.style}>
           <iframe
@@ -359,10 +359,10 @@ const Services = () => {
   ];
 
   return (
-    <section id="services" className="px-6 lg:px-[clamp(2rem,5vw,4rem)] py-[clamp(4rem,8vw,6rem)]">
+    <section id="services" className="px-6 lg:px-[clamp(2rem,5vw,4rem)] py-20 md:py-28">
       <div className="max-w-[1200px] mx-auto">
-        <div ref={header.ref} style={header.style} className="mb-10 md:mb-12">
-          <h2 className="text-2xl md:text-3xl font-medium tracking-tight">Our Services</h2>
+        <div ref={header.ref} style={header.style} className="text-center mb-12 md:mb-16">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-medium tracking-tight">Our Services</h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {services.map((s, i) => (
@@ -460,10 +460,10 @@ const ServiceAreas = () => {
   const header = useReveal();
   const cities = useReveal(0.1);
   return (
-    <section id="areas" className="bg-dark-elevated px-6 lg:px-[clamp(2rem,5vw,4rem)] py-[clamp(4rem,8vw,6rem)]">
+    <section id="areas" className="bg-dark-elevated px-6 lg:px-[clamp(2rem,5vw,4rem)] py-20 md:py-28">
       <div className="max-w-[1200px] mx-auto">
-        <div ref={header.ref} style={header.style} className="mb-10 md:mb-12">
-          <h2 className="text-2xl md:text-3xl font-medium tracking-tight">Areas We Serve</h2>
+        <div ref={header.ref} style={header.style} className="text-center mb-12 md:mb-16">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-medium tracking-tight">Areas We Serve</h2>
           <p className="text-text-muted mt-2 text-base">Serving Hill, Navarro, Limestone & McLennan County. Click a city to learn more.</p>
         </div>
         <div ref={cities.ref} style={cities.style} className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-6 sm:gap-x-8 gap-y-5 sm:gap-y-6">
@@ -511,10 +511,10 @@ const FAQItem = ({ faq }) => {
 const FAQ = () => {
   const header = useReveal();
   return (
-    <section id="faq" className="px-6 lg:px-[clamp(2rem,5vw,4rem)] py-[clamp(4rem,8vw,6rem)]">
+    <section id="faq" className="px-6 lg:px-[clamp(2rem,5vw,4rem)] py-20 md:py-28">
       <div className="max-w-[1200px] mx-auto">
-        <div ref={header.ref} style={header.style} className="mb-10 md:mb-12">
-          <h2 className="text-2xl md:text-3xl font-medium tracking-tight">Frequently Asked Questions</h2>
+        <div ref={header.ref} style={header.style} className="text-center mb-12 md:mb-16">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-medium tracking-tight">Frequently Asked Questions</h2>
         </div>
         <div className="max-w-[800px]">
           {FAQS.map((faq, i) => <FAQItem key={i} faq={faq} />)}
@@ -530,7 +530,7 @@ const About = () => {
   const text = useReveal();
   const photo = useReveal(0.15);
   return (
-    <section id="about" className="bg-dark-elevated px-6 lg:px-[clamp(2rem,5vw,4rem)] py-[clamp(4rem,8vw,6rem)]">
+    <section id="about" className="bg-dark-elevated px-6 lg:px-[clamp(2rem,5vw,4rem)] py-20 md:py-28">
       <div className="max-w-[1200px] mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           <div ref={text.ref} style={text.style} className="space-y-5">
@@ -559,7 +559,7 @@ const About = () => {
 const FinalCTA = ({ onRequestService }) => {
   const anim = useReveal();
   return (
-    <section className="px-6 lg:px-[clamp(2rem,5vw,4rem)] py-[clamp(5rem,12vw,10rem)] text-center">
+    <section className="px-6 lg:px-[clamp(2rem,5vw,4rem)] py-20 md:py-28 text-center">
       <div ref={anim.ref} style={anim.style} className="max-w-[700px] mx-auto">
         <h2 className="text-[clamp(1.75rem,5vw,3.5rem)] font-semibold tracking-tight leading-tight mb-6">
           Ready for reliable trash pickup?
