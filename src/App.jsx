@@ -4,45 +4,42 @@ import 'leaflet/dist/leaflet.css';
 
 /* ═══════════════════════ SCROLL REVEAL HOOK ═══════════════════════ */
 
-const useReveal = (options = {}) => {
+const useReveal = (delay = 0) => {
   const ref = useRef(null);
+  const [visible, setVisible] = useState(false);
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced) { setVisible(true); return; }
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          el.classList.add('visible');
+          setVisible(true);
           observer.unobserve(el);
         }
       },
-      { threshold: 0.1, rootMargin: '0px 0px -60px 0px', ...options }
+      { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
     );
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
-  return ref;
+  const style = {
+    opacity: visible ? 1 : 0,
+    transform: visible ? 'translateY(0)' : 'translateY(24px)',
+    transition: `opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1) ${delay}s, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) ${delay}s`,
+  };
+  return { ref, style };
 };
 
 /* ═══════════════════════ DESIGN ELEMENTS ═══════════════════════ */
 
-const LogoMark = ({ opacity = 1, size = 'sm' }) => {
+const LogoMark = ({ size = 'sm' }) => {
   const sizes = { sm: 'h-6 w-auto', md: 'h-8 w-auto', lg: 'h-10 w-auto' };
   return (
-    <img
-      src="/rw-logo.png"
-      alt="RW"
-      className={`${sizes[size] || sizes.sm} object-contain brightness-0 invert`}
-      style={{ opacity }}
-    />
+    <img src="/rw-logo.png" alt="RW" className={`${sizes[size] || sizes.sm} object-contain brightness-0 invert`} />
   );
 };
-
-const Tag = ({ children, bright = false }) => (
-  <span className={`text-xs uppercase tracking-wider px-3 py-1 border rounded-full ${bright ? 'text-white border-white' : 'text-text-muted border-border-subtle'}`}>
-    {children}
-  </span>
-);
 
 /* ═══════════════════════ ICONS ═══════════════════════ */
 
@@ -146,7 +143,7 @@ const Nav = ({ mobileMenuOpen, setMobileMenuOpen }) => (
     </div>
 
     <div className="flex items-center gap-3">
-      <a href={PHONE_LINK} className="bg-white text-dark px-5 py-2.5 rounded-full font-semibold text-[0.9rem] btn-smooth min-h-[44px] flex items-center">
+      <a href={PHONE_LINK} className="bg-white text-dark px-5 py-2.5 rounded-full font-semibold text-[0.9rem] hover:bg-gray-100 transition-colors duration-300 min-h-[44px] flex items-center">
         {PHONE}
       </a>
       <button
@@ -216,7 +213,7 @@ const Hero = ({ onRequestService }) => (
         </div>
 
         <div className="flex items-center gap-4 hero-buttons-animate">
-          <a href={PHONE_LINK} className="bg-white text-dark px-6 py-3 rounded-full font-bold text-[0.9rem] btn-smooth min-h-[44px] flex items-center gap-2">
+          <a href={PHONE_LINK} className="bg-white text-dark px-6 py-3 rounded-full font-bold text-[0.9rem] hover:bg-gray-100 transition-colors duration-300 min-h-[44px] flex items-center gap-2">
             <PhoneIcon className="w-4 h-4" />
             Call Now
           </a>
@@ -232,38 +229,27 @@ const Hero = ({ onRequestService }) => (
 /* ═══════════════════════ BUSINESS DESCRIPTION ═══════════════════════ */
 
 const BusinessDescription = () => {
-  const textRef = useReveal();
-  const imgRef = useReveal();
+  const text = useReveal();
+  const img = useReveal(0.15);
   return (
     <section className="bg-dark-elevated px-6 lg:px-[clamp(2rem,5vw,4rem)] py-[clamp(4rem,8vw,6rem)]">
-      <div className="max-w-[1400px] mx-auto">
+      <div className="max-w-[1200px] mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
-          <div ref={textRef} className="reveal-left">
-            <span className="text-orange-500 font-semibold text-sm uppercase tracking-wider mb-4 block">About Rankin Waste</span>
+          <div ref={text.ref} style={text.style}>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-medium tracking-tight leading-tight mb-6">Your Local Trash Company</h2>
-            <div className="border-l-2 border-orange-500 pl-6 md:pl-8">
-              <p className="text-text-muted text-base sm:text-lg leading-relaxed mb-4">
-                Rankin Waste Management is a locally family-owned and operated small business proudly serving Hubbard, Axtell, Dawson, Malone, Mertens, Purdon, TX, and surrounding rural communities.
-              </p>
-              <p className="text-text-muted text-base sm:text-lg leading-relaxed">
-                We specialize in reliable, affordable trash service with a personal touch. When you choose Rankin Waste Management, you're not just getting great service - you're supporting a local family business.
-              </p>
-            </div>
-            <div className="flex items-center gap-6 mt-8">
-              <a href={PHONE_LINK} className="bg-orange-500 text-white px-6 py-3 rounded-full font-bold text-[0.9rem] btn-smooth min-h-[44px] flex items-center gap-2">
-                <PhoneIcon className="w-4 h-4" />
-                Get Started
-              </a>
-              <div className="text-text-muted text-sm">
-                <span className="block font-semibold text-white">12+ communities</span>
-                served across central TX
-              </div>
-            </div>
+            <p className="text-text-muted text-base sm:text-lg leading-relaxed mb-4">
+              Rankin Waste Management is a family-owned and operated business proudly serving Hubbard, Axtell, Dawson, Malone, Mertens, Purdon, TX, and surrounding rural communities.
+            </p>
+            <p className="text-text-muted text-base sm:text-lg leading-relaxed mb-8">
+              We specialize in reliable, affordable trash service with a personal touch. When you choose Rankin Waste, you're supporting a local family business.
+            </p>
+            <a href={PHONE_LINK} className="inline-flex items-center gap-2 bg-orange-500 text-white px-7 py-3.5 rounded-full font-bold text-base hover:bg-orange-600 transition-colors duration-300 min-h-[44px]">
+              <PhoneIcon className="w-4 h-4" />
+              Call {PHONE}
+            </a>
           </div>
-          <div ref={imgRef} className="reveal-scale relative">
-            <div className="rounded-sm overflow-hidden">
-              <img src="/truck-cans.jpg" alt="Rankin Waste Management truck with trash cans on a rural Texas road" className="w-full h-[300px] sm:h-[360px] lg:h-[420px] object-cover" loading="lazy" />
-            </div>
+          <div ref={img.ref} style={img.style} className="relative">
+            <img src="/truck-cans.jpg" alt="Rankin Waste Management truck with trash cans on a rural Texas road" className="w-full h-[300px] sm:h-[360px] lg:h-[420px] object-cover rounded-sm" loading="lazy" />
             <div className="absolute -bottom-4 -left-4 sm:-bottom-6 sm:-left-6 bg-orange-500 text-white px-5 py-3 sm:px-6 sm:py-4 rounded-sm">
               <span className="block text-2xl sm:text-3xl font-bold leading-none">100%</span>
               <span className="text-xs sm:text-sm font-medium opacity-90">Family Owned</span>
@@ -278,24 +264,23 @@ const BusinessDescription = () => {
 /* ═══════════════════════ WHY CHOOSE US ═══════════════════════ */
 
 const WhyChooseUs = () => {
-  const headerRef = useReveal();
+  const header = useReveal();
   const cards = [
-    { num: '01', title: 'We Actually Show Up', desc: "Every week, same day, rain or shine. If something comes up, we'll call you instead of leaving you guessing why your trash is still sitting at the curb." },
-    { num: '02', title: "We're Local and We're Not Going Anywhere", desc: "Rankin Waste Management is based right here in Hubbard, TX. When you call our number, you're talking to the people who own the business and run the routes, not a call center in another state." },
-    { num: '03', title: 'We Keep It Affordable', desc: "Rural families shouldn't have to overpay for a basic service. We offer one flat rate with no environmental fees, no fuel surcharges, and no long-term contracts. The price we quote is the price you pay." },
-    { num: '04', title: 'We Serve the Areas Big Companies Skip', desc: "If you live outside city limits on a county road between Hubbard and Dawson, or down a private road past Malone, we'll come to you. That's the whole point." },
+    { title: 'We Actually Show Up', desc: "Every week, same day, rain or shine. If something comes up, we'll call you instead of leaving you guessing." },
+    { title: "We're Local", desc: "Based right here in Hubbard, TX. When you call, you're talking to the people who own the business and run the routes." },
+    { title: 'Affordable Pricing', desc: "One flat rate. No environmental fees, no fuel surcharges, no long-term contracts. The price we quote is the price you pay." },
+    { title: 'We Go Where Others Won\'t', desc: "Outside city limits? County road? Private road? We'll come to you. That's the whole point." },
   ];
 
   return (
     <section className="px-6 lg:px-[clamp(2rem,5vw,4rem)] py-[clamp(4rem,8vw,6rem)]">
-      <div className="max-w-[1400px] mx-auto">
-        <div ref={headerRef} className="reveal flex flex-col md:flex-row justify-between items-baseline mb-10 md:mb-12 gap-4">
-          <h2 className="text-2xl md:text-3xl font-medium tracking-tight">Why Hubbard and Hill County Families Choose Rankin Waste</h2>
-          <p className="text-text-muted text-sm">The Rankin difference.</p>
+      <div className="max-w-[1200px] mx-auto">
+        <div ref={header.ref} style={header.style} className="mb-10 md:mb-12">
+          <h2 className="text-2xl md:text-3xl font-medium tracking-tight">Why Families Choose Rankin Waste</h2>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-border-subtle border border-border-subtle rounded-sm">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           {cards.map((card, i) => (
-            <WhyCard key={card.num} card={card} index={i} />
+            <WhyCard key={card.title} card={card} delay={i * 0.1} />
           ))}
         </div>
       </div>
@@ -303,18 +288,12 @@ const WhyChooseUs = () => {
   );
 };
 
-const WhyCard = ({ card, index }) => {
-  const ref = useReveal();
+const WhyCard = ({ card, delay }) => {
+  const anim = useReveal(delay);
   return (
-    <div ref={ref} className={`reveal stagger-${index + 1} bg-dark-card p-6 sm:p-8 lg:p-12 min-h-[240px] sm:min-h-[280px] flex flex-col justify-between card-hover`}>
-      <div className="flex justify-between items-start mb-8 sm:mb-12">
-        <LogoMark opacity={0.5} />
-        <span className="font-mono text-sm text-text-muted tracking-wider">{card.num}.</span>
-      </div>
-      <div>
-        <h3 className="text-xl sm:text-2xl font-medium tracking-tight leading-tight mb-3">{card.title}</h3>
-        <p className="text-text-muted text-sm sm:text-base leading-relaxed">{card.desc}</p>
-      </div>
+    <div ref={anim.ref} style={anim.style} className="bg-dark-card border border-border-subtle rounded-sm p-6 sm:p-8">
+      <h3 className="text-lg sm:text-xl font-semibold tracking-tight mb-2">{card.title}</h3>
+      <p className="text-text-muted text-sm sm:text-base leading-relaxed">{card.desc}</p>
     </div>
   );
 };
@@ -322,8 +301,8 @@ const WhyCard = ({ card, index }) => {
 /* ═══════════════════════ REVIEWS ═══════════════════════ */
 
 const Reviews = () => {
-  const headerRef = useReveal();
-  const widgetRef = useReveal();
+  const header = useReveal();
+  const widget = useReveal(0.1);
 
   useEffect(() => {
     const script = document.createElement('script');
@@ -336,11 +315,11 @@ const Reviews = () => {
 
   return (
     <section id="reviews" className="bg-dark-elevated px-6 lg:px-[clamp(2rem,5vw,4rem)] py-[clamp(4rem,8vw,6rem)]">
-      <div className="max-w-[1400px] mx-auto">
-        <div ref={headerRef} className="reveal flex flex-col md:flex-row justify-between items-baseline mb-10 md:mb-12 gap-4">
+      <div className="max-w-[1200px] mx-auto">
+        <div ref={header.ref} style={header.style} className="mb-10 md:mb-12">
           <h2 className="text-2xl md:text-3xl font-medium tracking-tight">What Our Customers Say</h2>
         </div>
-        <div ref={widgetRef} className="reveal">
+        <div ref={widget.ref} style={widget.style}>
           <iframe
             className="lc_reviews_widget"
             src="https://reputationhub.site/reputation/widgets/review_widget/rFlq3Y1VRHN6jfB22fkr?widgetId=69bdce0ddeb65e7ddada83c5"
@@ -358,76 +337,50 @@ const Reviews = () => {
 /* ═══════════════════════ SERVICES ═══════════════════════ */
 
 const Services = () => {
-  const headerRef = useReveal();
+  const header = useReveal();
   const services = [
     {
-      num: '01',
       title: 'Weekly Pickup',
-      desc: "Most of our customers are homeowners and families who just need their trash picked up once a week without any hassle. That's our bread and butter. We provide curbside collection on your scheduled pickup day. Set your bags or cans out by the road before we come through, and we take care of the rest. No sorting, no complicated rules. Just dependable weekly service. We serve homes throughout Hubbard and across Hill County, Navarro County, Limestone County, and McLennan County.",
-      tags: ['Family Owned', 'Competitive Pricing', 'Reliable'],
-      icon: 'bars',
+      desc: "Curbside collection on your scheduled day. Set your bags or cans out and we take care of the rest. No sorting, no complicated rules. Serving homes throughout Hubbard and across Hill, Navarro, Limestone, and McLennan County.",
     },
     {
-      num: '02',
       title: 'Bulk Pickup',
-      desc: "Got something too big for the weekly pickup? Old furniture, a busted appliance, mattresses, or a pile of junk from cleaning out the garage. We can handle it. Our bulk pickup service is for those times when your regular trash day isn't enough. Instead of letting that old couch sit in the yard for weeks or trying to haul it to the dump yourself, give us a call. We'll work with you to schedule a pickup that fits your timeline.",
-      tags: ['Flexible Scheduling', 'Large Items'],
-      icon: 'lines',
+      desc: "Old furniture, appliances, mattresses, or a pile of junk from cleaning out the garage — we can handle it. We'll schedule a pickup that fits your timeline.",
     },
     {
-      num: '03',
       title: 'Dump Trailer Rentals',
-      desc: "Sometimes a bulk pickup isn't enough. You need a trailer. Whether you're doing a major cleanout, a renovation project, clearing land, or just have years of accumulated stuff to get rid of, our dump trailer rentals give you the space and time to load at your own pace. We deliver the dump trailer to your property, you fill it up on your schedule, and we haul it away when you're done.",
-      tags: ['Drop-off & Pick-up', 'Flexible Terms', 'Central Texas'],
-      icon: 'lines',
+      desc: "For bigger jobs — renovations, land clearing, property cleanouts. We deliver the trailer, you load it on your schedule, and we haul it away when you're done.",
     },
   ];
 
   return (
     <section id="services" className="px-6 lg:px-[clamp(2rem,5vw,4rem)] py-[clamp(4rem,8vw,6rem)]">
-      <div className="max-w-[1400px] mx-auto">
-        <div ref={headerRef} className="reveal flex flex-col md:flex-row justify-between items-baseline mb-10 md:mb-12 gap-4">
+      <div className="max-w-[1200px] mx-auto">
+        <div ref={header.ref} style={header.style} className="mb-10 md:mb-12">
           <h2 className="text-2xl md:text-3xl font-medium tracking-tight">Our Services</h2>
-          <p className="text-text-muted text-sm">What we offer.</p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-border-subtle border border-border-subtle rounded-sm">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {services.map((s, i) => (
-            <ServiceCard key={s.num} service={s} index={i} />
+            <ServiceCard key={s.title} service={s} delay={i * 0.1} />
           ))}
+        </div>
+        <div className="mt-10 text-center">
+          <a href={PHONE_LINK} className="inline-flex items-center gap-2 bg-orange-500 text-white px-8 py-4 rounded-full font-bold text-base hover:bg-orange-600 transition-colors duration-300 min-h-[44px]">
+            <PhoneIcon className="w-5 h-5" />
+            Call {PHONE} to Get Started
+          </a>
         </div>
       </div>
     </section>
   );
 };
 
-const ServiceCard = ({ service: s, index: i }) => {
-  const ref = useReveal();
+const ServiceCard = ({ service: s, delay }) => {
+  const anim = useReveal(delay);
   return (
-    <div ref={ref} className={`reveal stagger-${i + 1} bg-dark-card p-6 sm:p-8 lg:p-12 flex flex-col justify-between min-h-[350px] sm:min-h-[400px] ${i === 2 ? 'md:col-span-2' : ''} card-hover`}>
-      <div className="flex justify-between items-start mb-10 sm:mb-16">
-        {s.icon === 'bars' ? (
-          <LogoMark opacity={0.5} />
-        ) : (
-          <div className="flex flex-col gap-1 opacity-50 w-6">
-            <span className="h-[2px] w-full bg-white block" />
-            <span className="h-[2px] w-full bg-white block" />
-          </div>
-        )}
-        <span className="font-mono text-sm text-text-muted tracking-wider">{s.num}.</span>
-      </div>
-      <div>
-        <h2 className="text-[1.75rem] sm:text-[2rem] md:text-[2.5rem] font-medium tracking-tight leading-[1.1] mb-3">{s.title}</h2>
-        <p className="text-text-muted text-base sm:text-lg leading-relaxed max-w-full sm:max-w-[85%] md:max-w-[80%] mb-6">{s.desc}</p>
-        <div className="flex flex-wrap gap-2 mb-6">
-          {s.tags.map(tag => <Tag key={tag}>{tag}</Tag>)}
-        </div>
-        <a href={PHONE_LINK} className="text-orange-500 hover:text-orange-300 font-semibold text-sm transition-colors duration-300 inline-flex items-center gap-2">
-          Call {PHONE} to get started
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="w-4 h-4">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-          </svg>
-        </a>
-      </div>
+    <div ref={anim.ref} style={anim.style} className="bg-dark-card border border-border-subtle rounded-sm p-6 sm:p-8">
+      <h3 className="text-xl sm:text-2xl font-semibold tracking-tight mb-3">{s.title}</h3>
+      <p className="text-text-muted text-sm sm:text-base leading-relaxed">{s.desc}</p>
     </div>
   );
 };
@@ -435,13 +388,13 @@ const ServiceCard = ({ service: s, index: i }) => {
 /* ═══════════════════════ SERVICE AREA MAP ═══════════════════════ */
 
 const ServiceAreaMap = () => {
-  const ref = useReveal();
+  const anim = useReveal();
   const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
   return (
-    <div ref={ref} className="reveal-scale mt-10 md:mt-12 rounded-sm overflow-hidden border border-border-subtle" style={{ height: 'clamp(350px, 55vw, 500px)' }}>
+    <div ref={anim.ref} style={{ ...anim.style, height: 'clamp(350px, 55vw, 500px)' }} className="mt-10 md:mt-12 rounded-sm overflow-hidden border border-border-subtle">
       <MapContainer
-        center={isMobile ? [31.82, -96.95] : [31.84, -96.85]}
-        zoom={isMobile ? 9 : 10}
+        center={isMobile ? [31.82, -96.85] : [31.84, -96.85]}
+        zoom={isMobile ? 8.5 : 10}
         scrollWheelZoom={false}
         style={{ height: '100%', width: '100%' }}
         attributionControl={false}
@@ -499,19 +452,16 @@ const ServiceAreaDetail = ({ area }) => {
 };
 
 const ServiceAreas = () => {
-  const headerRef = useReveal();
-  const citiesRef = useReveal();
+  const header = useReveal();
+  const cities = useReveal(0.1);
   return (
-    <section id="areas" className="bg-dark-elevated px-6 lg:px-[clamp(2rem,5vw,4rem)] py-[clamp(4rem,10vw,8rem)]">
-      <div className="max-w-[1400px] mx-auto">
-        <div ref={headerRef} className="reveal flex flex-col md:flex-row justify-between items-baseline mb-10 md:mb-12 gap-4">
+    <section id="areas" className="bg-dark-elevated px-6 lg:px-[clamp(2rem,5vw,4rem)] py-[clamp(4rem,8vw,6rem)]">
+      <div className="max-w-[1200px] mx-auto">
+        <div ref={header.ref} style={header.style} className="mb-10 md:mb-12">
           <h2 className="text-2xl md:text-3xl font-medium tracking-tight">Areas We Serve</h2>
-          <p className="text-text-muted text-sm">Serving Hill, Navarro, Limestone & McLennan County.</p>
+          <p className="text-text-muted mt-2 text-base">Serving Hill, Navarro, Limestone & McLennan County. Click a city to learn more.</p>
         </div>
-        <p className="text-text-muted max-w-[700px] mb-10 md:mb-12 leading-relaxed text-base">
-          Rankin Waste Management provides trash pickup, bulk pickups, and dump trailer rentals across a wide area of central Texas. If you're in or around any of these communities, we can serve you. Click a city to learn more.
-        </p>
-        <div ref={citiesRef} className="reveal grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-6 sm:gap-x-8 gap-y-5 sm:gap-y-6">
+        <div ref={cities.ref} style={cities.style} className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-6 sm:gap-x-8 gap-y-5 sm:gap-y-6">
           {SERVICE_AREAS.map(area => (
             <ServiceAreaDetail key={area.city} area={area} />
           ))}
@@ -523,9 +473,9 @@ const ServiceAreas = () => {
         <ServiceAreaMap />
 
         <p className="text-text-muted mt-10 md:mt-12">
-          Don't see your town listed? Give us a call at{' '}
+          Don't see your town? Call us at{' '}
           <a href={PHONE_LINK} className="text-orange-500 hover:text-orange-300 font-semibold transition-colors duration-300">{PHONE}</a>.
-          If you're in the general area, there's a good chance we can work something out.
+          If you're in the area, we can probably work something out.
         </p>
       </div>
     </section>
@@ -534,42 +484,35 @@ const ServiceAreas = () => {
 
 /* ═══════════════════════ FAQ ═══════════════════════ */
 
-const FAQItem = ({ faq, index }) => {
+const FAQItem = ({ faq }) => {
   const [open, setOpen] = useState(false);
-  const ref = useReveal();
   return (
-    <div ref={ref} className={`reveal stagger-${Math.min(index + 1, 4)} border-b border-border-subtle`}>
+    <div className="border-b border-border-subtle">
       <button
         className="w-full text-left py-5 flex items-center justify-between gap-6 min-h-[44px] group"
         onClick={() => setOpen(!open)}
         aria-expanded={open}
       >
-        <div className="flex items-baseline gap-4">
-          <span className="font-mono text-xs text-text-muted tracking-wider shrink-0">{String(index + 1).padStart(2, '0')}.</span>
-          <span className="font-medium text-[1.05rem] group-hover:text-orange-500 transition-colors duration-300">{faq.q}</span>
-        </div>
+        <span className="font-medium text-[1.05rem] group-hover:text-orange-500 transition-colors duration-300">{faq.q}</span>
         <ChevronIcon open={open} />
       </button>
       <div className={`overflow-hidden transition-all duration-500 ease-out ${open ? 'max-h-60 opacity-100 pb-6' : 'max-h-0 opacity-0'}`}>
-        <div className="pl-12">
-          <p className="text-text-muted leading-relaxed max-w-[700px]">{faq.a}</p>
-        </div>
+        <p className="text-text-muted leading-relaxed max-w-[700px]">{faq.a}</p>
       </div>
     </div>
   );
 };
 
 const FAQ = () => {
-  const headerRef = useReveal();
+  const header = useReveal();
   return (
     <section id="faq" className="px-6 lg:px-[clamp(2rem,5vw,4rem)] py-[clamp(4rem,8vw,6rem)]">
-      <div className="max-w-[1400px] mx-auto">
-        <div ref={headerRef} className="reveal flex flex-col md:flex-row justify-between items-baseline mb-10 md:mb-12 gap-4">
+      <div className="max-w-[1200px] mx-auto">
+        <div ref={header.ref} style={header.style} className="mb-10 md:mb-12">
           <h2 className="text-2xl md:text-3xl font-medium tracking-tight">Frequently Asked Questions</h2>
-          <p className="text-text-muted text-sm">Trash service in Hubbard & Hill County</p>
         </div>
-        <div className="max-w-[900px]">
-          {FAQS.map((faq, i) => <FAQItem key={i} faq={faq} index={i} />)}
+        <div className="max-w-[800px]">
+          {FAQS.map((faq, i) => <FAQItem key={i} faq={faq} />)}
         </div>
       </div>
     </section>
@@ -579,30 +522,26 @@ const FAQ = () => {
 /* ═══════════════════════ ABOUT ═══════════════════════ */
 
 const About = () => {
-  const headerRef = useReveal();
-  const textRef = useReveal();
-  const photoRef = useReveal();
+  const text = useReveal();
+  const photo = useReveal(0.15);
   return (
     <section id="about" className="bg-dark-elevated px-6 lg:px-[clamp(2rem,5vw,4rem)] py-[clamp(4rem,8vw,6rem)]">
-      <div className="max-w-[1400px] mx-auto">
-        <div ref={headerRef} className="reveal flex flex-col md:flex-row justify-between items-baseline mb-10 md:mb-12 gap-4">
-          <h2 className="text-2xl md:text-3xl font-medium tracking-tight">About Tommy and Sydney Rankin</h2>
-          <span className="font-mono text-xs text-text-muted tracking-wider">OUR FAMILY.</span>
-        </div>
+      <div className="max-w-[1200px] mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-          <div ref={textRef} className="reveal-left space-y-5 sm:space-y-6">
+          <div ref={text.ref} style={text.style} className="space-y-5">
+            <h2 className="text-2xl md:text-3xl font-medium tracking-tight">Meet Tommy & Sydney Rankin</h2>
             <p className="text-text-muted text-base sm:text-lg leading-relaxed">
               Rankin Waste Management isn't a corporation. It's Tommy and Sydney Rankin and their family, serving the same communities they live in.
             </p>
             <p className="text-text-muted text-base sm:text-lg leading-relaxed">
-              When you call <a href={PHONE_LINK} className="text-orange-500 hover:text-orange-300 font-semibold transition-colors duration-300">{PHONE}</a>, you're talking to the people who own the truck and run the routes. That means if there's ever a problem, you're not waiting on hold with a national call center. You're talking to someone who actually cares about getting it fixed.
+              When you call <a href={PHONE_LINK} className="text-orange-500 hover:text-orange-300 font-semibold transition-colors duration-300">{PHONE}</a>, you're talking to the people who own the truck and run the routes. If there's ever a problem, you're talking to someone who actually cares about getting it fixed.
             </p>
             <p className="text-text-muted text-base sm:text-lg leading-relaxed">
               We believe trash pickup should be simple. Show up on time, do the job right, charge a fair price, and treat people the way you'd want to be treated.
             </p>
           </div>
-          <div ref={photoRef} className="reveal-scale rounded-sm overflow-hidden aspect-[3/4] max-h-[500px]">
-            <img src="/tommy-sydney.jpg" alt="Tommy and Sydney Rankin, owners of Rankin Waste Management" className="w-full h-full object-cover object-[50%_25%]" />
+          <div ref={photo.ref} style={photo.style} className="rounded-sm overflow-hidden aspect-[3/4] max-h-[500px]">
+            <img src="/tommy-sydney.jpg" alt="Tommy and Sydney Rankin, owners of Rankin Waste Management" className="w-full h-full object-cover object-[50%_25%]" loading="lazy" />
           </div>
         </div>
       </div>
@@ -613,25 +552,23 @@ const About = () => {
 /* ═══════════════════════ FINAL CTA ═══════════════════════ */
 
 const FinalCTA = ({ onRequestService }) => {
-  const ref = useReveal();
+  const anim = useReveal();
   return (
-    <section className="px-6 lg:px-[clamp(2rem,5vw,4rem)] py-[clamp(5rem,12vw,10rem)] text-center flex flex-col items-center gap-6 sm:gap-8" style={{ background: 'linear-gradient(135deg, #0f0906 0%, #1a0c02 50%, #0f0906 100%)' }}>
-      <div ref={ref} className="reveal">
-        <div className="text-[clamp(1.75rem,5vw,4rem)] font-semibold tracking-tight leading-tight mb-6 sm:mb-8">
-          Ready for reliable trash pickup?<br />
-          <a href={PHONE_LINK} className="text-orange-500 hover:opacity-80 transition-opacity duration-300">Call {PHONE}</a>
-        </div>
-        <p className="text-text-muted max-w-[700px] mx-auto leading-relaxed text-sm sm:text-base mb-6">
-          Stop dealing with missed pickups and companies that don't answer the phone. Rankin Waste Management serves Hubbard, Axtell, Dawson, Malone, Purdon, Mertens, Whitney, Mount Calm, Peoria, Birome, Prairie Hill, Navarro Mills, and surrounding rural communities across Hill County, Navarro County, Limestone County, and McLennan County.
+    <section className="px-6 lg:px-[clamp(2rem,5vw,4rem)] py-[clamp(5rem,12vw,10rem)] text-center">
+      <div ref={anim.ref} style={anim.style} className="max-w-[700px] mx-auto">
+        <h2 className="text-[clamp(1.75rem,5vw,3.5rem)] font-semibold tracking-tight leading-tight mb-6">
+          Ready for reliable trash pickup?
+        </h2>
+        <p className="text-text-muted leading-relaxed text-base mb-8">
+          Stop dealing with missed pickups and companies that don't answer the phone. Call Tommy and Sydney today.
         </p>
-        <p className="font-semibold text-base sm:text-lg mb-6">Tommy and Sydney Rankin. Your Local Trash Company.</p>
-        <div className="flex flex-wrap justify-center gap-3">
-          <a href={PHONE_LINK} className="bg-white text-dark px-6 py-3 rounded-full font-bold text-[0.9rem] btn-smooth min-h-[44px] flex items-center gap-2">
-            <PhoneIcon className="w-4 h-4" />
-            Call Now
+        <div className="flex flex-wrap justify-center gap-4">
+          <a href={PHONE_LINK} className="inline-flex items-center gap-2 bg-orange-500 text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-orange-600 transition-colors duration-300 min-h-[44px]">
+            <PhoneIcon className="w-5 h-5" />
+            Call {PHONE}
           </a>
-          <button onClick={onRequestService} className="min-h-[44px]">
-            <Tag bright>Request Service Online</Tag>
+          <button onClick={onRequestService} className="border border-white/30 text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white/10 transition-colors duration-300 min-h-[44px]">
+            Request Service
           </button>
         </div>
       </div>
@@ -643,7 +580,7 @@ const FinalCTA = ({ onRequestService }) => {
 
 const Footer = () => (
   <footer className="bg-dark-card px-6 lg:px-[clamp(2rem,5vw,4rem)] py-12 border-t border-border-subtle">
-    <div className="max-w-[1400px] mx-auto">
+    <div className="max-w-[1200px] mx-auto">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 mb-12">
         {/* Brand */}
         <div>
