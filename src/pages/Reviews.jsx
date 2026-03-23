@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useReveal, PageHead, InnerHero, PHONE, PHONE_LINK } from '../shared';
+import { useReveal, PageHead, InnerHero } from '../shared';
 
 export default function Reviews() {
   const content = useReveal();
@@ -16,17 +16,14 @@ export default function Reviews() {
   return (
     <>
       <PageHead
-        title="Reviews — Rankin Waste Management"
-        description="Read reviews from Rankin Waste Management customers in Hubbard, TX and surrounding communities. See why families trust us for reliable weekly trash pickup."
+        title="Reviews - Rankin Waste Management"
+        description="Read reviews from Rankin Waste Management customers. See why families in Hubbard, TX and surrounding communities trust us for reliable trash pickup."
       />
       <InnerHero title="Reviews" />
       <section className="px-6 lg:px-[clamp(2rem,5vw,4rem)] py-20 md:py-28">
         <div ref={content.ref} style={content.style} className="max-w-[1200px] mx-auto">
-          <p className="text-text-muted text-lg leading-relaxed mb-10 max-w-[700px] mx-auto text-center">
-            We appreciate every customer who takes the time to share their experience. If you're a current customer, we'd love to hear from you —{' '}
-            <a href="https://g.page/r/review" target="_blank" rel="noopener noreferrer" className="text-orange-500 hover:text-orange-300 font-semibold transition-colors duration-300">
-              leave us a review on Google
-            </a>.
+          <p className="text-text-muted text-lg leading-relaxed mb-10 max-w-[800px]">
+            We value your feedback! If you've used our services, please take a moment to leave a review on Google and let others know what makes Rankin Waste Management your go-to choice for dependable waste solutions.
           </p>
           <iframe
             className="lc_reviews_widget"

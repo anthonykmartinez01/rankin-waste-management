@@ -1,12 +1,12 @@
-import { useReveal, PageHead, InnerHero, CallCTA, PHONE, PHONE_LINK } from '../shared';
+import { useReveal, PageHead, InnerHero, CallCTA } from '../shared';
 
 export default function TrashTrailerRentals() {
   const content = useReveal();
   return (
     <>
       <PageHead
-        title="Dump Trailer Rentals in Hubbard, TX | Rankin Waste Management"
-        description="Affordable dump trailer rentals in Hubbard, TX and surrounding areas. 16-foot trailers with high sides, flexible scheduling. We drop it off, you load it, we haul it away."
+        title="Trash Trailer Rentals - Rankin Waste Management"
+        description="Affordable trash trailer rentals in Hubbard, TX and surrounding areas. 16-foot trailers with high sides, flexible scheduling. We drop it off, you load it, we haul it away."
       />
       <InnerHero title="Trash Trailer Rentals" />
       <section className="px-6 lg:px-[clamp(2rem,5vw,4rem)] py-20 md:py-28">

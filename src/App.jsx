@@ -98,11 +98,11 @@ const PHONE = '(254) 205-6125';
 const PHONE_LINK = 'tel:+12542056125';
 
 const NAV_LINKS = [
-  { label: 'Services', href: '/#services' },
-  { label: 'Coverage Areas', href: '/#areas' },
+  { label: 'Residential', href: '/residential' },
+  { label: 'Trash Trailer Rentals', href: '/trash-trailer-rentals' },
+  { label: 'About Us', href: '/about-us' },
+  { label: 'Contact Us', href: '/contact-us' },
   { label: 'Reviews', href: '/reviews' },
-  { label: 'FAQ', href: '/#faq' },
-  { label: 'Our Family', href: '/about-us' },
 ];
 
 const SERVICE_AREAS = [
@@ -133,12 +133,9 @@ const FAQS = [
 
 /* ═══════════════════════ NAV ═══════════════════════ */
 
-const NavLink = ({ href, children, className, onClick }) => {
-  if (href.startsWith('/') && !href.includes('#')) {
-    return <Link to={href} className={className} onClick={onClick}>{children}</Link>;
-  }
-  return <a href={href} className={className} onClick={onClick}>{children}</a>;
-};
+const NavLink = ({ href, children, className, onClick }) => (
+  <Link to={href} className={className} onClick={onClick}>{children}</Link>
+);
 
 const Nav = ({ mobileMenuOpen, setMobileMenuOpen }) => (
   <nav className="fixed top-0 w-full h-20 flex justify-between items-center px-6 lg:px-[clamp(2rem,5vw,4rem)] z-50" style={{ background: 'linear-gradient(to bottom, rgba(8,8,8,0.85) 0%, rgba(8,8,8,0) 100%)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}>
@@ -640,9 +637,9 @@ const Footer = () => (
           <ul className="space-y-2 text-sm text-text-muted">
             <li><Link to="/" className="hover:text-white transition-colors duration-300">Home</Link></li>
             <li><Link to="/residential" className="hover:text-white transition-colors duration-300">Residential</Link></li>
-            <li><a href="/#services" className="hover:text-white transition-colors duration-300">Bulk Pickup</a></li>
-            <li><Link to="/trash-trailer-rentals" className="hover:text-white transition-colors duration-300">Dump Trailer Rentals</Link></li>
+            <li><Link to="/trash-trailer-rentals" className="hover:text-white transition-colors duration-300">Trash Trailer Rentals</Link></li>
             <li><Link to="/about-us" className="hover:text-white transition-colors duration-300">About Us</Link></li>
+            <li><Link to="/contact-us" className="hover:text-white transition-colors duration-300">Contact Us</Link></li>
             <li><Link to="/reviews" className="hover:text-white transition-colors duration-300">Reviews</Link></li>
           </ul>
         </div>
