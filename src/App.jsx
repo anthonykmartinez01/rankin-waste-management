@@ -178,28 +178,54 @@ const Nav = ({ mobileMenuOpen, setMobileMenuOpen }) => (
 /* ═══════════════════════ HERO ═══════════════════════ */
 
 const Hero = ({ onRequestService }) => (
-  <header id="top" className="min-h-[85vh] md:min-h-[90vh] w-full flex flex-col justify-end px-6 lg:px-[clamp(2rem,5vw,4rem)] pb-10 md:pb-16 relative overflow-hidden">
+  <header id="top" className="min-h-[80vh] md:min-h-[85vh] w-full flex flex-col justify-center items-center text-center px-6 relative overflow-hidden">
     {/* Background image */}
     <div className="absolute inset-0">
       <img src="/truck-side.png" alt="" className="w-full h-full object-cover object-center hero-image-animate" loading="eager" fetchPriority="high" />
-      <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(8,8,8,0.7) 0%, rgba(8,8,8,0.4) 30%, rgba(8,8,8,0.5) 60%, rgba(8,8,8,0.85) 100%)' }} />
-      <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, rgba(26,12,2,0.6) 0%, transparent 60%)' }} />
+      <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(8,8,8,0.55) 0%, rgba(8,8,8,0.45) 40%, rgba(8,8,8,0.6) 70%, rgba(8,8,8,0.85) 100%)' }} />
     </div>
 
-    <div className="max-w-[1200px] w-full mx-auto relative z-10">
-      <p className="text-sm font-semibold text-orange-500 mb-4 hero-badge-animate">Family-Owned in Hubbard, TX</p>
-      <h1 className="text-[clamp(2.5rem,7vw,6rem)] font-medium leading-[1.05] tracking-[-0.03em] max-w-[16ch] drop-shadow-lg mb-8 hero-title-animate">
-        Reliable Trash Pickup for Rural Texas Communities
+    <div className="relative z-10 max-w-[900px] mx-auto">
+      <h1 className="text-[clamp(2rem,6vw,4rem)] font-bold leading-[1.1] tracking-tight drop-shadow-lg mb-4 hero-title-animate">
+        Hubbard's Trash Pickup Experts
       </h1>
+      <p className="text-orange-500 text-lg sm:text-xl font-semibold mb-5 hero-badge-animate">
+        Family-Owned &amp; Serving 12+ Rural Texas Communities
+      </p>
+      <p className="text-white/80 text-base sm:text-lg max-w-[600px] mx-auto mb-8 hero-content-animate">
+        Reliable weekly service, no contracts, and real people who answer the phone. Call <a href={PHONE_LINK} className="text-orange-500 font-semibold hover:text-orange-300 transition-colors">{PHONE}</a>.
+      </p>
 
-      <div className="flex flex-wrap items-center gap-4 hero-buttons-animate">
+      <div className="flex flex-wrap justify-center gap-4 hero-buttons-animate">
         <a href={PHONE_LINK} className="bg-orange-500 text-white px-7 py-3.5 rounded-full font-bold text-base hover:bg-orange-600 transition-colors duration-300 min-h-[44px] flex items-center gap-2">
           <PhoneIcon className="w-5 h-5" />
-          Call {PHONE}
+          Call Now {PHONE}
         </a>
-        <button onClick={onRequestService} className="border border-white/30 text-white px-7 py-3.5 rounded-full font-semibold text-base hover:bg-white/10 transition-all duration-300 min-h-[44px]">
+        <button onClick={onRequestService} className="bg-white/10 backdrop-blur-sm border border-white/30 text-white px-7 py-3.5 rounded-full font-semibold text-base hover:bg-white/20 transition-all duration-300 min-h-[44px]">
           Request Service
         </button>
+      </div>
+    </div>
+
+    {/* Trust bar */}
+    <div className="absolute bottom-0 left-0 right-0 bg-dark/80 backdrop-blur-sm border-t border-border-subtle py-3 px-6 z-10">
+      <div className="flex flex-wrap justify-center gap-x-8 gap-y-2 text-sm text-white/70">
+        <span className="flex items-center gap-2">
+          <svg className="w-4 h-4 text-orange-500" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
+          No Contracts
+        </span>
+        <span className="flex items-center gap-2">
+          <svg className="w-4 h-4 text-orange-500" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
+          Flat-Rate Pricing
+        </span>
+        <span className="flex items-center gap-2">
+          <svg className="w-4 h-4 text-orange-500" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
+          Family Owned
+        </span>
+        <span className="flex items-center gap-2">
+          <svg className="w-4 h-4 text-orange-500" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
+          Weekly Pickup
+        </span>
       </div>
     </div>
   </header>
