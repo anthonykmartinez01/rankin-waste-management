@@ -178,49 +178,28 @@ const Nav = ({ mobileMenuOpen, setMobileMenuOpen }) => (
 /* ═══════════════════════ HERO ═══════════════════════ */
 
 const Hero = ({ onRequestService }) => (
-  <header id="top" className="h-screen min-h-[700px] w-full flex flex-col justify-end px-6 lg:px-[clamp(2rem,5vw,4rem)] pb-[8vh] relative overflow-hidden">
+  <header id="top" className="min-h-[85vh] md:min-h-[90vh] w-full flex flex-col justify-end px-6 lg:px-[clamp(2rem,5vw,4rem)] pb-10 md:pb-16 relative overflow-hidden">
     {/* Background image */}
     <div className="absolute inset-0">
       <img src="/truck-side.png" alt="" className="w-full h-full object-cover object-center hero-image-animate" loading="eager" fetchPriority="high" />
       <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(8,8,8,0.7) 0%, rgba(8,8,8,0.4) 30%, rgba(8,8,8,0.5) 60%, rgba(8,8,8,0.85) 100%)' }} />
       <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, rgba(26,12,2,0.6) 0%, transparent 60%)' }} />
     </div>
-    {/* Top meta */}
-    <div className="absolute top-20 md:top-[calc(80px+2rem)] left-6 lg:left-[clamp(2rem,5vw,4rem)] flex items-center gap-3 text-xs md:text-sm font-semibold z-10 hero-badge-animate">
-      <div className="w-8 h-8 rounded-full p-[2px]" style={{ background: 'linear-gradient(45deg, #E8751A, #C45A0E, #F6A84E)' }}>
-        <div className="w-full h-full bg-dark rounded-full flex items-center justify-center">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-            <circle cx="12" cy="7" r="4" />
-          </svg>
-        </div>
-      </div>
-      <span>Family-owned in Hubbard, TX</span>
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="#E8751A" stroke="none">
-        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-      </svg>
-    </div>
 
     <div className="max-w-[1200px] w-full mx-auto relative z-10">
-      <h1 className="text-[clamp(3rem,7.5vw,7.5rem)] font-medium leading-[1.02] tracking-[-0.04em] mb-[clamp(3rem,12vh,6rem)] max-w-[14ch] drop-shadow-lg hero-title-animate">
-        Trash Pickup in Hubbard, TX - Reliable Weekly Service for Rural Communities
+      <p className="text-sm font-semibold text-orange-500 mb-4 hero-badge-animate">Family-Owned in Hubbard, TX</p>
+      <h1 className="text-[clamp(2.5rem,7vw,6rem)] font-medium leading-[1.05] tracking-[-0.03em] max-w-[16ch] drop-shadow-lg mb-8 hero-title-animate">
+        Reliable Trash Pickup for Rural Texas Communities
       </h1>
 
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-end border-t border-white/10 pt-8 gap-8">
-        <div className="text-[clamp(1rem,1.5vw,1.25rem)] leading-relaxed max-w-[380px] drop-shadow-md hero-content-animate">
-          <strong className="block mb-2 font-semibold text-[1.1em]">Tired of missed pickups?</strong>
-          Rankin Waste Management is a family-owned trash company based out of Hubbard. We show up every week, on schedule, because that's what we do.
-        </div>
-
-        <div className="flex items-center gap-4 hero-buttons-animate">
-          <a href={PHONE_LINK} className="bg-white text-dark px-6 py-3 rounded-full font-bold text-[0.9rem] hover:bg-gray-100 transition-colors duration-300 min-h-[44px] flex items-center gap-2">
-            <PhoneIcon className="w-4 h-4" />
-            Call Now
-          </a>
-          <button onClick={onRequestService} className="border border-white/30 text-white px-6 py-3 rounded-full font-semibold text-[0.9rem] hover:bg-white/10 transition-all duration-300 min-h-[44px]">
-            Request Service
-          </button>
-        </div>
+      <div className="flex flex-wrap items-center gap-4 hero-buttons-animate">
+        <a href={PHONE_LINK} className="bg-orange-500 text-white px-7 py-3.5 rounded-full font-bold text-base hover:bg-orange-600 transition-colors duration-300 min-h-[44px] flex items-center gap-2">
+          <PhoneIcon className="w-5 h-5" />
+          Call {PHONE}
+        </a>
+        <button onClick={onRequestService} className="border border-white/30 text-white px-7 py-3.5 rounded-full font-semibold text-base hover:bg-white/10 transition-all duration-300 min-h-[44px]">
+          Request Service
+        </button>
       </div>
     </div>
   </header>
