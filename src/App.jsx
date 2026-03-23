@@ -795,12 +795,7 @@ const HomePage = ({ onRequestService }) => (
   <>
     <Hero onRequestService={onRequestService} />
     <BusinessDescription />
-    <WhyChooseUs />
-    <Reviews />
     <Services />
-    <ServiceAreas />
-    <FAQ />
-    <About />
     <FinalCTA onRequestService={onRequestService} />
   </>
 );
