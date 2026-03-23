@@ -1,6 +1,12 @@
 import { useState, useEffect, useRef } from 'react';
+import { BrowserRouter, Routes, Route, Link, useLocation } from 'react-router-dom';
 import { MapContainer, TileLayer, Circle, Tooltip } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
+import Residential from './pages/Residential';
+import TrashTrailerRentals from './pages/TrashTrailerRentals';
+import AboutUs from './pages/AboutUs';
+import ContactUs from './pages/ContactUs';
+import ReviewsPage from './pages/Reviews';
 
 /* ═══════════════════════ SCROLL REVEAL HOOK ═══════════════════════ */
 
@@ -92,11 +98,11 @@ const PHONE = '(254) 205-6125';
 const PHONE_LINK = 'tel:+12542056125';
 
 const NAV_LINKS = [
-  { label: 'Services', href: '#services' },
-  { label: 'Coverage Areas', href: '#areas' },
-  { label: 'Reviews', href: '#reviews' },
-  { label: 'FAQ', href: '#faq' },
-  { label: 'Our Family', href: '#about' },
+  { label: 'Services', href: '/#services' },
+  { label: 'Coverage Areas', href: '/#areas' },
+  { label: 'Reviews', href: '/reviews' },
+  { label: 'FAQ', href: '/#faq' },
+  { label: 'Our Family', href: '/about-us' },
 ];
 
 const SERVICE_AREAS = [
@@ -127,18 +133,25 @@ const FAQS = [
 
 /* ═══════════════════════ NAV ═══════════════════════ */
 
+const NavLink = ({ href, children, className, onClick }) => {
+  if (href.startsWith('/') && !href.includes('#')) {
+    return <Link to={href} className={className} onClick={onClick}>{children}</Link>;
+  }
+  return <a href={href} className={className} onClick={onClick}>{children}</a>;
+};
+
 const Nav = ({ mobileMenuOpen, setMobileMenuOpen }) => (
   <nav className="fixed top-0 w-full h-20 flex justify-between items-center px-6 lg:px-[clamp(2rem,5vw,4rem)] z-50" style={{ background: 'linear-gradient(to bottom, rgba(8,8,8,0.85) 0%, rgba(8,8,8,0) 100%)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}>
-    <a href="#top" className="flex items-center gap-3 font-bold text-sm tracking-[0.15em] uppercase">
+    <Link to="/" className="flex items-center gap-3 font-bold text-sm tracking-[0.15em] uppercase">
       <LogoMark />
       Rankin Waste
-    </a>
+    </Link>
 
     <div className="hidden lg:flex gap-8 text-[0.9rem] font-medium">
       {NAV_LINKS.map(link => (
-        <a key={link.label} href={link.href} className="opacity-70 hover:opacity-100 transition-opacity duration-300">
+        <NavLink key={link.label} href={link.href} className="opacity-70 hover:opacity-100 transition-opacity duration-300">
           {link.label}
-        </a>
+        </NavLink>
       ))}
     </div>
 
@@ -166,9 +179,9 @@ const Nav = ({ mobileMenuOpen, setMobileMenuOpen }) => (
     {mobileMenuOpen && (
       <div className="absolute top-20 left-0 w-full bg-dark/95 backdrop-blur-lg border-t border-border-subtle lg:hidden flex flex-col px-6 py-6 gap-4">
         {NAV_LINKS.map(link => (
-          <a key={link.label} href={link.href} className="text-white/70 hover:text-white font-medium text-[0.9rem] py-2 transition-colors duration-300" onClick={() => setMobileMenuOpen(false)}>
+          <NavLink key={link.label} href={link.href} className="text-white/70 hover:text-white font-medium text-[0.9rem] py-2 transition-colors duration-300" onClick={() => setMobileMenuOpen(false)}>
             {link.label}
-          </a>
+          </NavLink>
         ))}
       </div>
     )}
@@ -625,12 +638,12 @@ const Footer = () => (
         <div>
           <h4 className="text-xs uppercase tracking-wider font-semibold text-text-muted mb-4">Quick Links</h4>
           <ul className="space-y-2 text-sm text-text-muted">
-            <li><a href="#top" className="hover:text-white transition-colors duration-300">Home</a></li>
-            <li><a href="#services" className="hover:text-white transition-colors duration-300">Residential</a></li>
-            <li><a href="#services" className="hover:text-white transition-colors duration-300">Bulk Pickup</a></li>
-            <li><a href="#services" className="hover:text-white transition-colors duration-300">Dump Trailer Rentals</a></li>
-            <li><a href="#about" className="hover:text-white transition-colors duration-300">About Us</a></li>
-            <li><a href="#reviews" className="hover:text-white transition-colors duration-300">Reviews</a></li>
+            <li><Link to="/" className="hover:text-white transition-colors duration-300">Home</Link></li>
+            <li><Link to="/residential" className="hover:text-white transition-colors duration-300">Residential</Link></li>
+            <li><a href="/#services" className="hover:text-white transition-colors duration-300">Bulk Pickup</a></li>
+            <li><Link to="/trash-trailer-rentals" className="hover:text-white transition-colors duration-300">Dump Trailer Rentals</Link></li>
+            <li><Link to="/about-us" className="hover:text-white transition-colors duration-300">About Us</Link></li>
+            <li><Link to="/reviews" className="hover:text-white transition-colors duration-300">Reviews</Link></li>
           </ul>
         </div>
 
@@ -779,28 +792,67 @@ const ServiceRequestModal = ({ isOpen, onClose }) => {
   );
 };
 
+/* ═══════════════════════ HOMEPAGE ═══════════════════════ */
+
+const HomePage = ({ onRequestService }) => (
+  <>
+    <Hero onRequestService={onRequestService} />
+    <BusinessDescription />
+    <WhyChooseUs />
+    <Reviews />
+    <Services />
+    <ServiceAreas />
+    <FAQ />
+    <About />
+    <FinalCTA onRequestService={onRequestService} />
+  </>
+);
+
+/* ═══════════════════════ SCROLL TO HASH ON NAVIGATE ═══════════════════════ */
+
+const ScrollToHash = () => {
+  const { hash, pathname } = useLocation();
+  useEffect(() => {
+    if (hash) {
+      const el = document.querySelector(hash);
+      if (el) {
+        setTimeout(() => el.scrollIntoView({ behavior: 'smooth' }), 100);
+      }
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }, [hash, pathname]);
+  return null;
+};
+
 /* ═══════════════════════ APP ═══════════════════════ */
 
-const App = () => {
+const AppInner = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [serviceModalOpen, setServiceModalOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-dark text-white">
+      <ScrollToHash />
       <Nav mobileMenuOpen={mobileMenuOpen} setMobileMenuOpen={setMobileMenuOpen} />
-      <Hero onRequestService={() => setServiceModalOpen(true)} />
-      <BusinessDescription />
-      <WhyChooseUs />
-      <Reviews />
-      <Services />
-      <ServiceAreas />
-      <FAQ />
-      <About />
-      <FinalCTA onRequestService={() => setServiceModalOpen(true)} />
+      <Routes>
+        <Route path="/" element={<HomePage onRequestService={() => setServiceModalOpen(true)} />} />
+        <Route path="/residential" element={<Residential />} />
+        <Route path="/trash-trailer-rentals" element={<TrashTrailerRentals />} />
+        <Route path="/about-us" element={<AboutUs />} />
+        <Route path="/contact-us" element={<ContactUs />} />
+        <Route path="/reviews" element={<ReviewsPage />} />
+      </Routes>
       <Footer />
       <ServiceRequestModal isOpen={serviceModalOpen} onClose={() => setServiceModalOpen(false)} />
     </div>
   );
 };
+
+const App = () => (
+  <BrowserRouter>
+    <AppInner />
+  </BrowserRouter>
+);
 
 export default App;
