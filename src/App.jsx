@@ -267,7 +267,7 @@ const BusinessDescription = () => {
             </a>
           </div>
           <div ref={img.ref} style={img.style} className="relative">
-            <img src="/tommy-sydney.jpg" alt="Tommy and Sydney Rankin, owners of Rankin Waste Management" className="w-full aspect-[4/5] sm:aspect-[3/4] lg:h-[460px] lg:aspect-auto object-cover object-[50%_20%] rounded-sm" loading="lazy" />
+            <img src="/tommy-sydney.jpg" alt="Tommy and Sydney Rankin, owners of Rankin Waste Management" className="w-full aspect-[4/3] sm:aspect-[1/1] lg:aspect-[4/5] object-cover object-[50%_30%] rounded-sm" loading="lazy" />
             <div className="absolute -bottom-4 -left-4 sm:-bottom-6 sm:-left-6 bg-orange-500 text-white px-5 py-3 sm:px-6 sm:py-4 rounded-sm">
               <span className="block text-2xl sm:text-3xl font-bold leading-none">100%</span>
               <span className="text-xs sm:text-sm font-medium opacity-90">Family Owned</span>
