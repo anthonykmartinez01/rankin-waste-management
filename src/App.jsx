@@ -585,7 +585,7 @@ const FinalCTA = () => {
           Ready for reliable trash pickup?
         </h2>
         <p className="text-text-muted leading-relaxed text-base mb-8">
-          Stop dealing with missed pickups and companies that don't answer the phone. Call Tommy and Sydney today.
+          Stop dealing with missed pickups and companies that don't answer the phone. Call us today.
         </p>
         <div className="flex flex-wrap justify-center gap-4">
           <a href={PHONE_LINK} className="inline-flex items-center gap-2 bg-orange-500 text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-orange-600 transition-colors duration-300 min-h-[44px]">
