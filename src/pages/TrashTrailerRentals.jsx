@@ -18,7 +18,7 @@ export default function TrashTrailerRentals() {
             We provide 16-foot trailers with high sides equivalent to a 20 yard dumpster, giving you plenty of space. Rentals are available for full-week durations, with flexible drop-off and pickup options to fit your schedule.
           </p>
           <p className="text-text-muted text-lg leading-relaxed mb-6">
-            We drop it off, you load it up, and we haul it away — on your schedule.
+            We drop it off, you load it up, and we haul it away - on your schedule.
           </p>
           <p className="text-text-muted text-lg leading-relaxed mb-10">
             With affordable rates and flexible rental options, we're the go-to choice for hassle-free cleanups in Hubbard and surrounding rural areas.

@@ -262,7 +262,7 @@ const BusinessDescription = () => {
               As a part of the community, we understand the unique needs of rural areas and are committed to providing dependable weekly pickup and trash trailer rentals at competitive prices.
             </p>
             <p className="text-text-muted text-base sm:text-lg leading-relaxed mb-8">
-              When you choose Rankin Waste Management, you're not just getting great service — you're supporting your neighbors. Let us take care of your waste so you can focus on what matters most.
+              When you choose Rankin Waste Management, you're not just getting great service - you're supporting your neighbors. Let us take care of your waste so you can focus on what matters most.
             </p>
             <a href={PHONE_LINK} className="inline-flex items-center gap-2 bg-orange-500 text-white px-7 py-3.5 rounded-full font-bold text-base hover:bg-orange-600 transition-colors duration-300 min-h-[44px]">
               <PhoneIcon className="w-4 h-4" />
@@ -367,12 +367,12 @@ const Services = () => {
     },
     {
       title: 'Bulk Pickup',
-      desc: "Old furniture, appliances, mattresses, or a pile of junk from cleaning out the garage — we can handle it. We'll schedule a pickup that fits your timeline.",
+      desc: "Old furniture, appliances, mattresses, or a pile of junk from cleaning out the garage - we can handle it. We'll schedule a pickup that fits your timeline.",
       link: null,
     },
     {
       title: 'Dump Trailer Rentals',
-      desc: "For bigger jobs — renovations, land clearing, property cleanouts. We deliver the trailer, you load it on your schedule, and we haul it away when you're done.",
+      desc: "For bigger jobs - renovations, land clearing, property cleanouts. We deliver the trailer, you load it on your schedule, and we haul it away when you're done.",
       link: '/trash-trailer-rentals',
     },
   ];

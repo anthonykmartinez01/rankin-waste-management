@@ -23,17 +23,17 @@ export default function AboutUs() {
                   As a part of the community, we understand the unique needs of rural areas and are committed to providing dependable weekly pickup and trash trailer rentals at competitive prices.
                 </p>
                 <p className="text-text-muted text-lg leading-relaxed">
-                  When you choose Rankin Waste Management, you're not just getting great service — you're supporting your neighbors. Let us take care of your waste so you can focus on what matters most.
+                  When you choose Rankin Waste Management, you're not just getting great service - you're supporting your neighbors. Let us take care of your waste so you can focus on what matters most.
                 </p>
               </div>
 
               <div ref={section2.ref} style={section2.style}>
                 <h2 className="text-xl md:text-2xl font-semibold tracking-tight mb-4">About the Owner</h2>
                 <p className="text-text-muted text-lg leading-relaxed mb-6">
-                  Rankin Waste Management is owned and operated by Tommy Rankin, a lifelong resident of the Hubbard area. Growing up here, Tommy learned the value of hard work, community, and taking care of your neighbors. That hometown pride is what drives the company's mission today — to provide reliable, affordable trash service while always giving back and supporting local.
+                  Rankin Waste Management is owned and operated by Tommy Rankin, a lifelong resident of the Hubbard area. Growing up here, Tommy learned the value of hard work, community, and taking care of your neighbors. That hometown pride is what drives the company's mission today - to provide reliable, affordable trash service while always giving back and supporting local.
                 </p>
                 <p className="text-text-muted text-lg leading-relaxed mb-8">
-                  When you choose Rankin Waste Management, you're not just hiring a waste service — you're partnering with someone who truly cares about keeping our community clean and thriving.
+                  When you choose Rankin Waste Management, you're not just hiring a waste service - you're partnering with someone who truly cares about keeping our community clean and thriving.
                 </p>
                 <CallCTA />
               </div>
