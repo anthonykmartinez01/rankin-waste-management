@@ -187,26 +187,42 @@ const Nav = ({ mobileMenuOpen, setMobileMenuOpen }) => (
 
 /* ═══════════════════════ HERO ═══════════════════════ */
 
+const TrustBadge = ({ children }) => (
+  <span className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full text-sm sm:text-base text-white/90 font-medium">
+    <svg className="w-5 h-5 text-orange-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
+    {children}
+  </span>
+);
+
 const Hero = () => (
-  <header id="top" className="min-h-[80vh] md:min-h-[85vh] w-full flex flex-col justify-center items-center text-center px-6 relative overflow-hidden">
+  <header id="top" className="min-h-[70vh] sm:min-h-[65vh] md:min-h-[62vh] w-full flex flex-col justify-center items-center text-center px-6 relative overflow-hidden pb-8">
     {/* Background image */}
     <div className="absolute inset-0">
       <img src="/truck-side.png" alt="" className="w-full h-full object-cover object-center hero-image-animate" loading="eager" fetchPriority="high" />
       <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(8,8,8,0.55) 0%, rgba(8,8,8,0.45) 40%, rgba(8,8,8,0.6) 70%, rgba(8,8,8,0.85) 100%)' }} />
     </div>
 
-    <div className="relative z-10 max-w-[900px] mx-auto">
+    <div className="relative z-10 max-w-[900px] mx-auto pt-20">
       <h1 className="text-[clamp(2rem,6vw,4rem)] font-bold leading-[1.1] tracking-tight drop-shadow-lg mb-4 hero-title-animate">
         Welcome to Rankin Waste Management
       </h1>
-      <p className="text-orange-500 text-lg sm:text-xl font-semibold mb-5 hero-badge-animate">
+      <p className="text-orange-500 text-lg sm:text-xl font-semibold mb-4 hero-badge-animate">
         Locally Family-Owned &amp; Operated
       </p>
-      <p className="text-white/80 text-base sm:text-lg max-w-[600px] mx-auto mb-8 hero-content-animate">
+
+      {/* Social proof */}
+      <div className="flex items-center justify-center gap-1.5 mb-5 hero-content-animate">
+        <span className="flex gap-0.5 text-star">
+          <span className="text-lg">★</span><span className="text-lg">★</span><span className="text-lg">★</span><span className="text-lg">★</span><span className="text-lg">★</span>
+        </span>
+        <span className="text-white/90 text-sm sm:text-base font-medium ml-1">27 Five-Star Google Reviews</span>
+      </div>
+
+      <p className="text-white/80 text-base sm:text-lg max-w-[600px] mx-auto mb-7 hero-content-animate">
         Proudly serving Hubbard, Axtell, Dawson, Malone, Mertens, Purdon, TX, and surrounding rural communities with reliable, affordable trash service.
       </p>
 
-      <div className="flex flex-wrap justify-center gap-4 hero-buttons-animate">
+      <div className="flex flex-wrap justify-center gap-4 mb-8 hero-buttons-animate">
         <a href={PHONE_LINK} className="bg-orange-500 text-white px-7 py-3.5 rounded-full font-bold text-base hover:bg-orange-600 transition-colors duration-300 min-h-[44px] flex items-center gap-2">
           <PhoneIcon className="w-5 h-5" />
           Call Now {PHONE}
@@ -215,27 +231,14 @@ const Hero = () => (
           New Service Request
         </Link>
       </div>
-    </div>
 
-    {/* Trust bar */}
-    <div className="absolute bottom-0 left-0 right-0 bg-dark/80 backdrop-blur-sm border-t border-border-subtle py-3 px-6 z-10">
-      <div className="flex flex-wrap justify-center gap-x-8 gap-y-2 text-sm text-white/70">
-        <span className="flex items-center gap-2">
-          <svg className="w-4 h-4 text-orange-500" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
-          No Contracts
-        </span>
-        <span className="flex items-center gap-2">
-          <svg className="w-4 h-4 text-orange-500" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
-          Flat-Rate Pricing
-        </span>
-        <span className="flex items-center gap-2">
-          <svg className="w-4 h-4 text-orange-500" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
-          Family Owned
-        </span>
-        <span className="flex items-center gap-2">
-          <svg className="w-4 h-4 text-orange-500" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
-          Weekly Pickup
-        </span>
+      {/* Trust badges */}
+      <div className="flex flex-wrap justify-center gap-3 hero-buttons-animate">
+        <TrustBadge>No Contracts</TrustBadge>
+        <TrustBadge>Flat-Rate Pricing</TrustBadge>
+        <TrustBadge>Family Owned</TrustBadge>
+        <TrustBadge>Weekly Pickup</TrustBadge>
+        <TrustBadge>700+ Customers Served</TrustBadge>
       </div>
     </div>
   </header>
