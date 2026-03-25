@@ -1,12 +1,11 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route, Link, useLocation } from 'react-router-dom';
-import { MapContainer, TileLayer, Circle, Tooltip } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css';
-import Residential from './pages/Residential';
-import TrashTrailerRentals from './pages/TrashTrailerRentals';
-import AboutUs from './pages/AboutUs';
-import ContactUs from './pages/ContactUs';
-import ReviewsPage from './pages/Reviews';
+
+const Residential = lazy(() => import('./pages/Residential'));
+const TrashTrailerRentals = lazy(() => import('./pages/TrashTrailerRentals'));
+const AboutUs = lazy(() => import('./pages/AboutUs'));
+const ContactUs = lazy(() => import('./pages/ContactUs'));
+const ReviewsPage = lazy(() => import('./pages/Reviews'));
 
 /* ═══════════════════════ SCROLL REVEAL HOOK ═══════════════════════ */
 
@@ -43,7 +42,7 @@ const useReveal = (delay = 0) => {
 const LogoMark = ({ size = 'sm' }) => {
   const sizes = { sm: 'h-6 w-auto', md: 'h-8 w-auto', lg: 'h-10 w-auto' };
   return (
-    <img src="/rw-logo.png" alt="RW" className={`${sizes[size] || sizes.sm} object-contain brightness-0 invert`} />
+    <img src="/rw-logo.webp" alt="RW" className={`${sizes[size] || sizes.sm} object-contain brightness-0 invert`} />
   );
 };
 
@@ -198,7 +197,7 @@ const Hero = () => (
   <header id="top" className="min-h-[70vh] sm:min-h-[65vh] md:min-h-[62vh] w-full flex flex-col justify-center items-center text-center px-6 relative overflow-hidden pb-8">
     {/* Background image */}
     <div className="absolute inset-0">
-      <img src="/truck-side.png" alt="" className="w-full h-full object-cover object-center hero-image-animate" loading="eager" fetchPriority="high" />
+      <img src="/truck-side.webp" alt="" width="1600" height="1067" className="w-full h-full object-cover object-center hero-image-animate" loading="eager" fetchPriority="high" />
       <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(8,8,8,0.55) 0%, rgba(8,8,8,0.45) 40%, rgba(8,8,8,0.6) 70%, rgba(8,8,8,0.85) 100%)' }} />
     </div>
 
@@ -270,7 +269,7 @@ const BusinessDescription = () => {
             </a>
           </div>
           <div ref={img.ref} style={img.style} className="relative">
-            <img src="/tommy-sydney.jpg" alt="Tommy and Sydney Rankin, owners of Rankin Waste Management" className="w-full aspect-[4/3] sm:aspect-[1/1] lg:aspect-[4/5] object-cover object-[50%_30%] rounded-sm" loading="lazy" />
+            <img src="/tommy-sydney.webp" alt="Tommy and Sydney Rankin, owners of Rankin Waste Management" className="w-full aspect-[4/3] sm:aspect-[1/1] lg:aspect-[4/5] object-cover object-[50%_30%] rounded-sm" loading="lazy" />
             <div className="absolute -bottom-4 -left-4 sm:-bottom-6 sm:-left-6 bg-orange-500 text-white px-5 py-3 sm:px-6 sm:py-4 rounded-sm">
               <span className="block text-2xl sm:text-3xl font-bold leading-none">100%</span>
               <span className="text-xs sm:text-sm font-medium opacity-90">Family Owned</span>
@@ -414,43 +413,79 @@ const ServiceCard = ({ service: s, delay }) => {
 
 const ServiceAreaMap = () => {
   const anim = useReveal();
+  const [mapLoaded, setMapLoaded] = useState(false);
   const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  const mapRef = useRef(null);
+
+  useEffect(() => {
+    const el = mapRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setMapLoaded(true);
+          observer.unobserve(el);
+        }
+      },
+      { rootMargin: '200px' }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div ref={anim.ref} style={{ ...anim.style, height: 'clamp(350px, 55vw, 500px)' }} className="mt-10 md:mt-12 rounded-sm overflow-hidden border border-border-subtle">
-      <MapContainer
-        center={isMobile ? [31.82, -96.85] : [31.84, -96.85]}
-        zoom={isMobile ? 8.5 : 10}
-        scrollWheelZoom={false}
-        style={{ height: '100%', width: '100%' }}
-        attributionControl={false}
-      >
-        <TileLayer url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png" />
-        {SERVICE_AREAS.map(area => (
-          <Circle
-            key={area.city}
-            center={[area.lat, area.lng]}
-            radius={area.radius}
-            pathOptions={{
-              color: '#E8751A',
-              fillColor: '#E8751A',
-              fillOpacity: 0.2,
-              weight: 2,
-              opacity: 0.8,
-            }}
-          >
-            <Tooltip
-              permanent
-              direction="center"
-              className="service-area-label"
-            >
-              <span style={{ color: '#fff', fontWeight: 600, fontSize: '11px', textShadow: '0 1px 4px rgba(0,0,0,0.8)' }}>
-                {area.city}
-              </span>
-            </Tooltip>
-          </Circle>
-        ))}
-      </MapContainer>
+    <div ref={(node) => { mapRef.current = node; if (anim.ref) anim.ref.current = node; }} style={{ ...anim.style, height: 'clamp(350px, 55vw, 500px)' }} className="mt-10 md:mt-12 rounded-sm overflow-hidden border border-border-subtle">
+      {mapLoaded && <LazyMap isMobile={isMobile} />}
     </div>
+  );
+};
+
+const LazyMap = ({ isMobile }) => {
+  const [components, setComponents] = useState(null);
+  useEffect(() => {
+    Promise.all([
+      import('react-leaflet'),
+      import('leaflet/dist/leaflet.css'),
+    ]).then(([leaflet]) => {
+      setComponents(leaflet);
+    });
+  }, []);
+  if (!components) return <div className="w-full h-full bg-dark-card animate-pulse" />;
+  const { MapContainer, TileLayer, Circle, Tooltip } = components;
+  return (
+    <MapContainer
+      center={isMobile ? [31.82, -96.85] : [31.84, -96.85]}
+      zoom={isMobile ? 8.5 : 10}
+      scrollWheelZoom={false}
+      style={{ height: '100%', width: '100%' }}
+      attributionControl={false}
+    >
+      <TileLayer url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png" />
+      {SERVICE_AREAS.map(area => (
+        <Circle
+          key={area.city}
+          center={[area.lat, area.lng]}
+          radius={area.radius}
+          pathOptions={{
+            color: '#E8751A',
+            fillColor: '#E8751A',
+            fillOpacity: 0.2,
+            weight: 2,
+            opacity: 0.8,
+          }}
+        >
+          <Tooltip
+            permanent
+            direction="center"
+            className="service-area-label"
+          >
+            <span style={{ color: '#fff', fontWeight: 600, fontSize: '11px', textShadow: '0 1px 4px rgba(0,0,0,0.8)' }}>
+              {area.city}
+            </span>
+          </Tooltip>
+        </Circle>
+      ))}
+    </MapContainer>
   );
 };
 
@@ -566,7 +601,7 @@ const About = () => {
             </p>
           </div>
           <div ref={photo.ref} style={photo.style} className="rounded-sm overflow-hidden aspect-[3/4] max-h-[500px]">
-            <img src="/tommy-sydney.jpg" alt="Tommy and Sydney Rankin, owners of Rankin Waste Management" className="w-full h-full object-cover object-[50%_25%]" loading="lazy" />
+            <img src="/tommy-sydney.webp" alt="Tommy and Sydney Rankin, owners of Rankin Waste Management" className="w-full h-full object-cover object-[50%_25%]" loading="lazy" />
           </div>
         </div>
       </div>
@@ -836,14 +871,16 @@ const AppInner = () => {
     <div className="min-h-screen bg-dark text-white">
       <ScrollToHash />
       <Nav mobileMenuOpen={mobileMenuOpen} setMobileMenuOpen={setMobileMenuOpen} />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/residential" element={<Residential />} />
-        <Route path="/trash-trailer-rentals" element={<TrashTrailerRentals />} />
-        <Route path="/about-us" element={<AboutUs />} />
-        <Route path="/contact-us" element={<ContactUs />} />
-        <Route path="/reviews" element={<ReviewsPage />} />
-      </Routes>
+      <Suspense fallback={<div className="min-h-screen" />}>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/residential" element={<Residential />} />
+          <Route path="/trash-trailer-rentals" element={<TrashTrailerRentals />} />
+          <Route path="/about-us" element={<AboutUs />} />
+          <Route path="/contact-us" element={<ContactUs />} />
+          <Route path="/reviews" element={<ReviewsPage />} />
+        </Routes>
+      </Suspense>
       <Footer />
     </div>
   );
