@@ -696,7 +696,7 @@ const Footer = () => (
             Hubbard, Axtell, Dawson, Malone, Purdon, Mertens, Whitney, Mount Calm, Peoria, Birome, Prairie Hill, Navarro Mills, TX
           </p>
           <h4 className="text-xs uppercase tracking-wider font-semibold text-text-muted mb-3">Follow Us</h4>
-          <a href="#" aria-label="Facebook" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-orange-500 transition-colors duration-300">
+          <a href="https://www.facebook.com/p/Rankin-waste-management-100057417520840/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-orange-500 transition-colors duration-300">
             <FacebookIcon />
           </a>
         </div>
