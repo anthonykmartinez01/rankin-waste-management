@@ -1,51 +1,18 @@
-import { useState } from 'react';
+import { useEffect } from 'react';
 import { PageHead, InnerHero, PHONE, PHONE_LINK, PhoneIcon, MailIcon, MapPinIcon, ClockIcon } from '../shared';
 
+const GHL_FORM_URL = 'https://go.kailenflow.com/widget/form/IonAPiOYK1uWC7rxn7Iw';
+
 export default function ContactUs() {
-  const [formData, setFormData] = useState({ firstName: '', lastName: '', email: '', phone: '', address: '', consent: false });
-  const [errors, setErrors] = useState({});
-  const [submitted, setSubmitted] = useState(false);
-
-  const validate = () => {
-    const e = {};
-    if (!formData.firstName.trim()) e.firstName = 'First name is required';
-    if (!formData.lastName.trim()) e.lastName = 'Last name is required';
-    if (!formData.email.trim()) e.email = 'Email is required';
-    else if (!/\S+@\S+\.\S+/.test(formData.email)) e.email = 'Enter a valid email';
-    if (!formData.phone.trim()) e.phone = 'Phone number is required';
-    if (!formData.address.trim()) e.address = 'Address is required';
-    if (!formData.consent) e.consent = 'You must grant permission to continue';
-    return e;
-  };
-
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData(prev => ({ ...prev, [name]: type === 'checkbox' ? checked : value }));
-    if (errors[name]) setErrors(prev => ({ ...prev, [name]: '' }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const v = validate();
-    if (Object.keys(v).length > 0) { setErrors(v); return; }
-    try {
-      await fetch('https://services.leadconnectorhq.com/hooks/vrdSkDWOcShwwiFFpzlV/webhook-trigger/44fa6fbc-14dc-4bbd-8e3c-9b6b5d935b3f', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          firstName: formData.firstName,
-          lastName: formData.lastName,
-          email: formData.email,
-          phone: formData.phone,
-          address: formData.address,
-        }),
-      });
-    } catch (_) { /* submit succeeds visually even if webhook fails */ }
-    setSubmitted(true);
-  };
-
-  const inputClass = (field) =>
-    `w-full bg-white/5 border ${errors[field] ? 'border-red-500' : 'border-border-subtle'} rounded px-4 py-3 text-white placeholder-text-faint focus:outline-none focus:border-orange-500 transition-colors duration-300`;
+  useEffect(() => {
+    const existing = document.querySelector('script[src="https://go.kailenflow.com/js/form_embed.js"]');
+    if (!existing) {
+      const s = document.createElement('script');
+      s.src = 'https://go.kailenflow.com/js/form_embed.js';
+      s.async = true;
+      document.body.appendChild(s);
+    }
+  }, []);
 
   return (
     <>
@@ -56,60 +23,16 @@ export default function ContactUs() {
       <InnerHero title="New Service Request" />
       <section className="px-6 lg:px-[clamp(2rem,5vw,4rem)] py-20 md:py-28">
         <div className="max-w-[700px] mx-auto">
-          {submitted ? (
-            <div className="text-center py-8">
-              <div className="w-16 h-16 bg-orange-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="w-8 h-8 text-orange-500">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                </svg>
-              </div>
-              <p className="text-text-muted text-lg leading-relaxed">
-                Your message has been sent successfully and Rankin Waste Management will respond to your request within 24hrs.
-              </p>
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="space-y-5">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                <div>
-                  <label className="block text-sm font-semibold mb-1">First Name *</label>
-                  <input type="text" name="firstName" value={formData.firstName} onChange={handleChange} className={inputClass('firstName')} />
-                  {errors.firstName && <p className="text-red-400 text-xs mt-1">{errors.firstName}</p>}
-                </div>
-                <div>
-                  <label className="block text-sm font-semibold mb-1">Last Name *</label>
-                  <input type="text" name="lastName" value={formData.lastName} onChange={handleChange} className={inputClass('lastName')} />
-                  {errors.lastName && <p className="text-red-400 text-xs mt-1">{errors.lastName}</p>}
-                </div>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                <div>
-                  <label className="block text-sm font-semibold mb-1">Email *</label>
-                  <input type="email" name="email" value={formData.email} onChange={handleChange} className={inputClass('email')} />
-                  {errors.email && <p className="text-red-400 text-xs mt-1">{errors.email}</p>}
-                </div>
-                <div>
-                  <label className="block text-sm font-semibold mb-1">Phone Number *</label>
-                  <input type="tel" name="phone" value={formData.phone} onChange={handleChange} className={inputClass('phone')} />
-                  {errors.phone && <p className="text-red-400 text-xs mt-1">{errors.phone}</p>}
-                </div>
-              </div>
-              <div>
-                <label className="block text-sm font-semibold mb-1">Address *</label>
-                <input type="text" name="address" value={formData.address} onChange={handleChange} className={inputClass('address')} />
-                {errors.address && <p className="text-red-400 text-xs mt-1">{errors.address}</p>}
-              </div>
-              <div className="flex items-start gap-3">
-                <input type="checkbox" name="consent" checked={formData.consent} onChange={handleChange} className="mt-1 accent-orange-500 w-4 h-4" id="consent" />
-                <label htmlFor="consent" className="text-text-muted text-sm leading-relaxed">
-                  By checking this box and submitting your information, you are granting us permission to email you. You may unsubscribe at any time.
-                </label>
-              </div>
-              {errors.consent && <p className="text-red-400 text-xs">{errors.consent}</p>}
-              <button type="submit" className="w-full bg-orange-500 hover:bg-orange-600 text-white py-3.5 rounded font-bold text-lg transition-colors duration-300 min-h-[44px]">
-                Send Request
-              </button>
-            </form>
-          )}
+          <div className="ghl-form-container rounded-lg overflow-hidden">
+            <iframe
+              src={GHL_FORM_URL}
+              className="w-full border-none"
+              style={{ minHeight: '600px' }}
+              scrolling="no"
+              id="page-ghl-form"
+              title="Service Request Form"
+            />
+          </div>
 
           <div className="mt-16 pt-12 border-t border-border-subtle">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-text-muted text-sm">

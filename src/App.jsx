@@ -715,119 +715,50 @@ const Footer = () => (
 
 /* ═══════════════════════ SERVICE REQUEST MODAL ═══════════════════════ */
 
+const GHL_FORM_URL = 'https://go.kailenflow.com/widget/form/IonAPiOYK1uWC7rxn7Iw';
+
 const ServiceRequestModal = ({ isOpen, onClose }) => {
-  const [formData, setFormData] = useState({ name: '', email: '', phone: '', address: '', serviceType: '', message: '' });
-  const [submitted, setSubmitted] = useState(false);
-  const [errors, setErrors] = useState({});
+  const iframeRef = useRef(null);
 
-  const validate = () => {
-    const e = {};
-    if (!formData.name.trim()) e.name = 'Name is required';
-    if (!formData.email.trim()) e.email = 'Email is required';
-    else if (!/\S+@\S+\.\S+/.test(formData.email)) e.email = 'Enter a valid email';
-    if (!formData.phone.trim()) e.phone = 'Phone is required';
-    if (!formData.address.trim()) e.address = 'Address is required';
-    if (!formData.serviceType) e.serviceType = 'Please select a service type';
-    return e;
-  };
-
-  const handleChange = (ev) => {
-    setFormData({ ...formData, [ev.target.name]: ev.target.value });
-    if (errors[ev.target.name]) setErrors({ ...errors, [ev.target.name]: '' });
-  };
-
-  const handleSubmit = (ev) => {
-    ev.preventDefault();
-    const v = validate();
-    if (Object.keys(v).length > 0) { setErrors(v); return; }
-    setSubmitted(true);
-  };
-
-  const handleClose = () => {
-    setSubmitted(false);
-    setFormData({ name: '', email: '', phone: '', address: '', serviceType: '', message: '' });
-    setErrors({});
-    onClose();
-  };
+  useEffect(() => {
+    if (!isOpen) return;
+    // Load GHL form embed script
+    const existing = document.querySelector('script[src="https://go.kailenflow.com/js/form_embed.js"]');
+    if (!existing) {
+      const s = document.createElement('script');
+      s.src = 'https://go.kailenflow.com/js/form_embed.js';
+      s.async = true;
+      document.body.appendChild(s);
+    }
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
-  const inputClass = (field) =>
-    `w-full bg-white/5 border ${errors[field] ? 'border-red-500' : 'border-border-subtle'} rounded px-4 py-3 text-white placeholder-text-faint focus:outline-none focus:border-orange-500 transition-colors duration-300`;
-
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={handleClose} />
-      <div className="relative bg-dark-card border border-border-subtle rounded-lg shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto" style={{ animation: 'heroFadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) both' }}>
+      <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={onClose} />
+      <div className="relative bg-[#1a1a1a] border border-border-subtle rounded-lg shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto" style={{ animation: 'heroFadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) both' }}>
         <div className="bg-orange-500 px-6 py-5 rounded-t-lg flex items-center justify-between">
           <div>
             <h2 className="text-xl font-bold text-white">Request Service</h2>
             <p className="text-white/80 text-sm mt-1">We'll get back to you within 24 hours</p>
           </div>
-          <button onClick={handleClose} className="text-white/80 hover:text-white min-w-[44px] min-h-[44px] flex items-center justify-center transition-colors duration-300" aria-label="Close">
+          <button onClick={onClose} className="text-white/80 hover:text-white min-w-[44px] min-h-[44px] flex items-center justify-center transition-colors duration-300" aria-label="Close">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="w-6 h-6">
               <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
         </div>
         <div className="p-6">
-          {submitted ? (
-            <div className="text-center py-8">
-              <div className="w-16 h-16 bg-orange-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="w-8 h-8 text-orange-500">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold mb-2">Request Submitted!</h3>
-              <p className="text-text-muted mb-6">Thank you, {formData.name}! We'll contact you shortly.</p>
-              <button onClick={handleClose} className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded font-bold transition-colors duration-300">Close</button>
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-semibold mb-1">Full Name *</label>
-                  <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="John Doe" className={inputClass('name')} />
-                  {errors.name && <p className="text-red-400 text-xs mt-1">{errors.name}</p>}
-                </div>
-                <div>
-                  <label className="block text-sm font-semibold mb-1">Email *</label>
-                  <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="john@example.com" className={inputClass('email')} />
-                  {errors.email && <p className="text-red-400 text-xs mt-1">{errors.email}</p>}
-                </div>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-semibold mb-1">Phone *</label>
-                  <input type="tel" name="phone" value={formData.phone} onChange={handleChange} placeholder="(254) 555-0000" className={inputClass('phone')} />
-                  {errors.phone && <p className="text-red-400 text-xs mt-1">{errors.phone}</p>}
-                </div>
-                <div>
-                  <label className="block text-sm font-semibold mb-1">Service Type *</label>
-                  <select name="serviceType" value={formData.serviceType} onChange={handleChange} className={inputClass('serviceType')}>
-                    <option value="">Select a service...</option>
-                    <option value="residential">Weekly Residential Pickup</option>
-                    <option value="bulk">Bulk Trash Pickup</option>
-                    <option value="trailer">Dump Trailer Rental</option>
-                    <option value="other">Other</option>
-                  </select>
-                  {errors.serviceType && <p className="text-red-400 text-xs mt-1">{errors.serviceType}</p>}
-                </div>
-              </div>
-              <div>
-                <label className="block text-sm font-semibold mb-1">Service Address *</label>
-                <input type="text" name="address" value={formData.address} onChange={handleChange} placeholder="123 Main St, Hubbard, TX 76648" className={inputClass('address')} />
-                {errors.address && <p className="text-red-400 text-xs mt-1">{errors.address}</p>}
-              </div>
-              <div>
-                <label className="block text-sm font-semibold mb-1">Additional Notes</label>
-                <textarea name="message" value={formData.message} onChange={handleChange} rows={3} placeholder="Any additional details..." className={`${inputClass('message')} resize-none`} />
-              </div>
-              <button type="submit" className="w-full bg-orange-500 hover:bg-orange-600 text-white py-3 rounded font-bold text-lg transition-colors duration-300 min-h-[44px]">
-                Submit Service Request
-              </button>
-            </form>
-          )}
+          <iframe
+            ref={iframeRef}
+            src={GHL_FORM_URL}
+            className="w-full border-none"
+            style={{ minHeight: '500px' }}
+            scrolling="no"
+            id="modal-ghl-form"
+            title="Service Request Form"
+          />
         </div>
       </div>
     </div>

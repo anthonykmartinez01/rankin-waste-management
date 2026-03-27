@@ -25,6 +25,29 @@
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
+    <!-- GHL Form Dark Theme -->
+    <style>
+      /* RANKIN WASTE DARK THEME FOR GHL FORM */
+      .ghl-form-wrap { background-color: #1a1a1a !important; }
+      .form-builder, .hl_wrapper--inner, .hl_wrapper--inner-full { background-color: #1a1a1a !important; }
+      .form-builder--wrap, .form-builder--wrap-full { background-color: #1a1a1a !important; }
+      .form-field-container, .field-container, .form-field-wrapper { background-color: #1a1a1a !important; }
+      .f-even, .f-odd { background-color: #1a1a1a !important; }
+      .form-side { background-color: #1a1a1a !important; border-color: #1a1a1a !important; }
+      .field-label, .label-alignment { color: #ffffff !important; font-size: 14px !important; }
+      .form-control { background-color: #2a2a2a !important; border: 1px solid #444444 !important; color: #ffffff !important; border-radius: 4px !important; }
+      .ghl-form-wrap input::placeholder { color: #999999 !important; opacity: 1 !important; }
+      .multiselect, .multiselect__tags { background-color: #2a2a2a !important; border-color: #444444 !important; }
+      .multiselect__placeholder { color: #999999 !important; }
+      .multiselect__input, .multiselect__single { background: #2a2a2a !important; color: #ffffff !important; }
+      .button-element { background-color: #e8913a !important; color: #ffffff !important; border: none !important; border-radius: 4px !important; font-weight: 600 !important; }
+      .button-element:hover { background-color: #d47f2e !important; }
+      .checkbox-container, .checkbox-container *, .terms-and-conditions, .terms-and-conditions * { color: #ffffff !important; }
+      .checkbox-container + .checkbox-container { display: none !important; }
+      .terms-and-conditions + .terms-and-conditions { display: none !important; }
+      .heading-element .text-element { display: none !important; }
+    </style>
+
     <!-- LocalBusiness Schema -->
     <script type="application/ld+json">
     {
@@ -72,5 +95,53 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+    <!-- GHL Form Layout JS -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(function() {
+        document.querySelectorAll('.form-control').forEach(function(el) {
+          el.style.setProperty('background-color', '#2a2a2a', 'important');
+          el.style.setProperty('border', '1px solid #444', 'important');
+          el.style.setProperty('color', '#fff', 'important');
+        });
+        var btn = document.querySelector('.button-element');
+        if (btn) btn.style.setProperty('background-color', '#e8913a', 'important');
+        document.querySelectorAll('.multiselect, .multiselect__tags').forEach(function(el) {
+          el.style.setProperty('background-color', '#2a2a2a', 'important');
+        });
+        var cbs = document.querySelectorAll('.checkbox-container');
+        if (cbs.length > 1) cbs[1].style.setProperty('display', 'none', 'important');
+        var tcs = document.querySelectorAll('.terms-and-conditions');
+        if (tcs.length > 1) tcs[1].style.setProperty('display', 'none', 'important');
+        document.querySelectorAll('.heading-element .text-element').forEach(function(el) {
+          el.style.setProperty('display', 'none', 'important');
+        });
+        var fieldWrappers = document.querySelectorAll('.fields-container > .form-field-wrapper');
+        if (fieldWrappers.length >= 4) {
+          var row1 = document.createElement('div');
+          row1.style.cssText = 'display:flex !important; gap:16px; width:100%;';
+          fieldWrappers[0].style.setProperty('flex', '1', 'important');
+          fieldWrappers[0].style.setProperty('min-width', '0', 'important');
+          fieldWrappers[1].style.setProperty('flex', '1', 'important');
+          fieldWrappers[1].style.setProperty('min-width', '0', 'important');
+          fieldWrappers[0].parentNode.insertBefore(row1, fieldWrappers[0]);
+          row1.appendChild(fieldWrappers[0]);
+          row1.appendChild(fieldWrappers[1]);
+          var updatedWrappers = document.querySelectorAll('.fields-container > .form-field-wrapper');
+          if (updatedWrappers.length >= 2) {
+            var row2 = document.createElement('div');
+            row2.style.cssText = 'display:flex !important; gap:16px; width:100%;';
+            updatedWrappers[0].style.setProperty('flex', '1', 'important');
+            updatedWrappers[0].style.setProperty('min-width', '0', 'important');
+            updatedWrappers[1].style.setProperty('flex', '1', 'important');
+            updatedWrappers[1].style.setProperty('min-width', '0', 'important');
+            updatedWrappers[0].parentNode.insertBefore(row2, updatedWrappers[0]);
+            row2.appendChild(updatedWrappers[0]);
+            row2.appendChild(updatedWrappers[1]);
+          }
+        }
+      }, 1500);
+    });
+    </script>
   </body>
 </html>
