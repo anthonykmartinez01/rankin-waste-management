@@ -1,5 +1,10 @@
-import { useState, useEffect, useRef, lazy, Suspense } from 'react';
+import { useState, useEffect, useRef, lazy, Suspense, createContext, useContext } from 'react';
 import { BrowserRouter, Routes, Route, Link, useLocation } from 'react-router-dom';
+
+/* ═══════════════════════ MODAL CONTEXT ═══════════════════════ */
+
+const ModalContext = createContext({ openModal: () => {} });
+const useModal = () => useContext(ModalContext);
 
 const Residential = lazy(() => import('./pages/Residential'));
 const TrashTrailerRentals = lazy(() => import('./pages/TrashTrailerRentals'));
@@ -193,7 +198,9 @@ const TrustBadge = ({ children }) => (
   </span>
 );
 
-const Hero = () => (
+const Hero = () => {
+  const { openModal } = useModal();
+  return (
   <header id="top" className="min-h-[70vh] sm:min-h-[65vh] md:min-h-[62vh] w-full flex flex-col justify-center items-center text-center px-6 relative overflow-hidden pb-8">
     {/* Background image */}
     <div className="absolute inset-0">
@@ -226,9 +233,9 @@ const Hero = () => (
           <PhoneIcon className="w-5 h-5" />
           Call Now {PHONE}
         </a>
-        <Link to="/contact-us" className="bg-white/10 backdrop-blur-sm border border-white/30 text-white px-7 py-3.5 rounded-full font-semibold text-base hover:bg-white/20 transition-all duration-300 min-h-[44px]">
+        <button onClick={openModal} className="bg-white/10 backdrop-blur-sm border border-white/30 text-white px-7 py-3.5 rounded-full font-semibold text-base hover:bg-white/20 transition-all duration-300 min-h-[44px]">
           New Service Request
-        </Link>
+        </button>
       </div>
 
       {/* Trust badges */}
@@ -241,7 +248,8 @@ const Hero = () => (
       </div>
     </div>
   </header>
-);
+  );
+};
 
 /* ═══════════════════════ BUSINESS DESCRIPTION ═══════════════════════ */
 
@@ -612,6 +620,7 @@ const About = () => {
 /* ═══════════════════════ FINAL CTA ═══════════════════════ */
 
 const FinalCTA = () => {
+  const { openModal } = useModal();
   const anim = useReveal();
   return (
     <section className="px-6 lg:px-[clamp(2rem,5vw,4rem)] py-20 md:py-28 text-center">
@@ -627,9 +636,9 @@ const FinalCTA = () => {
             <PhoneIcon className="w-5 h-5" />
             Call {PHONE}
           </a>
-          <Link to="/contact-us" className="border border-white/30 text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white/10 transition-colors duration-300 min-h-[44px]">
+          <button onClick={openModal} className="border border-white/30 text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white/10 transition-colors duration-300 min-h-[44px]">
             New Service Request
-          </Link>
+          </button>
         </div>
       </div>
     </section>
@@ -797,23 +806,29 @@ const ScrollToHash = () => {
 
 const AppInner = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const openModal = () => setModalOpen(true);
+  const closeModal = () => setModalOpen(false);
 
   return (
-    <div className="min-h-screen bg-dark text-white">
-      <ScrollToHash />
-      <Nav mobileMenuOpen={mobileMenuOpen} setMobileMenuOpen={setMobileMenuOpen} />
-      <Suspense fallback={<div className="min-h-screen" />}>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/residential" element={<Residential />} />
-          <Route path="/trash-trailer-rentals" element={<TrashTrailerRentals />} />
-          <Route path="/about-us" element={<AboutUs />} />
-          <Route path="/contact-us" element={<ContactUs />} />
-          <Route path="/reviews" element={<ReviewsPage />} />
-        </Routes>
-      </Suspense>
-      <Footer />
-    </div>
+    <ModalContext.Provider value={{ openModal }}>
+      <div className="min-h-screen bg-dark text-white">
+        <ScrollToHash />
+        <Nav mobileMenuOpen={mobileMenuOpen} setMobileMenuOpen={setMobileMenuOpen} />
+        <Suspense fallback={<div className="min-h-screen" />}>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/residential" element={<Residential />} />
+            <Route path="/trash-trailer-rentals" element={<TrashTrailerRentals />} />
+            <Route path="/about-us" element={<AboutUs />} />
+            <Route path="/contact-us" element={<ContactUs />} />
+            <Route path="/reviews" element={<ReviewsPage />} />
+          </Routes>
+        </Suspense>
+        <Footer />
+        <ServiceRequestModal isOpen={modalOpen} onClose={closeModal} />
+      </div>
+    </ModalContext.Provider>
   );
 };
 
