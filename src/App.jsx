@@ -727,11 +727,40 @@ const Footer = () => (
 const GHL_FORM_URL = 'https://go.kailenflow.com/widget/form/IonAPiOYK1uWC7rxn7Iw';
 
 const ServiceRequestModal = ({ isOpen, onClose }) => {
-  const iframeRef = useRef(null);
+  const formContainerRef = useRef(null);
 
   useEffect(() => {
     if (!isOpen) return;
-    // Load GHL form embed script
+
+    // Inject dark theme CSS for GHL form
+    if (!document.getElementById('ghl-dark-css')) {
+      const style = document.createElement('style');
+      style.id = 'ghl-dark-css';
+      style.textContent = `
+        .ghl-modal-form-wrap, .ghl-modal-form-wrap .hl-app { background-color: #1a1a1a !important; }
+        .ghl-modal-form-wrap .ghl-form-wrap { background-color: #1a1a1a !important; }
+        .ghl-modal-form-wrap .form-builder, .ghl-modal-form-wrap .hl_wrapper--inner, .ghl-modal-form-wrap .hl_wrapper--inner-full { background-color: #1a1a1a !important; }
+        .ghl-modal-form-wrap .form-builder--wrap, .ghl-modal-form-wrap .form-builder--wrap-full { background-color: #1a1a1a !important; }
+        .ghl-modal-form-wrap .form-field-container, .ghl-modal-form-wrap .field-container, .ghl-modal-form-wrap .form-field-wrapper { background-color: #1a1a1a !important; }
+        .ghl-modal-form-wrap .f-even, .ghl-modal-form-wrap .f-odd { background-color: #1a1a1a !important; }
+        .ghl-modal-form-wrap .form-side { background-color: #1a1a1a !important; border-color: #1a1a1a !important; }
+        .ghl-modal-form-wrap .field-label, .ghl-modal-form-wrap .label-alignment, .ghl-modal-form-wrap label { color: #ffffff !important; font-size: 14px !important; }
+        .ghl-modal-form-wrap .form-control { background-color: #2a2a2a !important; border: 1px solid #444444 !important; color: #ffffff !important; border-radius: 4px !important; }
+        .ghl-modal-form-wrap input::placeholder { color: #999999 !important; opacity: 1 !important; }
+        .ghl-modal-form-wrap .multiselect, .ghl-modal-form-wrap .multiselect__tags { background-color: #2a2a2a !important; border-color: #444444 !important; }
+        .ghl-modal-form-wrap .multiselect__placeholder { color: #999999 !important; }
+        .ghl-modal-form-wrap .multiselect__input, .ghl-modal-form-wrap .multiselect__single { background: #2a2a2a !important; color: #ffffff !important; }
+        .ghl-modal-form-wrap .button-element { background-color: #e8913a !important; color: #ffffff !important; border: none !important; border-radius: 4px !important; font-weight: 600 !important; }
+        .ghl-modal-form-wrap .button-element:hover { background-color: #d47f2e !important; }
+        .ghl-modal-form-wrap .checkbox-container, .ghl-modal-form-wrap .checkbox-container *, .ghl-modal-form-wrap .terms-and-conditions, .ghl-modal-form-wrap .terms-and-conditions * { color: #ffffff !important; }
+        .ghl-modal-form-wrap .checkbox-container + .checkbox-container { display: none !important; }
+        .ghl-modal-form-wrap .terms-and-conditions + .terms-and-conditions { display: none !important; }
+        .ghl-modal-form-wrap .heading-element .text-element { display: none !important; }
+      `;
+      document.head.appendChild(style);
+    }
+
+    // Load GHL form embed script (inline, not iframe)
     const existing = document.querySelector('script[src="https://go.kailenflow.com/js/form_embed.js"]');
     if (!existing) {
       const s = document.createElement('script');
@@ -739,6 +768,32 @@ const ServiceRequestModal = ({ isOpen, onClose }) => {
       s.async = true;
       document.body.appendChild(s);
     }
+
+    // Apply dark JS overrides after form loads
+    const applyDarkTheme = () => {
+      const container = formContainerRef.current;
+      if (!container) return;
+      container.querySelectorAll('.form-control').forEach(el => {
+        el.style.setProperty('background-color', '#2a2a2a', 'important');
+        el.style.setProperty('border', '1px solid #444', 'important');
+        el.style.setProperty('color', '#fff', 'important');
+      });
+      const btn = container.querySelector('.button-element');
+      if (btn) btn.style.setProperty('background-color', '#e8913a', 'important');
+      container.querySelectorAll('.multiselect, .multiselect__tags').forEach(el => {
+        el.style.setProperty('background-color', '#2a2a2a', 'important');
+      });
+      const cbs = container.querySelectorAll('.checkbox-container');
+      if (cbs.length > 1) cbs[1].style.setProperty('display', 'none', 'important');
+      const tcs = container.querySelectorAll('.terms-and-conditions');
+      if (tcs.length > 1) tcs[1].style.setProperty('display', 'none', 'important');
+      container.querySelectorAll('.heading-element .text-element').forEach(el => {
+        el.style.setProperty('display', 'none', 'important');
+      });
+    };
+    const timer = setTimeout(applyDarkTheme, 1500);
+    const timer2 = setTimeout(applyDarkTheme, 3000);
+    return () => { clearTimeout(timer); clearTimeout(timer2); };
   }, [isOpen]);
 
   if (!isOpen) return null;
@@ -746,7 +801,7 @@ const ServiceRequestModal = ({ isOpen, onClose }) => {
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={onClose} />
-      <div className="relative bg-white border border-border-subtle rounded-lg shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto" style={{ animation: 'heroFadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) both' }}>
+      <div className="relative bg-white rounded-lg shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto" style={{ animation: 'heroFadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) both' }}>
         <div className="bg-orange-500 px-6 py-5 rounded-t-lg flex items-center justify-between">
           <div>
             <h2 className="text-xl font-bold text-white">Request Service</h2>
@@ -758,9 +813,8 @@ const ServiceRequestModal = ({ isOpen, onClose }) => {
             </svg>
           </button>
         </div>
-        <div className="p-0 bg-white">
+        <div ref={formContainerRef} className="p-0 ghl-modal-form-wrap" style={{ backgroundColor: '#ffffff' }}>
           <iframe
-            ref={iframeRef}
             src={GHL_FORM_URL}
             className="w-full border-none"
             style={{ minHeight: '500px', background: '#ffffff' }}
