@@ -746,7 +746,7 @@ const ServiceRequestModal = ({ isOpen, onClose }) => {
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={onClose} />
-      <div className="relative bg-[#1a1a1a] border border-border-subtle rounded-lg shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto" style={{ animation: 'heroFadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) both' }}>
+      <div className="relative bg-white border border-border-subtle rounded-lg shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto" style={{ animation: 'heroFadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) both' }}>
         <div className="bg-orange-500 px-6 py-5 rounded-t-lg flex items-center justify-between">
           <div>
             <h2 className="text-xl font-bold text-white">Request Service</h2>
@@ -758,12 +758,12 @@ const ServiceRequestModal = ({ isOpen, onClose }) => {
             </svg>
           </button>
         </div>
-        <div className="p-6">
+        <div className="p-0 bg-white">
           <iframe
             ref={iframeRef}
             src={GHL_FORM_URL}
             className="w-full border-none"
-            style={{ minHeight: '500px' }}
+            style={{ minHeight: '500px', background: '#ffffff' }}
             scrolling="no"
             id="modal-ghl-form"
             title="Service Request Form"

@@ -23,11 +23,11 @@ export default function ContactUs() {
       <InnerHero title="New Service Request" />
       <section className="px-6 lg:px-[clamp(2rem,5vw,4rem)] py-20 md:py-28">
         <div className="max-w-[700px] mx-auto">
-          <div className="ghl-form-container rounded-lg overflow-hidden">
+          <div className="ghl-form-container rounded-lg overflow-hidden bg-white">
             <iframe
               src={GHL_FORM_URL}
               className="w-full border-none"
-              style={{ minHeight: '600px' }}
+              style={{ minHeight: '600px', background: '#ffffff' }}
               scrolling="no"
               id="page-ghl-form"
               title="Service Request Form"
