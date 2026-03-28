@@ -12,6 +12,7 @@ const AboutUs = lazy(() => import('./pages/AboutUs'));
 const ContactUs = lazy(() => import('./pages/ContactUs'));
 const ReviewsPage = lazy(() => import('./pages/Reviews'));
 const TermsOfService = lazy(() => import('./pages/TermsOfService'));
+const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
 
 /* ═══════════════════════ SCROLL REVEAL HOOK ═══════════════════════ */
 
@@ -879,6 +880,7 @@ const AppInner = () => {
             <Route path="/contact-us" element={<ContactUs />} />
             <Route path="/reviews" element={<ReviewsPage />} />
             <Route path="/terms-of-service" element={<TermsOfService />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           </Routes>
         </Suspense>
         <Footer />
