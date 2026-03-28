@@ -11,6 +11,7 @@ const TrashTrailerRentals = lazy(() => import('./pages/TrashTrailerRentals'));
 const AboutUs = lazy(() => import('./pages/AboutUs'));
 const ContactUs = lazy(() => import('./pages/ContactUs'));
 const ReviewsPage = lazy(() => import('./pages/Reviews'));
+const TermsOfService = lazy(() => import('./pages/TermsOfService'));
 
 /* ═══════════════════════ SCROLL REVEAL HOOK ═══════════════════════ */
 
@@ -877,6 +878,7 @@ const AppInner = () => {
             <Route path="/about-us" element={<AboutUs />} />
             <Route path="/contact-us" element={<ContactUs />} />
             <Route path="/reviews" element={<ReviewsPage />} />
+            <Route path="/terms-of-service" element={<TermsOfService />} />
           </Routes>
         </Suspense>
         <Footer />
