@@ -122,10 +122,10 @@ export default function Reviews() {
   return (
     <>
       <PageHead
-        title="Reviews - Rankin Waste Management"
-        description="Read reviews from Rankin Waste Management customers. See why families in Hubbard, TX and surrounding communities trust us for reliable trash pickup."
+        title="Reviews - Waste Management Service in Hubbard, TX | Rankin Waste Management"
+        description="Read reviews from Rankin Waste Management customers. See why families in Hubbard, TX and surrounding communities trust us for reliable waste management service."
       />
-      <InnerHero title="Reviews" />
+      <InnerHero title="Waste Management Service Reviews in Hubbard, TX" />
 
       <style>{`
         .gbp-reviews-widget {
