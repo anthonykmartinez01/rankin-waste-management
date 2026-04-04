@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, lazy, Suspense, createContext, useContext } from 'react';
 import { BrowserRouter, Routes, Route, Link, useLocation } from 'react-router-dom';
+import ReviewWidget from './components/ReviewWidget';
 
 /* ═══════════════════════ MODAL CONTEXT ═══════════════════════ */
 
@@ -331,35 +332,9 @@ const WhyCard = ({ card, delay }) => {
 /* ═══════════════════════ REVIEWS ═══════════════════════ */
 
 const Reviews = () => {
-  const header = useReveal();
-  const widget = useReveal(0.1);
-
-  useEffect(() => {
-    const script = document.createElement('script');
-    script.src = 'https://reputationhub.site/reputation/assets/review-widget.js';
-    script.type = 'text/javascript';
-    script.async = true;
-    document.body.appendChild(script);
-    return () => { if (script.parentNode) script.parentNode.removeChild(script); };
-  }, []);
-
   return (
-    <section id="reviews" className="bg-dark-elevated px-6 lg:px-[clamp(2rem,5vw,4rem)] py-20 md:py-28">
-      <div className="max-w-[1200px] mx-auto">
-        <div ref={header.ref} style={header.style} className="text-center mb-12 md:mb-16">
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-medium tracking-tight">What Our Customers Say</h2>
-        </div>
-        <div ref={widget.ref} style={widget.style}>
-          <iframe
-            className="lc_reviews_widget"
-            src="https://reputationhub.site/reputation/widgets/review_widget/rFlq3Y1VRHN6jfB22fkr?widgetId=69bdce0ddeb65e7ddada83c5"
-            frameBorder="0"
-            scrolling="no"
-            style={{ minWidth: '100%', width: '100%' }}
-            title="Customer Reviews"
-          />
-        </div>
-      </div>
+    <section id="reviews" className="bg-dark-elevated">
+      <ReviewWidget />
     </section>
   );
 };
