@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 
 const REVIEWS = [
   { name: "Kayla Jones", initials: "KJ", date: "3 hours ago", text: "If you're looking for a waste service that truly goes above and beyond, Rankin Waste Management is it. Tommy and Sydney are reliable, affordable, and somehow still the kind of people who show up for everything like ballgames, school events, and anything that supports our kids and community. They run their business the way small-town businesses should be run, treating people like family, not just customers. What really sets them apart is that they're not just serving the community, they're part of it. 10/10 recommend.", tag: "Community" },
@@ -17,279 +17,79 @@ const REVIEWS = [
   { name: "Randy McDonald", initials: "RM", date: "3 days ago", text: "I have lived at this address for over 20 years and this has been by far the best garbage pick up that we have ever had.", tag: "20+ Years" },
 ];
 
-const PLACE_ID = "ChIJ2RjursUVj2ARXWN2q_c1MzI";
-const REVIEW_URL = `https://search.google.com/local/writereview?placeid=${PLACE_ID}`;
-
-const GoogleIcon = () => (
-  <svg className="rw-google-badge" width="20" height="20" viewBox="0 0 48 48">
-    <path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z" />
-    <path fill="#FF3D00" d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z" />
-    <path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238A11.91 11.91 0 0124 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z" />
-    <path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303a12.04 12.04 0 01-4.087 5.571l.003-.002 6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z" />
+const GoogleG = ({ className, width = 20, height = 20 }) => (
+  <svg className={className} width={width} height={height} viewBox="0 0 24 24">
+    <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" />
+    <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+    <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
+    <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
   </svg>
 );
 
-const StarIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="#F4B400">
+const StarSVG = ({ className, width = 22, height = 22 }) => (
+  <svg className={className} width={width} height={height} viewBox="0 0 24 24">
     <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
   </svg>
 );
 
-const CSS = `
-.rw-reviews-widget {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 40px 20px;
-  background: #1a1a1a;
-  color: #ffffff;
-}
-
-.rw-header {
-  text-align: center;
-  margin-bottom: 32px;
-}
-
-.rw-header h2 {
-  font-size: 32px;
-  font-weight: 700;
-  margin: 0 0 12px 0;
-  color: #ffffff;
-}
-
-.rw-header h2 .rw-highlight {
-  color: #E8751A;
-}
-
-.rw-aggregate {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  margin-bottom: 8px;
-}
-
-.rw-aggregate-score {
-  font-size: 24px;
-  font-weight: 700;
-  color: #F4B400;
-}
-
-.rw-aggregate-stars {
-  display: flex;
-  gap: 2px;
-}
-
-.rw-aggregate-text {
-  color: #9ca3af;
-  font-size: 14px;
-}
-
-.rw-cta-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  color: #E8751A;
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 500;
-  margin-top: 8px;
-  transition: opacity 0.2s;
-}
-
-.rw-cta-link:hover {
-  opacity: 0.8;
-}
-
-.rw-carousel-wrapper {
-  position: relative;
-  overflow: hidden;
-}
-
-.rw-carousel {
-  display: flex;
-  gap: 20px;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  padding: 10px 0;
-}
-
-.rw-carousel::-webkit-scrollbar {
-  display: none;
-}
-
-.rw-nav-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: rgba(232, 117, 26, 0.9);
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 10;
-  font-size: 18px;
-  transition: background 0.2s;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-}
-
-.rw-nav-btn:hover {
-  background: #E8751A;
-}
-
-.rw-nav-prev {
-  left: 8px;
-}
-
-.rw-nav-next {
-  right: 8px;
-}
-
-.rw-card {
-  flex: 0 0 360px;
-  background: #2a2a2a;
-  border-radius: 12px;
-  padding: 24px;
-  position: relative;
-  border: 1px solid #3a3a3a;
-  transition: border-color 0.2s;
-}
-
-.rw-card:hover {
-  border-color: #E8751A;
-}
-
-.rw-google-badge {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  opacity: 0.6;
-}
-
-.rw-card-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 12px;
-}
-
-.rw-avatar {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #E8751A, #f59e0b);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 600;
-  font-size: 14px;
-  color: #fff;
-  flex-shrink: 0;
-}
-
-.rw-reviewer-info {
-  display: flex;
-  flex-direction: column;
-}
-
-.rw-reviewer-name {
-  font-weight: 600;
-  font-size: 15px;
-  color: #ffffff;
-}
-
-.rw-review-date {
-  font-size: 12px;
-  color: #9ca3af;
-}
-
-.rw-stars {
-  display: flex;
-  gap: 2px;
-  margin-bottom: 12px;
-}
-
-.rw-review-text {
-  font-size: 14px;
-  line-height: 1.6;
-  color: #d1d5db;
-  display: -webkit-box;
-  -webkit-line-clamp: 5;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.rw-review-text.rw-expanded {
-  display: block;
-  -webkit-line-clamp: unset;
-  overflow: visible;
-}
-
-.rw-read-more {
-  background: none;
-  border: none;
-  color: #E8751A;
-  cursor: pointer;
-  font-size: 13px;
-  padding: 4px 0;
-  margin-top: 4px;
-  font-weight: 500;
-}
-
-.rw-read-more:hover {
-  text-decoration: underline;
-}
-
-.rw-tag {
-  display: inline-block;
-  margin-top: 12px;
-  padding: 4px 12px;
-  background: rgba(232, 117, 26, 0.15);
-  color: #E8751A;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 500;
-}
-
-@media (max-width: 768px) {
-  .rw-card {
-    flex: 0 0 320px;
-  }
-  .rw-header h2 {
-    font-size: 26px;
-  }
-}
-
-@media (max-width: 480px) {
-  .rw-card {
-    flex: 0 0 290px;
-  }
-  .rw-reviews-widget {
-    padding: 24px 12px;
-  }
-  .rw-header h2 {
-    font-size: 22px;
-  }
-}
-
-@media (max-width: 320px) {
-  .rw-card {
-    flex: 0 0 calc(100vw - 44px);
-  }
-}
-`;
+const CSS = `.rw-reviews-widget { font-family: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #101010; padding: 60px 20px; max-width: 100%; overflow: hidden; position: relative; color: #fff; }
+.rw-reviews-widget * { box-sizing: border-box; margin: 0; padding: 0; }
+.rw-header { text-align: center; max-width: 700px; margin: 0 auto 40px; }
+.rw-header-badge { display: inline-flex; align-items: center; gap: 8px; background: #181818; border: 1px solid #2a2a2a; border-radius: 50px; padding: 8px 18px; margin-bottom: 20px; }
+.rw-google-icon { width: 20px; height: 20px; }
+.rw-header-badge span { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.8); letter-spacing: 0.5px; text-transform: uppercase; }
+.rw-header h2 { font-size: 36px; font-weight: 700; color: #fff; margin-bottom: 12px; line-height: 1.2; }
+.rw-header h2 em { font-style: normal; color: #E8751A; }
+.rw-aggregate { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 16px; }
+.rw-stars { display: flex; gap: 3px; }
+.rw-star { width: 22px; height: 22px; fill: #F59E0B; }
+.rw-rating-text { font-size: 16px; color: rgba(255,255,255,0.7); font-weight: 400; }
+.rw-rating-text strong { color: #fff; font-weight: 700; }
+.rw-carousel-wrapper { position: relative; max-width: 1200px; margin: 0 auto; padding: 0 50px; }
+.rw-carousel { display: flex; gap: 20px; overflow-x: auto; scroll-behavior: smooth; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding: 10px 0 20px; }
+.rw-carousel::-webkit-scrollbar { display: none; }
+.rw-card { flex: 0 0 360px; scroll-snap-align: start; background: #181818; border: 1px solid #2a2a2a; border-radius: 16px; padding: 28px; transition: border-color 0.3s ease, transform 0.3s ease; position: relative; }
+.rw-card:hover { border-color: #E8751A; transform: translateY(-3px); }
+.rw-card-header { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+.rw-avatar { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, #E8751A, #F59E0B); display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; color: #fff; flex-shrink: 0; }
+.rw-reviewer-info { flex: 1; }
+.rw-reviewer-name { font-size: 15px; font-weight: 700; color: #fff; line-height: 1.3; }
+.rw-review-date { font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 2px; }
+.rw-card-stars { display: flex; gap: 2px; margin-bottom: 14px; }
+.rw-card-star { width: 16px; height: 16px; fill: #F59E0B; }
+.rw-review-text { font-size: 14px; line-height: 1.65; color: rgba(255,255,255,0.75); display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden; }
+.rw-card.rw-expanded .rw-review-text { -webkit-line-clamp: unset; display: block; }
+.rw-read-more { background: none; border: none; color: #E8751A; font-size: 13px; font-weight: 600; cursor: pointer; padding: 8px 0 0; font-family: inherit; transition: color 0.2s; }
+.rw-read-more:hover { color: #F59E0B; }
+.rw-google-badge { position: absolute; top: 20px; right: 20px; width: 18px; height: 18px; opacity: 0.3; transition: opacity 0.3s; }
+.rw-card:hover .rw-google-badge { opacity: 0.6; }
+.rw-tag { display: inline-block; background: rgba(232, 117, 26, 0.12); color: #E8751A; font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 6px; margin-top: 14px; text-transform: uppercase; letter-spacing: 0.5px; }
+.rw-nav-btn { position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border-radius: 50%; background: #181818; border: 1px solid #2a2a2a; color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s; z-index: 10; }
+.rw-nav-btn:hover { background: #E8751A; border-color: #E8751A; }
+.rw-nav-prev { left: 0; }
+.rw-nav-next { right: 0; }
+.rw-nav-btn svg { width: 20px; height: 20px; fill: currentColor; }
+.rw-cta-wrap { text-align: center; margin-top: 40px; }
+.rw-cta-btn { display: inline-flex; align-items: center; gap: 8px; background: #E8751A; color: #fff; text-decoration: none; font-size: 15px; font-weight: 700; padding: 14px 32px; border-radius: 50px; transition: all 0.3s; border: 2px solid #E8751A; }
+.rw-cta-btn:hover { background: transparent; color: #E8751A; }
+.rw-cta-btn svg { width: 18px; height: 18px; fill: currentColor; }
+@media (max-width: 1024px) { .rw-card { flex: 0 0 320px; } }
+@media (max-width: 768px) { .rw-reviews-widget { padding: 40px 16px; } .rw-header h2 { font-size: 28px; } .rw-carousel-wrapper { padding: 0 10px; } .rw-card { flex: 0 0 290px; padding: 22px; } .rw-nav-btn { display: none; } }
+@media (max-width: 480px) { .rw-card { flex: 0 0 calc(100vw - 52px); } .rw-header h2 { font-size: 24px; } }`;
 
 const schemaData = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   "name": "Rankin Waste Management",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "123 Main St",
+    "addressLocality": "Rankin",
+    "addressRegion": "TX",
+    "postalCode": "79778",
+    "addressCountry": "US"
+  },
+  "telephone": "+1-432-693-2521",
   "aggregateRating": {
     "@type": "AggregateRating",
     "ratingValue": "5.0",
@@ -297,7 +97,7 @@ const schemaData = {
     "bestRating": "5",
     "worstRating": "1"
   },
-  "review": REVIEWS.map((r) => ({
+  "review": REVIEWS.slice(0, 6).map((r) => ({
     "@type": "Review",
     "author": {
       "@type": "Person",
@@ -327,9 +127,8 @@ export default function ReviewWidget() {
   const scroll = (direction) => {
     const el = carouselRef.current;
     if (!el) return;
-    const scrollAmount = 380;
     el.scrollBy({
-      left: direction === "next" ? scrollAmount : -scrollAmount,
+      left: direction === "next" ? 380 : -380,
       behavior: "smooth",
     });
   };
@@ -343,30 +142,23 @@ export default function ReviewWidget() {
       />
 
       <div className="rw-header">
+        <div className="rw-header-badge">
+          <GoogleG className="rw-google-icon" width={20} height={20} />
+          <span>Google Reviews</span>
+        </div>
         <h2>
-          What Our <span className="rw-highlight">Customers</span> Say
+          What Our <em>Customers</em> Say
         </h2>
         <div className="rw-aggregate">
-          <span className="rw-aggregate-score">5.0</span>
-          <div className="rw-aggregate-stars">
+          <div className="rw-stars">
             {[...Array(5)].map((_, i) => (
-              <StarIcon key={i} />
+              <StarSVG key={i} className="rw-star" width={22} height={22} />
             ))}
           </div>
+          <span className="rw-rating-text">
+            <strong>5.0</strong> from 60+ reviews
+          </span>
         </div>
-        <div className="rw-aggregate-text">from 60+ reviews</div>
-        <a
-          href={REVIEW_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="rw-cta-link"
-        >
-          Leave Us a Review
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M7 17L17 7" />
-            <path d="M7 7h10v10" />
-          </svg>
-        </a>
       </div>
 
       <div className="rw-carousel-wrapper">
@@ -375,30 +167,31 @@ export default function ReviewWidget() {
           onClick={() => scroll("prev")}
           aria-label="Previous reviews"
         >
-          &#8249;
+          <svg viewBox="0 0 24 24">
+            <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
+          </svg>
         </button>
 
         <div className="rw-carousel" ref={carouselRef}>
           {REVIEWS.map((review, index) => (
-            <div className="rw-card" key={index}>
-              <GoogleIcon />
+            <div
+              className={`rw-card${expandedCards[index] ? " rw-expanded" : ""}`}
+              key={index}
+            >
+              <GoogleG className="rw-google-badge" width={18} height={18} />
               <div className="rw-card-header">
                 <div className="rw-avatar">{review.initials}</div>
                 <div className="rw-reviewer-info">
-                  <span className="rw-reviewer-name">{review.name}</span>
-                  <span className="rw-review-date">{review.date}</span>
+                  <div className="rw-reviewer-name">{review.name}</div>
+                  <div className="rw-review-date">{review.date}</div>
                 </div>
               </div>
-              <div className="rw-stars">
+              <div className="rw-card-stars">
                 {[...Array(5)].map((_, i) => (
-                  <StarIcon key={i} />
+                  <StarSVG key={i} className="rw-card-star" width={16} height={16} />
                 ))}
               </div>
-              <p
-                className={`rw-review-text${expandedCards[index] ? " rw-expanded" : ""}`}
-              >
-                {review.text}
-              </p>
+              <p className="rw-review-text">{review.text}</p>
               <button
                 className="rw-read-more"
                 onClick={() => toggleExpand(index)}
@@ -417,8 +210,27 @@ export default function ReviewWidget() {
           onClick={() => scroll("next")}
           aria-label="Next reviews"
         >
-          &#8250;
+          <svg viewBox="0 0 24 24">
+            <path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z" />
+          </svg>
         </button>
+      </div>
+
+      <div className="rw-cta-wrap">
+        <a
+          href="https://g.page/r/CWKDYKs3ZdMyEBM/review"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="rw-cta-btn"
+        >
+          <svg viewBox="0 0 24 24">
+            <path fill="currentColor" opacity=".7" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" />
+            <path fill="currentColor" opacity=".7" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+            <path fill="currentColor" opacity=".7" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
+            <path fill="currentColor" opacity=".7" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
+          </svg>
+          Leave Us a Review
+        </a>
       </div>
     </div>
   );
