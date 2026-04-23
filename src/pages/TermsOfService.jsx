@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useReveal, PageHead, InnerHero } from '../shared';
 
 export default function TermsOfService() {
@@ -6,74 +7,189 @@ export default function TermsOfService() {
     <>
       <PageHead
         title="Terms of Service - Rankin Waste Management"
-        description="Terms of Service for Rankin Waste Management, including SMS messaging consent and communication policies."
+        description="Terms and Conditions for Rankin Waste Management, including SMS messaging consent, communication policies, and service terms."
       />
       <InnerHero title="Terms of Service" />
       <section className="px-6 lg:px-[clamp(2rem,5vw,4rem)] py-20 md:py-28">
         <div ref={content.ref} style={content.style} className="max-w-[800px] mx-auto">
-          <p className="text-text-muted text-sm mb-10">Last updated: March 28, 2026</p>
+          <p className="text-text-muted text-sm mb-10">Last updated: April 23, 2026</p>
 
-          <h2 className="text-2xl font-bold text-white mb-4">1. Agreement to Terms</h2>
-          <p className="text-text-muted text-lg leading-relaxed mb-8">
-            By accessing or using the services provided by Rankin Waste Management ("Company," "we," "us," or "our"), including our website at rankinwaste.com, you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our services.
+          <p className="text-text-muted text-lg leading-relaxed mb-10">
+            Please read these terms and conditions carefully before using Our Service.
           </p>
 
-          <h2 className="text-2xl font-bold text-white mb-4">2. Services</h2>
+          <h2 className="text-2xl font-bold text-white mb-4">Communications</h2>
           <p className="text-text-muted text-lg leading-relaxed mb-8">
-            Rankin Waste Management provides residential trash pickup and trash trailer rental services in Hubbard, TX and surrounding rural communities. Service details, availability, and pricing may vary and are subject to change.
+            When you visit <a href="https://rankinwaste.com/" className="text-orange-500 hover:text-orange-300 transition-colors duration-300">https://rankinwaste.com/</a> or send e-emails to us, you are communicating with us electronically. You consent to receive communications from us electronically. We will communicate with you by email through your Rankin Waste Management workspaces or by posting notices on this site. You agree that all agreements, notices, disclosures and other communications that we provide to you electronically satisfy any legal requirement that such communications be in writing.
+          </p>
+          <p className="text-text-muted text-lg leading-relaxed mb-10 italic">
+            Disclaimer: any mobile opt-in will not be shared with third parties.
           </p>
 
-          <h2 className="text-2xl font-bold text-white mb-4">3. SMS/Text Messaging Terms</h2>
+          <h2 className="text-2xl font-bold text-white mb-4">Phone (Voice &amp; Text Messages)</h2>
+          <p className="text-text-muted text-lg leading-relaxed mb-10">
+            You consent to receive text message(s) when filling webforms, reaching out to support, placing an order, scheduling a call, etc. You agree that the agreements, notices, disclosures and other communications that we provide to you electronically satisfy any legal requirement that such communications be in writing. You may opt-out at any time by replying with the word 'STOP'.
+          </p>
+
+          <h2 className="text-2xl font-bold text-white mb-4">SMS Marketing Disclosure</h2>
           <p className="text-text-muted text-lg leading-relaxed mb-4">
-            By providing your phone number and opting in to receive text messages from Rankin Waste Management, you consent to receive recurring automated SMS/text messages related to your service, including but not limited to:
+            By providing your phone number and opting in to receive SMS messages from Rankin Waste Management, you agree to receive recurring text messages related to your interactions with us. These messages may include:
           </p>
-          <ul className="list-disc list-inside text-text-muted text-lg leading-relaxed mb-4 space-y-2 ml-4">
-            <li>Service confirmations and scheduling updates</li>
-            <li>Pickup reminders and schedule changes</li>
-            <li>Account notifications</li>
-            <li>Promotional offers and company updates</li>
+          <ul className="list-disc list-inside text-text-muted text-lg leading-relaxed mb-6 space-y-2 ml-4">
+            <li>Appointment confirmations and reminders</li>
+            <li>Order updates and shipping notifications</li>
+            <li>Customer service responses</li>
+            <li>Promotional offers, marketing messages, and updates about our products and services</li>
           </ul>
           <p className="text-text-muted text-lg leading-relaxed mb-4">
-            Message frequency may vary. Message and data rates may apply depending on your mobile carrier and plan. Rankin Waste Management is not responsible for any charges from your wireless provider.
+            <strong className="text-white">Message Frequency:</strong> Message frequency varies but will not exceed 4 messages per month for promotional content. You may receive additional messages in response to your inquiries or service updates.
           </p>
           <p className="text-text-muted text-lg leading-relaxed mb-4">
-            You may opt out of receiving text messages at any time by replying STOP to any message you receive from us. After opting out, you will receive a one-time confirmation message. You may also contact us at (254) 205-6125 or rankinwaste@gmail.com to opt out.
+            <strong className="text-white">Message &amp; Data Rates:</strong> Message and data rates may apply. These are determined by your mobile carrier.
           </p>
           <p className="text-text-muted text-lg leading-relaxed mb-4">
-            For help or questions about our text messaging program, reply HELP to any message or contact us at (254) 205-6125.
+            <strong className="text-white">Opt-Out Instructions:</strong> You can opt out of receiving SMS messages at any time by replying STOP to any message. You will receive a confirmation message and no further messages will be sent unless you opt in again.
           </p>
-          <p className="text-text-muted text-lg leading-relaxed mb-8">
-            Consent to receive text messages is not a condition of purchasing any goods or services from Rankin Waste Management.
-          </p>
-
-          <h2 className="text-2xl font-bold text-white mb-4">4. Privacy</h2>
           <p className="text-text-muted text-lg leading-relaxed mb-4">
-            We respect your privacy. Your personal information, including your phone number, will not be sold, rented, or shared with third parties for marketing purposes. We may share your information with service providers who assist us in operating our business, but only as necessary to provide our services to you.
+            <strong className="text-white">Help Instructions:</strong> For help or more information, reply HELP or contact us at <a href="mailto:rankinwaste@gmail.com" className="text-orange-500 hover:text-orange-300 transition-colors duration-300">rankinwaste@gmail.com</a> or <a href="https://rankinwaste.com/" className="text-orange-500 hover:text-orange-300 transition-colors duration-300">https://rankinwaste.com/</a>.
           </p>
-          <p className="text-text-muted text-lg leading-relaxed mb-8">
-            By submitting your information through our website or forms, you consent to our collection and use of that information to provide the services you have requested and to communicate with you as described in these terms.
-          </p>
-
-          <h2 className="text-2xl font-bold text-white mb-4">5. Supported Carriers</h2>
-          <p className="text-text-muted text-lg leading-relaxed mb-8">
-            Our SMS messaging service is supported by major U.S. carriers including AT&T, Verizon, T-Mobile, Sprint, and others. Carriers are not liable for delayed or undelivered messages.
+          <p className="text-text-muted text-lg leading-relaxed mb-10">
+            <strong className="text-white">Privacy:</strong> Your information will be handled in accordance with our Privacy Policy, which can be viewed <Link to="/privacy-policy" className="text-orange-500 hover:text-orange-300 transition-colors duration-300">here</Link>.
           </p>
 
-          <h2 className="text-2xl font-bold text-white mb-4">6. Changes to Terms</h2>
+          <h2 className="text-2xl font-bold text-white mb-4">Interpretation and Definitions</h2>
+
+          <h3 className="text-xl font-bold text-white mb-3">Interpretation</h3>
           <p className="text-text-muted text-lg leading-relaxed mb-8">
-            We reserve the right to update or modify these Terms of Service at any time. Any changes will be posted on this page with an updated "Last updated" date. Your continued use of our services after any changes constitutes your acceptance of the revised terms.
+            The words of which the initial letter is capitalized have meanings defined under the following conditions. The following definitions shall have the same meaning regardless of whether they appear in singular or in plural.
           </p>
 
-          <h2 className="text-2xl font-bold text-white mb-4">7. Contact Us</h2>
-          <p className="text-text-muted text-lg leading-relaxed mb-2">
-            If you have any questions about these Terms of Service, please contact us:
+          <h3 className="text-xl font-bold text-white mb-3">Definitions</h3>
+          <p className="text-text-muted text-lg leading-relaxed mb-4">
+            For the purposes of these Terms and Conditions:
           </p>
-          <ul className="text-text-muted text-lg leading-relaxed space-y-1 ml-4">
-            <li>Rankin Waste Management</li>
-            <li>175 PR335, Hubbard, TX 76648</li>
-            <li>Phone: <a href="tel:+12542056125" className="text-orange-500 hover:text-orange-300 transition-colors duration-300">(254) 205-6125</a></li>
-            <li>Email: rankinwaste@gmail.com</li>
+          <ul className="list-disc list-inside text-text-muted text-lg leading-relaxed mb-10 space-y-3 ml-4">
+            <li><strong className="text-white">Affiliate</strong> means an entity that controls, is controlled by or is under common control with a party, where "control" means ownership of 50% or more of the shares, equity interest or other securities entitled to vote for election of directors or other managing authority.</li>
+            <li><strong className="text-white">Country</strong> refers to: Texas, United States</li>
+            <li><strong className="text-white">Company</strong> (referred to as either "the Company", "We", "Us" or "Our" in this Agreement) refers to Rankin Waste Management, 175 PR335, Hubbard, TX 76648, Hubbard, Texas.</li>
+            <li><strong className="text-white">Device</strong> means any device that can access the Service such as a computer, a cellphone or a digital tablet.</li>
+            <li><strong className="text-white">Service</strong> refers to the Website.</li>
+            <li><strong className="text-white">Terms and Conditions</strong> (also referred as "Terms") mean these Terms and Conditions that form the entire agreement between You and the Company regarding the use of the Service.</li>
+            <li><strong className="text-white">Third-party Social Media Service</strong> means any services or content (including data, information, products or services) provided by a third-party that may be displayed, included or made available by the Service.</li>
+            <li><strong className="text-white">Website</strong> refers to Rankin Waste Management, accessible from <a href="https://rankinwaste.com/" className="text-orange-500 hover:text-orange-300 transition-colors duration-300">https://rankinwaste.com/</a>.</li>
+            <li><strong className="text-white">You</strong> means the individual accessing or using the Service, or the company, or other legal entity on behalf of which such individual is accessing or using the Service, as applicable.</li>
           </ul>
+
+          <h2 className="text-2xl font-bold text-white mb-4">Acknowledgment</h2>
+          <p className="text-text-muted text-lg leading-relaxed mb-4">
+            These are the Terms and Conditions governing the use of this Service and the agreement that operates between You and the Company. These Terms and Conditions set out the rights and obligations of all users regarding the use of the Service.
+          </p>
+          <p className="text-text-muted text-lg leading-relaxed mb-4">
+            Your access to and use of the Service is conditioned on Your acceptance of and compliance with these Terms and Conditions. These Terms and Conditions apply to all visitors, users and others who access or use the Service.
+          </p>
+          <p className="text-text-muted text-lg leading-relaxed mb-4">
+            By accessing or using the Service You agree to be bound by these Terms and Conditions. If You disagree with any part of these Terms and Conditions then You may not access the Service.
+          </p>
+          <p className="text-text-muted text-lg leading-relaxed mb-4">
+            You represent that you are over the age of 18. The Company does not permit those under 18 to use the Service.
+          </p>
+          <p className="text-text-muted text-lg leading-relaxed mb-10">
+            Your access to and use of the Service is also conditioned on Your acceptance of and compliance with the Privacy Policy of the Company. Our Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your personal information when You use the Application or the Website and tells You about Your privacy rights and how the law protects You. Please read Our <Link to="/privacy-policy" className="text-orange-500 hover:text-orange-300 transition-colors duration-300">Privacy Policy</Link> carefully before using Our Service.
+          </p>
+
+          <h2 className="text-2xl font-bold text-white mb-4">Links to Other Websites</h2>
+          <p className="text-text-muted text-lg leading-relaxed mb-4">
+            Our Service may contain links to third-party web sites or services that are not owned or controlled by the Company.
+          </p>
+          <p className="text-text-muted text-lg leading-relaxed mb-4">
+            The Company has no control over, and assumes no responsibility for, the content, privacy policies, or practices of any third party web sites or services. You further acknowledge and agree that the Company shall not be responsible or liable, directly or indirectly, for any damage or loss caused or alleged to be caused by or in connection with the use of or reliance on any such content, goods or services available on or through any such web sites or services.
+          </p>
+          <p className="text-text-muted text-lg leading-relaxed mb-10">
+            We strongly advise You to read the terms and conditions and privacy policies of any third-party web sites or services that You visit.
+          </p>
+
+          <h2 className="text-2xl font-bold text-white mb-4">Termination</h2>
+          <p className="text-text-muted text-lg leading-relaxed mb-4">
+            We may terminate or suspend Your access immediately, without prior notice or liability, for any reason whatsoever, including without limitation if You breach these Terms and Conditions.
+          </p>
+          <p className="text-text-muted text-lg leading-relaxed mb-10">
+            Upon termination, Your right to use the Service will cease immediately.
+          </p>
+
+          <h2 className="text-2xl font-bold text-white mb-4">Limitation of Liability</h2>
+          <p className="text-text-muted text-lg leading-relaxed mb-4">
+            Notwithstanding any damages that You might incur, the entire liability of the Company and any of its suppliers under any provision of this Terms and Your exclusive remedy for all of the foregoing shall be limited to the amount actually paid by You through the Service or 100 USD if You haven't purchased anything through the Service.
+          </p>
+          <p className="text-text-muted text-lg leading-relaxed mb-4">
+            To the maximum extent permitted by applicable law, in no event shall the Company or its suppliers be liable for any special, incidental, indirect, or consequential damages whatsoever (including, but not limited to, damages for loss of profits, loss of data or other information, for business interruption, for personal injury, loss of privacy arising out of or in any way related to the use of or inability to use the Service, third-party software and/or third-party hardware used with the Service, or otherwise in connection with any provision of this Terms), even if the Company or any supplier has been advised of the possibility of such damages and even if the remedy fails of its essential purpose.
+          </p>
+          <p className="text-text-muted text-lg leading-relaxed mb-10">
+            Some states do not allow the exclusion of implied warranties or limitation of liability for incidental or consequential damages, which means that some of the above limitations may not apply. In these states, each party's liability will be limited to the greatest extent permitted by law.
+          </p>
+
+          <h2 className="text-2xl font-bold text-white mb-4">"AS IS" and "AS AVAILABLE" Disclaimer</h2>
+          <p className="text-text-muted text-lg leading-relaxed mb-4">
+            The Service is provided to You "AS IS" and "AS AVAILABLE" and with all faults and defects without warranty of any kind. To the maximum extent permitted under applicable law, the Company, on its own behalf and on behalf of its Affiliates and its and their respective licensors and service providers, expressly disclaims all warranties, whether express, implied, statutory or otherwise, with respect to the Service, including all implied warranties of merchantability, fitness for a particular purpose, title and non-infringement, and warranties that may arise out of course of dealing, course of performance, usage or trade practice. Without limitation to the foregoing, the Company provides no warranty or undertaking, and makes no representation of any kind that the Service will meet Your requirements, achieve any intended results, be compatible or work with any other software, applications, systems or services, operate without interruption, meet any performance or reliability standards or be error free or that any errors or defects can or will be corrected.
+          </p>
+          <p className="text-text-muted text-lg leading-relaxed mb-4">
+            Without limiting the foregoing, neither the Company nor any of the company's provider makes any representation or warranty of any kind, express or implied: (i) as to the operation or availability of the Service, or the information, content, and materials or products included thereon; (ii) that the Service will be uninterrupted or error-free; (iii) as to the accuracy, reliability, or currency of any information or content provided through the Service; or (iv) that the Service, its servers, the content, or e-mails sent from or on behalf of the Company are free of viruses, scripts, trojan horses, worms, malware, timebombs or other harmful components.
+          </p>
+          <p className="text-text-muted text-lg leading-relaxed mb-10">
+            Some jurisdictions do not allow the exclusion of certain types of warranties or limitations on applicable statutory rights of a consumer, so some or all of the above exclusions and limitations may not apply to You. But in such a case the exclusions and limitations set forth in this section shall be applied to the greatest extent enforceable under applicable law.
+          </p>
+
+          <h2 className="text-2xl font-bold text-white mb-4">Governing Law</h2>
+          <p className="text-text-muted text-lg leading-relaxed mb-10">
+            The laws of the Country, excluding its conflicts of law rules, shall govern this Terms and Your use of the Service. Your use of the Application may also be subject to other local, state, national, or international laws.
+          </p>
+
+          <h2 className="text-2xl font-bold text-white mb-4">Disputes Resolution</h2>
+          <p className="text-text-muted text-lg leading-relaxed mb-10">
+            If You have any concern or dispute about the Service, You agree to first try to resolve the dispute informally by contacting the Company.
+          </p>
+
+          <h2 className="text-2xl font-bold text-white mb-4">For European Union (EU) Users</h2>
+          <p className="text-text-muted text-lg leading-relaxed mb-10">
+            If You are a European Union consumer, you will benefit from any mandatory provisions of the law of the country in which you are resident in.
+          </p>
+
+          <h2 className="text-2xl font-bold text-white mb-4">United States Legal Compliance</h2>
+          <p className="text-text-muted text-lg leading-relaxed mb-10">
+            You represent and warrant that (i) You are not located in a country that is subject to the United States government embargo, or that has been designated by the United States government as a "terrorist supporting" country, and (ii) You are not listed on any United States government list of prohibited or restricted parties.
+          </p>
+
+          <h2 className="text-2xl font-bold text-white mb-4">Severability and Waiver</h2>
+
+          <h3 className="text-xl font-bold text-white mb-3">Severability</h3>
+          <p className="text-text-muted text-lg leading-relaxed mb-8">
+            If any provision of these Terms is held to be unenforceable or invalid, such provision will be changed and interpreted to accomplish the objectives of such provision to the greatest extent possible under applicable law and the remaining provisions will continue in full force and effect.
+          </p>
+
+          <h3 className="text-xl font-bold text-white mb-3">Waiver</h3>
+          <p className="text-text-muted text-lg leading-relaxed mb-10">
+            Except as provided herein, the failure to exercise a right or to require performance of an obligation under this Terms shall not effect a party's ability to exercise such right or require such performance at any time thereafter nor shall be the waiver of a breach constitute a waiver of any subsequent breach.
+          </p>
+
+          <h2 className="text-2xl font-bold text-white mb-4">Translation Interpretation</h2>
+          <p className="text-text-muted text-lg leading-relaxed mb-10">
+            These Terms and Conditions may have been translated if We have made them available to You on our Service. You agree that the original English text shall prevail in the case of a dispute.
+          </p>
+
+          <h2 className="text-2xl font-bold text-white mb-4">Changes to These Terms and Conditions</h2>
+          <p className="text-text-muted text-lg leading-relaxed mb-4">
+            We reserve the right, at Our sole discretion, to modify or replace these Terms at any time. If a revision is material We will make reasonable efforts to provide at least 30 days' notice prior to any new terms taking effect. What constitutes a material change will be determined at Our sole discretion.
+          </p>
+          <p className="text-text-muted text-lg leading-relaxed mb-10">
+            By continuing to access or use Our Service after those revisions become effective, You agree to be bound by the revised terms. If You do not agree to the new terms, in whole or in part, please stop using the website and the Service.
+          </p>
+
+          <h2 className="text-2xl font-bold text-white mb-4">Contact Us</h2>
+          <p className="text-text-muted text-lg leading-relaxed mb-4">
+            If you have any questions about these Terms and Conditions, You can contact us:
+          </p>
+          <p className="text-text-muted text-lg leading-relaxed">
+            By email: <a href="mailto:rankinwaste@gmail.com" className="text-orange-500 hover:text-orange-300 transition-colors duration-300">rankinwaste@gmail.com</a>
+          </p>
         </div>
       </section>
     </>
