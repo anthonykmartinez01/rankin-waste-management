@@ -558,6 +558,17 @@ const ServiceAreas = () => {
 
 /* ═══════════════════════ FAQ ═══════════════════════ */
 
+const linkifyPhone = (text) => {
+  const parts = text.split(/(\(254\) 205-6125)/g);
+  return parts.map((part, i) =>
+    part === '(254) 205-6125' ? (
+      <a key={i} href={PHONE_LINK} className="text-orange-500 hover:text-orange-300 font-semibold transition-colors duration-300">{part}</a>
+    ) : (
+      part
+    )
+  );
+};
+
 const FAQItem = ({ faq }) => {
   const [open, setOpen] = useState(false);
   return (
@@ -571,7 +582,7 @@ const FAQItem = ({ faq }) => {
         <ChevronIcon open={open} />
       </button>
       <div className={`overflow-hidden transition-all duration-500 ease-out ${open ? 'max-h-96 opacity-100 pb-6' : 'max-h-0 opacity-0'}`}>
-        <p className="text-text-muted leading-relaxed max-w-[700px]">{faq.a}</p>
+        <p className="text-text-muted leading-relaxed max-w-[700px]">{linkifyPhone(faq.a)}</p>
       </div>
     </div>
   );
