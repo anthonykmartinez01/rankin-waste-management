@@ -249,7 +249,7 @@ const Hero = () => {
         <TrustBadge>Family Owned</TrustBadge>
         <TrustBadge>Weekly Pickup</TrustBadge>
         <TrustBadge>700+ Customers Served</TrustBadge>
-        <TrustBadge>Licensed &amp; Insured through Texas Brand Insurance Agency</TrustBadge>
+        <TrustBadge>Licensed &amp; Insured</TrustBadge>
       </div>
     </div>
   </header>
