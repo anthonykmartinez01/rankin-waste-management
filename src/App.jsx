@@ -324,7 +324,6 @@ const WhyChooseUs = () => {
     { title: 'Direct Owner Contact', desc: 'Call Tommy and Sydney Rankin directly, not a dispatcher in another state or call center queue.' },
     { title: 'No Contracts, Flat Pricing', desc: 'No cancellation fees, fuel surcharges, environmental fees, or automatic annual price hikes.' },
     { title: 'Guaranteed Reliability', desc: 'Consistent pickup schedules with owners personally running routes and solving problems immediately.' },
-    { title: 'We Actually Answer the Phone', desc: 'Whether it\'s Tommy or Sydney, a real person picks up every call. No ticket systems or customer service runaround.' },
   ];
 
   return (
