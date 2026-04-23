@@ -658,42 +658,48 @@ const FinalCTA = () => {
 /* ═══════════════════════ FOOTER ═══════════════════════ */
 
 const Footer = () => (
-  <footer className="bg-dark-card px-6 lg:px-[clamp(2rem,5vw,4rem)] py-12 border-t border-border-subtle">
+  <footer className="bg-dark-card px-6 lg:px-[clamp(2rem,5vw,4rem)] py-14 md:py-16 border-t border-border-subtle">
     <div className="max-w-[1200px] mx-auto">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 mb-12">
-        {/* Brand */}
-        <div>
-          <div className="flex items-center gap-3 mb-4">
-            <LogoMark />
-            <span className="font-bold text-sm tracking-[0.15em] uppercase">Rankin Waste</span>
-          </div>
-          <p className="text-text-muted text-sm leading-relaxed">
-            Family-owned trash pickup serving rural communities across central Texas. Reliable, affordable, and local.
-          </p>
+      {/* Brand — centered on top */}
+      <div className="flex flex-col items-center text-center mb-12 md:mb-16">
+        <div className="flex items-center gap-3">
+          <LogoMark />
+          <span className="font-bold text-sm tracking-[0.15em] uppercase">Rankin Waste</span>
         </div>
+      </div>
 
+      {/* Three columns */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 mb-12">
         {/* Contact */}
         <div>
-          <h4 className="text-xs uppercase tracking-wider font-semibold text-text-muted mb-4">Contact</h4>
-          <address className="not-italic space-y-2 text-sm text-text-muted">
-            <p className="flex items-start gap-2">
-              <MapPinIcon className="w-4 h-4 text-orange-500 shrink-0 mt-0.5" />
-              175 PR335, Hubbard, TX 76648
+          <h4 className="text-sm uppercase tracking-wider font-bold text-orange-500 mb-5">Contact</h4>
+          <div className="space-y-5 text-sm">
+            <p className="flex items-center gap-3">
+              <PhoneIcon className="w-5 h-5 text-orange-500 shrink-0" />
+              <a href={PHONE_LINK} className="font-semibold hover:text-orange-500 transition-colors duration-300">{PHONE}</a>
             </p>
-            <p className="flex items-center gap-2">
-              <PhoneIcon className="w-4 h-4 text-orange-500 shrink-0" />
-              <a href={PHONE_LINK} className="hover:text-white transition-colors duration-300">{PHONE}</a>
-            </p>
-            <p className="flex items-center gap-2">
-              <MailIcon className="w-4 h-4 text-orange-500 shrink-0" />
-              <a href="mailto:rankinwaste@gmail.com" className="hover:text-white transition-colors duration-300">rankinwaste@gmail.com</a>
-            </p>
-            <p className="flex items-center gap-2">
-              <ClockIcon className="w-4 h-4 text-orange-500 shrink-0" />
-              Mon-Fri 8AM-6PM
-            </p>
-          </address>
-          <div className="mt-5 rounded-sm overflow-hidden border border-border-subtle w-full max-w-[240px] aspect-square">
+            <div className="flex items-start gap-3">
+              <MapPinIcon className="w-5 h-5 text-orange-500 shrink-0 mt-0.5" />
+              <address className="not-italic">
+                <div className="font-semibold mb-1">Address</div>
+                <div className="text-text-muted leading-relaxed">
+                  175 PR335<br />
+                  Hubbard, TX 76648
+                </div>
+              </address>
+            </div>
+            <div className="flex items-start gap-3">
+              <ClockIcon className="w-5 h-5 text-orange-500 shrink-0 mt-0.5" />
+              <div>
+                <div className="font-semibold mb-1">Hours</div>
+                <div className="text-text-muted leading-relaxed">
+                  Monday – Friday<br />
+                  8AM – 6PM
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="mt-6 rounded-sm overflow-hidden border border-border-subtle w-full max-w-[260px] aspect-square">
             <iframe
               title="Rankin Waste Management location map"
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3389.136596108881!2d-96.79978992297144!3d31.848498030854834!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x864f158c8dee18d9%3A0x32d36537ab608362!2sRankin%20Waste%20Management!5e0!3m2!1sen!2sus!4v1776957097390!5m2!1sen!2sus"
@@ -707,38 +713,38 @@ const Footer = () => (
           </div>
         </div>
 
-        {/* Links */}
+        {/* Company */}
         <div>
-          <h4 className="text-xs uppercase tracking-wider font-semibold text-text-muted mb-4">Quick Links</h4>
-          <ul className="space-y-2 text-sm text-text-muted">
-            <li><Link to="/" className="hover:text-white transition-colors duration-300">Home</Link></li>
-            <li><Link to="/residential" className="hover:text-white transition-colors duration-300">Residential</Link></li>
-            <li><Link to="/trash-trailer-rentals" className="hover:text-white transition-colors duration-300">Trash Trailer Rentals</Link></li>
-            <li><Link to="/about-us" className="hover:text-white transition-colors duration-300">About Us</Link></li>
-            <li><Link to="/contact-us" className="hover:text-white transition-colors duration-300">Contact Us</Link></li>
-            <li><Link to="/reviews" className="hover:text-white transition-colors duration-300">Reviews</Link></li>
+          <h4 className="text-sm uppercase tracking-wider font-bold text-orange-500 mb-5">Company</h4>
+          <ul className="space-y-4 text-sm">
+            <li><Link to="/terms-of-service" className="font-semibold hover:text-orange-500 transition-colors duration-300">Terms & Conditions</Link></li>
+            <li><Link to="/privacy-policy" className="font-semibold hover:text-orange-500 transition-colors duration-300">Privacy Policy</Link></li>
+            <li><a href="/sitemap.xml" className="font-semibold hover:text-orange-500 transition-colors duration-300">Sitemap</a></li>
           </ul>
         </div>
 
-        {/* Service Areas + Social */}
+        {/* Quick Links */}
         <div>
-          <h4 className="text-xs uppercase tracking-wider font-semibold text-text-muted mb-4">Service Areas</h4>
-          <p className="text-text-muted text-xs leading-relaxed mb-4">
-            Hubbard, Axtell, Dawson, Malone, Purdon, Mertens, Whitney, Mount Calm, Peoria, Birome, Prairie Hill, Navarro Mills, TX
-          </p>
-          <h4 className="text-xs uppercase tracking-wider font-semibold text-text-muted mb-3">Follow Us</h4>
-          <a href="https://www.facebook.com/p/Rankin-waste-management-100057417520840/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-orange-500 transition-colors duration-300">
-            <FacebookIcon />
-          </a>
+          <h4 className="text-sm uppercase tracking-wider font-bold text-orange-500 mb-5">Quick Links</h4>
+          <ul className="space-y-4 text-sm">
+            <li><Link to="/residential" className="font-semibold hover:text-orange-500 transition-colors duration-300">Residential</Link></li>
+            <li><Link to="/trash-trailer-rentals" className="font-semibold hover:text-orange-500 transition-colors duration-300">Trash Trailer Rentals</Link></li>
+            <li><Link to="/about-us" className="font-semibold hover:text-orange-500 transition-colors duration-300">About Us</Link></li>
+            <li><Link to="/contact-us" className="font-semibold hover:text-orange-500 transition-colors duration-300">Contact Us</Link></li>
+            <li><Link to="/reviews" className="font-semibold hover:text-orange-500 transition-colors duration-300">Reviews</Link></li>
+            <li>
+              <a href="https://www.facebook.com/p/Rankin-waste-management-100057417520840/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="inline-flex items-center gap-2 font-semibold hover:text-orange-500 transition-colors duration-300">
+                <FacebookIcon />
+                Facebook
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
 
-      <div className="flex flex-col md:flex-row justify-center items-center gap-4 md:gap-8 text-text-muted text-sm pt-8 border-t border-border-subtle">
-        <span>&copy; 2026 Rankin Waste Management</span>
-        <span className="hidden md:inline text-text-faint">|</span>
-        <span>Locally Owned & Operated by Tommy and Sydney Rankin</span>
-        <span className="hidden md:inline text-text-faint">|</span>
-        <span>Hubbard, TX</span>
+      {/* Tagline */}
+      <div className="text-center text-text-muted text-sm pt-8 border-t border-border-subtle">
+        &copy; 2026 Rankin Waste Management | Locally Owned &amp; Operated by Tommy &amp; Sydney Rankin | Hubbard, TX
       </div>
     </div>
   </footer>
