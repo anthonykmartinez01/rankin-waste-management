@@ -345,6 +345,7 @@ const Reviews = () => {
 
 const Services = () => {
   const header = useReveal();
+  const intro = useReveal(0.1);
   const services = [
     {
       title: 'Weekly Pickup',
@@ -369,6 +370,17 @@ const Services = () => {
         <div ref={header.ref} style={header.style} className="text-center mb-12 md:mb-16">
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-medium tracking-tight">Our Services</h2>
         </div>
+
+        <div ref={intro.ref} style={intro.style} className="max-w-[800px] mx-auto mb-16 md:mb-20">
+          <h3 className="text-xl md:text-2xl font-semibold tracking-tight mb-5">Waste Management Service</h3>
+          <p className="text-text-muted text-base sm:text-lg leading-relaxed mb-4">
+            Our weekly curbside pickup service handles all your household waste without complicated sorting requirements or mysterious fees. Simply set out your bags or cans on pickup day and we handle everything else, providing the reliable service that 700+ rural Texas families depend on every week.
+          </p>
+          <p className="text-text-muted text-base sm:text-lg leading-relaxed">
+            As a family-owned business built specifically for rural communities, we deliver the consistent service and personal accountability that big national haulers can't match in areas like Hubbard and surrounding Hill County towns.
+          </p>
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {services.map((s, i) => (
             <ServiceCard key={s.title} service={s} delay={i * 0.1} />
@@ -379,6 +391,35 @@ const Services = () => {
             <PhoneIcon className="w-5 h-5" />
             Call {PHONE} to Get Started
           </a>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+/* ═══════════════════════ CUSTOMER SAY ═══════════════════════ */
+
+const CustomerSay = () => {
+  const header = useReveal();
+  const body = useReveal(0.1);
+  return (
+    <section id="customer-say" className="bg-dark-elevated px-6 lg:px-[clamp(2rem,5vw,4rem)] py-20 md:py-28">
+      <div className="max-w-[800px] mx-auto">
+        <h2 ref={header.ref} style={header.style} className="text-2xl md:text-3xl lg:text-4xl font-medium tracking-tight text-center mb-10 md:mb-12">
+          What Our Customers Say
+        </h2>
+        <div ref={body.ref} style={body.style} className="space-y-6">
+          <p className="text-text-muted text-base sm:text-lg leading-relaxed">
+            Customers consistently mention our reliability after experiencing missed pickups and poor communication from larger waste management companies. Many highlight the difference of reaching actual owners when they call rather than being routed through distant call centers.
+          </p>
+          <p className="text-text-muted text-base sm:text-lg leading-relaxed">
+            Rural customers especially appreciate our flat-rate pricing without surprise fees and our understanding of country roads and rural pickup challenges that bigger companies treat as inconveniences.
+          </p>
+          <div className="pt-4 text-center">
+            <Link to="/reviews" className="inline-flex items-center gap-2 text-orange-500 hover:text-orange-300 font-semibold transition-colors duration-300">
+              Read 250+ Five-Star Reviews &rarr;
+            </Link>
+          </div>
         </div>
       </div>
     </section>
@@ -864,6 +905,7 @@ const HomePage = () => (
     <Hero />
     <BusinessDescription />
     <Services />
+    <CustomerSay />
     <FAQ />
     <FindUs />
     <FinalCTA />
