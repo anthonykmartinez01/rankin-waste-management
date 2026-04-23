@@ -693,6 +693,18 @@ const Footer = () => (
               Mon-Fri 8AM-6PM
             </p>
           </address>
+          <div className="mt-5 rounded-sm overflow-hidden border border-border-subtle w-full max-w-[240px] aspect-square">
+            <iframe
+              title="Rankin Waste Management location map"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3389.136596108881!2d-96.79978992297144!3d31.848498030854834!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x864f158c8dee18d9%3A0x32d36537ab608362!2sRankin%20Waste%20Management!5e0!3m2!1sen!2sus!4v1776957097390!5m2!1sen!2sus"
+              width="100%"
+              height="100%"
+              style={{ border: 0, display: 'block' }}
+              allowFullScreen=""
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+          </div>
         </div>
 
         {/* Links */}
