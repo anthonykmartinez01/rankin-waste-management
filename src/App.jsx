@@ -424,25 +424,21 @@ const CustomerSay = () => {
   const header = useReveal();
   const body = useReveal(0.1);
   return (
-    <section id="customer-say" className="bg-dark-elevated px-6 lg:px-[clamp(2rem,5vw,4rem)] py-20 md:py-28">
-      <div className="max-w-[800px] mx-auto">
+    <section id="customer-say" className="bg-dark-elevated pt-20 md:pt-28">
+      <div className="max-w-[800px] mx-auto px-6 lg:px-[clamp(2rem,5vw,4rem)]">
         <h2 ref={header.ref} style={header.style} className="text-2xl md:text-3xl lg:text-4xl font-medium tracking-tight text-center mb-10 md:mb-12">
           What Our Customers Say
         </h2>
-        <div ref={body.ref} style={body.style} className="space-y-6">
+        <div ref={body.ref} style={body.style} className="space-y-6 mb-4">
           <p className="text-text-muted text-base sm:text-lg leading-relaxed">
             Customers consistently mention our reliability after experiencing missed pickups and poor communication from larger waste management companies. Many highlight the difference of reaching actual owners when they call rather than being routed through distant call centers.
           </p>
           <p className="text-text-muted text-base sm:text-lg leading-relaxed">
             Rural customers especially appreciate our flat-rate pricing without surprise fees and our understanding of country roads and rural pickup challenges that bigger companies treat as inconveniences.
           </p>
-          <div className="pt-4 text-center">
-            <Link to="/reviews" className="inline-flex items-center gap-2 text-orange-500 hover:text-orange-300 font-semibold transition-colors duration-300">
-              Read 250+ Five-Star Reviews &rarr;
-            </Link>
-          </div>
         </div>
       </div>
+      <ReviewWidget hideHeader />
     </section>
   );
 };

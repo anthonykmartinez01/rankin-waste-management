@@ -113,7 +113,7 @@ const schemaData = {
   })),
 };
 
-export default function ReviewWidget() {
+export default function ReviewWidget({ hideHeader = false }) {
   const [expandedCards, setExpandedCards] = useState({});
   const carouselRef = useRef(null);
 
@@ -141,25 +141,27 @@ export default function ReviewWidget() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
       />
 
-      <div className="rw-header">
-        <div className="rw-header-badge">
-          <GoogleG className="rw-google-icon" width={20} height={20} />
-          <span>Google Reviews</span>
-        </div>
-        <h2>
-          What Our <em>Customers</em> Say
-        </h2>
-        <div className="rw-aggregate">
-          <div className="rw-stars">
-            {[...Array(5)].map((_, i) => (
-              <StarSVG key={i} className="rw-star" width={22} height={22} />
-            ))}
+      {!hideHeader && (
+        <div className="rw-header">
+          <div className="rw-header-badge">
+            <GoogleG className="rw-google-icon" width={20} height={20} />
+            <span>Google Reviews</span>
           </div>
-          <span className="rw-rating-text">
-            <strong>5.0</strong> from 250+ reviews
-          </span>
+          <h2>
+            What Our <em>Customers</em> Say
+          </h2>
+          <div className="rw-aggregate">
+            <div className="rw-stars">
+              {[...Array(5)].map((_, i) => (
+                <StarSVG key={i} className="rw-star" width={22} height={22} />
+              ))}
+            </div>
+            <span className="rw-rating-text">
+              <strong>5.0</strong> from 250+ reviews
+            </span>
+          </div>
         </div>
-      </div>
+      )}
 
       <div className="rw-carousel-wrapper">
         <button
