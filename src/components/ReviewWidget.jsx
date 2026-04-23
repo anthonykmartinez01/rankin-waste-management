@@ -74,8 +74,10 @@ const CSS = `.rw-reviews-widget { font-family: 'Lato', -apple-system, BlinkMacSy
 .rw-cta-btn:hover { background: transparent; color: #E8751A; }
 .rw-cta-btn svg { width: 18px; height: 18px; fill: currentColor; }
 @media (max-width: 1024px) { .rw-card { flex: 0 0 320px; } }
-@media (max-width: 768px) { .rw-reviews-widget { padding: 40px 16px; } .rw-header h2 { font-size: 28px; } .rw-carousel-wrapper { padding: 0 10px; } .rw-card { flex: 0 0 290px; padding: 22px; } .rw-nav-btn { display: none; } }
-@media (max-width: 480px) { .rw-card { flex: 0 0 calc(100vw - 52px); } .rw-header h2 { font-size: 24px; } }`;
+@media (max-width: 768px) { .rw-reviews-widget { padding: 40px 16px; } .rw-header h2 { font-size: 28px; } .rw-carousel-wrapper { padding: 0 44px; } .rw-card { flex: 0 0 260px; padding: 22px; } .rw-nav-btn { width: 36px; height: 36px; } .rw-nav-btn svg { width: 18px; height: 18px; } .rw-nav-prev { left: 2px; } .rw-nav-next { right: 2px; } }
+@media (max-width: 480px) { .rw-card { flex: 0 0 calc(85vw - 16px); } .rw-header h2 { font-size: 24px; } }
+.rw-slide-hint { display: none; }
+@media (max-width: 768px) { .rw-slide-hint { display: flex; align-items: center; justify-content: center; gap: 6px; color: rgba(255,255,255,0.5); font-size: 12px; font-weight: 500; margin-top: -4px; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; } }`;
 
 const schemaData = {
   "@context": "https://schema.org",
@@ -216,6 +218,12 @@ export default function ReviewWidget({ hideHeader = false }) {
             <path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z" />
           </svg>
         </button>
+      </div>
+
+      <div className="rw-slide-hint" aria-hidden="true">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" /></svg>
+        Swipe to see more reviews
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z" /></svg>
       </div>
 
       <div className="rw-cta-wrap">

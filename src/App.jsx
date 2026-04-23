@@ -233,7 +233,7 @@ const Hero = () => {
       <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(8,8,8,0.55) 0%, rgba(8,8,8,0.45) 40%, rgba(8,8,8,0.6) 70%, rgba(8,8,8,0.85) 100%)' }} />
     </div>
 
-    <div className="relative z-10 max-w-[900px] mx-auto pt-20">
+    <div className="relative z-10 max-w-[900px] mx-auto pt-32 md:pt-24">
       <h1 className="text-[clamp(2rem,6vw,4rem)] font-bold leading-[1.1] tracking-tight drop-shadow-lg mb-4 hero-title-animate">
         Reliable Trash Pickup & Waste Management Service
       </h1>
