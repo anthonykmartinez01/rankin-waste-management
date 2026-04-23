@@ -320,19 +320,20 @@ const BusinessDescription = () => {
 const WhyChooseUs = () => {
   const header = useReveal();
   const cards = [
-    { title: 'We Actually Show Up', desc: "Every week, same day, rain or shine. If something comes up, we'll call you instead of leaving you guessing." },
-    { title: "We're Local", desc: "Based right here in Hubbard, TX. When you call, you're talking to the people who own the business and run the routes." },
-    { title: 'Affordable Pricing', desc: "One flat rate. No environmental fees, no fuel surcharges, no long-term contracts. The price we quote is the price you pay." },
-    { title: 'We Go Where Others Won\'t', desc: "Outside city limits? County road? Private road? We'll come to you. That's the whole point." },
+    { title: 'Rural Specialized Service', desc: 'Built for communities like Hubbard, Axtell, Dawson, Malone, and Mertens where big haulers provide inconsistent service and missed pickups.' },
+    { title: 'Direct Owner Contact', desc: 'Call Tommy and Sydney Rankin directly, not a dispatcher in another state or call center queue.' },
+    { title: 'No Contracts, Flat Pricing', desc: 'No cancellation fees, fuel surcharges, environmental fees, or automatic annual price hikes.' },
+    { title: 'Guaranteed Reliability', desc: 'Consistent pickup schedules with owners personally running routes and solving problems immediately.' },
+    { title: 'We Actually Answer the Phone', desc: 'Whether it\'s Tommy or Sydney, a real person picks up every call. No ticket systems or customer service runaround.' },
   ];
 
   return (
-    <section className="px-6 lg:px-[clamp(2rem,5vw,4rem)] py-20 md:py-28">
+    <section id="why-choose-us" className="px-6 lg:px-[clamp(2rem,5vw,4rem)] py-20 md:py-28">
       <div className="max-w-[1200px] mx-auto">
         <div ref={header.ref} style={header.style} className="text-center mb-12 md:mb-16">
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-medium tracking-tight">Why Families Choose Rankin Waste</h2>
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-medium tracking-tight">Why Choose Rankin Waste Management?</h2>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {cards.map((card, i) => (
             <WhyCard key={card.title} card={card} delay={i * 0.1} />
           ))}
@@ -921,6 +922,7 @@ const HomePage = () => (
   <>
     <Hero />
     <BusinessDescription />
+    <WhyChooseUs />
     <Services />
     <CustomerSay />
     <FAQ />
