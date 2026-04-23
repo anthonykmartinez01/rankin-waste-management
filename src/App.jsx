@@ -605,7 +605,7 @@ const FindUs = () => {
     <section id="find-us" className="bg-dark-elevated px-6 lg:px-[clamp(2rem,5vw,4rem)] py-20 md:py-28">
       <div className="max-w-[1100px] mx-auto">
         <h2 ref={heading.ref} style={heading.style} className="text-2xl md:text-3xl lg:text-4xl font-medium tracking-tight text-center mb-10 md:mb-12">
-          Visit Us in Hubbard, TX
+          Find Us in Hubbard, TX
         </h2>
         <div ref={map.ref} style={map.style} className="rounded-sm overflow-hidden border border-border-subtle aspect-[16/9] md:aspect-[2/1]">
           <iframe
