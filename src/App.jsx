@@ -598,60 +598,30 @@ const About = () => {
 /* ═══════════════════════ FIND US ═══════════════════════ */
 
 const FindUs = () => {
-  const text = useReveal();
-  const map = useReveal(0.15);
+  const heading = useReveal();
+  const map = useReveal(0.1);
+  const caption = useReveal(0.2);
   return (
     <section id="find-us" className="bg-dark-elevated px-6 lg:px-[clamp(2rem,5vw,4rem)] py-20 md:py-28">
-      <div className="max-w-[1200px] mx-auto">
-        <div className="text-center mb-12 md:mb-16">
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-medium tracking-tight">Find Us in Hubbard, TX</h2>
-          <p className="text-text-muted mt-2 text-base">Family-owned and operated out of Hubbard — serving the surrounding rural communities.</p>
+      <div className="max-w-[1100px] mx-auto">
+        <h2 ref={heading.ref} style={heading.style} className="text-2xl md:text-3xl lg:text-4xl font-medium tracking-tight text-center mb-10 md:mb-12">
+          Visit Us in Hubbard, TX
+        </h2>
+        <div ref={map.ref} style={map.style} className="rounded-sm overflow-hidden border border-border-subtle aspect-[16/9] md:aspect-[2/1]">
+          <iframe
+            title="Rankin Waste Management on Google Maps"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3389.136596108881!2d-96.79978992297144!3d31.848498030854834!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x864f158c8dee18d9%3A0x32d36537ab608362!2sRankin%20Waste%20Management!5e0!3m2!1sen!2sus!4v1776957097390!5m2!1sen!2sus"
+            width="100%"
+            height="100%"
+            style={{ border: 0, display: 'block' }}
+            allowFullScreen=""
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          />
         </div>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-stretch">
-          <div ref={text.ref} style={text.style} className="flex flex-col justify-center space-y-6">
-            <div>
-              <h3 className="text-xs uppercase tracking-wider font-semibold text-text-muted mb-2">Address</h3>
-              <address className="not-italic text-lg leading-relaxed">
-                Rankin Waste Management<br />
-                175 PR335<br />
-                Hubbard, TX 76648
-              </address>
-            </div>
-            <div>
-              <h3 className="text-xs uppercase tracking-wider font-semibold text-text-muted mb-2">Phone</h3>
-              <a href={PHONE_LINK} className="text-lg text-orange-500 hover:text-orange-300 font-semibold transition-colors duration-300">{PHONE}</a>
-            </div>
-            <div>
-              <h3 className="text-xs uppercase tracking-wider font-semibold text-text-muted mb-2">Hours</h3>
-              <p className="text-lg leading-relaxed">
-                Monday – Friday<br />
-                8:00 AM – 6:00 PM
-              </p>
-            </div>
-            <div className="pt-2">
-              <a
-                href="https://www.google.com/maps/place/Rankin+Waste+Management/@31.8484935,-96.797215,17z/data=!3m1!4b1!4m6!3m5!1s0x864f158c8dee18d9:0x32d36537ab608362!8m2!3d31.8484935!4d-96.797215!16s%2Fg%2F11pyzc24gf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-orange-500 hover:text-orange-300 font-semibold transition-colors duration-300"
-              >
-                Get Directions →
-              </a>
-            </div>
-          </div>
-          <div ref={map.ref} style={map.style} className="rounded-sm overflow-hidden border border-border-subtle min-h-[350px] lg:min-h-[450px]">
-            <iframe
-              title="Rankin Waste Management on Google Maps"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3389.136596108881!2d-96.79978992297144!3d31.848498030854834!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x864f158c8dee18d9%3A0x32d36537ab608362!2sRankin%20Waste%20Management!5e0!3m2!1sen!2sus!4v1776957097390!5m2!1sen!2sus"
-              width="100%"
-              height="100%"
-              style={{ border: 0, display: 'block', minHeight: 'inherit' }}
-              allowFullScreen=""
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-            />
-          </div>
-        </div>
+        <p ref={caption.ref} style={caption.style} className="text-text-muted text-center text-base md:text-lg leading-relaxed mt-8 md:mt-10 max-w-[800px] mx-auto">
+          We're based in Hubbard, TX — family-owned and operated, proudly serving Axtell, Dawson, Malone, Mertens, Purdon, and the surrounding rural communities.
+        </p>
       </div>
     </section>
   );
