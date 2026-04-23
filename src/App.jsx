@@ -129,7 +129,7 @@ const SERVICE_AREAS = [
 ];
 
 const FAQS = [
-  { q: 'What areas do you serve around Hubbard?', a: 'We serve Hubbard and surrounding communities across Hill, Navarro, Limestone, and McLennan Counties, including Axtell, Dawson, Malone, Mertens, Whitney, and other rural areas.' },
+  { q: 'What areas do you serve around Hubbard?', a: 'We serve Hubbard and surrounding communities across Hill, Navarro, Limestone, and McLennan Counties, including Axtell, Dawson, Malone, Mertens, Whitney, and other rural areas. If you\'re not sure we serve your area, call us directly at (254) 205-6125.' },
   { q: 'Do you require long-term contracts or have cancellation fees?', a: 'No contracts required and no cancellation fees ever. You\'re never locked in and can adjust or cancel service anytime without penalties.' },
   { q: 'What can I put out for pickup — do I need to sort anything?', a: 'No sorting required. Put out bags or cans with your household waste and we handle everything. Much simpler than most municipal programs.' },
   { q: 'How much does weekly trash pickup cost?', a: 'We offer flat-rate pricing with no fuel surcharges, environmental fees, or surprise charges. Call (254) 205-6125 for current rates in your area.' },
