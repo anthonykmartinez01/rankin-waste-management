@@ -145,53 +145,74 @@ const NavLink = ({ href, children, className, onClick }) => (
   <Link to={href} className={className} onClick={onClick}>{children}</Link>
 );
 
-const Nav = ({ mobileMenuOpen, setMobileMenuOpen }) => (
-  <nav className="fixed top-0 w-full h-20 flex justify-between items-center px-6 lg:px-[clamp(2rem,5vw,4rem)] z-50" style={{ background: 'linear-gradient(to bottom, rgba(8,8,8,0.85) 0%, rgba(8,8,8,0) 100%)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}>
-    <Link to="/" className="flex items-center gap-3 font-bold text-sm tracking-[0.15em] uppercase">
-      <LogoMark />
-      Rankin Waste
-    </Link>
-
-    <div className="hidden lg:flex gap-8 text-[0.9rem] font-medium">
-      {NAV_LINKS.map(link => (
-        <NavLink key={link.label} href={link.href} className="opacity-70 hover:opacity-100 transition-opacity duration-300">
-          {link.label}
-        </NavLink>
-      ))}
-    </div>
-
-    <div className="flex items-center gap-3">
-      <a href={PHONE_LINK} className="bg-white text-dark px-5 py-2.5 rounded-full font-semibold text-[0.9rem] hover:bg-gray-100 transition-colors duration-300 min-h-[44px] flex items-center">
-        {PHONE}
-      </a>
-      <button
-        className="lg:hidden text-white p-2 min-w-[44px] min-h-[44px] flex items-center justify-center"
-        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-        aria-label="Toggle menu"
-      >
-        {mobileMenuOpen ? (
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="w-6 h-6">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        ) : (
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-          </svg>
-        )}
-      </button>
-    </div>
-
-    {mobileMenuOpen && (
-      <div className="absolute top-20 left-0 w-full bg-dark/95 backdrop-blur-lg border-t border-border-subtle lg:hidden flex flex-col px-6 py-6 gap-4">
-        {NAV_LINKS.map(link => (
-          <NavLink key={link.label} href={link.href} className="text-white/70 hover:text-white font-medium text-[0.9rem] py-2 transition-colors duration-300" onClick={() => setMobileMenuOpen(false)}>
-            {link.label}
-          </NavLink>
-        ))}
+const Nav = ({ mobileMenuOpen, setMobileMenuOpen }) => {
+  const { openModal } = useModal();
+  return (
+    <div className="fixed top-0 w-full z-50">
+      {/* Top utility bar */}
+      <div className="w-full bg-dark/95 backdrop-blur-lg border-b border-border-subtle">
+        <div className="h-10 flex justify-between items-center px-6 lg:px-[clamp(2rem,5vw,4rem)] text-[0.85rem] text-white/90">
+          <a href={PHONE_LINK} className="flex items-center gap-2 font-semibold hover:text-orange-500 transition-colors duration-300">
+            <PhoneIcon className="w-4 h-4 text-orange-500" />
+            {PHONE}
+          </a>
+          <div className="flex items-center gap-5 font-semibold">
+            <a href={PHONE_LINK} className="hover:text-orange-500 transition-colors duration-300">Call Us</a>
+            <a href="sms:+12542056125" className="hover:text-orange-500 transition-colors duration-300">Text Us</a>
+          </div>
+        </div>
       </div>
-    )}
-  </nav>
-);
+
+      {/* Main nav bar */}
+      <nav className="w-full h-20 flex justify-between items-center px-6 lg:px-[clamp(2rem,5vw,4rem)]" style={{ background: 'linear-gradient(to bottom, rgba(8,8,8,0.85) 0%, rgba(8,8,8,0) 100%)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}>
+        <Link to="/" className="flex items-center gap-3 font-bold text-sm tracking-[0.15em] uppercase">
+          <LogoMark />
+          Rankin Waste
+        </Link>
+
+        <div className="hidden lg:flex items-center gap-8 text-[0.9rem] font-medium">
+          {NAV_LINKS.map(link => (
+            <NavLink key={link.label} href={link.href} className="opacity-70 hover:opacity-100 transition-opacity duration-300">
+              {link.label}
+            </NavLink>
+          ))}
+          <button onClick={openModal} className="bg-orange-500 text-white px-5 py-2.5 rounded-full font-semibold text-[0.9rem] hover:bg-orange-600 transition-colors duration-300 min-h-[44px] flex items-center">
+            New Service Request
+          </button>
+        </div>
+
+        <button
+          className="lg:hidden text-white p-2 min-w-[44px] min-h-[44px] flex items-center justify-center"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label="Toggle menu"
+        >
+          {mobileMenuOpen ? (
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="w-6 h-6">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          ) : (
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg>
+          )}
+        </button>
+
+        {mobileMenuOpen && (
+          <div className="absolute top-20 left-0 w-full bg-dark/95 backdrop-blur-lg border-t border-border-subtle lg:hidden flex flex-col px-6 py-6 gap-4">
+            {NAV_LINKS.map(link => (
+              <NavLink key={link.label} href={link.href} className="text-white/70 hover:text-white font-medium text-[0.9rem] py-2 transition-colors duration-300" onClick={() => setMobileMenuOpen(false)}>
+                {link.label}
+              </NavLink>
+            ))}
+            <button onClick={() => { openModal(); setMobileMenuOpen(false); }} className="bg-orange-500 text-white px-5 py-3 rounded-full font-semibold text-[0.9rem] hover:bg-orange-600 transition-colors duration-300 min-h-[44px] mt-2">
+              New Service Request
+            </button>
+          </div>
+        )}
+      </nav>
+    </div>
+  );
+};
 
 /* ═══════════════════════ HERO ═══════════════════════ */
 
