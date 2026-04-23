@@ -32,7 +32,7 @@ const StarSVG = ({ className, width = 22, height = 22 }) => (
   </svg>
 );
 
-const CSS = `.rw-reviews-widget { font-family: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #101010; padding: 60px 20px; max-width: 100%; overflow: hidden; position: relative; color: #fff; }
+const CSS = `.rw-reviews-widget { font-family: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: transparent; padding: 60px 20px; max-width: 100%; overflow: hidden; position: relative; color: #fff; }
 .rw-reviews-widget * { box-sizing: border-box; margin: 0; padding: 0; }
 .rw-header { text-align: center; max-width: 700px; margin: 0 auto 40px; }
 .rw-header-badge { display: inline-flex; align-items: center; gap: 8px; background: #181818; border: 1px solid #2a2a2a; border-radius: 50px; padding: 8px 18px; margin-bottom: 20px; }
