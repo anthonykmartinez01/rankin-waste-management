@@ -214,7 +214,7 @@ const Hero = () => {
 
     <div className="relative z-10 max-w-[900px] mx-auto pt-20">
       <h1 className="text-[clamp(2rem,6vw,4rem)] font-bold leading-[1.1] tracking-tight drop-shadow-lg mb-4 hero-title-animate">
-        Welcome to Rankin Waste Management
+        Reliable Trash Pickup & Waste Management Service in Hubbard, TX
       </h1>
       <p className="text-orange-500 text-lg sm:text-xl font-semibold mb-4 hero-badge-animate">
         Locally Family-Owned &amp; Operated
