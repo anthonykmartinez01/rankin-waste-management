@@ -13,7 +13,7 @@ export default function Axtell() {
     <>
       <PageHead
         title="Waste Management Service in Axtell, TX | Rankin Waste Management"
-        description="Reliable waste management in Axtell. Family-owned with 150+ five-star reviews. Free estimates, 24-hour response. Call (254) 205-6125."
+        description="Reliable waste management in Axtell. Family-owned with 250+ five-star reviews. Free estimates, 24-hour response. Call (254) 205-6125."
       />
       <InnerHero title="Waste Management Service in Axtell, TX" />
 
@@ -51,7 +51,7 @@ export default function Axtell() {
               Running a household or business in Axtell means dealing with waste disposal week after week. Whether you live near the old Axtell school grounds or run a business along FM 939, Rankin Waste Management brings dependable service right to your property. Our trucks regularly travel from our Hubbard base through the rural roads connecting our communities, so we know the quickest routes to reach Axtell residents.
             </p>
             <p className="text-text-muted text-lg leading-relaxed">
-              As a family-owned company serving McLennan County, we handle everything from weekly residential pickup to large commercial accounts. With 150+ five-star reviews and a perfect 5.0 rating, Axtell residents trust us because we show up when promised and keep rates fair. Our 24-hour response time means you get answers fast when you need new service or have questions about your account.
+              As a family-owned company serving McLennan County, we handle everything from weekly residential pickup to large commercial accounts. With 250+ five-star reviews and a perfect 5.0 rating, Axtell residents trust us because we show up when promised and keep rates fair. Our 24-hour response time means you get answers fast when you need new service or have questions about your account.
             </p>
           </div>
 

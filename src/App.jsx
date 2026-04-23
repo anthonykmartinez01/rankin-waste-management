@@ -225,7 +225,7 @@ const Hero = () => {
         <span className="flex gap-0.5 text-star">
           <span className="text-lg">★</span><span className="text-lg">★</span><span className="text-lg">★</span><span className="text-lg">★</span><span className="text-lg">★</span>
         </span>
-        <span className="text-white/90 text-sm sm:text-base font-medium ml-1">100+ Five-Star Google Reviews</span>
+        <span className="text-white/90 text-sm sm:text-base font-medium ml-1">250+ Five-Star Google Reviews</span>
       </div>
 
       <p className="text-white/80 text-base sm:text-lg max-w-[600px] mx-auto mb-7 hero-content-animate">
