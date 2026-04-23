@@ -367,23 +367,6 @@ const Reviews = () => {
 const Services = () => {
   const header = useReveal();
   const intro = useReveal(0.1);
-  const services = [
-    {
-      title: 'Weekly Pickup',
-      desc: "Curbside collection on your scheduled day. Set your bags or cans out and we take care of the rest. No sorting, no complicated rules. Serving homes throughout Hubbard and across Hill, Navarro, Limestone, and McLennan County.",
-      link: '/residential',
-    },
-    {
-      title: 'Bulk Pickup',
-      desc: "Old furniture, appliances, mattresses, or a pile of junk from cleaning out the garage - we can handle it. We'll schedule a pickup that fits your timeline.",
-      link: null,
-    },
-    {
-      title: 'Dump Trailer Rentals',
-      desc: "For bigger jobs - renovations, land clearing, property cleanouts. We deliver the trailer, you load it on your schedule, and we haul it away when you're done.",
-      link: '/trash-trailer-rentals',
-    },
-  ];
 
   return (
     <section id="services" className="px-6 lg:px-[clamp(2rem,5vw,4rem)] py-20 md:py-28">
@@ -392,7 +375,7 @@ const Services = () => {
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-medium tracking-tight">Our Services</h2>
         </div>
 
-        <div ref={intro.ref} style={intro.style} className="max-w-[800px] mx-auto mb-16 md:mb-20">
+        <div ref={intro.ref} style={intro.style} className="max-w-[800px] mx-auto">
           <h3 className="text-xl md:text-2xl font-semibold tracking-tight mb-5">Waste Management Service</h3>
           <p className="text-text-muted text-base sm:text-lg leading-relaxed mb-4">
             Our weekly curbside pickup service handles all your household waste without complicated sorting requirements or mysterious fees. Simply set out your bags or cans on pickup day and we handle everything else, providing the reliable service that 700+ rural Texas families depend on every week.
@@ -402,12 +385,7 @@ const Services = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {services.map((s, i) => (
-            <ServiceCard key={s.title} service={s} delay={i * 0.1} />
-          ))}
-        </div>
-        <div className="mt-10 text-center">
+        <div className="mt-12 md:mt-14 text-center">
           <a href={PHONE_LINK} className="inline-flex items-center gap-2 bg-orange-500 text-white px-8 py-4 rounded-full font-bold text-base hover:bg-orange-600 transition-colors duration-300 min-h-[44px]">
             <PhoneIcon className="w-5 h-5" />
             Call {PHONE} to Get Started
