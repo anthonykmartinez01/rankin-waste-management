@@ -129,14 +129,14 @@ const SERVICE_AREAS = [
 ];
 
 const FAQS = [
-  { q: 'How Do I Start Trash Pickup Service With Rankin Waste?', a: 'Starting trash pickup service with Rankin Waste Management is easy. Just call us at (254) 205-6125 or fill out a service request on our contact page. We\'ll confirm your address, get you on the schedule, and in most cases you\'ll be set up for pickup within the same week. No long-term contracts required.' },
-  { q: 'What Day Does Trash Get Picked Up?', a: 'Your pickup day depends on your location and which route you\'re on. When you sign up for service, we\'ll let you know your specific day. Just have your trash out by the road on the morning of your pickup day and we\'ll take care of it.' },
-  { q: 'How Much Does Trash Pickup Cost in the Hubbard Area?', a: 'Trash pickup pricing in the Hubbard area varies depending on your location and service needs. We keep our rates affordable and competitive for rural families. Call us at (254) 205-6125 for a quick quote. No pressure, no commitment.' },
-  { q: 'What Can I Put Out for Trash Pickup?', a: 'Standard weekly pickup covers your regular household trash in bags or cans at the curb. For larger items like furniture, appliances, or big piles of junk, ask us about our bulk pickup service. Hazardous materials like paint, chemicals, and oil are not accepted. Check with Hill County for proper disposal options for those items.' },
-  { q: 'Do You Pick Up Trash Outside the Hubbard City Limits?', a: 'Yes. In fact, serving rural areas outside city limits is a big part of what we do. If you\'re on a county road, private road, or out in the country between any of our service area towns, give us a call. If we can reasonably get to you, we\'ll add you to a route.' },
-  { q: 'How Does Dump Trailer Rental Work?', a: 'Dump trailer rental with Rankin Waste is simple. Call us to reserve a trailer, we deliver it to your property, and you load it on your own schedule. When you\'re done, call us and we\'ll haul it away. Great for home renovations, property cleanouts, land clearing, and estate cleanups.' },
-  { q: 'What\'s the Difference Between Bulk Pickup and a Dump Trailer Rental?', a: 'Bulk pickup is for a few large items, like a couch, mattress, or a pile of stuff from a garage cleanout. We come out, load it up, and haul it off. A dump trailer rental is for bigger jobs where you need time and space to load up a large amount of debris or junk over several days. If you\'re not sure which one you need, just call us and we\'ll help you figure it out.' },
-  { q: 'Do You Serve Whitney and Lake Whitney Area?', a: 'Yes, we serve Whitney, TX and the surrounding Lake Whitney area with weekly residential trash pickup, bulk pickups, and dump trailer rentals. Whitney is part of our Hill County service route.' },
+  { q: 'What areas do you serve around Hubbard?', a: 'We serve Hubbard and surrounding communities across Hill, Navarro, Limestone, and McLennan Counties, including Axtell, Dawson, Malone, Mertens, Whitney, and other rural areas.' },
+  { q: 'Do you require long-term contracts or have cancellation fees?', a: 'No contracts required and no cancellation fees ever. You\'re never locked in and can adjust or cancel service anytime without penalties.' },
+  { q: 'What can I put out for pickup — do I need to sort anything?', a: 'No sorting required. Put out bags or cans with your household waste and we handle everything. Much simpler than most municipal programs.' },
+  { q: 'How much does weekly trash pickup cost?', a: 'We offer flat-rate pricing with no fuel surcharges, environmental fees, or surprise charges. Call (254) 205-6125 for current rates in your area.' },
+  { q: 'What happens if you miss my pickup day?', a: 'We personally guarantee pickup reliability, but if any issue occurs, you reach the owners directly who resolve problems immediately — no ticket queues or call center delays.' },
+  { q: 'Do you offer bulk pickup for furniture and appliances?', a: 'Yes, we provide bulk pickup services for large items like furniture and appliances in addition to regular weekly waste pickup.' },
+  { q: 'How do I schedule or cancel service?', a: 'Call us directly at (254) 205-6125 to speak with Tommy or Sydney Rankin, or book online at rankinwaste.com.' },
+  { q: 'Are there extra fees for fuel or environmental charges?', a: 'No hidden fees ever. Our flat-rate pricing means you know exactly what you pay each month without surprise charges or annual increases.' },
 ];
 
 /* ═══════════════════════ NAV ═══════════════════════ */
@@ -542,7 +542,7 @@ const FAQItem = ({ faq }) => {
         <span className="font-medium text-[1.05rem] group-hover:text-orange-500 transition-colors duration-300">{faq.q}</span>
         <ChevronIcon open={open} />
       </button>
-      <div className={`overflow-hidden transition-all duration-500 ease-out ${open ? 'max-h-60 opacity-100 pb-6' : 'max-h-0 opacity-0'}`}>
+      <div className={`overflow-hidden transition-all duration-500 ease-out ${open ? 'max-h-96 opacity-100 pb-6' : 'max-h-0 opacity-0'}`}>
         <p className="text-text-muted leading-relaxed max-w-[700px]">{faq.a}</p>
       </div>
     </div>
@@ -863,6 +863,7 @@ const HomePage = () => (
     <Hero />
     <BusinessDescription />
     <Services />
+    <FAQ />
     <FindUs />
     <FinalCTA />
   </>
