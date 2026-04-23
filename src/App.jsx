@@ -287,7 +287,7 @@ const BusinessDescription = () => {
       <div className="max-w-[1200px] mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           <div ref={text.ref} style={text.style}>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-medium tracking-tight leading-tight mb-6">Your Local Trash Company</h2>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-medium tracking-tight leading-tight mb-6">Built for Rural Texas Communities That Deserve Better</h2>
             <p className="text-text-muted text-base sm:text-lg leading-relaxed mb-4">
               Rankin Waste Management is a locally family-owned and operated small business proudly serving Hubbard, Axtell, Dawson, Malone, Mertens, Purdon, TX, and surrounding rural communities. We specialize in reliable, affordable trash service with a personal touch.
             </p>
