@@ -375,14 +375,46 @@ const Services = () => {
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-medium tracking-tight">Our Services</h2>
         </div>
 
-        <div ref={intro.ref} style={intro.style} className="max-w-[800px] mx-auto">
-          <h3 className="text-xl md:text-2xl font-semibold tracking-tight mb-5">Waste Management Service</h3>
-          <p className="text-text-muted text-base sm:text-lg leading-relaxed mb-4">
-            Our weekly curbside pickup service handles all your household waste without complicated sorting requirements or mysterious fees. Simply set out your bags or cans on pickup day and we handle everything else, providing the reliable service that 700+ rural Texas families depend on every week.
-          </p>
-          <p className="text-text-muted text-base sm:text-lg leading-relaxed">
-            As a family-owned business built specifically for rural communities, we deliver the consistent service and personal accountability that big national haulers can't match in areas like Hubbard and surrounding Hill County towns.
-          </p>
+        <div ref={intro.ref} style={intro.style} className="max-w-[800px] mx-auto space-y-12 md:space-y-14">
+          <div>
+            <h3 className="text-xl md:text-2xl font-semibold tracking-tight mb-5">Waste Management Service</h3>
+            <p className="text-text-muted text-base sm:text-lg leading-relaxed mb-4">
+              Our weekly curbside pickup service handles all your household waste without complicated sorting requirements or mysterious fees. Simply set out your bags or cans on pickup day and we handle everything else, providing the reliable service that 700+ rural Texas families depend on every week.
+            </p>
+            <p className="text-text-muted text-base sm:text-lg leading-relaxed">
+              As a family-owned business built specifically for rural communities, we deliver the consistent service and personal accountability that big national haulers can't match in areas like Hubbard and surrounding Hill County towns.
+            </p>
+          </div>
+
+          <div>
+            <h3 className="text-xl md:text-2xl font-semibold tracking-tight mb-5">Garbage Collection Service</h3>
+            <p className="text-text-muted text-base sm:text-lg leading-relaxed mb-4">
+              We provide a straightforward residential garbage collection service with weekly pickup designed specifically for rural residents. Our service eliminates the frustration of dealing with missed collections and unresponsive customer service, which characterizes most big waste management companies.
+            </p>
+            <p className="text-text-muted text-base sm:text-lg leading-relaxed">
+              With Tommy and Sydney personally overseeing operations and answering customer calls, any service adjustments or questions get handled immediately by the business owners. This direct communication ensures your garbage collection stays reliable week after week.
+            </p>
+          </div>
+
+          <div>
+            <h3 className="text-xl md:text-2xl font-semibold tracking-tight mb-5">Junk Removal Service</h3>
+            <p className="text-text-muted text-base sm:text-lg leading-relaxed mb-4">
+              Our bulk pickup service handles furniture, appliances, and other large items. We provide full-service handling so you don't need to prep items or worry about complicated scheduling procedures.
+            </p>
+            <p className="text-text-muted text-base sm:text-lg leading-relaxed">
+              Unlike big haulers, reaching us means talking directly to Tommy and Sydney who can coordinate bulk pickups immediately. This direct approach ensures your junk removal needs get addressed quickly without long delays.
+            </p>
+          </div>
+
+          <div>
+            <h3 className="text-xl md:text-2xl font-semibold tracking-tight mb-5">Dumpster Rental Service</h3>
+            <p className="text-text-muted text-base sm:text-lg leading-relaxed mb-4">
+              We offer dumpster rentals for home renovations, property cleanouts, and land clearing projects. Our rental service covers everything from small residential projects to larger construction debris removal needs with flexible rental periods and no contract restrictions.
+            </p>
+            <p className="text-text-muted text-base sm:text-lg leading-relaxed">
+              Our locally-owned approach means rental scheduling, delivery, and pickup coordination happens directly with the business owners rather than through corporate dispatch systems. This personal service ensures your project timeline stays on track with responsive, reliable dumpster rental service.
+            </p>
+          </div>
         </div>
 
         <div className="mt-12 md:mt-14 text-center">
