@@ -383,9 +383,12 @@ const Services = () => {
             <p className="text-text-muted text-base sm:text-lg leading-relaxed mb-4">
               Our weekly curbside pickup service handles all your household waste without complicated sorting requirements or mysterious fees. Simply set out your bags or cans on pickup day and we handle everything else, providing the reliable service that 700+ rural Texas families depend on every week.
             </p>
-            <p className="text-text-muted text-base sm:text-lg leading-relaxed">
+            <p className="text-text-muted text-base sm:text-lg leading-relaxed mb-5">
               As a family-owned business built specifically for rural communities, we deliver the consistent service and personal accountability that big national haulers can't match in areas like Hubbard and surrounding Hill County towns.
             </p>
+            <Link to="/waste-management-service-hubbard" className="inline-flex items-center gap-1 text-orange-500 hover:text-orange-300 font-semibold text-sm sm:text-base transition-colors duration-300">
+              Learn more about waste management in Hubbard &rarr;
+            </Link>
           </div>
 
           <div>
@@ -403,9 +406,12 @@ const Services = () => {
             <p className="text-text-muted text-base sm:text-lg leading-relaxed mb-4">
               Our bulk pickup service handles furniture, appliances, and other large items. We provide full-service handling so you don't need to prep items or worry about complicated scheduling procedures.
             </p>
-            <p className="text-text-muted text-base sm:text-lg leading-relaxed">
+            <p className="text-text-muted text-base sm:text-lg leading-relaxed mb-5">
               Unlike big haulers, reaching us means talking directly to Tommy and Sydney who can coordinate bulk pickups immediately. This direct approach ensures your junk removal needs get addressed quickly without long delays.
             </p>
+            <Link to="/junk-removal-service-hubbard" className="inline-flex items-center gap-1 text-orange-500 hover:text-orange-300 font-semibold text-sm sm:text-base transition-colors duration-300">
+              Learn more about junk removal in Hubbard &rarr;
+            </Link>
           </div>
 
           <div>
