@@ -47,9 +47,17 @@ export default function Hubbard() {
 
           {/* Intro */}
           <div ref={intro.ref} style={intro.style} className="mb-16">
-            <p className="text-text-muted text-lg leading-relaxed mb-6">
+            <p className="text-text-muted text-lg leading-relaxed mb-8">
               In Hubbard, residents and businesses need reliable waste removal solutions. We provide complete trash collection services across the area. Find the right pickup schedule and service type for your property. Professional waste management keeps your property clean and compliant with local regulations.
             </p>
+            <img
+              src="/truck-trailer.webp"
+              alt="Rankin Waste Management truck towing a dumpster trailer in Hubbard, TX"
+              width="600"
+              height="303"
+              loading="lazy"
+              className="w-full h-auto rounded-sm border border-border-subtle"
+            />
           </div>
 
           {/* Weekly Residential */}
