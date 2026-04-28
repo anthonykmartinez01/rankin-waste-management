@@ -16,6 +16,7 @@ const TermsOfService = lazy(() => import('./pages/TermsOfService'));
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
 const Axtell = lazy(() => import('./pages/Axtell'));
 const Hubbard = lazy(() => import('./pages/Hubbard'));
+const JunkRemovalHubbard = lazy(() => import('./pages/JunkRemovalHubbard'));
 
 /* ═══════════════════════ SCROLL REVEAL HOOK ═══════════════════════ */
 
@@ -985,6 +986,7 @@ const AppInner = () => {
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/service-areas/axtell" element={<Axtell />} />
             <Route path="/waste-management-service-hubbard" element={<Hubbard />} />
+            <Route path="/junk-removal-service-hubbard" element={<JunkRemovalHubbard />} />
           </Routes>
         </Suspense>
         <Footer />
