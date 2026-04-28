@@ -83,7 +83,7 @@ export const PageHead = ({ title, description }) => {
 /* ═══════════════════════ INNER PAGE HERO ═══════════════════════ */
 
 export const InnerHero = ({ title }) => (
-  <div className="pt-20 pb-12 md:pt-28 md:pb-16 bg-dark-elevated border-b border-border-subtle">
+  <div className="pt-36 pb-12 md:pt-40 md:pb-16 bg-dark-elevated border-b border-border-subtle">
     <div className="max-w-[1200px] mx-auto px-6 lg:px-[clamp(2rem,5vw,4rem)]">
       <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight">{title}</h1>
     </div>
