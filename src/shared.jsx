@@ -81,9 +81,14 @@ const setMeta = (selector, attr, value) => {
   }
 };
 
-export const PageHead = ({ title, description }) => {
+const DEFAULT_OG_IMAGE = 'https://rankinwaste.com/truck-side.webp';
+
+export const PageHead = ({ title, description, image, imageAlt }) => {
   useEffect(() => {
     const url = window.location.origin + window.location.pathname;
+    const ogImage = image
+      ? (image.startsWith('http') ? image : window.location.origin + image)
+      : DEFAULT_OG_IMAGE;
 
     // Title + description
     document.title = title;
@@ -104,13 +109,17 @@ export const PageHead = ({ title, description }) => {
     setMeta('meta[property="og:title"]', 'content', title);
     setMeta('meta[property="og:description"]', 'content', description);
     setMeta('meta[property="og:url"]', 'content', url);
+    setMeta('meta[property="og:image"]', 'content', ogImage);
+    if (imageAlt) setMeta('meta[property="og:image:alt"]', 'content', imageAlt);
 
     // Twitter / X Card
     setMeta('meta[name="twitter:title"]', 'content', title);
     setMeta('meta[name="twitter:description"]', 'content', description);
+    setMeta('meta[name="twitter:image"]', 'content', ogImage);
+    if (imageAlt) setMeta('meta[name="twitter:image:alt"]', 'content', imageAlt);
 
     window.scrollTo(0, 0);
-  }, [title, description]);
+  }, [title, description, image, imageAlt]);
   return null;
 };
 

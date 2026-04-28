@@ -15,16 +15,20 @@ export default function JunkRemovalHubbard() {
       <PageHead
         title="Junk Removal Service Hubbard TX | Rankin Waste Management"
         description="Professional junk removal service in Hubbard, TX. We handle furniture, appliances, cleanouts and construction debris. Same-day pickup with upfront quotes from Rankin Waste Management."
+        image="/junk-removal-trailer.webp"
+        imageAlt="Rankin Waste Management trailer hauling junk and debris in Hubbard, TX"
       />
       <InnerHero title="Junk Removal Service in Hubbard" />
 
-      {/* Schema Markup */}
+      {/* Service Schema */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Service",
           "serviceType": "Junk Removal",
+          "name": "Junk Removal Service in Hubbard, TX",
+          "image": "https://rankinwaste.com/junk-removal-trailer.webp",
           "provider": {
             "@type": "Organization",
             "name": "Rankin Waste Management",
@@ -44,6 +48,19 @@ export default function JunkRemovalHubbard() {
             "@type": "City",
             "name": "Hubbard, TX"
           }
+        }) }}
+      />
+
+      {/* Breadcrumb Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://rankinwaste.com/" },
+            { "@type": "ListItem", "position": 2, "name": "Junk Removal Service in Hubbard", "item": "https://rankinwaste.com/junk-removal-service-hubbard" }
+          ]
         }) }}
       />
 
