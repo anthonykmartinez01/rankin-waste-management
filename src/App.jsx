@@ -17,7 +17,6 @@ const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
 const Axtell = lazy(() => import('./pages/Axtell'));
 const Hubbard = lazy(() => import('./pages/Hubbard'));
 const JunkRemovalHubbard = lazy(() => import('./pages/JunkRemovalHubbard'));
-const DumpsterRentalHubbard = lazy(() => import('./pages/DumpsterRentalHubbard'));
 
 /* ═══════════════════════ SCROLL REVEAL HOOK ═══════════════════════ */
 
@@ -994,7 +993,6 @@ const AppInner = () => {
             <Route path="/service-areas/axtell" element={<Axtell />} />
             <Route path="/waste-management-service-hubbard" element={<Hubbard />} />
             <Route path="/junk-removal-service-hubbard" element={<JunkRemovalHubbard />} />
-            <Route path="/dumpster-rental-service-hubbard" element={<DumpsterRentalHubbard />} />
           </Routes>
         </Suspense>
         <Footer />
