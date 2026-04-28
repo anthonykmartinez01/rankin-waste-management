@@ -12,8 +12,8 @@ export default function Hubbard() {
   return (
     <>
       <PageHead
-        title="Waste Management Service in Hubbard, TX | Rankin Waste Management"
-        description="Reliable waste management service in Hubbard, TX. Weekly residential pickup, garbage removal, curbside collection, and rural trash service. Family-owned. Call (254) 205-6125."
+        title="Waste Management Service Hubbard TX | Rankin Waste Management"
+        description="Professional waste management service in Hubbard, TX. Weekly residential pickup, curbside collection, and rural trash service. Reliable garbage removal for homes and businesses."
       />
       <InnerHero title="Waste Management Service in Hubbard" />
 
