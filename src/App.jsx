@@ -944,6 +944,7 @@ const HomePage = () => (
     <WhyChooseUs />
     <Services />
     <CustomerSay />
+    <FAQ />
     <FindUs />
     <FinalCTA />
   </>
