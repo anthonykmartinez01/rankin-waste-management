@@ -64,17 +64,51 @@ export const ClockIcon = ({ className = 'w-5 h-5' }) => (
 
 /* ═══════════════════════ PAGE WRAPPER ═══════════════════════ */
 
-export const PageHead = ({ title, description }) => {
-  useEffect(() => {
-    document.title = title;
-    const meta = document.querySelector('meta[name="description"]');
-    if (meta) meta.setAttribute('content', description);
-    else {
-      const m = document.createElement('meta');
-      m.name = 'description';
-      m.content = description;
+const setMeta = (selector, attr, value) => {
+  const el = document.querySelector(selector);
+  if (el) {
+    el.setAttribute(attr, value);
+  } else {
+    // Create the tag if it doesn't exist
+    const m = document.createElement('meta');
+    // Parse selector like meta[name="description"] or meta[property="og:url"]
+    const match = selector.match(/meta\[(name|property)="([^"]+)"\]/);
+    if (match) {
+      m.setAttribute(match[1], match[2]);
+      m.setAttribute(attr, value);
       document.head.appendChild(m);
     }
+  }
+};
+
+export const PageHead = ({ title, description }) => {
+  useEffect(() => {
+    const url = window.location.origin + window.location.pathname;
+
+    // Title + description
+    document.title = title;
+    setMeta('meta[name="description"]', 'content', description);
+
+    // Canonical
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (canonical) {
+      canonical.setAttribute('href', url);
+    } else {
+      canonical = document.createElement('link');
+      canonical.setAttribute('rel', 'canonical');
+      canonical.setAttribute('href', url);
+      document.head.appendChild(canonical);
+    }
+
+    // Open Graph
+    setMeta('meta[property="og:title"]', 'content', title);
+    setMeta('meta[property="og:description"]', 'content', description);
+    setMeta('meta[property="og:url"]', 'content', url);
+
+    // Twitter / X Card
+    setMeta('meta[name="twitter:title"]', 'content', title);
+    setMeta('meta[name="twitter:description"]', 'content', description);
+
     window.scrollTo(0, 0);
   }, [title, description]);
   return null;
