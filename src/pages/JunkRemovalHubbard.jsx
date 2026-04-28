@@ -52,9 +52,19 @@ export default function JunkRemovalHubbard() {
 
           {/* Intro */}
           <div ref={intro.ref} style={intro.style} className="mb-12 md:mb-16">
-            <p className="text-text-muted text-base sm:text-lg leading-relaxed">
+            <p className="text-text-muted text-base sm:text-lg leading-relaxed mb-6 md:mb-8">
               In Hubbard, residents and businesses need reliable waste removal when clutter builds up or projects create debris. Our junk removal service in Hubbard handles everything from old furniture to construction waste. Same-day pickup available with upfront quotes. We take care of the removal and make sure your waste is disposed of properly.
             </p>
+            <div className="flex justify-center">
+              <img
+                src="/junk-removal-trailer.webp"
+                alt="Rankin Waste Management trailer hauling junk and debris in Hubbard, TX"
+                width="381"
+                height="509"
+                loading="lazy"
+                className="w-full max-w-[381px] h-auto rounded-sm border border-border-subtle"
+              />
+            </div>
           </div>
 
           {/* Junk Removal */}
