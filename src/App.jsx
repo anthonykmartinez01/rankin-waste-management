@@ -398,9 +398,12 @@ const Services = () => {
             <p className="text-text-muted text-base sm:text-lg leading-relaxed mb-4">
               We provide a straightforward residential garbage collection service with weekly pickup designed specifically for rural residents. Our service eliminates the frustration of dealing with missed collections and unresponsive customer service, which characterizes most big waste management companies.
             </p>
-            <p className="text-text-muted text-base sm:text-lg leading-relaxed">
+            <p className="text-text-muted text-base sm:text-lg leading-relaxed mb-5">
               With Tommy and Sydney personally overseeing operations and answering customer calls, any service adjustments or questions get handled immediately by the business owners. This direct communication ensures your garbage collection stays reliable week after week.
             </p>
+            <Link to="/garbage-collection-service-hubbard" className="inline-flex items-center gap-1 text-orange-500 hover:text-orange-300 font-semibold text-sm sm:text-base transition-colors duration-300">
+              Learn more about garbage collection in Hubbard &rarr;
+            </Link>
           </div>
 
           <div>
