@@ -73,7 +73,7 @@ export default function GarbageCollectionHubbard() {
           <div ref={pickup.ref} style={pickup.style} className="mb-12 md:mb-16">
             <h2 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Garbage Pickup in Hubbard</h2>
             <p className="text-text-muted text-base sm:text-lg leading-relaxed mb-4 md:mb-6">
-              Residential homeowners need weekly trash removal they can count on. We provide scheduled curbside pickup with containers included and consistent service you can rely on. Our <Link to="/residential" className="text-orange-500 hover:text-orange-300 font-semibold transition-colors duration-300">garbage collection service</Link> covers all Hubbard neighborhoods.
+              Residential homeowners need weekly trash removal they can count on. We provide scheduled curbside pickup with containers included and consistent service you can rely on. Our garbage collection service covers all Hubbard neighborhoods.
             </p>
             <p className="text-text-muted text-base sm:text-lg leading-relaxed">
               Weekly pickup keeps your home clean and your family healthy. We arrive on the same day each week so you never miss collection. Our trucks handle standard household waste and recyclables with professional care.
