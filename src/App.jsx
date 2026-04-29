@@ -420,9 +420,12 @@ const Services = () => {
             <p className="text-text-muted text-base sm:text-lg leading-relaxed mb-4">
               We offer dumpster rentals for home renovations, property cleanouts, and land clearing projects. Our rental service covers everything from small residential projects to larger construction debris removal needs with flexible rental periods and no contract restrictions.
             </p>
-            <p className="text-text-muted text-base sm:text-lg leading-relaxed">
+            <p className="text-text-muted text-base sm:text-lg leading-relaxed mb-5">
               Our locally-owned approach means rental scheduling, delivery, and pickup coordination happens directly with the business owners rather than through corporate dispatch systems. This personal service ensures your project timeline stays on track with responsive, reliable dumpster rental service.
             </p>
+            <Link to="/dumpster-rental-service-hubbard" className="inline-flex items-center gap-1 text-orange-500 hover:text-orange-300 font-semibold text-sm sm:text-base transition-colors duration-300">
+              Learn more about dumpster rentals in Hubbard &rarr;
+            </Link>
           </div>
         </div>
 
