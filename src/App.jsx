@@ -383,7 +383,7 @@ const Services = () => {
           <div>
             <h3 className="text-xl md:text-2xl font-semibold tracking-tight mb-5">Waste Management Service</h3>
             <p className="text-text-muted text-base sm:text-lg leading-relaxed mb-4">
-              Our weekly curbside pickup service handles all your household waste without complicated sorting requirements or mysterious fees. Simply set out your bags or cans on pickup day and we handle everything else, providing the reliable service that 700+ rural Texas families depend on every week.
+              Our weekly curbside pickup service handles all your household waste without complicated sorting requirements or hidden fees. Simply set out your bags or cans on pickup day and we handle everything else, providing the reliable service that 700+ rural Texas families depend on every week.
             </p>
             <p className="text-text-muted text-base sm:text-lg leading-relaxed mb-5">
               As a family-owned business built specifically for rural communities, we deliver the consistent service and personal accountability that big national haulers can't match in areas like Hubbard and surrounding Hill County towns.

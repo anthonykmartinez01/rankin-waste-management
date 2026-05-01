@@ -120,7 +120,7 @@ export default function JunkRemovalHubbard() {
           <div ref={construction.ref} style={construction.style} className="mb-12 md:mb-16">
             <h2 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Construction debris removal in Hubbard</h2>
             <p className="text-text-muted text-base sm:text-lg leading-relaxed">
-              Contractors and homeowners with renovation or demolition waste can use our services as a dumpster alternative with labor included. We handle loading and hauling of construction materials, drywall, flooring, and demolition debris. We are familiar with Hubbard building sites and local disposal requirements. For larger projects you'd rather load yourself, ask about our <Link to="/trash-trailer-rentals" className="text-orange-500 hover:text-orange-300 font-semibold transition-colors duration-300">trash trailer rentals</Link>. You focus on your project while we manage the cleanup and debris removal.
+              Contractors and homeowners with renovation or demolition waste can use our services as a dumpster alternative with labor included. We handle loading and hauling of construction materials, drywall, flooring, and demolition debris. We are familiar with Hubbard building sites and local disposal requirements. For larger projects you'd rather load yourself, ask about our trash trailer rentals. You focus on your project while we manage the cleanup and debris removal.
             </p>
           </div>
 
