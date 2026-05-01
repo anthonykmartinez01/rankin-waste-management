@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { useReveal, PageHead, InnerHero, CallCTA, PHONE, PHONE_LINK } from '../shared';
 
 export default function DumpsterRentalHubbard() {
@@ -89,7 +88,7 @@ export default function DumpsterRentalHubbard() {
           <div ref={rolloff.ref} style={rolloff.style} className="mb-12 md:mb-16">
             <h2 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Roll-off Dumpster Service in Hubbard</h2>
             <p className="text-text-muted text-base sm:text-lg leading-relaxed">
-              Construction crews, contractors, and property developers managing building debris and large-scale cleanouts require heavy-duty solutions. We supply sturdy containers for construction waste, roofing materials, and demolition debris with easy loading access. Our roll-off service covers construction sites throughout the Hubbard area with permits handled when required. For other large-haul needs, see our <Link to="/trash-trailer-rentals" className="text-orange-500 hover:text-orange-300 font-semibold transition-colors duration-300">trash trailer rentals</Link>.
+              Construction crews, contractors, and property developers managing building debris and large-scale cleanouts require heavy-duty solutions. We supply sturdy containers for construction waste, roofing materials, and demolition debris with easy loading access. Our roll-off service covers construction sites throughout the Hubbard area with permits handled when required. For other large-haul needs, see our trash trailer rentals.
             </p>
           </div>
 

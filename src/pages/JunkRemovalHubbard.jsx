@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { useReveal, PageHead, InnerHero, CallCTA, PHONE, PHONE_LINK } from '../shared';
 
 export default function JunkRemovalHubbard() {
