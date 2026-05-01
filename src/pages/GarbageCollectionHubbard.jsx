@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { useReveal, PageHead, InnerHero, CallCTA, PHONE, PHONE_LINK } from '../shared';
 
 export default function GarbageCollectionHubbard() {
@@ -98,7 +97,7 @@ export default function GarbageCollectionHubbard() {
               Homeowners disposing of large items like furniture and appliances need specialized removal service. We handle heavy item removal through scheduled appointments with proper disposal methods for all materials. Our bulk pickup serves spring cleaning and moving situations across Hubbard.
             </p>
             <p className="text-text-muted text-base sm:text-lg leading-relaxed">
-              Large appliances require special handling that regular pickup cannot provide. We remove couches, washing machines, mattresses, and other oversized items safely. Schedule your bulk pickup when you need extra space or during seasonal cleanouts. For larger projects you'd rather load yourself, ask about our <Link to="/trash-trailer-rentals" className="text-orange-500 hover:text-orange-300 font-semibold transition-colors duration-300">trash trailer rentals</Link>.
+              Large appliances require special handling that regular pickup cannot provide. We remove couches, washing machines, mattresses, and other oversized items safely. Schedule your bulk pickup when you need extra space or during seasonal cleanouts. For larger projects you'd rather load yourself, ask about our trash trailer rentals.
             </p>
           </div>
 

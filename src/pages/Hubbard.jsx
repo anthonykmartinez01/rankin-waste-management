@@ -80,7 +80,7 @@ export default function Hubbard() {
               Property owners facing large cleanouts, renovations, or excess waste accumulation require thorough removal services. Complete debris removal eliminates the need for multiple trips to dump sites while handling items too large for regular pickup.
             </p>
             <p className="text-text-muted text-base sm:text-lg leading-relaxed">
-              We serve Hubbard businesses and residential properties with flexible scheduling. Our team handles everything from construction debris to household cleanouts, making your project cleanup simple and efficient. For larger projects, ask about our <Link to="/trash-trailer-rentals" className="text-orange-500 hover:text-orange-300 font-semibold transition-colors duration-300">trash trailer rentals</Link>.
+              We serve Hubbard businesses and residential properties with flexible scheduling. Our team handles everything from construction debris to household cleanouts, making your project cleanup simple and efficient. For larger projects, ask about our trash trailer rentals.
             </p>
           </div>
 
