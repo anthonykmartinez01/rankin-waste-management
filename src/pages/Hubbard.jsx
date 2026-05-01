@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { useReveal, PageHead, InnerHero, CallCTA, PHONE, PHONE_LINK } from '../shared';
 
 export default function Hubbard() {
@@ -69,7 +68,7 @@ export default function Hubbard() {
               Homeowners need consistent weekly waste removal to maintain their properties. Regular pickup prevents overflow and maintains neighborhood cleanliness without the hassle of storing trash for extended periods.
             </p>
             <p className="text-text-muted text-base sm:text-lg leading-relaxed">
-              Our <Link to="/residential" className="text-orange-500 hover:text-orange-300 font-semibold transition-colors duration-300">waste management service</Link> in Hubbard covers all residential streets with early morning collection. We arrive before most residents start their day, keeping your neighborhood quiet and your bins emptied on schedule.
+              Our waste management service in Hubbard covers all residential streets with early morning collection. We arrive before most residents start their day, keeping your neighborhood quiet and your bins emptied on schedule.
             </p>
           </div>
 
