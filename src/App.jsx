@@ -707,7 +707,7 @@ const FindUs = () => {
           />
         </div>
         <p ref={caption.ref} style={caption.style} className="text-text-muted text-center text-base md:text-lg leading-relaxed mt-8 md:mt-10 max-w-[800px] mx-auto">
-          We're based in Hubbard, TX — family-owned and operated, proudly serving Axtell, Dawson, Malone, Mertens, Purdon, and the surrounding rural communities.
+          We're based in Hubbard, TX, family-owned and operated, proudly serving Axtell, Dawson, Malone, Mertens, Purdon, and the surrounding rural communities.
         </p>
       </div>
     </section>
