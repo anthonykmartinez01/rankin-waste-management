@@ -46,7 +46,7 @@ export default function Hubbard() {
       />
 
       <section className="px-5 sm:px-6 lg:px-[clamp(2rem,5vw,4rem)] py-12 md:py-20 lg:py-28">
-        <div className="max-w-[800px] mx-auto">
+        <div className="max-w-[1100px] mx-auto">
 
           {/* Intro */}
           <div ref={intro.ref} style={intro.style} className="mb-12 md:mb-16 text-center">
