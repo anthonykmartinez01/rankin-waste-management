@@ -9,6 +9,7 @@
 // idle since carousel doesn't block first paint.
 
 import React, { useState, useRef } from "react";
+import { business } from "../data/business";
 
 interface Review {
   name: string;
@@ -103,23 +104,27 @@ const CSS = `.rw-reviews-widget { font-family: 'Lato', -apple-system, BlinkMacSy
 .rw-slide-hint { display: none; }
 @media (max-width: 768px) { .rw-slide-hint { display: flex; align-items: center; justify-content: center; gap: 6px; color: rgba(255,255,255,0.5); font-size: 12px; font-weight: 500; margin-top: -4px; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; } }`;
 
+// Phone in E.164-with-dashes format for JSON-LD telephone field, derived
+// from the canonical (254) 205-6125 in business.ts.
+const TEL_E164 = "+1-254-205-6125";
+
 const schemaData = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
-  "name": "Rankin Waste Management",
+  "name": business.name,
   "address": {
     "@type": "PostalAddress",
-    "streetAddress": "123 Main St",
-    "addressLocality": "Rankin",
-    "addressRegion": "TX",
-    "postalCode": "79778",
-    "addressCountry": "US"
+    "streetAddress": business.address.street,
+    "addressLocality": business.address.city,
+    "addressRegion": business.address.state,
+    "postalCode": business.address.zip,
+    "addressCountry": business.address.country
   },
-  "telephone": "+1-432-693-2521",
+  "telephone": TEL_E164,
   "aggregateRating": {
     "@type": "AggregateRating",
     "ratingValue": "5.0",
-    "reviewCount": "250",
+    "reviewCount": "284",
     "bestRating": "5",
     "worstRating": "1"
   },
