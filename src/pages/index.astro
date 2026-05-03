@@ -1,1 +1,11 @@
-<html><head><title>placeholder</title></head><body><h1>hello</h1></body></html>
+---
+// Sub-batch 2b smoke-check placeholder. Will be replaced by the real
+// homepage in Batch 6.
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="Test" description="Test description for smoke check">
+  <h1>Layout smoke test</h1>
+  <p>Reveal test:</p>
+  <div data-reveal>This element should fade in</div>
+  <div data-reveal data-reveal-delay="0.2">This one with delay</div>
+</Layout>

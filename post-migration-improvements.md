@@ -17,6 +17,16 @@ Last updated: 2026-05-02 (Checkpoint 1 expanded)
   - Backdrop / click-outside-to-close — there is no overlay; clicking outside the drawer doesn't close it
 - **Current behavior preserved during migration per delivery-layer-only scope.** Each gap is a P1 accessibility improvement to fix post-migration. Suggested order: `aria-expanded` first (smallest change, highest screen-reader impact), then Escape-to-close, then focus management, then scroll lock, then backdrop.
 
+### A2. ServiceRequestModal lacks accessibility primitives
+- Modal currently lacks (all preserved verbatim from pre-migration per delivery-layer scope):
+  - **No focus trap** inside the modal — Tab can escape to the page behind
+  - **No focus return** to the triggering CTA on close — focus drops to body
+  - **No Escape-to-close** handler
+  - **No `role="dialog"` or `aria-modal="true"`** on the modal container — screen readers don't announce it as a modal
+  - **No `aria-labelledby`** linking the modal container to its `<h2>` ("Request Service") — screen readers don't announce the modal title on open
+  - **No explicit `type="button"`** on the close button — modal isn't nested in a form so default behavior works, but explicit type is HTML hygiene best practice
+- **Fix as part of a single P1 modal-a11y commit post-migration.** Suggested implementation order: `role="dialog"` + `aria-modal="true"` + `aria-labelledby` first (smallest change, highest screen-reader impact), then Escape-to-close, then focus trap, then focus return, then `type="button"`.
+
 ---
 
 ## P1 — High-impact SEO
