@@ -71,3 +71,20 @@ These pages currently have no JSON-LD schema. None are required, but each has a 
 ---
 
 **Process:** when picking any of these up, open a separate branch and a separate PR per improvement. Do not bundle multiple of these together. Keep the migration's "delivery-layer only" boundary clear in the git history.
+
+---
+
+## Historical attempts (do not repeat without re-evaluating)
+
+### vite-react-ssg attempt (ssg-migration branch, 2026-05-02)
+
+Tried `vite-react-ssg@0.9.1-beta.1`. Required cascading version downgrades:
+- Vite 8 → 7
+- React Router 7 → 6
+- react-helmet-async 3 → 1 (with `--legacy-peer-deps`; helmet 1 doesn't list React 19 as peer)
+
+After all three downgrades, prerender still emitted per-page head tags into `<body>` (inside `<div id="root">`) instead of `<head>` — caused by helmet 1.x not integrating cleanly with vite-react-ssg's head extraction under React 19. Lighthouse SEO dropped 100 → 92 on every page because the meta description wasn't found in `<head>`.
+
+**Documented for future reference if the library matures.** When `vite-react-ssg` adds support for Vite 8 + RR 7 + helmet 3 (or switches to a different head manager), this approach may become viable. The `ssg-migration` branch is preserved as the recoverable record.
+
+Migration continued via Path B (vike) on the `ssg-migration-v2` branch.
