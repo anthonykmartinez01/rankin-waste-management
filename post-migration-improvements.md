@@ -90,6 +90,26 @@ Last updated: 2026-05-02 (Checkpoint 1 expanded)
 
 ---
 
+## P3 — Routing follow-ups
+
+### ROUTE-1. Trailing-slash redirect uses two explicit rules; depth-bound to 2 segments
+- `netlify.toml` currently uses two explicit redirect rules to handle trailing-slash normalization at the current site depths:
+  - `from = "/:slug/"` — matches single-segment routes like `/contact-us/` → `/contact-us`
+  - `from = "/:a/:b/"` — matches two-segment routes like `/service-areas/axtell/` → `/service-areas/axtell`
+- Why two rules instead of `from = "/*/"` (splat): Netlify splat (`*`) semantics match the empty string, which causes `/*/` to match the bare root `/` with an empty splat — when combined with `force = true`, that produces an infinite 301 loop on the homepage. The `:placeholder` syntax requires non-empty single path segments, avoiding the loop.
+- **If a future route reaches 3+ segments** (e.g., `/service-areas/axtell/specialty-service`), add a third rule:
+  ```toml
+  [[redirects]]
+    from = "/:a/:b/:c/"
+    to = "/:a/:b/:c"
+    status = 301
+    force = true
+  ```
+- **Could be replaced post-migration with a single Netlify Edge Function** for cleaner depth-agnostic handling: a small edge function that strips the trailing slash on any non-root path before passing to the static origin. Single source of truth, no per-depth rule fiddling.
+- **Fix as P3 post-migration** — current behavior is correct for the 13 existing routes; not blocking.
+
+---
+
 ## P3 — FAQ schema parity
 
 ### FAQ-2. FAQPage JSON-LD schema uses ASCII hyphens; visible body uses em-dashes
