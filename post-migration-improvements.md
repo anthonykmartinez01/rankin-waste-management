@@ -6,6 +6,19 @@ Last updated: 2026-05-02 (Checkpoint 1 expanded)
 
 ---
 
+## P1 — Accessibility
+
+### A1. Mobile menu lacks accessibility primitives
+- Mobile navigation drawer (in `Nav` component) does not implement:
+  - `aria-expanded` on the toggle button — screen readers can't tell whether the menu is open
+  - Focus management — no focus moves into the drawer when opened, no focus trap inside, no focus return on close
+  - Body scroll lock — page body remains scrollable while drawer is open
+  - Escape-to-close — pressing Esc does nothing
+  - Backdrop / click-outside-to-close — there is no overlay; clicking outside the drawer doesn't close it
+- **Current behavior preserved during migration per delivery-layer-only scope.** Each gap is a P1 accessibility improvement to fix post-migration. Suggested order: `aria-expanded` first (smallest change, highest screen-reader impact), then Escape-to-close, then focus management, then scroll lock, then backdrop.
+
+---
+
 ## P1 — High-impact SEO
 
 ### 1. Soft 404 on unknown URLs
