@@ -1,0 +1,89 @@
+---
+// src/pages/contact-us.astro
+// Byte-identical content port of pre-migration src/pages/ContactUs.jsx.
+// Hosts the GHL form iframe (light theme — distinct from the dark-themed
+// modal version mounted in Layout). Plus a contact-info grid below the form.
+//
+// Pre-migration loaded form_embed.js via a useEffect on this page only
+// (not site-wide). The Astro version mirrors that with an is:inline
+// <script> at the page bottom — idempotent via querySelector check, byte-
+// identical runtime behavior. Script placement after the iframe in source
+// order ensures the iframe is in the DOM when the script runs.
+//
+// No useReveal calls in pre-migration (this page has no reveal animations).
+// No JSON-LD schema. No internal links beyond the icons-grid mailto.
+//
+// NAP/hours data inconsistency: this page renders 'Mon-Fri 8AM-6PM' with
+// ASCII hyphens. Footer renders 'Monday – Friday / 8AM – 6PM' with en-dashes.
+// business.ts says '7:00 AM – 6:00 PM weekdays + Sat'. Three sources of
+// truth disagree. Preserved verbatim per delivery-layer scope. See
+// post-migration-improvements.md #7a for the P1 NAP cleanup pass.
+import Layout from '../layouts/Layout.astro';
+import InnerHero from '../components/InnerHero.astro';
+import PhoneIcon from '../components/icons/PhoneIcon.astro';
+import MailIcon from '../components/icons/MailIcon.astro';
+import MapPinIcon from '../components/icons/MapPinIcon.astro';
+import ClockIcon from '../components/icons/ClockIcon.astro';
+import { PHONE, PHONE_LINK } from '../data/business';
+
+const GHL_FORM_URL = 'https://go.kailenflow.com/widget/form/IonAPiOYK1uWC7rxn7Iw';
+---
+
+<Layout
+  title="Contact us - Rankin Waste Management"
+  description="Request trash pickup service from Rankin Waste Management. Serving Hubbard, TX and surrounding communities. Call (254) 205-6125 or submit a service request."
+>
+  <InnerHero title="New Service Request" />
+  <section class="px-6 lg:px-[clamp(2rem,5vw,4rem)] py-20 md:py-28">
+    <div class="max-w-[700px] mx-auto">
+      <div class="ghl-form-container rounded-lg overflow-hidden bg-white">
+        <iframe
+          src={GHL_FORM_URL}
+          class="w-full border-none"
+          style="min-height: 600px; background: #ffffff;"
+          scrolling="no"
+          id="page-ghl-form"
+          title="Service Request Form"
+        />
+      </div>
+
+      <div class="mt-16 pt-12 border-t border-border-subtle">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-text-muted text-sm">
+          <div class="flex items-start gap-3">
+            <MapPinIcon class="w-5 h-5 text-orange-500 shrink-0 mt-0.5" />
+            <span>175 PR335, Hubbard, TX 76648</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <PhoneIcon class="w-5 h-5 text-orange-500 shrink-0" />
+            <a href={PHONE_LINK} class="hover:text-white transition-colors duration-300">{PHONE}</a>
+          </div>
+          <div class="flex items-center gap-3">
+            <MailIcon class="w-5 h-5 text-orange-500 shrink-0" />
+            <a href="mailto:rankinwaste@gmail.com" class="hover:text-white transition-colors duration-300">rankinwaste@gmail.com</a>
+          </div>
+          <div class="flex items-center gap-3">
+            <ClockIcon class="w-5 h-5 text-orange-500 shrink-0" />
+            <span>Mon-Fri 8AM-6PM</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/*
+    Per-page form_embed.js loader. Byte-identical runtime behavior to
+    pre-migration ContactUs.jsx's useEffect (lines 7-15). Idempotent via
+    querySelector check — if any other path on the page already loaded
+    the script (e.g., the Modal opening), this is a no-op.
+    Placement after the iframe in source order ensures the iframe is
+    parsed into the DOM by the time this script executes.
+  */}
+  <script is:inline>
+    if (!document.querySelector('script[src="https://go.kailenflow.com/js/form_embed.js"]')) {
+      const s = document.createElement('script');
+      s.src = 'https://go.kailenflow.com/js/form_embed.js';
+      s.async = true;
+      document.body.appendChild(s);
+    }
+  </script>
+</Layout>
