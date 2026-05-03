@@ -96,27 +96,21 @@ Last updated: 2026-05-02 (Checkpoint 1 expanded)
 - ~~Two explicit `:placeholder/` redirect rules in `netlify.toml`~~ — superseded.
 - The two-rule `:placeholder` pattern *also* caused a redirect loop on inner pages because Netlify normalizes paths internally before matching redirect rules (treats `/contact-us` and `/contact-us/` as equivalent at match-time). All redirect rules removed; canonicalization handled by `<link rel="canonical">` tags. See ROUTE-2.
 
-### ROUTE-2. Trailing-slash 301 normalization NOT enforced at server level
-- Both `/contact-us` and `/contact-us/` serve identical content (HTTP 200) with no redirect. Same for every Astro directory-format route.
-- Reason: Netlify's redirect engine normalizes paths internally before matching against `[[redirects]]` rules, so any rule of the form `from = "/.../"` matches BOTH the with- and without-trailing-slash forms of a request. With `force = true`, this causes a redirect loop (`/contact-us` → 301 → `/contact-us` → 301 → ...). Without `force`, Netlify silently suppresses the redirect because the directory file already serves content.
-- Encountered during deploy attempt 2026-05-04. Two attempts failed:
-  - `from = "/*/"` with `force = true` — looped on every URL including `/`.
-  - `from = "/:slug/"` + `from = "/:a/:b/"` with `force = true` — looped on every inner page (`/` survived because `:slug` requires non-empty value).
-- **Current behavior:** SEO canonicalization handled by `<link rel="canonical">` tags pointing to the no-trailing-slash form. Google honors canonical tags; URL forms with trailing slashes will not split ranking signal. Pre-migration React SPA had the same lack of strict URL canonicalization.
-- **Strict 301 normalization can be added post-deploy via Netlify Edge Function** that intercepts requests, checks for trailing slash on non-root paths, and returns an explicit 301. Edge functions bypass the redirect-rule normalization quirk because they run on the actual request URL before path normalization. Reference implementation:
-  ```js
-  // netlify/edge-functions/trailing-slash.js
-  export default async (request, context) => {
-    const url = new URL(request.url);
-    if (url.pathname !== '/' && url.pathname.endsWith('/')) {
-      url.pathname = url.pathname.slice(0, -1);
-      return Response.redirect(url, 301);
-    }
-    return context.next();
-  };
-  ```
-  Wire via `[[edge_functions]] path = "/*"` in `netlify.toml`.
-- **Fix as P3 post-deploy.** Not a launch blocker — the canonical tags are doing the SEO work and inbound links to either URL form work correctly.
+### ROUTE-2. (RESOLVED 2026-05-04) Trailing-slash 301 normalization at server level
+- **Status:** ✅ RESOLVED — implemented as a Netlify Edge Function. Commit `9040acb`.
+- **What changed:** added `netlify/edge-functions/trailing-slash.js` which runs at the CDN edge before Netlify's default redirect logic. Behavior matrix now matches the canonical exactly:
+  - `/` → 200 direct (root unchanged)
+  - `/foo` → rewritten internally to `/foo/index.html`, 200 direct (NO redirect — was 301-to-slash before)
+  - `/foo/` → 301 to `/foo`
+  - `/foo.ext` (any path with a dot in last segment, e.g. `/sitemap.xml`, `/robots.txt`, `/_astro/foo.css`) → context.next() passthrough → 200
+- **Why redirect-rule attempts failed earlier:** Netlify's `[[redirects]]` engine normalizes paths internally before matching, so `from = "/.../"` patterns match BOTH with- and without-slash forms, causing infinite loops with `force=true` or being silently suppressed without it. Edge Functions run on the raw request URL before this normalization, so they can intercept correctly.
+- **Live verification (post-deploy):**
+  - Canonical URL form (no slash) and served URL form now match exactly across all 13 routes
+  - Total HTTP hops on internal-link click: 0 (was 1)
+  - All inbound trailing-slash links (sharing/old links) properly 301'd to canonical
+  - `<link rel="canonical">` tags unchanged (still no-slash); now consistent with what the server actually returns
+- **Implementation file:** `netlify/edge-functions/trailing-slash.js` (55 lines incl. comments). No `netlify.toml` wiring needed — uses inline `export const config = { path: '/*' }`.
+- **Static-file detection** uses last-path-segment dot-presence check — pages have no extension, files do. Robust to any future asset paths.
 
 ---
 
