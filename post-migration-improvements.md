@@ -1,0 +1,73 @@
+# Post-Migration Improvements (DEFERRED)
+
+These were spotted during the SSG migration baseline inventory but are **out of scope** for the migration itself. The migration is delivery-layer only — same head, same content, same schema, just rendered server-side. Each item below should be evaluated and addressed in a separate change after the migration is verified stable.
+
+Last updated: 2026-05-02 (Checkpoint 1 expanded)
+
+---
+
+## P1 — High-impact SEO
+
+### 1. Soft 404 on unknown URLs
+- **Today:** `https://rankinwaste.com/<any-bad-url>` returns HTTP 200 + the SPA shell. Google treats this as a soft 404, which can confuse crawlers and bury real pages.
+- **Cause:** `netlify.toml` catch-all redirect rewrites every unknown path to `/index.html` with status 200, and `App.jsx` has no `<Route path="*">` 404 handler.
+- **Fix:** add a `NotFound.jsx` page at the catch-all route that sets the response status to 404 (in SSG, this can be done via Netlify's `_redirects` `from = /* to = /404.html status = 404` for unknowns, OR by prerendering a real `404.html` and letting Netlify's default behavior serve it for unmatched paths). Netlify automatically serves `dist/404.html` for unmatched routes when one exists at the publish root — that's the cleanest fix.
+
+### 2. Inner pages serve homepage's OG/Twitter tags to crawlers without JS
+- **Today:** every inner page's `og:title`, `og:url`, `og:image`, etc. are the homepage's values when a crawler reads the raw HTML. `PageHead`'s `useEffect` only runs after JS executes, so social-card scrapers (Slack, Twitter, Facebook) and JS-blind crawlers see the wrong preview.
+- **Resolution:** **automatically fixed by the SSG migration itself.** Post-migration, every page's OG/Twitter tags will appear correctly in the raw HTML for that route. No additional work — but worth re-verifying social-card previews in the post-deploy checks.
+
+### 3. Self-referential canonical for inner pages computed at runtime
+- **Today:** `PageHead` builds the canonical from `window.location.origin + window.location.pathname`. Crawlers without JS see the homepage canonical (`https://rankinwaste.com/`) on every inner page, because the homepage canonical is the only one in `index.html`. This means crawlers may consolidate ranking signals from inner pages into the homepage.
+- **Resolution:** **automatically fixed by the SSG migration.** Per-route canonicals will appear in raw HTML.
+
+---
+
+## P2 — Schema coverage gaps
+
+These pages currently have no JSON-LD schema. None are required, but each has a clear schema candidate that could improve rich-result eligibility:
+
+| Route | Suggested schema | Notes |
+|---|---|---|
+| `/about-us` | `AboutPage` (or `Organization` with founder info) | Use Tommy Rankin's name + business history |
+| `/contact-us` | `ContactPage` + `LocalBusiness` | Reinforces local-business signals |
+| `/residential` | `Service` + `BreadcrumbList` | Match the pattern used by Hubbard sub-service pages |
+| `/trash-trailer-rentals` | `Service` + `BreadcrumbList` | Same as above |
+| `/reviews` | `AggregateRating` + reviews | Pulls from the existing review data |
+| `/service-areas/axtell` | Add `BreadcrumbList` (already has `Organization`) | Parity with the Hubbard sub-pages |
+| `/waste-management-service-hubbard` | Add `Service` (currently only `Organization`) + `BreadcrumbList` | This is the parent Hubbard page; should be at least as schema-rich as its children |
+
+**Caveat:** every schema added needs to match real on-page content. Don't add schema for content that isn't visible.
+
+---
+
+## P3 — Head tag consistency
+
+### 4. PageHead doesn't manage `og:type`, `og:locale`, `og:site_name`, `og:image:width`, `og:image:height`, `twitter:card`
+- **Today:** these 6 tags come from `index.html` and apply universally. For a marketing site where every page is `og:type=website`, this is fine.
+- **Possible improvement:** centralize all OG/Twitter management in one place (the SSG head layer) so there's a single source of truth. Low priority.
+
+### 5. `PageHead` mutates `document.title` directly inside `useEffect`
+- **Today:** works fine in CSR. Will be replaced with `react-helmet-async` during the migration.
+- **Resolution:** addressed by Checkpoint 3 of the migration plan.
+
+---
+
+## P4 — Misc
+
+### 6. `index.html` static head includes a fixed homepage canonical
+- After migration, `index.html` becomes a template/layout. Its hardcoded canonical to `/` should either be removed (canonical is per-route) or remain as the homepage's canonical only.
+- Worth a re-verify post-deploy: crawl homepage, confirm exactly one `<link rel="canonical">` and that it's `https://rankinwaste.com/`.
+
+### 7. Sitemap is hand-maintained
+- `public/sitemap.xml` requires a manual entry per new route.
+- Could be auto-generated from the same route list used for prerendering (vite-react-ssg can output a sitemap automatically).
+- Out of scope: the current manual sitemap is the reference for the migration. Auto-generation is a follow-up.
+
+### 8. `<lastmod>` in sitemap is stale
+- All entries say `2026-04-30` even though pages have been updated since (e.g., the `/garbage-collection-service-hubbard` content was rewritten today).
+- Auto-generation would fix this naturally.
+
+---
+
+**Process:** when picking any of these up, open a separate branch and a separate PR per improvement. Do not bundle multiple of these together. Keep the migration's "delivery-layer only" boundary clear in the git history.
