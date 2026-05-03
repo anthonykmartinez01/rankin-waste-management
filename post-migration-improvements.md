@@ -88,3 +88,7 @@ After all three downgrades, prerender still emitted per-page head tags into `<bo
 **Documented for future reference if the library matures.** When `vite-react-ssg` adds support for Vite 8 + RR 7 + helmet 3 (or switches to a different head manager), this approach may become viable. The `ssg-migration` branch is preserved as the recoverable record.
 
 Migration continued via Path B (vike) on the `ssg-migration-v2` branch.
+
+### vike attempt (ssg-migration-v2 branch, 2026-05-02)
+
+vike-react migration attempted on `ssg-migration-v2` branch; did not reach implementation. Plan documented (Checkpoint 2 + clarifications) for reference. Astro chosen as foundation going forward — different framework entirely, native SSG, zero-JS-by-default architecture better suited to this site's static content profile. The `ssg-migration-v2` branch is preserved as the recoverable record of the vike plan.

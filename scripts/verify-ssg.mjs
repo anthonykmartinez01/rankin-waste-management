@@ -22,7 +22,7 @@ const ROUTES = [
   },
   {
     path: '/residential',
-    file: 'dist/residential.html',
+    file: 'dist/residential/index.html',
     h1: 'Residential',
     title: 'Residential - Rankin Waste Management',
     description: 'Dependable weekly residential trash pickup in Hubbard, Axtell, Dawson, Malone, and surrounding rural TX communities. Affordable rates, reliable service.',
@@ -32,7 +32,7 @@ const ROUTES = [
   },
   {
     path: '/trash-trailer-rentals',
-    file: 'dist/trash-trailer-rentals.html',
+    file: 'dist/trash-trailer-rentals/index.html',
     h1: 'Trash Trailer Rentals',
     title: 'Trash Trailer Rentals - Rankin Waste Management',
     description: 'Affordable trash trailer rentals in Hubbard, TX and surrounding areas. 16-foot trailers with high sides, flexible scheduling. We drop it off, you load it, we haul it away.',
@@ -42,7 +42,7 @@ const ROUTES = [
   },
   {
     path: '/about-us',
-    file: 'dist/about-us.html',
+    file: 'dist/about-us/index.html',
     h1: 'About Us',
     title: 'About Us - Rankin Waste Management',
     description: 'Rankin Waste Management is a family-owned trash service in Hubbard, TX. Owned and operated by Tommy Rankin, serving rural communities with reliable, affordable service.',
@@ -52,7 +52,7 @@ const ROUTES = [
   },
   {
     path: '/contact-us',
-    file: 'dist/contact-us.html',
+    file: 'dist/contact-us/index.html',
     h1: 'New Service Request',
     title: 'Contact us - Rankin Waste Management',
     description: 'Request trash pickup service from Rankin Waste Management. Serving Hubbard, TX and surrounding communities. Call (254) 205-6125 or submit a service request.',
@@ -62,7 +62,7 @@ const ROUTES = [
   },
   {
     path: '/reviews',
-    file: 'dist/reviews.html',
+    file: 'dist/reviews/index.html',
     h1: 'Waste Management Service Reviews in Hubbard, TX',
     title: 'Reviews - Waste Management Service in Hubbard, TX | Rankin Waste Management',
     description: 'Read reviews from Rankin Waste Management customers. See why families in Hubbard, TX and surrounding communities trust us for reliable waste management service.',
@@ -72,7 +72,7 @@ const ROUTES = [
   },
   {
     path: '/terms-of-service',
-    file: 'dist/terms-of-service.html',
+    file: 'dist/terms-of-service/index.html',
     h1: 'Terms of Service',
     title: 'Terms of Service - Rankin Waste Management',
     description: 'Terms and Conditions for Rankin Waste Management, including SMS messaging consent, communication policies, and service terms.',
@@ -82,7 +82,7 @@ const ROUTES = [
   },
   {
     path: '/privacy-policy',
-    file: 'dist/privacy-policy.html',
+    file: 'dist/privacy-policy/index.html',
     h1: 'Privacy Policy',
     title: 'Privacy Policy - Rankin Waste Management',
     description: 'Privacy Policy for Rankin Waste Management describing how we collect, use, and protect your personal information and SMS communications.',
@@ -92,7 +92,7 @@ const ROUTES = [
   },
   {
     path: '/service-areas/axtell',
-    file: 'dist/service-areas/axtell.html',
+    file: 'dist/service-areas/axtell/index.html',
     h1: 'Waste Management Service in Axtell, TX',
     title: 'Waste Management Service in Axtell, TX | Rankin Waste Management',
     description: 'Reliable waste management in Axtell. Family-owned with 250+ five-star reviews. Free estimates, 24-hour response. Call (254) 205-6125.',
@@ -102,7 +102,7 @@ const ROUTES = [
   },
   {
     path: '/waste-management-service-hubbard',
-    file: 'dist/waste-management-service-hubbard.html',
+    file: 'dist/waste-management-service-hubbard/index.html',
     h1: 'Waste Management Service in Hubbard',
     title: 'Waste Management Service Hubbard TX | Rankin Waste Management',
     description: 'Professional waste management service in Hubbard, TX. Weekly residential pickup, curbside collection, and rural trash service. Reliable garbage removal for homes and businesses.',
@@ -112,7 +112,7 @@ const ROUTES = [
   },
   {
     path: '/junk-removal-service-hubbard',
-    file: 'dist/junk-removal-service-hubbard.html',
+    file: 'dist/junk-removal-service-hubbard/index.html',
     h1: 'Junk Removal Service in Hubbard',
     title: 'Junk Removal Service Hubbard TX | Rankin Waste Management',
     description: 'Professional junk removal service in Hubbard, TX. We handle furniture, appliances, cleanouts and construction debris. Same-day pickup with upfront quotes from Rankin Waste Management.',
@@ -122,7 +122,7 @@ const ROUTES = [
   },
   {
     path: '/dumpster-rental-service-hubbard',
-    file: 'dist/dumpster-rental-service-hubbard.html',
+    file: 'dist/dumpster-rental-service-hubbard/index.html',
     h1: 'Dumpster Rental Service in Hubbard',
     title: 'Dumpster Rental Service Hubbard TX | Rankin Waste Management',
     description: 'Professional dumpster rental service in Hubbard, TX. Residential cleanouts, commercial waste, and construction roll-off containers. Local delivery and pickup by Rankin Waste Management.',
@@ -132,7 +132,7 @@ const ROUTES = [
   },
   {
     path: '/garbage-collection-service-hubbard',
-    file: 'dist/garbage-collection-service-hubbard.html',
+    file: 'dist/garbage-collection-service-hubbard/index.html',
     h1: 'Garbage Collection Service in Hubbard',
     title: 'Garbage Collection Service Hubbard TX | Rankin Waste Management',
     description: 'Professional garbage collection service in Hubbard, TX. Weekly pickup, rural service, and bulk trash removal. Reliable waste management for homes and businesses.',
