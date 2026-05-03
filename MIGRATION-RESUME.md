@@ -2,14 +2,16 @@
 
 **Last session ended:** 2026-05-03 (continued)
 **Branch:** `astro-migration`
-**HEAD commit:** `246bba3` — `feat(astro): batch 5.4 — port waste-management-service-hubbard with Organization schema, 4-row alternating grid, byte-identical content`
-**Status:** ✅ **Foundation Complete + Batches 3, 4 & 5 complete (12 / 13 pages translated)**
+**HEAD commit:** `6531205` — `feat(astro): batch 6 — port homepage with LocalBusiness + FAQPage schemas, hero preload, 8 sections, FaqAccordion island, byte-identical content`
+**Status:** ✅ **Foundation Complete + Batches 3, 4, 5 & 6 complete (13 / 13 pages translated). SMOKE GATE PASSED.**
 
 ---
 
 ## Where we are
 
-The Astro foundation is fully built and verified. The 12 legacy React SPA page components are deleted, replaced by the Astro layout + component layer. **12 of 13 pages translated** (Batches 3, 4 & 5 complete). Only Batch 6 (homepage) remains.
+The Astro foundation is fully built and verified. The 12 legacy React SPA page components are deleted, replaced by the Astro layout + component layer. **All 13 of 13 pages translated** (Batches 3, 4, 5 & 6 complete). The smoke gate has passed on all 13 prerendered routes — `<title>`, `<meta name="description">`, and `<link rel="canonical">` all present in `<head>` and `<title>` confirmed NOT in `<body>` on every route. The v1 vite-react-ssg failure mode is definitively prevented.
+
+Next step: **Checkpoint 4** — hardened verifier + Lighthouse + visual diff matrix on 5 pages × 2 viewports → deploy.
 
 ### Pages translated (Batches 3, 4 & 5 complete)
 
@@ -27,6 +29,34 @@ The Astro foundation is fully built and verified. The 12 legacy React SPA page c
 | 10 | `/dumpster-rental-service-hubbard` | `4aa0275` | all assertions PASS |
 | 11 | `/garbage-collection-service-hubbard` | `56f2fd7` | 47/47 assertions PASS |
 | 12 | `/waste-management-service-hubbard` | `246bba3` | 38/38 effective PASS |
+| 13 | `/` (homepage) | `6531205` | 99/99 effective PASS + smoke gate 13/13 |
+
+### Smoke gate results (post-Batch 6, all 13 routes)
+
+| Route | `<title>` in `<head>` | `<title>` NOT in `<body>` | `<meta description>` in `<head>` | `<link canonical>` in `<head>` |
+|---|---|---|---|---|
+| `/` | ✅ | ✅ | ✅ | ✅ |
+| `/terms-of-service` | ✅ | ✅ | ✅ | ✅ |
+| `/privacy-policy` | ✅ | ✅ | ✅ | ✅ |
+| `/residential` | ✅ | ✅ | ✅ | ✅ |
+| `/trash-trailer-rentals` | ✅ | ✅ | ✅ | ✅ |
+| `/about-us` | ✅ | ✅ | ✅ | ✅ |
+| `/contact-us` | ✅ | ✅ | ✅ | ✅ |
+| `/reviews` | ✅ | ✅ | ✅ | ✅ |
+| `/service-areas/axtell` | ✅ | ✅ | ✅ | ✅ |
+| `/junk-removal-service-hubbard` | ✅ | ✅ | ✅ | ✅ |
+| `/dumpster-rental-service-hubbard` | ✅ | ✅ | ✅ | ✅ |
+| `/garbage-collection-service-hubbard` | ✅ | ✅ | ✅ | ✅ |
+| `/waste-management-service-hubbard` | ✅ | ✅ | ✅ | ✅ |
+
+**13/13 routes PASS.** Head tags definitively in `<head>`, not body. The v1 vite-react-ssg failure mode where head tags ended up in `<div id="root">` is prevented.
+
+Build output sizes (largest 5, dist/<route>/index.html):
+- `/`: 99,114 bytes (largest — both schemas + ReviewWidget + FaqAccordion server-rendered)
+- `/waste-management-service-hubbard`: 74,304 bytes
+- `/garbage-collection-service-hubbard`: 73,602 bytes
+- `/reviews`: 66,775 bytes
+- `/privacy-policy`: 40,986 bytes
 
 **Batch 3 total: 82/82 PASS. Batch 4 total: 67/67 PASS. Batch 5 total (4 Hubbard pages): all assertions PASS, schema byte-identity confirmed across all 4 pages.**
 
@@ -80,7 +110,25 @@ node scripts/verify-ssg.mjs  # head-only assertions; runs against dist/<route>/i
 
 ## Next planned batch
 
-**Batch 6 — port the homepage `index.astro`** (replaces current placeholder):
+**Checkpoint 4 — hardened verifier + Lighthouse + visual diff** (NOT a port batch — verification only):
+
+All 13 pages are translated, build is clean (0 errors, 0 warnings, 2 hints — preserved deprecation hints), and the smoke gate passed. Before deploy, Checkpoint 4 covers:
+
+1. **Hardened verifier:** expand `scripts/verify-ssg.mjs` to include all per-page assertions accumulated across Batches 3-6 (head tags, canonical, schemas, h1, key body content). Run across all 13 routes; output single pass/fail summary.
+2. **Lighthouse baseline:** Performance / SEO / Best Practices / Accessibility scores on 3 representative routes (homepage, axtell, garbage-collection-service-hubbard) — must be ≥ pre-migration baseline per `migration-baseline.md` §5.
+3. **Visual diff:** screenshot 5 representative pages × 2 viewports (375px mobile + 1280px desktop) on pre-migration vs Astro build; diff threshold ≤ 1% per page.
+4. **Smoke gate (already passed once post-Batch-6):** re-run after Checkpoint 4 fixes any issues.
+
+After Checkpoint 4 passes:
+- Final commit: `chore(astro): checkpoint 4 — hardened verifier passes, Lighthouse maintained, visual diff clean`
+- Merge `astro-migration` → `master`
+- Deploy via Netlify (config already updated for Astro static output)
+
+---
+
+## Previous batch (now complete)
+
+**Batch 6 — homepage** (commit `6531205`): replaced 15-line placeholder `src/pages/index.astro` with full homepage port. New files: `src/data/faqs.ts`, `src/components/FaqAccordion.tsx`. Two head schemas: LocalBusiness (2016 bytes, 33 @types) + FAQPage (2270 bytes, 17 @types). Hero LCP image preload via head fragment with lowercase `imagesrcset`/`imagesizes`. 5 hero CSS animation classes. 15 data-reveal divs. 4 internal links to child Hubbard pages. 2 modal triggers via CustomEvent bridge. ReviewWidget + FaqAccordion as React islands (`client:idle`). 99/99 effective post-apply assertions PASS. Smoke gate 13/13 PASS. Logged FAQ-1 (P1: replace island with native details) + FAQ-2 (P3: reconcile schema/body em-dash parity).
 
 The single largest remaining file. Pre-migration `src/App.jsx` contains the homepage inline alongside routing/Nav/Footer (the kitchen-sink file). The homepage components (Hero, FAQ, Services, FindUs, etc.) live there as inline components. Batch 6 extracts only the homepage section and ports it to `src/pages/index.astro`, replacing the placeholder.
 
@@ -200,29 +248,21 @@ git show master:src/components/ReviewWidget.jsx # already ported as .tsx, but re
 
 Paste this into Claude Code when picking up:
 
-> Resume the Astro migration on branch `astro-migration` from commit `246bba3` (Batches 3, 4 & 5 complete, 12/13 pages translated).
+> Resume the Astro migration on branch `astro-migration` from commit `6531205` (all 6 batches complete, 13/13 pages translated, smoke gate passed).
 >
-> Apply Batch 6 — port the homepage to `src/pages/index.astro`, replacing the current placeholder. Source: pre-migration `src/App.jsx` (kitchen-sink file containing routing + Nav + Footer + the inline homepage components: Hero, Services, FAQ, FindUs, CTA).
+> Apply **Checkpoint 4** — hardened verifier + Lighthouse + visual diff (verification only, no new ports):
 >
-> Key items:
-> - Extract ONLY the homepage section from App.jsx; the Nav/Footer/routing parts are already covered by `Layout.astro` + `Nav.astro` + `Footer.astro`
-> - Port the 38-`@type` LocalBusiness + AggregateRating + Review homepage schema (currently in `index.html` static `<head>`) into `<Fragment slot="head">` on `index.astro`
-> - Port the FAQPage schema for the homepage FAQ section
-> - Multi-reveal staggered animations on Hero / Services / FAQ / FindUs blocks
-> - Internal links from homepage → all service pages preserved verbatim (these DO exist and must NOT be removed)
-> - After index.astro lands, the static `<head>` block in `index.html` is no longer source-of-truth — Layout.astro fully owns head
+> 1. **Hardened verifier:** expand `scripts/verify-ssg.mjs` to include all per-page assertions accumulated across Batches 3-6 (head tags, canonical, schemas, h1, key body content). Run across all 13 routes; output single pass/fail summary.
+> 2. **Lighthouse baseline:** run Lighthouse on 3 representative routes (homepage, axtell, garbage-collection-service-hubbard) and confirm Performance / SEO / Best Practices / Accessibility scores ≥ pre-migration baseline per `migration-baseline.md` §5.
+> 3. **Visual diff:** screenshot 5 representative pages × 2 viewports (375px mobile + 1280px desktop) on pre-migration vs Astro build; diff threshold ≤ 1% per page.
+> 4. **Smoke gate re-run:** re-run if any visual or verifier issues are fixed during Checkpoint 4.
 >
-> All patterns needed for Batch 6 are already established and verified:
-> - Per-page schema via `<Fragment slot="head">` (axtell + 4 Hubbard pages)
-> - React island consumption via `client:idle` (reviews + 2 Hubbard pages — ReviewWidget on homepage if applicable)
-> - Multi-reveal staggered animations with `data-reveal-delay="0.X"`
-> - Schema byte-identity verification via re-running JSON.stringify on identical objects
+> After Checkpoint 4 passes:
+> - Final commit: `chore(astro): checkpoint 4 — hardened verifier passes, Lighthouse maintained, visual diff clean`
+> - Merge `astro-migration` → `master`
+> - Deploy via Netlify (config already updated for Astro static output; `_redirects` preserved)
 >
-> Same verification discipline as Batches 3-5: inventory + cross-check vs migration-baseline, byte-level dash/hyphen checks, prose word-diff, structural counts, build + astro check + curl assertions.
->
-> Show me the homepage diff for approval before applying. After Batch 6 applies cleanly: smoke gate (`<title>` in `<head>` for all 13 pages) → Checkpoint 4 (hardened verifier + Lighthouse + visual diff) → deploy.
->
-> Re-read `MIGRATION-RESUME.md` for the established patterns and migration-discipline reminders.
+> Re-read `MIGRATION-RESUME.md` for established patterns and the full backlog in `post-migration-improvements.md`.
 
 ---
 
