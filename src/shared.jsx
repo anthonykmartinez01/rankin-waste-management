@@ -128,7 +128,7 @@ export const PageHead = ({ title, description, image, imageAlt }) => {
 export const InnerHero = ({ title, bgImage, bgImageAlt = '' }) => {
   if (bgImage) {
     return (
-      <div className="relative pt-36 pb-20 md:pt-40 md:pb-28 lg:pt-44 lg:pb-36 border-b border-border-subtle overflow-hidden">
+      <div className="relative pt-48 pb-40 md:pt-56 md:pb-52 lg:pt-64 lg:pb-64 border-b border-border-subtle overflow-hidden">
         <img
           src={bgImage}
           alt={bgImageAlt}
