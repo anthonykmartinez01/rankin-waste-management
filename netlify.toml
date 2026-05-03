@@ -4,17 +4,3 @@
 
 [build.environment]
   NODE_VERSION = "22"
-
-# /contact-us/ → /contact-us
-[[redirects]]
-  from = "/:slug/"
-  to = "/:slug"
-  status = 301
-  force = true
-
-# /service-areas/axtell/ → /service-areas/axtell
-[[redirects]]
-  from = "/:a/:b/"
-  to = "/:a/:b"
-  status = 301
-  force = true

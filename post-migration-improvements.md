@@ -92,21 +92,31 @@ Last updated: 2026-05-02 (Checkpoint 1 expanded)
 
 ## P3 — Routing follow-ups
 
-### ROUTE-1. Trailing-slash redirect uses two explicit rules; depth-bound to 2 segments
-- `netlify.toml` currently uses two explicit redirect rules to handle trailing-slash normalization at the current site depths:
-  - `from = "/:slug/"` — matches single-segment routes like `/contact-us/` → `/contact-us`
-  - `from = "/:a/:b/"` — matches two-segment routes like `/service-areas/axtell/` → `/service-areas/axtell`
-- Why two rules instead of `from = "/*/"` (splat): Netlify splat (`*`) semantics match the empty string, which causes `/*/` to match the bare root `/` with an empty splat — when combined with `force = true`, that produces an infinite 301 loop on the homepage. The `:placeholder` syntax requires non-empty single path segments, avoiding the loop.
-- **If a future route reaches 3+ segments** (e.g., `/service-areas/axtell/specialty-service`), add a third rule:
-  ```toml
-  [[redirects]]
-    from = "/:a/:b/:c/"
-    to = "/:a/:b/:c"
-    status = 301
-    force = true
+### ROUTE-1. (SUPERSEDED by ROUTE-2) Trailing-slash redirect rules
+- ~~Two explicit `:placeholder/` redirect rules in `netlify.toml`~~ — superseded.
+- The two-rule `:placeholder` pattern *also* caused a redirect loop on inner pages because Netlify normalizes paths internally before matching redirect rules (treats `/contact-us` and `/contact-us/` as equivalent at match-time). All redirect rules removed; canonicalization handled by `<link rel="canonical">` tags. See ROUTE-2.
+
+### ROUTE-2. Trailing-slash 301 normalization NOT enforced at server level
+- Both `/contact-us` and `/contact-us/` serve identical content (HTTP 200) with no redirect. Same for every Astro directory-format route.
+- Reason: Netlify's redirect engine normalizes paths internally before matching against `[[redirects]]` rules, so any rule of the form `from = "/.../"` matches BOTH the with- and without-trailing-slash forms of a request. With `force = true`, this causes a redirect loop (`/contact-us` → 301 → `/contact-us` → 301 → ...). Without `force`, Netlify silently suppresses the redirect because the directory file already serves content.
+- Encountered during deploy attempt 2026-05-04. Two attempts failed:
+  - `from = "/*/"` with `force = true` — looped on every URL including `/`.
+  - `from = "/:slug/"` + `from = "/:a/:b/"` with `force = true` — looped on every inner page (`/` survived because `:slug` requires non-empty value).
+- **Current behavior:** SEO canonicalization handled by `<link rel="canonical">` tags pointing to the no-trailing-slash form. Google honors canonical tags; URL forms with trailing slashes will not split ranking signal. Pre-migration React SPA had the same lack of strict URL canonicalization.
+- **Strict 301 normalization can be added post-deploy via Netlify Edge Function** that intercepts requests, checks for trailing slash on non-root paths, and returns an explicit 301. Edge functions bypass the redirect-rule normalization quirk because they run on the actual request URL before path normalization. Reference implementation:
+  ```js
+  // netlify/edge-functions/trailing-slash.js
+  export default async (request, context) => {
+    const url = new URL(request.url);
+    if (url.pathname !== '/' && url.pathname.endsWith('/')) {
+      url.pathname = url.pathname.slice(0, -1);
+      return Response.redirect(url, 301);
+    }
+    return context.next();
+  };
   ```
-- **Could be replaced post-migration with a single Netlify Edge Function** for cleaner depth-agnostic handling: a small edge function that strips the trailing slash on any non-root path before passing to the static origin. Single source of truth, no per-depth rule fiddling.
-- **Fix as P3 post-migration** — current behavior is correct for the 13 existing routes; not blocking.
+  Wire via `[[edge_functions]] path = "/*"` in `netlify.toml`.
+- **Fix as P3 post-deploy.** Not a launch blocker — the canonical tags are doing the SEO work and inbound links to either URL form work correctly.
 
 ---
 
