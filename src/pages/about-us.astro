@@ -1,0 +1,55 @@
+---
+// src/pages/about-us.astro
+// Byte-identical content port of pre-migration src/pages/AboutUs.jsx.
+// Two-column layout: left column has intro paragraphs + 'About the Owner'
+// section + CallCTA, right column has photo of Tommy & Sydney. Three
+// independent reveal animations with staggered delays (0, 0.1s, 0.15s).
+//
+// Pre-migration imported PHONE / PHONE_LINK but never referenced them in
+// the body — dead imports, intentionally not carried over (zero rendered-
+// output impact).
+import Layout from '../layouts/Layout.astro';
+import InnerHero from '../components/InnerHero.astro';
+import CallCTA from '../components/CallCTA.astro';
+---
+
+<Layout
+  title="About Us - Rankin Waste Management"
+  description="Rankin Waste Management is a family-owned trash service in Hubbard, TX. Owned and operated by Tommy Rankin, serving rural communities with reliable, affordable service."
+>
+  <InnerHero title="About Us" />
+  <section class="px-6 lg:px-[clamp(2rem,5vw,4rem)] py-20 md:py-28">
+    <div class="max-w-[1200px] mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+        <div>
+          <div data-reveal class="mb-12">
+            <p class="text-text-muted text-lg leading-relaxed mb-6">
+              Rankin Waste Management is a locally family-owned and operated small business proudly serving Hubbard, TX, and surrounding rural communities. We specialize in reliable, affordable trash service with a personal touch.
+            </p>
+            <p class="text-text-muted text-lg leading-relaxed mb-6">
+              As a part of the community, we understand the unique needs of rural areas and are committed to providing dependable weekly pickup and trash trailer rentals at competitive prices.
+            </p>
+            <p class="text-text-muted text-lg leading-relaxed">
+              When you choose Rankin Waste Management, you're not just getting great service - you're supporting your neighbors. Let us take care of your waste so you can focus on what matters most.
+            </p>
+          </div>
+
+          <div data-reveal data-reveal-delay="0.1">
+            <h2 class="text-xl md:text-2xl font-semibold tracking-tight mb-4">About the Owner</h2>
+            <p class="text-text-muted text-lg leading-relaxed mb-6">
+              Rankin Waste Management is owned and operated by Tommy Rankin, a lifelong resident of the Hubbard area. Growing up here, Tommy learned the value of hard work, community, and taking care of your neighbors. That hometown pride is what drives the company's mission today - to provide reliable, affordable trash service while always giving back and supporting local.
+            </p>
+            <p class="text-text-muted text-lg leading-relaxed mb-8">
+              When you choose Rankin Waste Management, you're not just hiring a waste service - you're partnering with someone who truly cares about keeping our community clean and thriving.
+            </p>
+            <CallCTA />
+          </div>
+        </div>
+
+        <div data-reveal data-reveal-delay="0.15" class="rounded-sm overflow-hidden aspect-[3/4] max-h-[550px]">
+          <img src="/tommy-sydney.webp" srcset="/tommy-sydney-mobile.webp 500w, /tommy-sydney.webp 800w" sizes="(min-width: 768px) 50vw, 100vw" alt="Tommy and Sydney Rankin, owners of Rankin Waste Management" class="w-full h-full object-cover object-[50%_25%]" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
