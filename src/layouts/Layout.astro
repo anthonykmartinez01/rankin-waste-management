@@ -40,6 +40,8 @@
 // island (added in sub-batch 2c) listens and opens. This decouples
 // non-island elements from the React modal.
 import '../styles/global.css';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
 
 interface Props {
   title: string;
@@ -165,11 +167,11 @@ const resolvedImageAlt = imageAlt ?? DEFAULT_OG_IMAGE_ALT;
   </head>
 
   <body class="min-h-screen bg-dark text-white">
-    {/* TODO sub-batch 2b: <Nav /> here */}
+    <Nav />
 
     <slot />
 
-    {/* TODO sub-batch 2b: <Footer /> here */}
+    <Footer />
     {/* TODO sub-batch 2c: <ServiceRequestModal client:idle /> here */}
 
     {/*

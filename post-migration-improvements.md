@@ -77,6 +77,16 @@ These pages currently have no JSON-LD schema. None are required, but each has a 
 - Could be auto-generated from the same route list used for prerendering (vite-react-ssg can output a sitemap automatically).
 - Out of scope: the current manual sitemap is the reference for the migration. Auto-generation is a follow-up.
 
+### 7a. NAP / hours data inconsistency (3 disagreeing sources of truth)
+- The Footer displays `Monday – Friday / 8AM – 6PM` — weekdays only, no Saturday.
+- `src/data/business.ts` `hours` field declares `7:00 AM – 6:00 PM Monday–Friday` plus `Saturday 8:00 AM – 4:00 PM`.
+- The homepage `LocalBusiness` JSON-LD schema (currently in `index.html`, will live in `src/pages/index.astro` post-Batch-6) declares `["Mo-Fr 07:00-18:00", "Sa 08:00-16:00"]`.
+- Three sources disagree on:
+  - Weekday open time: Footer says 8AM, business.ts and schema say 7AM
+  - Saturday hours: Footer omits, business.ts and schema include 8AM–4PM
+- Current behavior preserved verbatim across migration (Footer text untouched, schema untouched, business.ts copied from schema values).
+- **Fix as P1 NAP cleanup pass post-migration.** Talk to Tommy/Sydney to confirm correct hours, then update all three sources to match. Single commit.
+
 ### 8a. GHL Form CSS + JS scoping
 - The 20-line `<style>` block and 47-line `<script>` block currently in `Layout.astro` (carried verbatim from pre-migration `index.html`) are global: they ship and run on **every** page, but only have any effect on `/contact-us` where the GHL form renders.
 - Today's behavior is preserved verbatim per delivery-layer-only migration scope.
