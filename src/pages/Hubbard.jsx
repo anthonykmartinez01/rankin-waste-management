@@ -56,47 +56,99 @@ export default function Hubbard() {
           </div>
 
           {/* Weekly Residential */}
-          <div ref={weekly.ref} style={weekly.style} className="mb-12 md:mb-16">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Weekly residential trash pickup in Hubbard</h2>
-            <p className="text-text-muted text-base sm:text-lg leading-relaxed mb-4 md:mb-6">
-              Homeowners need consistent weekly waste removal to maintain their properties. Regular pickup prevents overflow and maintains neighborhood cleanliness without the hassle of storing trash for extended periods.
-            </p>
-            <p className="text-text-muted text-base sm:text-lg leading-relaxed">
-              Our waste management service in Hubbard covers all residential streets with early morning collection. We arrive before most residents start their day, keeping your neighborhood quiet and your bins emptied on schedule.
-            </p>
+          <div ref={weekly.ref} style={weekly.style} className="mb-16 md:mb-24 grid md:grid-cols-2 gap-6 md:gap-16 items-center">
+            <div className="rounded-2xl overflow-hidden">
+              <img
+                src="/images/hubbard/weekly-residential.webp"
+                alt="Black household trash bag set out for weekly residential pickup"
+                width="1400"
+                height="1050"
+                loading="lazy"
+                decoding="async"
+                className="w-full aspect-[4/3] object-cover"
+              />
+            </div>
+            <div>
+              <h2 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Weekly residential trash pickup in Hubbard</h2>
+              <p className="text-text-muted text-base sm:text-lg leading-relaxed mb-4 md:mb-6">
+                Homeowners need consistent weekly waste removal to maintain their properties. Regular pickup prevents overflow and maintains neighborhood cleanliness without the hassle of storing trash for extended periods.
+              </p>
+              <p className="text-text-muted text-base sm:text-lg leading-relaxed">
+                Our waste management service in Hubbard covers all residential streets with early morning collection. We arrive before most residents start their day, keeping your neighborhood quiet and your bins emptied on schedule.
+              </p>
+            </div>
           </div>
 
           {/* Garbage Removal */}
-          <div ref={garbage.ref} style={garbage.style} className="mb-12 md:mb-16">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Garbage removal in Hubbard</h2>
-            <p className="text-text-muted text-base sm:text-lg leading-relaxed mb-4 md:mb-6">
-              Property owners facing large cleanouts, renovations, or excess waste accumulation require thorough removal services. Complete debris removal eliminates the need for multiple trips to dump sites while handling items too large for regular pickup.
-            </p>
-            <p className="text-text-muted text-base sm:text-lg leading-relaxed">
-              We serve Hubbard businesses and residential properties with flexible scheduling. Our team handles everything from construction debris to household cleanouts, making your project cleanup simple and efficient. For larger projects, ask about our trash trailer rentals.
-            </p>
+          <div ref={garbage.ref} style={garbage.style} className="mb-16 md:mb-24 grid md:grid-cols-2 gap-6 md:gap-16 items-center">
+            <div className="md:order-2 rounded-2xl overflow-hidden">
+              <img
+                src="/images/hubbard/garbage-removal.webp"
+                alt="Gloved hands tying off white trash bags during garbage removal"
+                width="1400"
+                height="888"
+                loading="lazy"
+                decoding="async"
+                className="w-full aspect-[4/3] object-cover"
+              />
+            </div>
+            <div className="md:order-1">
+              <h2 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Garbage removal in Hubbard</h2>
+              <p className="text-text-muted text-base sm:text-lg leading-relaxed mb-4 md:mb-6">
+                Property owners facing large cleanouts, renovations, or excess waste accumulation require thorough removal services. Complete debris removal eliminates the need for multiple trips to dump sites while handling items too large for regular pickup.
+              </p>
+              <p className="text-text-muted text-base sm:text-lg leading-relaxed">
+                We serve Hubbard businesses and residential properties with flexible scheduling. Our team handles everything from construction debris to household cleanouts, making your project cleanup simple and efficient. For larger projects, ask about our trash trailer rentals.
+              </p>
+            </div>
           </div>
 
           {/* Curbside Collection */}
-          <div ref={curbside.ref} style={curbside.style} className="mb-12 md:mb-16">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Curbside trash collection in Hubbard</h2>
-            <p className="text-text-muted text-base sm:text-lg leading-relaxed mb-4 md:mb-6">
-              Residents who prefer convenient pickup without walking to collection points benefit from curbside service. Simple bin placement eliminates heavy lifting and transport, making waste disposal effortless for families and elderly residents.
-            </p>
-            <p className="text-text-muted text-base sm:text-lg leading-relaxed">
-              Our curbside service operates throughout Hubbard neighborhoods with accessible street access. Place your bins at the curb by collection time, and we take care of the rest while you focus on your daily routine.
-            </p>
+          <div ref={curbside.ref} style={curbside.style} className="mb-16 md:mb-24 grid md:grid-cols-2 gap-6 md:gap-16 items-center">
+            <div className="rounded-2xl overflow-hidden">
+              <img
+                src="/images/hubbard/curbside-collection.webp"
+                alt="Multiple white trash bags tied with orange ribbons ready for curbside collection"
+                width="1400"
+                height="933"
+                loading="lazy"
+                decoding="async"
+                className="w-full aspect-[4/3] object-cover"
+              />
+            </div>
+            <div>
+              <h2 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Curbside trash collection in Hubbard</h2>
+              <p className="text-text-muted text-base sm:text-lg leading-relaxed mb-4 md:mb-6">
+                Residents who prefer convenient pickup without walking to collection points benefit from curbside service. Simple bin placement eliminates heavy lifting and transport, making waste disposal effortless for families and elderly residents.
+              </p>
+              <p className="text-text-muted text-base sm:text-lg leading-relaxed">
+                Our curbside service operates throughout Hubbard neighborhoods with accessible street access. Place your bins at the curb by collection time, and we take care of the rest while you focus on your daily routine.
+              </p>
+            </div>
           </div>
 
           {/* Rural Service */}
-          <div ref={rural.ref} style={rural.style} className="mb-12 md:mb-16">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Rural trash service in Hubbard</h2>
-            <p className="text-text-muted text-base sm:text-lg leading-relaxed mb-4 md:mb-6">
-              Properties outside main town limits often have limited waste disposal options and need specialized service. Rural properties often fall outside city pickup routes — we fill that gap with consistent, dependable service.
-            </p>
-            <p className="text-text-muted text-base sm:text-lg leading-relaxed">
-              We cover outlying Hubbard areas and farm properties within our service radius. Our routes extend beyond city limits to serve rural homes and agricultural operations that require dependable waste management solutions.
-            </p>
+          <div ref={rural.ref} style={rural.style} className="mb-16 md:mb-24 grid md:grid-cols-2 gap-6 md:gap-16 items-center">
+            <div className="md:order-2 rounded-2xl overflow-hidden">
+              <img
+                src="/images/hubbard/rural-service.webp"
+                alt="Person in denim jacket and yellow gloves picking up litter in a rural field"
+                width="1400"
+                height="933"
+                loading="lazy"
+                decoding="async"
+                className="w-full aspect-[4/3] object-cover"
+              />
+            </div>
+            <div className="md:order-1">
+              <h2 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Rural trash service in Hubbard</h2>
+              <p className="text-text-muted text-base sm:text-lg leading-relaxed mb-4 md:mb-6">
+                Properties outside main town limits often have limited waste disposal options and need specialized service. Rural properties often fall outside city pickup routes — we fill that gap with consistent, dependable service.
+              </p>
+              <p className="text-text-muted text-base sm:text-lg leading-relaxed">
+                We cover outlying Hubbard areas and farm properties within our service radius. Our routes extend beyond city limits to serve rural homes and agricultural operations that require dependable waste management solutions.
+              </p>
+            </div>
           </div>
 
           {/* CTA */}
