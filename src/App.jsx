@@ -233,7 +233,17 @@ const Hero = () => {
   <header id="top" className="min-h-[70vh] sm:min-h-[65vh] md:min-h-[62vh] w-full flex flex-col justify-center items-center text-center px-6 relative overflow-hidden pb-8">
     {/* Background image */}
     <div className="absolute inset-0">
-      <img src="/truck-side.webp" alt="" width="1600" height="1067" className="w-full h-full object-cover object-center hero-image-animate" loading="eager" fetchPriority="high" />
+      <img
+        src="/truck-side.webp"
+        srcSet="/truck-side-mobile.webp 900w, /truck-side.webp 1600w"
+        sizes="100vw"
+        alt=""
+        width="1600"
+        height="1067"
+        className="w-full h-full object-cover object-center hero-image-animate"
+        loading="eager"
+        fetchPriority="high"
+      />
       <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(8,8,8,0.55) 0%, rgba(8,8,8,0.45) 40%, rgba(8,8,8,0.6) 70%, rgba(8,8,8,0.85) 100%)' }} />
     </div>
 
@@ -307,7 +317,7 @@ const BusinessDescription = () => {
             </a>
           </div>
           <div ref={img.ref} style={img.style} className="relative">
-            <img src="/tommy-sydney.webp" alt="Tommy and Sydney Rankin, owners of Rankin Waste Management" className="w-full aspect-[4/3] sm:aspect-[1/1] lg:aspect-[4/5] object-cover object-[50%_30%] rounded-sm" loading="lazy" />
+            <img src="/tommy-sydney.webp" srcSet="/tommy-sydney-mobile.webp 500w, /tommy-sydney.webp 800w" sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" alt="Tommy and Sydney Rankin, owners of Rankin Waste Management" className="w-full aspect-[4/3] sm:aspect-[1/1] lg:aspect-[4/5] object-cover object-[50%_30%] rounded-sm" loading="lazy" />
             <div className="absolute -bottom-4 -left-4 sm:-bottom-6 sm:-left-6 bg-orange-500 text-white px-5 py-3 sm:px-6 sm:py-4 rounded-sm">
               <span className="block text-2xl sm:text-3xl font-bold leading-none">100%</span>
               <span className="text-xs sm:text-sm font-medium opacity-90">Family Owned</span>
@@ -746,7 +756,7 @@ const About = () => {
             </p>
           </div>
           <div ref={photo.ref} style={photo.style} className="rounded-sm overflow-hidden aspect-[3/4] max-h-[500px]">
-            <img src="/tommy-sydney.webp" alt="Tommy and Sydney Rankin, owners of Rankin Waste Management" className="w-full h-full object-cover object-[50%_25%]" loading="lazy" />
+            <img src="/tommy-sydney.webp" srcSet="/tommy-sydney-mobile.webp 500w, /tommy-sydney.webp 800w" sizes="(min-width: 768px) 50vw, 100vw" alt="Tommy and Sydney Rankin, owners of Rankin Waste Management" className="w-full h-full object-cover object-[50%_25%]" loading="lazy" />
           </div>
         </div>
       </div>

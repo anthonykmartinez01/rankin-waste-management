@@ -26,8 +26,15 @@
     <meta name="twitter:image" content="https://rankinwaste.com/truck-side.webp" />
     <meta name="twitter:image:alt" content="Rankin Waste Management truck serving Hubbard, TX" />
 
-    <!-- Preload hero image -->
-    <link rel="preload" href="/truck-side.webp" as="image" type="image/webp" />
+    <!-- Preload hero image (responsive: smaller file for mobile) -->
+    <link
+      rel="preload"
+      as="image"
+      type="image/webp"
+      href="/truck-side.webp"
+      imagesrcset="/truck-side-mobile.webp 900w, /truck-side.webp 1600w"
+      imagesizes="100vw"
+    />
 
     <!-- Self-hosted fonts -->
     <link rel="preload" href="/fonts/lato-400.woff2" as="font" type="font/woff2" crossorigin />

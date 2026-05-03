@@ -40,7 +40,7 @@ export default function AboutUs() {
             </div>
 
             <div ref={photo.ref} style={photo.style} className="rounded-sm overflow-hidden aspect-[3/4] max-h-[550px]">
-              <img src="/tommy-sydney.webp" alt="Tommy and Sydney Rankin, owners of Rankin Waste Management" className="w-full h-full object-cover object-[50%_25%]" loading="lazy" />
+              <img src="/tommy-sydney.webp" srcSet="/tommy-sydney-mobile.webp 500w, /tommy-sydney.webp 800w" sizes="(min-width: 768px) 50vw, 100vw" alt="Tommy and Sydney Rankin, owners of Rankin Waste Management" className="w-full h-full object-cover object-[50%_25%]" loading="lazy" />
             </div>
           </div>
         </div>
