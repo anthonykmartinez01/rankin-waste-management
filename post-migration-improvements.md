@@ -17,6 +17,29 @@ Last updated: 2026-05-02 (Checkpoint 1 expanded)
   - Backdrop / click-outside-to-close — there is no overlay; clicking outside the drawer doesn't close it
 - **Current behavior preserved during migration per delivery-layer-only scope.** Each gap is a P1 accessibility improvement to fix post-migration. Suggested order: `aria-expanded` first (smallest change, highest screen-reader impact), then Escape-to-close, then focus management, then scroll lock, then backdrop.
 
+### A11y-1. (RESOLVED in Checkpoint 4) Layout missing `<main>` landmark
+- **Status:** ✅ RESOLVED 2026-05-03 in commit during Checkpoint 4 (Phase 2 → Step "A11y-1").
+- **Was:** `src/layouts/Layout.astro` body wrapped Nav + slot + Footer with no `<main>` element. Lighthouse `landmark-one-main` audit failed on every route (-3 a11y points each).
+- **Fix:** wrapped `<slot />` in `<main>`. Lighthouse A11y lifted from 92 → 93/94 across spot-checked routes (homepage / junk-removal / about-us). Did not fully reach the 95 target — remaining gap is from A11y-2 (color-contrast) and A11y-3 (heading-order), both pre-existing brand/chrome issues.
+
+### A11y-2. (P1) Orange-500 CTA buttons fail WCAG AA color-contrast
+- Lighthouse `color-contrast` audit fails (weight 7) on every route.
+- Offenders: orange-500 background + white text on phone-CTA pill buttons (Hero, BusinessDescription, Services bottom, FinalCTA, Nav top-bar `data-desktop-cta` button), plus ReviewWidget's `.rw-review-date` greyed text.
+- The orange-500 (≈`#E8751A`) on white text is below the 4.5:1 ratio required for normal-weight text under WCAG AA (computes ≈3.2:1).
+- Pre-existing brand-design choice preserved verbatim per delivery-layer-only scope.
+- **Fix as P1 post-migration.** Options: shift to a darker orange (e.g., orange-600 ≈`#D4761B` is closer to the 4.5:1 line), or use a heavier font weight (font-bold + larger size qualifies as "large text" with a more lenient 3:1 threshold), or pair white-on-orange with a thin dark border. Coordinate with Tommy/Sydney before changing the brand color.
+
+### A11y-3. (P2) Footer column headings use `<h4>` without ancestor `<h3>`
+- Lighthouse `heading-order` audit fails (weight 3) on every route.
+- Offenders: Footer column titles ("OUR SERVICES", "QUICK LINKS", "CONNECT") use `<h4>` directly, with no `<h3>` ancestor in the page heading hierarchy.
+- Pre-existing Footer markup preserved verbatim per delivery-layer-only scope.
+- **Fix as P2 post-migration.** Either promote the Footer column titles to `<h3>` (semantically correct — they are top-level subsections of the Footer landmark) or wrap each column under an existing-but-visually-hidden `<h3>` parent. The simpler change is `<h4>` → `<h3>`.
+
+### CLS-1. (P1) `/contact-us` GHL iframe layout shift
+- Lighthouse CLS = 0.433 desktop / 0.734 mobile on `/contact-us`. Performance scores 81/75 as a result. Pre-existing.
+- The GHL `form_embed.js` script inserts the iframe asynchronously and resizes form fields after `setTimeout(1500)`, guaranteeing a layout shift after first paint.
+- **Fix as P1 post-migration.** Reserve a fixed `min-height` on the iframe wrapper (e.g., `min-h-[800px]`) so the page doesn't grow when the form mounts. May also consider lazy-loading the form behind a "Reveal form" button.
+
 ### A2. ServiceRequestModal lacks accessibility primitives
 - Modal currently lacks (all preserved verbatim from pre-migration per delivery-layer scope):
   - **No focus trap** inside the modal — Tab can escape to the page behind
