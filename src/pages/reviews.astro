@@ -1,0 +1,40 @@
+---
+// src/pages/reviews.astro
+// Byte-identical content port of pre-migration src/pages/Reviews.jsx.
+//
+// Page structure: InnerHero + a one-paragraph 'We value your feedback'
+// intro + the ReviewWidget React island (already byte-identically ported
+// in sub-batch 2c.ii; this page is its first consumer).
+//
+// Hydration: client:idle — defer ReviewWidget hydration until main thread
+// is idle (carousel isn't above-the-fold critical). Initial paint shows
+// the rendered carousel HTML server-side; React only loads to make the
+// 'Read more' / prev / next buttons interactive.
+//
+// Page-level schema: none. ReviewWidget itself emits a <script type=
+// 'application/ld+json'> with LocalBusiness + AggregateRating + review
+// array — that's part of the island, ported byte-identical in 2c.ii.
+//
+// No useReveal calls in pre-migration (this page has no reveal animations).
+// No internal links, no CallCTA, no images at the page level.
+import Layout from '../layouts/Layout.astro';
+import InnerHero from '../components/InnerHero.astro';
+import ReviewWidget from '../components/ReviewWidget.tsx';
+---
+
+<Layout
+  title="Reviews - Waste Management Service in Hubbard, TX | Rankin Waste Management"
+  description="Read reviews from Rankin Waste Management customers. See why families in Hubbard, TX and surrounding communities trust us for reliable waste management service."
+>
+  <InnerHero title="Waste Management Service Reviews in Hubbard, TX" />
+
+  <section class="px-6 lg:px-[clamp(2rem,5vw,4rem)] py-12 md:py-16">
+    <div class="max-w-[800px] mx-auto text-center mb-8">
+      <p class="text-text-muted text-base sm:text-lg leading-relaxed">
+        We value your feedback! If you've used our services, please take a moment to leave a review on Google and let others know what makes Rankin Waste Management your go-to choice for dependable waste solutions.
+      </p>
+    </div>
+  </section>
+
+  <ReviewWidget client:idle />
+</Layout>
