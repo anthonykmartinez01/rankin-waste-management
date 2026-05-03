@@ -77,7 +77,16 @@ These pages currently have no JSON-LD schema. None are required, but each has a 
 - Could be auto-generated from the same route list used for prerendering (vite-react-ssg can output a sitemap automatically).
 - Out of scope: the current manual sitemap is the reference for the migration. Auto-generation is a follow-up.
 
-### 8. `<lastmod>` in sitemap is stale
+### 8a. GHL Form CSS + JS scoping
+- The 20-line `<style>` block and 47-line `<script>` block currently in `Layout.astro` (carried verbatim from pre-migration `index.html`) are global: they ship and run on **every** page, but only have any effect on `/contact-us` where the GHL form renders.
+- Today's behavior is preserved verbatim per delivery-layer-only migration scope.
+- **Improvement:** scope both the CSS `<style is:global>` block and the inline `<script>` block to the `/contact-us` page only (e.g., place them in `src/pages/contact-us.astro` directly, or in a dedicated `<GhlFormStyling>` Astro component imported only on that page).
+- **User-visible behavior is identical** — the selectors only match GHL form elements that only exist on `/contact-us`.
+- **Savings:** ~1.5 KB of inline CSS + the 47-line script + a `setTimeout(... 1500)` + querySelectorAll work on every non-contact page load. On the homepage and 11 other inner pages, this is dead overhead.
+- Aligns with CLAUDE.md "Minimize JavaScript; prefer zero-JS static pages where possible."
+- Single-commit follow-up after migration is verified stable. Move blocks to a `src/components/ContactPageGhlSetup.astro` component, import only in `contact-us.astro`, run smoke check on `/contact-us`.
+
+### 8b. `<lastmod>` in sitemap is stale
 - All entries say `2026-04-30` even though pages have been updated since (e.g., the `/garbage-collection-service-hubbard` content was rewritten today).
 - Auto-generation would fix this naturally.
 
