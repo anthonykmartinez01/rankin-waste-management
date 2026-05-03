@@ -1,0 +1,199 @@
+---
+// src/pages/garbage-collection-service-hubbard.astro
+// Byte-identical content port of pre-migration src/pages/GarbageCollectionHubbard.jsx.
+//
+// First Hubbard page with three new patterns:
+//   1. InnerHero bgImage variant (full-bleed hero image with dark overlay
+//      vs the solid bg-dark-elevated form used on prior Hubbard pages)
+//   2. Alternating image+text grid layout (md:grid-cols-2 with md:order-1
+//      and md:order-2 on the middle Rural row to swap image/text sides)
+//   3. ReviewWidget island consumption at the bottom of the page (after
+//      the main section) — second consumer of the island after /reviews
+//
+// Schema content byte-identity:
+//   - Service schema: 506 bytes (NO 'image' field — matches dumpster-rental
+//     pattern, distinct from junk-removal which had image)
+//   - provider sub-object: 306 bytes, BYTE-IDENTICAL to junk-removal +
+//     dumpster-rental provider blocks (shared Organization data)
+//   - BreadcrumbList: 309 bytes (URL = /garbage-collection-service-hubbard)
+//
+// Container max-width is 1300px (wider than other Hubbard pages' 800px)
+// to accommodate the 2-column image+text grid.
+//
+// Five reveal animations: intro (no delay), pickup, rural, bulk, cta —
+// all 4 non-intro use 0.1 delay.
+//
+// Three page-content images:
+//   - weekly-pickup (1400×933, aspect-[3/2]) — image-left, default order
+//   - rural-collection (1400×933, aspect-[3/2]) — image-right via
+//     md:order-2 / md:order-1 swap
+//   - bulk-pickup (1400×788, aspect-[16/9]) — image-left, default order
+//     (note: different dimensions and aspect ratio from the other two)
+//
+// One em-dash (U+2014, byte 0xE2 0x80 0x94) at byte position 8863 in
+// pre-migration: 'flat-rate pricing — and trusted' in CTA paragraph.
+// All other dashes are ASCII U+002D: flat-rate, five-star, Family-owned,
+// same-day, haul-off.
+//
+// PageHead has NO image override — defaults to '/truck-side.webp' for
+// og:image / twitter:image (same default behavior as dumpster-rental).
+import Layout from '../layouts/Layout.astro';
+import InnerHero from '../components/InnerHero.astro';
+import CallCTA from '../components/CallCTA.astro';
+import ReviewWidget from '../components/ReviewWidget.tsx';
+import { PHONE, PHONE_LINK } from '../data/business';
+---
+
+<Layout
+  title="Garbage Collection Service Hubbard TX | Rankin Waste Management"
+  description="Professional garbage collection service in Hubbard, TX. Weekly pickup, rural service, and bulk trash removal. Reliable waste management for homes and businesses."
+>
+  <Fragment slot="head">
+    {/* Service Schema */}
+    <script is:inline type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "serviceType": "Garbage Collection",
+      "name": "Garbage Collection Service in Hubbard, TX",
+      "provider": {
+        "@type": "Organization",
+        "name": "Rankin Waste Management",
+        "url": "https://rankinwaste.com",
+        "telephone": "(254) 205-6125",
+        "email": "rankinwaste@gmail.com",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "175 PR335",
+          "addressLocality": "Hubbard",
+          "addressRegion": "TX",
+          "postalCode": "76648",
+          "addressCountry": "US"
+        }
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": "Hubbard, TX"
+      }
+    })} />
+
+    {/* Breadcrumb Schema */}
+    <script is:inline type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://rankinwaste.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Garbage Collection Service in Hubbard", "item": "https://rankinwaste.com/garbage-collection-service-hubbard" }
+      ]
+    })} />
+  </Fragment>
+
+  <InnerHero
+    title="Garbage Collection Service in Hubbard"
+    bgImage="/images/services/garbage-collection.webp"
+    bgImageAlt="Rankin Waste truck collecting garbage on a Hubbard residential street"
+  />
+
+  <section class="px-5 sm:px-6 lg:px-[clamp(2rem,5vw,4rem)] py-12 md:py-20 lg:py-28">
+    <div class="max-w-[1300px] mx-auto">
+
+      {/* Intro */}
+      <div data-reveal class="mb-12 md:mb-16 text-center">
+        <p class="text-text-muted text-base sm:text-lg leading-relaxed">
+          In Hubbard, reliable waste removal keeps homes and businesses clean. You can expect professional pickup on schedule with proper disposal methods. Our local service handles all waste types efficiently.
+        </p>
+      </div>
+
+      {/* Garbage Pickup — image left */}
+      <div data-reveal data-reveal-delay="0.1" class="mb-16 md:mb-24 grid md:grid-cols-2 gap-6 md:gap-16 items-center">
+        <div class="rounded-2xl overflow-hidden">
+          <img
+            src="/images/garbage-collection/weekly-pickup.webp"
+            srcset="/images/garbage-collection/weekly-pickup-mobile.webp 800w, /images/garbage-collection/weekly-pickup.webp 1400w"
+            sizes="(min-width: 768px) 50vw, 100vw"
+            alt="Black trash bags set out for weekly garbage pickup in Hubbard"
+            width="1400"
+            height="933"
+            loading="lazy"
+            decoding="async"
+            class="w-full aspect-[3/2] object-cover"
+          />
+        </div>
+        <div>
+          <h2 class="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Garbage Pickup in Hubbard</h2>
+          <p class="text-text-muted text-base sm:text-lg leading-relaxed mb-4 md:mb-6">
+            Residential homeowners need weekly trash removal they can count on. We provide scheduled curbside pickup with containers included and consistent service you can rely on. Our garbage collection service covers all Hubbard neighborhoods.
+          </p>
+          <p class="text-text-muted text-base sm:text-lg leading-relaxed">
+            Weekly pickup keeps your home clean and your family healthy. We arrive on the same day each week so you never miss collection. Our trucks handle standard household waste and recyclables with professional care.
+          </p>
+        </div>
+      </div>
+
+      {/* Rural — image RIGHT (md:order-2 / md:order-1 swap) */}
+      <div data-reveal data-reveal-delay="0.1" class="mb-16 md:mb-24 grid md:grid-cols-2 gap-6 md:gap-16 items-center">
+        <div class="md:order-2 rounded-2xl overflow-hidden">
+          <img
+            src="/images/garbage-collection/rural-collection.webp"
+            srcset="/images/garbage-collection/rural-collection-mobile.webp 800w, /images/garbage-collection/rural-collection.webp 1400w"
+            sizes="(min-width: 768px) 50vw, 100vw"
+            alt="Worker carrying a trash bag through a rural field at sunset for garbage collection"
+            width="1400"
+            height="933"
+            loading="lazy"
+            decoding="async"
+            class="w-full aspect-[3/2] object-cover"
+          />
+        </div>
+        <div class="md:order-1">
+          <h2 class="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Rural Garbage Collection in Hubbard</h2>
+          <p class="text-text-muted text-base sm:text-lg leading-relaxed mb-4 md:mb-6">
+            Properties outside city limits, farms, and remote homes face unique challenges with waste removal. We offer flexible pickup locations and accommodate longer routes with same-day service available. Our rural collection serves properties throughout Hubbard regardless of location.
+          </p>
+          <p class="text-text-muted text-base sm:text-lg leading-relaxed">
+            Country roads and distant driveways don't stop our service. We work with your property layout to find the best pickup spot. Farm waste, household trash, and rural debris all receive proper handling and disposal.
+          </p>
+        </div>
+      </div>
+
+      {/* Bulk — image left (note: aspect-[16/9] vs the others' aspect-[3/2]; height=788 vs 933) */}
+      <div data-reveal data-reveal-delay="0.1" class="mb-16 md:mb-24 grid md:grid-cols-2 gap-6 md:gap-16 items-center">
+        <div class="rounded-2xl overflow-hidden">
+          <img
+            src="/images/garbage-collection/bulk-pickup.webp"
+            srcset="/images/garbage-collection/bulk-pickup-mobile.webp 800w, /images/garbage-collection/bulk-pickup.webp 1400w"
+            sizes="(min-width: 768px) 50vw, 100vw"
+            alt="Large pile of bulk waste and debris ready for haul-off in Hubbard"
+            width="1400"
+            height="788"
+            loading="lazy"
+            decoding="async"
+            class="w-full aspect-[16/9] object-cover"
+          />
+        </div>
+        <div>
+          <h2 class="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Bulk Trash Pickup in Hubbard</h2>
+          <p class="text-text-muted text-base sm:text-lg leading-relaxed mb-4 md:mb-6">
+            Homeowners disposing of large items like furniture and appliances need specialized removal service. We handle heavy item removal through scheduled appointments with proper disposal methods for all materials. Our bulk pickup serves spring cleaning and moving situations across Hubbard.
+          </p>
+          <p class="text-text-muted text-base sm:text-lg leading-relaxed">
+            Large appliances require special handling that regular pickup cannot provide. We remove couches, washing machines, mattresses, and other oversized items safely. Schedule your bulk pickup when you need extra space or during seasonal cleanouts. For larger projects you'd rather load yourself, ask about our trash trailer rentals.
+          </p>
+        </div>
+      </div>
+
+      {/* CTA */}
+      <div data-reveal data-reveal-delay="0.1" class="bg-dark-elevated border border-border-subtle rounded-2xl p-6 sm:p-8 md:p-12 text-center">
+        <h2 class="text-xl sm:text-2xl md:text-3xl font-bold mb-3 md:mb-4">Start Reliable Garbage Collection in Hubbard</h2>
+        <p class="text-text-muted text-base sm:text-lg leading-relaxed mb-6 md:mb-8">
+          Call Rankin Waste Management at <a href={PHONE_LINK} class="text-orange-500 hover:text-orange-400 font-semibold">{PHONE}</a> to set up service. Family-owned, no contracts, flat-rate pricing — and trusted by 700+ neighbors with 250+ five-star reviews.
+        </p>
+        <CallCTA />
+      </div>
+
+    </div>
+  </section>
+
+  <section id="reviews" class="bg-dark-elevated">
+    <ReviewWidget client:idle />
+  </section>
+</Layout>
