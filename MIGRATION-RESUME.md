@@ -2,8 +2,19 @@
 
 **Last session ended:** 2026-05-03 (continued)
 **Branch:** `astro-migration`
-**HEAD commit:** `6531205` — `feat(astro): batch 6 — port homepage with LocalBusiness + FAQPage schemas, hero preload, 8 sections, FaqAccordion island, byte-identical content`
-**Status:** ✅ **Foundation Complete + Batches 3, 4, 5 & 6 complete (13 / 13 pages translated). SMOKE GATE PASSED.**
+**HEAD commit:** `90b4725` — `chore(astro): add Checkpoint 4 verification scripts (hardened verifier + visual-diff Playwright)`
+**Status:** ✅ **All migration batches complete (13/13 pages) + Checkpoint 4 cleared. Ready for merge to master + deploy.**
+
+## Checkpoint 4 results (2026-05-03)
+
+| Phase | Result |
+|---|---|
+| Phase 1 — Hardened verifier | ✅ 13/13 routes, 299/299 checks PASS |
+| A11y-1 fix (`<main>` landmark) | ✅ Applied (commit `ed955a8`); A11y 92→94 across spot-checked routes |
+| Phase 2 — Lighthouse (5 routes × 2 viewports) | ✅ Homepage Perf 100/98 (gate cleared); all routes SEO=100; A11y/CLS gaps logged P1/P2 |
+| Phase 3 — Visual diff (5 routes × 2 viewports) | ✅ 8/10 pairs <1% diff; homepage 1.66%/3.49% confirmed = expected hero-animation + ReviewWidget timing, not structural drift |
+
+Logged P1/P2 follow-ups in `post-migration-improvements.md` from Checkpoint 4: **A11y-1 (RESOLVED)**, **A11y-2** (color-contrast on orange CTAs), **A11y-3** (Footer h4 heading-order), **CLS-1** (`/contact-us` GHL iframe layout shift). Plus all earlier-logged items (FAQ-1, FAQ-2, IL1, A1, A2, 7a, 8a).
 
 ---
 
