@@ -1,6 +1,4 @@
 ---
-// Sub-batch 2b smoke-check placeholder. Will be replaced by the real
-// homepage in Batch 6.
 import Layout from '../layouts/Layout.astro';
 ---
 <Layout title="Test" description="Test description for smoke check">
@@ -8,4 +6,10 @@ import Layout from '../layouts/Layout.astro';
   <p>Reveal test:</p>
   <div data-reveal>This element should fade in</div>
   <div data-reveal data-reveal-delay="0.2">This one with delay</div>
+  <button id="test-modal-trigger" type="button">Open service modal (test)</button>
+  <script is:inline>
+    document.getElementById('test-modal-trigger')?.addEventListener('click', () => {
+      document.dispatchEvent(new CustomEvent('open-service-modal'));
+    });
+  </script>
 </Layout>
