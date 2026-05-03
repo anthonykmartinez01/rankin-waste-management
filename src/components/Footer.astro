@@ -16,12 +16,10 @@
 //   - 'Rankin Waste' brand text (App.jsx:836; no BRAND_SHORT constant)
 //   - Address strings, hours strings, copyright text
 //
-// Hours data note: Footer displays 'Monday – Friday / 8AM – 6PM' which
-// is INCONSISTENT with src/data/business.ts (7AM Mon-Fri + Sat 8AM-4PM)
-// and the LocalBusiness JSON-LD schema (Mo-Fr 07:00-18:00, Sa 08:00-16:00).
-// Pre-migration footer source had this discrepancy; preserved verbatim
-// per delivery-layer scope. See post-migration-improvements.md #7a for
-// the P1 NAP cleanup pass post-migration.
+// Hours: 'Monday – Friday / 8AM – 6PM' (closed Sat/Sun). Reconciled
+// 2026-05-04 — same hours now reflected in src/data/business.ts and
+// in the homepage LocalBusiness JSON-LD schema. See ROUTE/improvements
+// log entry 7a (RESOLVED).
 import { PHONE, PHONE_LINK } from '../data/business';
 import PhoneIcon from './icons/PhoneIcon.astro';
 import MapPinIcon from './icons/MapPinIcon.astro';

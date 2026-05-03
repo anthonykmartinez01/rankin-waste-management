@@ -13,11 +13,9 @@
 // No useReveal calls in pre-migration (this page has no reveal animations).
 // No JSON-LD schema. No internal links beyond the icons-grid mailto.
 //
-// NAP/hours data inconsistency: this page renders 'Mon-Fri 8AM-6PM' with
-// ASCII hyphens. Footer renders 'Monday – Friday / 8AM – 6PM' with en-dashes.
-// business.ts says '7:00 AM – 6:00 PM weekdays + Sat'. Three sources of
-// truth disagree. Preserved verbatim per delivery-layer scope. See
-// post-migration-improvements.md #7a for the P1 NAP cleanup pass.
+// Hours: 'Mon-Fri 8AM-6PM' (closed Sat/Sun). Reconciled 2026-05-04
+// across all sources (Footer, business.ts, homepage LocalBusiness
+// schema, axtell page). See improvements log #7a (RESOLVED).
 import Layout from '../layouts/Layout.astro';
 import InnerHero from '../components/InnerHero.astro';
 import PhoneIcon from '../components/icons/PhoneIcon.astro';

@@ -26,7 +26,7 @@ const ROUTES = [
     ogImage: 'https://rankinwaste.com/truck-side.webp',
     dataRevealCount: 15,
     schemas: [
-      { key: 'LocalBusiness', bytes: 2016 },
+      { key: 'LocalBusiness', bytes: 1999 },
       { key: 'FAQPage', bytes: 2270 },
     ],
     custom: (body, head, helpers) => helpers.homepage(body, head),
