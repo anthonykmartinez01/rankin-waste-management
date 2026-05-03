@@ -84,6 +84,137 @@ import { PHONE, PHONE_LINK } from '../data/business';
         "name": "Hubbard, TX"
       }
     })} />
+
+    {/* Service schema with provider LocalBusiness, OfferCatalog (4 offers),
+        AggregateRating, and 4 sample Reviews. Added 2026-05-04 for SEO
+        rich-result eligibility (Service + LocalBusiness rich results +
+        review stars). @id values use trailing-slash URI form per the
+        provided spec. */}
+    <script is:inline type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "@id": "https://rankinwaste.com/waste-management-service-hubbard/#service",
+      "name": "Waste Management Service in Hubbard, TX",
+      "description": "Reliable waste removal for homes, businesses, and rural properties in Hubbard. Weekly residential pickup, garbage removal for cleanouts, easy curbside collection, and rural trash service for properties outside city limits — all from a family-owned local team.",
+      "serviceType": "Waste Management",
+      "category": "Garbage Collection Service",
+      "url": "https://rankinwaste.com/waste-management-service-hubbard/",
+      "provider": {
+        "@type": "LocalBusiness",
+        "@id": "https://rankinwaste.com/#business",
+        "name": "Rankin Waste Management",
+        "telephone": "+1-254-205-6125",
+        "url": "https://rankinwaste.com/",
+        "image": "https://rankinwaste.com/rw-logo.webp",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "175 PR335",
+          "addressLocality": "Hubbard",
+          "addressRegion": "TX",
+          "postalCode": "76648",
+          "addressCountry": "US"
+        },
+        "priceRange": "$$",
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+            "opens": "08:00",
+            "closes": "18:00"
+          }
+        ],
+        "sameAs": [
+          "https://www.facebook.com/p/Rankin-waste-management-100057417520840/"
+        ]
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": "Hubbard",
+        "containedInPlace": {
+          "@type": "State",
+          "name": "Texas"
+        }
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Waste Management Services in Hubbard",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Weekly Residential Trash Pickup in Hubbard",
+              "description": "Consistent weekly trash collection for Hubbard homeowners. We run early-morning routes so your bins are emptied before most folks start their day — no overflow, no neighborhood eyesores, no missed weeks.",
+              "areaServed": { "@type": "City", "name": "Hubbard" },
+              "provider": { "@id": "https://rankinwaste.com/#business" }
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Garbage Removal in Hubbard",
+              "description": "Cleanouts, renovations, big projects? We handle the haul-away so you don't make ten dump trips. Construction debris, household junk, and items too big for regular pickup — all gone in one stop. Ask about trash trailer rentals for larger jobs.",
+              "areaServed": { "@type": "City", "name": "Hubbard" },
+              "provider": { "@id": "https://rankinwaste.com/#business" }
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Curbside Trash Collection in Hubbard",
+              "description": "Roll your bin to the curb and we take it from there. Easy on families, easy on elderly residents, no heavy lifting, no driving to a collection point. Service runs throughout Hubbard neighborhoods with street access.",
+              "areaServed": { "@type": "City", "name": "Hubbard" },
+              "provider": { "@id": "https://rankinwaste.com/#business" }
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Rural Trash Service in Hubbard",
+              "description": "Live outside city limits? Most haulers won't come out — we will. We cover farm properties, country homes, and outlying areas around Hubbard with the same dependable weekly pickup as in-town routes.",
+              "areaServed": { "@type": "City", "name": "Hubbard" },
+              "provider": { "@id": "https://rankinwaste.com/#business" }
+            }
+          }
+        ]
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "5.0",
+        "reviewCount": "284",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "review": [
+        {
+          "@type": "Review",
+          "author": { "@type": "Person", "name": "Kayla Jones" },
+          "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+          "reviewBody": "If you're looking for a waste service that truly goes above and beyond, Rankin Waste Management is it. Tommy and Sydney are reliable, affordable, and somehow still the kind of people who show up for everything like ballgames, school events, and anything that supports our kids and community. They run their business the way small-town businesses should be run, treating people like family, not just customers. 10/10 recommend."
+        },
+        {
+          "@type": "Review",
+          "author": { "@type": "Person", "name": "Mary McCaghren" },
+          "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+          "reviewBody": "If you live out in the country, you know trash pickup can be a little adventurous. Dogs, rogue livestock, protective roosters! But Rankin Waste Management shows up like clockwork. Rain, shine, or that classic Texas weather — they're out there getting it done. Out here, reliable trash pickup is a luxury and these folks deliver."
+        },
+        {
+          "@type": "Review",
+          "author": { "@type": "Person", "name": "Buffy Nehring" },
+          "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+          "reviewBody": "They are a family owned business. They are always on time for pickup. They provide amazing customer service. They have quick response should you have questions. They treat you like family not just another account. They have great pricing. I highly recommend them."
+        },
+        {
+          "@type": "Review",
+          "author": { "@type": "Person", "name": "Jenny Kelley" },
+          "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+          "reviewBody": "Rankin Waste Management does amazing job. They are always consistent and communicate with the customers if there will be a delayed pick up for any reason. We live in a rural area and trash pick up was rare or inconsistent before Rankin. We highly recommend them."
+        }
+      ]
+    })} />
   </Fragment>
 
   <InnerHero
