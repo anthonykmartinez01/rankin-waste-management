@@ -379,57 +379,109 @@ const Services = () => {
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-medium tracking-tight">Our Services</h2>
         </div>
 
-        <div ref={intro.ref} style={intro.style} className="max-w-[800px] mx-auto space-y-12 md:space-y-14">
-          <div>
-            <h3 className="text-xl md:text-2xl font-semibold tracking-tight mb-5">Waste Management Service</h3>
-            <p className="text-text-muted text-base sm:text-lg leading-relaxed mb-4">
-              Our weekly curbside pickup service handles all your household waste without complicated sorting requirements or hidden fees. Simply set out your bags or cans on pickup day and we handle everything else, providing the reliable service that 700+ rural Texas families depend on every week.
-            </p>
-            <p className="text-text-muted text-base sm:text-lg leading-relaxed mb-5">
-              As a family-owned business built specifically for rural communities, we deliver the consistent service and personal accountability that big national haulers can't match in areas like Hubbard and surrounding Hill County towns.
-            </p>
-            <Link to="/waste-management-service-hubbard" className="inline-flex items-center gap-1 text-orange-500 hover:text-orange-300 font-semibold text-sm sm:text-base transition-colors duration-300">
-              Learn more about waste management in Hubbard &rarr;
-            </Link>
+        <div ref={intro.ref} style={intro.style} className="max-w-[1100px] mx-auto space-y-16 md:space-y-20">
+          <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+            <div className="rounded-2xl overflow-hidden">
+              <img
+                src="/images/services/waste-management.webp"
+                alt="Rankin Waste branded curbside trash bin next to service truck"
+                width="1400"
+                height="933"
+                loading="lazy"
+                decoding="async"
+                className="w-full aspect-[4/3] object-cover"
+              />
+            </div>
+            <div>
+              <h3 className="text-xl md:text-2xl font-semibold tracking-tight mb-5">Waste Management Service</h3>
+              <p className="text-text-muted text-base sm:text-lg leading-relaxed mb-4">
+                Our weekly curbside pickup service handles all your household waste without complicated sorting requirements or hidden fees. Simply set out your bags or cans on pickup day and we handle everything else, providing the reliable service that 700+ rural Texas families depend on every week.
+              </p>
+              <p className="text-text-muted text-base sm:text-lg leading-relaxed mb-5">
+                As a family-owned business built specifically for rural communities, we deliver the consistent service and personal accountability that big national haulers can't match in areas like Hubbard and surrounding Hill County towns.
+              </p>
+              <Link to="/waste-management-service-hubbard" className="inline-flex items-center gap-1 text-orange-500 hover:text-orange-300 font-semibold text-sm sm:text-base transition-colors duration-300">
+                Learn more about waste management in Hubbard &rarr;
+              </Link>
+            </div>
           </div>
 
-          <div>
-            <h3 className="text-xl md:text-2xl font-semibold tracking-tight mb-5">Garbage Collection Service</h3>
-            <p className="text-text-muted text-base sm:text-lg leading-relaxed mb-4">
-              We provide a straightforward residential garbage collection service with weekly pickup designed specifically for rural residents. Our service eliminates the frustration of dealing with missed collections and unresponsive customer service, which characterizes most big waste management companies.
-            </p>
-            <p className="text-text-muted text-base sm:text-lg leading-relaxed mb-5">
-              With Tommy and Sydney personally overseeing operations and answering customer calls, any service adjustments or questions get handled immediately by the business owners. This direct communication ensures your garbage collection stays reliable week after week.
-            </p>
-            <Link to="/garbage-collection-service-hubbard" className="inline-flex items-center gap-1 text-orange-500 hover:text-orange-300 font-semibold text-sm sm:text-base transition-colors duration-300">
-              Learn more about garbage collection in Hubbard &rarr;
-            </Link>
+          <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+            <div className="md:order-2 rounded-2xl overflow-hidden">
+              <img
+                src="/images/services/garbage-collection.webp"
+                alt="Rankin Waste garbage truck with RW-branded bins on a rural road"
+                width="1400"
+                height="1050"
+                loading="lazy"
+                decoding="async"
+                className="w-full aspect-[4/3] object-cover"
+              />
+            </div>
+            <div className="md:order-1">
+              <h3 className="text-xl md:text-2xl font-semibold tracking-tight mb-5">Garbage Collection Service</h3>
+              <p className="text-text-muted text-base sm:text-lg leading-relaxed mb-4">
+                We provide a straightforward residential garbage collection service with weekly pickup designed specifically for rural residents. Our service eliminates the frustration of dealing with missed collections and unresponsive customer service, which characterizes most big waste management companies.
+              </p>
+              <p className="text-text-muted text-base sm:text-lg leading-relaxed mb-5">
+                With Tommy and Sydney personally overseeing operations and answering customer calls, any service adjustments or questions get handled immediately by the business owners. This direct communication ensures your garbage collection stays reliable week after week.
+              </p>
+              <Link to="/garbage-collection-service-hubbard" className="inline-flex items-center gap-1 text-orange-500 hover:text-orange-300 font-semibold text-sm sm:text-base transition-colors duration-300">
+                Learn more about garbage collection in Hubbard &rarr;
+              </Link>
+            </div>
           </div>
 
-          <div>
-            <h3 className="text-xl md:text-2xl font-semibold tracking-tight mb-5">Junk Removal Service</h3>
-            <p className="text-text-muted text-base sm:text-lg leading-relaxed mb-4">
-              Our bulk pickup service handles furniture, appliances, and other large items. We provide full-service handling so you don't need to prep items or worry about complicated scheduling procedures.
-            </p>
-            <p className="text-text-muted text-base sm:text-lg leading-relaxed mb-5">
-              Unlike big haulers, reaching us means talking directly to Tommy and Sydney who can coordinate bulk pickups immediately. This direct approach ensures your junk removal needs get addressed quickly without long delays.
-            </p>
-            <Link to="/junk-removal-service-hubbard" className="inline-flex items-center gap-1 text-orange-500 hover:text-orange-300 font-semibold text-sm sm:text-base transition-colors duration-300">
-              Learn more about junk removal in Hubbard &rarr;
-            </Link>
+          <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+            <div className="rounded-2xl overflow-hidden">
+              <img
+                src="/images/services/junk-removal.webp"
+                alt="Rankin Waste branded bin used for junk removal service"
+                width="680"
+                height="510"
+                loading="lazy"
+                decoding="async"
+                className="w-full aspect-[4/3] object-cover"
+              />
+            </div>
+            <div>
+              <h3 className="text-xl md:text-2xl font-semibold tracking-tight mb-5">Junk Removal Service</h3>
+              <p className="text-text-muted text-base sm:text-lg leading-relaxed mb-4">
+                Our bulk pickup service handles furniture, appliances, and other large items. We provide full-service handling so you don't need to prep items or worry about complicated scheduling procedures.
+              </p>
+              <p className="text-text-muted text-base sm:text-lg leading-relaxed mb-5">
+                Unlike big haulers, reaching us means talking directly to Tommy and Sydney who can coordinate bulk pickups immediately. This direct approach ensures your junk removal needs get addressed quickly without long delays.
+              </p>
+              <Link to="/junk-removal-service-hubbard" className="inline-flex items-center gap-1 text-orange-500 hover:text-orange-300 font-semibold text-sm sm:text-base transition-colors duration-300">
+                Learn more about junk removal in Hubbard &rarr;
+              </Link>
+            </div>
           </div>
 
-          <div>
-            <h3 className="text-xl md:text-2xl font-semibold tracking-tight mb-5">Dumpster Rental Service</h3>
-            <p className="text-text-muted text-base sm:text-lg leading-relaxed mb-4">
-              We offer dumpster rentals for home renovations, property cleanouts, and land clearing projects. Our rental service covers everything from small residential projects to larger construction debris removal needs with flexible rental periods and no contract restrictions.
-            </p>
-            <p className="text-text-muted text-base sm:text-lg leading-relaxed mb-5">
-              Our locally-owned approach means rental scheduling, delivery, and pickup coordination happens directly with the business owners rather than through corporate dispatch systems. This personal service ensures your project timeline stays on track with responsive, reliable dumpster rental service.
-            </p>
-            <Link to="/dumpster-rental-service-hubbard" className="inline-flex items-center gap-1 text-orange-500 hover:text-orange-300 font-semibold text-sm sm:text-base transition-colors duration-300">
-              Learn more about dumpster rentals in Hubbard &rarr;
-            </Link>
+          <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+            <div className="md:order-2 rounded-2xl overflow-hidden">
+              <img
+                src="/images/services/dumpster-rental.webp"
+                alt="Black metal roll-off dumpster at a construction site"
+                width="1400"
+                height="764"
+                loading="lazy"
+                decoding="async"
+                className="w-full aspect-[4/3] object-cover"
+              />
+            </div>
+            <div className="md:order-1">
+              <h3 className="text-xl md:text-2xl font-semibold tracking-tight mb-5">Dumpster Rental Service</h3>
+              <p className="text-text-muted text-base sm:text-lg leading-relaxed mb-4">
+                We offer dumpster rentals for home renovations, property cleanouts, and land clearing projects. Our rental service covers everything from small residential projects to larger construction debris removal needs with flexible rental periods and no contract restrictions.
+              </p>
+              <p className="text-text-muted text-base sm:text-lg leading-relaxed mb-5">
+                Our locally-owned approach means rental scheduling, delivery, and pickup coordination happens directly with the business owners rather than through corporate dispatch systems. This personal service ensures your project timeline stays on track with responsive, reliable dumpster rental service.
+              </p>
+              <Link to="/dumpster-rental-service-hubbard" className="inline-flex items-center gap-1 text-orange-500 hover:text-orange-300 font-semibold text-sm sm:text-base transition-colors duration-300">
+                Learn more about dumpster rentals in Hubbard &rarr;
+              </Link>
+            </div>
           </div>
         </div>
 
