@@ -181,6 +181,15 @@ import { PHONE, PHONE_LINK } from '../data/business';
         </div>
       </div>
 
+    </div>
+  </section>
+
+  <section id="reviews" class="bg-dark-elevated">
+    <ReviewWidget client:idle />
+  </section>
+
+  <section class="px-5 sm:px-6 lg:px-[clamp(2rem,5vw,4rem)] py-12 md:py-20 lg:py-28">
+    <div class="max-w-[1300px] mx-auto">
       {/* CTA */}
       <div data-reveal data-reveal-delay="0.1" class="bg-dark-elevated border border-border-subtle rounded-2xl p-6 sm:p-8 md:p-12 text-center">
         <h2 class="text-xl sm:text-2xl md:text-3xl font-bold mb-3 md:mb-4">Start Reliable Garbage Collection in Hubbard</h2>
@@ -189,11 +198,6 @@ import { PHONE, PHONE_LINK } from '../data/business';
         </p>
         <CallCTA />
       </div>
-
     </div>
-  </section>
-
-  <section id="reviews" class="bg-dark-elevated">
-    <ReviewWidget client:idle />
   </section>
 </Layout>
