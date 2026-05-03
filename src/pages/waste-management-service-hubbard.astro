@@ -221,8 +221,22 @@ import { PHONE, PHONE_LINK } from '../data/business';
         <p class="text-text-muted text-base sm:text-lg leading-relaxed mb-6 md:mb-8">
           Call Rankin Waste Management at <a href={PHONE_LINK} class="text-orange-500 hover:text-orange-400 font-semibold">{PHONE}</a> to set up your service. Family-owned, no contracts, flat-rate pricing — and trusted by 700+ neighbors with 250+ five-star reviews.
         </p>
-        <CallCTA />
+        <div class="flex flex-wrap justify-center gap-4">
+          <CallCTA />
+          <button id="waste-mgmt-modal-trigger" type="button" class="border border-white/30 text-white px-7 py-3.5 rounded-full font-semibold text-base hover:bg-white/10 transition-colors duration-300 min-h-[44px]">
+            New Service Request
+          </button>
+        </div>
       </div>
     </div>
   </section>
+
+  <script is:inline>
+    (function () {
+      var b = document.getElementById('waste-mgmt-modal-trigger');
+      if (b) b.addEventListener('click', function () {
+        document.dispatchEvent(new CustomEvent('open-service-modal'));
+      });
+    })();
+  </script>
 </Layout>
