@@ -1,27 +1,25 @@
 ---
 // src/pages/junk-removal-service-hubbard.astro
-// Byte-identical content port of pre-migration src/pages/JunkRemovalHubbard.jsx.
 //
-// Two per-page JSON-LD schemas (Service + BreadcrumbList) emitted via
-// <Fragment slot="head"> with is:inline directives. Schema content is
-// byte-identical to pre-migration's JSON.stringify output:
-//   - Service schema: 554 bytes (verified via JSON.stringify on identical object)
-//   - BreadcrumbList: 297 bytes
+// Restructured 2026-05-04 to match /waste-management-service-hubbard
+// layout: bgImage InnerHero + max-w-[1300px] container + 5 alternating
+// image+text grid rows + CTA box (with phone + "New Service Request"
+// button). NO ReviewWidget on this page per content decision.
 //
-// Page structure: InnerHero (no bgImage) + intro paragraph + single
-// centered image + 5 text-only service-section h2s + CTA box.
+// Two head schemas: Service (replaced — was 554-byte slim version, now
+// rich version with provider LocalBusiness, OfferCatalog 5 offers,
+// AggregateRating 5.0/284, 3 reviews) + BreadcrumbList (unchanged).
 //
-// Seven independent reveal animations: intro (no delay), junk, furniture,
-// appliance, cleanout, construction, cta — all 6 non-intro use 0.1 delay.
+// Service schema applies the rich-result fix: aggregateRating + review
+// nested under provider.LocalBusiness (NOT Service root) — Service is
+// not on Google's eligible-parent list for review markup. Same lesson
+// as wm-service-hubbard and garbage-collection-service-hubbard.
 //
-// One em-dash (U+2014, byte 0xE2 0x80 0x94) at byte position ~7991 in
-// pre-migration: 'flat-rate pricing — and trusted' in CTA paragraph.
-// All other dashes are ASCII U+002D (Same-Day, flat-rate, five-star,
-// Family-owned, Hubbard-area, eco-friendly).
-//
-// PageHead image override: '/junk-removal-trailer.webp' (passed to
-// Layout for og:image / twitter:image — first page in migration to
-// override these).
+// New images under public/images/junk-removal/ (12 WebP variants —
+// 6 desktop @ 1400w + 6 mobile @ 800w; hero gets 1600w + 900w mobile).
+// All sourced from rankin-images/Junk Removal Service in Hubbard,
+// converted via convert-junk-images.mjs at quality 82, ~92% file
+// reduction vs source JPGs.
 import Layout from '../layouts/Layout.astro';
 import InnerHero from '../components/InnerHero.astro';
 import CallCTA from '../components/CallCTA.astro';
@@ -35,19 +33,27 @@ import { PHONE, PHONE_LINK } from '../data/business';
   imageAlt="Rankin Waste Management trailer hauling junk and debris in Hubbard, TX"
 >
   <Fragment slot="head">
-    {/* Service Schema */}
+    {/* Service schema — rich version with provider LocalBusiness +
+        OfferCatalog (5 offers) + AggregateRating + 3 Reviews. Reviews
+        and aggregateRating nested under provider (not Service root)
+        for Google rich-result eligibility. Replaces the earlier
+        554-byte slim Service schema. */}
     <script is:inline type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "Service",
-      "serviceType": "Junk Removal",
+      "@id": "https://rankinwaste.com/junk-removal-service-hubbard/#service",
       "name": "Junk Removal Service in Hubbard, TX",
-      "image": "https://rankinwaste.com/junk-removal-trailer.webp",
+      "description": "Same-day junk removal in Hubbard with upfront quotes. We haul off furniture, appliances, construction debris, and full house cleanouts — heavy lifting included, proper disposal handled. Family-owned, no contracts, flat-rate pricing.",
+      "serviceType": "Junk Removal",
+      "category": "Junk Removal Service",
+      "url": "https://rankinwaste.com/junk-removal-service-hubbard/",
       "provider": {
-        "@type": "Organization",
+        "@type": "LocalBusiness",
+        "@id": "https://rankinwaste.com/#business",
         "name": "Rankin Waste Management",
-        "url": "https://rankinwaste.com",
-        "telephone": "(254) 205-6125",
-        "email": "rankinwaste@gmail.com",
+        "telephone": "+1-254-205-6125",
+        "url": "https://rankinwaste.com/",
+        "image": "https://rankinwaste.com/rw-logo.webp",
         "address": {
           "@type": "PostalAddress",
           "streetAddress": "175 PR335",
@@ -55,15 +61,114 @@ import { PHONE, PHONE_LINK } from '../data/business';
           "addressRegion": "TX",
           "postalCode": "76648",
           "addressCountry": "US"
-        }
+        },
+        "priceRange": "$$",
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+            "opens": "08:00",
+            "closes": "18:00"
+          }
+        ],
+        "sameAs": [
+          "https://www.facebook.com/p/Rankin-waste-management-100057417520840/"
+        ],
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "5.0",
+          "reviewCount": "284",
+          "bestRating": "5",
+          "worstRating": "1"
+        },
+        "review": [
+          {
+            "@type": "Review",
+            "author": { "@type": "Person", "name": "Kayla Jones" },
+            "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+            "reviewBody": "If you're looking for a waste service that truly goes above and beyond, Rankin Waste Management is it. Tommy and Sydney are reliable, affordable, and somehow still the kind of people who show up for everything like ballgames, school events, and anything that supports our kids and community. They run their business the way small-town businesses should be run, treating people like family, not just customers. 10/10 recommend."
+          },
+          {
+            "@type": "Review",
+            "author": { "@type": "Person", "name": "Linda Mcnutt" },
+            "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+            "reviewBody": "Rankin Waste Management has been our weekly waste pick up for several years and have been reliable and often pick up extra bags for us at no extra cost. I would certainly recommend them."
+          },
+          {
+            "@type": "Review",
+            "author": { "@type": "Person", "name": "Buffy Nehring" },
+            "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+            "reviewBody": "They are a family owned business. They are always on time for pickup. They provide amazing customer service. They have quick response should you have questions. They treat you like family not just another account. They have great pricing. I highly recommend them."
+          }
+        ]
       },
       "areaServed": {
         "@type": "City",
-        "name": "Hubbard, TX"
+        "name": "Hubbard",
+        "containedInPlace": {
+          "@type": "State",
+          "name": "Texas"
+        }
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Junk Removal Services in Hubbard",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Junk Removal in Hubbard",
+              "description": "Decluttering, moving, or sorting through inherited stuff? Tell us what needs to go and we handle the lifting and hauling — mixed household items, all in one trip, no multiple runs to the dump.",
+              "areaServed": { "@type": "City", "name": "Hubbard" },
+              "provider": { "@id": "https://rankinwaste.com/#business" }
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Furniture Removal in Hubbard",
+              "description": "Replacing a couch, getting rid of old beds, or downsizing? We bring the right equipment to move heavy furniture without scuffing your walls or floors — and we know how to navigate the narrow stairs and doorways in Hubbard homes.",
+              "areaServed": { "@type": "City", "name": "Hubbard" },
+              "provider": { "@id": "https://rankinwaste.com/#business" }
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Appliance Removal in Hubbard",
+              "description": "Old fridge, broken washer, dryer that finally quit? We disconnect, haul, and recycle the metal — no wrestling appliances down stairs or through tight doorways yourself. Eco-friendly disposal for components that can be recycled.",
+              "areaServed": { "@type": "City", "name": "Hubbard" },
+              "provider": { "@id": "https://rankinwaste.com/#business" }
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "House Cleanouts in Hubbard",
+              "description": "Estate clearing, prepping for a move, or finally tackling a packed garage? We clear entire rooms or properties, help sort through what stays and what goes, and can coordinate donations for anything still usable. Built for families dealing with inherited homes or major life changes.",
+              "areaServed": { "@type": "City", "name": "Hubbard" },
+              "provider": { "@id": "https://rankinwaste.com/#business" }
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Construction Debris Removal in Hubbard",
+              "description": "Renovation or demo waste piling up? We're a dumpster alternative with the labor included — we load and haul drywall, flooring, lumber, and demolition debris so you can focus on the build. Larger projects? Ask about trash trailer rentals.",
+              "areaServed": { "@type": "City", "name": "Hubbard" },
+              "provider": { "@id": "https://rankinwaste.com/#business" }
+            }
+          }
+        ]
       }
     })} />
 
-    {/* Breadcrumb Schema */}
+    {/* Breadcrumb Schema (unchanged from migration) */}
     <script is:inline type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
@@ -74,66 +179,135 @@ import { PHONE, PHONE_LINK } from '../data/business';
     })} />
   </Fragment>
 
-  <InnerHero title="Junk Removal Service in Hubbard" />
+  <InnerHero
+    title="Junk Removal Service in Hubbard"
+    bgImage="/images/junk-removal/hero.webp"
+    bgImageAlt="Construction debris pile alongside a partially demolished building, ready for haul-off"
+  />
 
   <section class="px-5 sm:px-6 lg:px-[clamp(2rem,5vw,4rem)] py-12 md:py-20 lg:py-28">
-    <div class="max-w-[800px] mx-auto">
+    <div class="max-w-[1300px] mx-auto">
 
       {/* Intro */}
-      <div data-reveal class="mb-12 md:mb-16">
-        <p class="text-text-muted text-base sm:text-lg leading-relaxed mb-6 md:mb-8">
+      <div data-reveal class="mb-12 md:mb-16 text-center">
+        <p class="text-text-muted text-base sm:text-lg leading-relaxed">
           In Hubbard, residents and businesses need reliable waste removal when clutter builds up or projects create debris. Our junk removal service in Hubbard handles everything from old furniture to construction waste. Same-day pickup available with upfront quotes. We take care of the removal and make sure your waste is disposed of properly.
         </p>
-        <div class="flex justify-center">
+      </div>
+
+      {/* Junk Removal — image left */}
+      <div data-reveal data-reveal-delay="0.1" class="mb-16 md:mb-24 grid md:grid-cols-2 gap-6 md:gap-16 items-center">
+        <div class="rounded-2xl overflow-hidden">
           <img
-            src="/junk-removal-trailer.webp"
-            alt="Rankin Waste Management trailer hauling junk and debris in Hubbard, TX"
-            width="381"
-            height="509"
+            src="/images/junk-removal/mixed-pile.webp"
+            srcset="/images/junk-removal/mixed-pile-mobile.webp 800w, /images/junk-removal/mixed-pile.webp 1400w"
+            sizes="(min-width: 768px) 50vw, 100vw"
+            alt="Pile of mixed household clutter — boxes, suitcase, toys, and bins ready for haul-off"
+            width="1400"
+            height="1050"
             loading="lazy"
-            class="w-full max-w-[381px] h-auto rounded-sm border border-border-subtle"
+            decoding="async"
+            class="w-full aspect-[4/3] object-cover"
           />
+        </div>
+        <div>
+          <h2 class="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Junk removal in Hubbard</h2>
+          <p class="text-text-muted text-base sm:text-lg leading-relaxed">
+            We help homeowners decluttering, moving, or dealing with inherited items get their space back. We provide quick removal of mixed household items in a single trip, so you don't have to make multiple runs to disposal sites. We serve all Hubbard residential areas including downtown neighborhoods. You simply let us know what needs to go, and we handle the heavy lifting and hauling.
+          </p>
         </div>
       </div>
 
-      {/* Junk Removal */}
-      <div data-reveal data-reveal-delay="0.1" class="mb-12 md:mb-16">
-        <h2 class="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Junk removal in Hubbard</h2>
-        <p class="text-text-muted text-base sm:text-lg leading-relaxed">
-          We help homeowners decluttering, moving, or dealing with inherited items get their space back. We provide quick removal of mixed household items in a single trip, so you don't have to make multiple runs to disposal sites. We serve all Hubbard residential areas including downtown neighborhoods. You simply let us know what needs to go, and we handle the heavy lifting and hauling.
-        </p>
+      {/* Furniture Removal — image RIGHT (md:order-2 / md:order-1 swap) */}
+      <div data-reveal data-reveal-delay="0.1" class="mb-16 md:mb-24 grid md:grid-cols-2 gap-6 md:gap-16 items-center">
+        <div class="md:order-2 rounded-2xl overflow-hidden">
+          <img
+            src="/images/junk-removal/furniture.webp"
+            srcset="/images/junk-removal/furniture-mobile.webp 800w, /images/junk-removal/furniture.webp 1400w"
+            sizes="(min-width: 768px) 50vw, 100vw"
+            alt="Discarded armchair set out for furniture removal pickup"
+            width="1400"
+            height="1050"
+            loading="lazy"
+            decoding="async"
+            class="w-full aspect-[4/3] object-cover"
+          />
+        </div>
+        <div class="md:order-1">
+          <h2 class="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Furniture removal in Hubbard</h2>
+          <p class="text-text-muted text-base sm:text-lg leading-relaxed">
+            When you're replacing old couches, beds, tables, or downsizing your home, we take care of the furniture you no longer need. We bring proper equipment to handle heavy lifting without damaging your property. We know how to navigate the narrow stairs and doorways common in Hubbard homes.
+          </p>
+        </div>
       </div>
 
-      {/* Furniture Removal */}
-      <div data-reveal data-reveal-delay="0.1" class="mb-12 md:mb-16">
-        <h2 class="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Furniture removal in Hubbard</h2>
-        <p class="text-text-muted text-base sm:text-lg leading-relaxed">
-          When you're replacing old couches, beds, tables, or downsizing your home, we take care of the furniture you no longer need. We bring proper equipment to handle heavy lifting without damaging your property. We know how to navigate the narrow stairs and doorways common in Hubbard homes.
-        </p>
+      {/* Appliance Removal — image left */}
+      <div data-reveal data-reveal-delay="0.1" class="mb-16 md:mb-24 grid md:grid-cols-2 gap-6 md:gap-16 items-center">
+        <div class="rounded-2xl overflow-hidden">
+          <img
+            src="/images/junk-removal/appliances.webp"
+            srcset="/images/junk-removal/appliances-mobile.webp 800w, /images/junk-removal/appliances.webp 1400w"
+            sizes="(min-width: 768px) 50vw, 100vw"
+            alt="Stacked old air-conditioner units and appliances ready for removal and recycling"
+            width="1400"
+            height="1050"
+            loading="lazy"
+            decoding="async"
+            class="w-full aspect-[4/3] object-cover"
+          />
+        </div>
+        <div>
+          <h2 class="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Appliance removal in Hubbard</h2>
+          <p class="text-text-muted text-base sm:text-lg leading-relaxed">
+            Whether you're upgrading refrigerators, washers, dryers, or dealing with broken units, we remove appliances of all sizes. We handle safe disconnection when needed and provide eco-friendly disposal or recycling for metal components. Our service covers all residential areas throughout the Hubbard area. You don't need to worry about getting large appliances down stairs or through tight spaces.
+          </p>
+        </div>
       </div>
 
-      {/* Appliance Removal */}
-      <div data-reveal data-reveal-delay="0.1" class="mb-12 md:mb-16">
-        <h2 class="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Appliance removal in Hubbard</h2>
-        <p class="text-text-muted text-base sm:text-lg leading-relaxed">
-          Whether you're upgrading refrigerators, washers, dryers, or dealing with broken units, we remove appliances of all sizes. We handle safe disconnection when needed and provide eco-friendly disposal or recycling for metal components. Our service covers all residential areas throughout the Hubbard area. You don't need to worry about getting large appliances down stairs or through tight spaces.
-        </p>
+      {/* House Cleanouts — image RIGHT */}
+      <div data-reveal data-reveal-delay="0.1" class="mb-16 md:mb-24 grid md:grid-cols-2 gap-6 md:gap-16 items-center">
+        <div class="md:order-2 rounded-2xl overflow-hidden">
+          <img
+            src="/images/junk-removal/house-cleanout.webp"
+            srcset="/images/junk-removal/house-cleanout-mobile.webp 800w, /images/junk-removal/house-cleanout.webp 1400w"
+            sizes="(min-width: 768px) 50vw, 100vw"
+            alt="Cluttered abandoned interior with piles of debris ready for a full house cleanout"
+            width="1400"
+            height="1050"
+            loading="lazy"
+            decoding="async"
+            class="w-full aspect-[4/3] object-cover"
+          />
+        </div>
+        <div class="md:order-1">
+          <h2 class="text-2xl md:text-3xl font-bold mb-4 md:mb-6">House cleanouts in Hubbard</h2>
+          <p class="text-text-muted text-base sm:text-lg leading-relaxed">
+            We assist with estate clearing, moving preparation, and major decluttering projects that require clearing entire rooms or properties. We provide complete property clearing with sorting assistance and can coordinate donations of usable items. We have experience working in Hubbard-area home layouts and understand common access challenges. This service works well for families dealing with inherited homes or preparing for major life changes.
+          </p>
+        </div>
       </div>
 
-      {/* House Cleanouts */}
-      <div data-reveal data-reveal-delay="0.1" class="mb-12 md:mb-16">
-        <h2 class="text-2xl md:text-3xl font-bold mb-4 md:mb-6">House cleanouts in Hubbard</h2>
-        <p class="text-text-muted text-base sm:text-lg leading-relaxed">
-          We assist with estate clearing, moving preparation, and major decluttering projects that require clearing entire rooms or properties. We provide complete property clearing with sorting assistance and can coordinate donations of usable items. We have experience working in Hubbard-area home layouts and understand common access challenges. This service works well for families dealing with inherited homes or preparing for major life changes.
-        </p>
-      </div>
-
-      {/* Construction Debris */}
-      <div data-reveal data-reveal-delay="0.1" class="mb-12 md:mb-16">
-        <h2 class="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Construction debris removal in Hubbard</h2>
-        <p class="text-text-muted text-base sm:text-lg leading-relaxed">
-          Contractors and homeowners with renovation or demolition waste can use our services as a dumpster alternative with labor included. We handle loading and hauling of construction materials, drywall, flooring, and demolition debris. We are familiar with Hubbard building sites and local disposal requirements. For larger projects you'd rather load yourself, ask about our trash trailer rentals. You focus on your project while we manage the cleanup and debris removal.
-        </p>
+      {/* Construction Debris — image left */}
+      <div data-reveal data-reveal-delay="0.1" class="mb-16 md:mb-24 grid md:grid-cols-2 gap-6 md:gap-16 items-center">
+        <div class="rounded-2xl overflow-hidden">
+          <img
+            src="/images/junk-removal/construction-debris.webp"
+            srcset="/images/junk-removal/construction-debris-mobile.webp 800w, /images/junk-removal/construction-debris.webp 1400w"
+            sizes="(min-width: 768px) 50vw, 100vw"
+            alt="Construction debris pile with broken bricks and demolition waste from a renovation site"
+            width="1400"
+            height="1050"
+            loading="lazy"
+            decoding="async"
+            class="w-full aspect-[4/3] object-cover"
+          />
+        </div>
+        <div>
+          <h2 class="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Construction debris removal in Hubbard</h2>
+          <p class="text-text-muted text-base sm:text-lg leading-relaxed">
+            Contractors and homeowners with renovation or demolition waste can use our services as a dumpster alternative with labor included. We handle loading and hauling of construction materials, drywall, flooring, and demolition debris. We are familiar with Hubbard building sites and local disposal requirements. For larger projects you'd rather load yourself, ask about our trash trailer rentals. You focus on your project while we manage the cleanup and debris removal.
+          </p>
+        </div>
       </div>
 
       {/* CTA */}
@@ -142,9 +316,23 @@ import { PHONE, PHONE_LINK } from '../data/business';
         <p class="text-text-muted text-base sm:text-lg leading-relaxed mb-6 md:mb-8">
           Call Rankin Waste Management at <a href={PHONE_LINK} class="text-orange-500 hover:text-orange-400 font-semibold">{PHONE}</a> for an upfront quote. Family-owned, no contracts, flat-rate pricing — and trusted by 700+ neighbors with 250+ five-star reviews.
         </p>
-        <CallCTA />
+        <div class="flex flex-wrap justify-center gap-4">
+          <CallCTA />
+          <button id="junk-removal-modal-trigger" type="button" class="border border-white/30 text-white px-7 py-3.5 rounded-full font-semibold text-base hover:bg-white/10 transition-colors duration-300 min-h-[44px]">
+            New Service Request
+          </button>
+        </div>
       </div>
 
     </div>
   </section>
+
+  <script is:inline>
+    (function () {
+      var b = document.getElementById('junk-removal-modal-trigger');
+      if (b) b.addEventListener('click', function () {
+        document.dispatchEvent(new CustomEvent('open-service-modal'));
+      });
+    })();
+  </script>
 </Layout>
