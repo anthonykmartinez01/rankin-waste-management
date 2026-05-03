@@ -2,16 +2,16 @@
 
 **Last session ended:** 2026-05-03 (continued)
 **Branch:** `astro-migration`
-**HEAD commit:** `f5870a8` — `feat(astro): batch 4.3 — port axtell to Astro with per-page Organization schema in head, byte-identical content`
-**Status:** ✅ **Foundation Complete + Batches 3 & 4 complete (8 / 13 pages translated)**
+**HEAD commit:** `246bba3` — `feat(astro): batch 5.4 — port waste-management-service-hubbard with Organization schema, 4-row alternating grid, byte-identical content`
+**Status:** ✅ **Foundation Complete + Batches 3, 4 & 5 complete (12 / 13 pages translated)**
 
 ---
 
 ## Where we are
 
-The Astro foundation is fully built and verified. The 12 legacy React SPA page components are deleted, replaced by the Astro layout + component layer. **8 of 13 pages translated** (Batches 3 & 4 complete). Batches 5 & 6 cover the remaining 5 pages.
+The Astro foundation is fully built and verified. The 12 legacy React SPA page components are deleted, replaced by the Astro layout + component layer. **12 of 13 pages translated** (Batches 3, 4 & 5 complete). Only Batch 6 (homepage) remains.
 
-### Pages translated (Batches 3 & 4 complete)
+### Pages translated (Batches 3, 4 & 5 complete)
 
 | # | Page | Commit | Verification |
 |---|---|---|---|
@@ -23,8 +23,26 @@ The Astro foundation is fully built and verified. The 12 legacy React SPA page c
 | 6 | `/contact-us` | `0ae688d` | 17/17 assertions PASS |
 | 7 | `/reviews` | `1fdefc5` | 25/25 assertions PASS |
 | 8 | `/service-areas/axtell` | `f5870a8` | 25/25 assertions PASS |
+| 9 | `/junk-removal-service-hubbard` | `53f8c67` | all assertions PASS |
+| 10 | `/dumpster-rental-service-hubbard` | `4aa0275` | all assertions PASS |
+| 11 | `/garbage-collection-service-hubbard` | `56f2fd7` | 47/47 assertions PASS |
+| 12 | `/waste-management-service-hubbard` | `246bba3` | 38/38 effective PASS |
 
-**Batch 3 total: 82/82 assertions PASS. Batch 4 total: 67/67 assertions PASS. Combined: 149/149.**
+**Batch 3 total: 82/82 PASS. Batch 4 total: 67/67 PASS. Batch 5 total (4 Hubbard pages): all assertions PASS, schema byte-identity confirmed across all 4 pages.**
+
+### Batch 5 schema byte-identity matrix (verified)
+
+The shared 283-byte name/url/telephone/email/address identity block appears byte-identical in all 5 Organization representations across the migrated pages:
+
+| Representation | Total bytes | Where |
+|---|---|---|
+| Axtell Organization (full schema) | 388 | `service-areas/axtell.astro` |
+| Hubbard parent Organization (full schema) | 389 | `waste-management-service-hubbard.astro` (+1 byte: "Hubbard, TX" vs "Axtell, TX") |
+| Junk-removal child Service.provider sub-object | 306 | `junk-removal-service-hubbard.astro` |
+| Dumpster-rental child Service.provider sub-object | 306 | `dumpster-rental-service-hubbard.astro` |
+| Garbage-collection child Service.provider sub-object | 306 | `garbage-collection-service-hubbard.astro` |
+
+Only `areaServed.name` (City) varies between Axtell parent and Hubbard parent; the 3 child Hubbard providers are byte-identical 306-byte sub-objects.
 
 ### Translation patterns locked in across Batches 3 + 4
 
@@ -62,20 +80,18 @@ node scripts/verify-ssg.mjs  # head-only assertions; runs against dist/<route>/i
 
 ## Next planned batch
 
-**Batch 5 — port the 4 Hubbard service pages:**
+**Batch 6 — port the homepage `index.astro`** (replaces current placeholder):
 
-The most uniform batch — all 4 pages share the same structural pattern (alternating image+text grids, Service + BreadcrumbList schemas, similar h2/h3 layout). The patterns from Batch 4's axtell schema and Batch 3's image handling carry over directly.
+The single largest remaining file. Pre-migration `src/App.jsx` contains the homepage inline alongside routing/Nav/Footer (the kitchen-sink file). The homepage components (Hero, FAQ, Services, FindUs, etc.) live there as inline components. Batch 6 extracts only the homepage section and ports it to `src/pages/index.astro`, replacing the placeholder.
 
-Pages, in suggested order (simplest service-schema → most complex):
-1. `src/pages/junk-removal-service-hubbard.astro`
-2. `src/pages/dumpster-rental-service-hubbard.astro`
-3. `src/pages/garbage-collection-service-hubbard.astro`
-4. `src/pages/waste-management-service-hubbard.astro` (the parent Hubbard page; per `migration-baseline.md` §2 it has only Organization + PostalAddress + City schema, simpler than the others which add Service + BreadcrumbList)
+Key items to handle:
+- 38-`@type` JSON-LD LocalBusiness + AggregateRating + Review homepage schema (currently in `index.html` static `<head>`)
+- FAQPage schema for the homepage FAQ section
+- Hero / Services / FAQ / FindUs / CTA blocks — multi-reveal staggered animations
+- Inline links from homepage → service pages (existing pre-migration pattern; preserve verbatim)
+- Once `index.astro` lands, `index.html` static `<head>` block is no longer source-of-truth — Layout.astro fully owns head
 
-**Note:** the pre-migration source for the 4 Hubbard pages includes alternating image+text grid sections with reveal animations on each section. Image attribute handling already established in Batch 3 (about-us). Schema handling already established in Batch 4 (axtell — Fragment slot="head" pattern with is:inline directive).
-
-After Batch 5:
-- Batch 6: `index.astro` homepage (largest single file — Hero, FAQ, Services, FindUs, etc. + the 38-`@type` JSON-LD homepage schema; replaces the placeholder index.astro)
+After Batch 6:
 - Smoke gate: `<title>` in `<head>` for all 13 prerendered pages
 - Checkpoint 4: hardened verifier + Lighthouse + visual diff matrix on 5 pages × 2 viewports
 - Deploy
@@ -172,6 +188,7 @@ git show master:src/components/ReviewWidget.jsx # already ported as .tsx, but re
 
 - **A1.** Mobile menu lacks aria-expanded, focus trap, scroll lock, Esc-to-close, backdrop-click-to-close
 - **A2.** ServiceRequestModal lacks focus trap, focus return, Esc-to-close, role="dialog", aria-labelledby, explicit type="button" on close
+- **IL1.** Parent Hubbard page (`/waste-management-service-hubbard`) does not link to its 3 child Hubbard service pages (junk-removal, dumpster-rental, garbage-collection). Pre-migration also lacked these links; preserved verbatim per delivery-layer-only scope. P1 internal-linking improvement post-migration.
 - **7a.** NAP/hours inconsistency: Footer says "Mon–Fri 8AM–6PM" (no Saturday), `business.ts` says "7AM–6PM Mon–Fri + Sat 8AM–4PM", LocalBusiness schema says "Mo-Fr 07:00-18:00, Sa 08:00-16:00". Three sources disagree.
 - **8a.** GHL form CSS + JS scoped site-wide (preserved verbatim) but only relevant on `/contact-us`. P3 follow-up to scope to that page only.
 - **Vite 8 + RR 7 upgrade revisit** (no longer needed since we pivoted to Astro; the constraint that drove pinning was vite-react-ssg, which we abandoned)
@@ -183,23 +200,27 @@ git show master:src/components/ReviewWidget.jsx # already ported as .tsx, but re
 
 Paste this into Claude Code when picking up:
 
-> Resume the Astro migration on branch `astro-migration` from commit `f5870a8` (Batches 3 & 4 complete, 8/13 pages translated).
+> Resume the Astro migration on branch `astro-migration` from commit `246bba3` (Batches 3, 4 & 5 complete, 12/13 pages translated).
 >
-> Apply Batch 5 — port the 4 Hubbard service pages, which share the most uniform structure of any batch (alternating image+text grids, Service + BreadcrumbList schemas):
-> 1. `junk-removal-service-hubbard.astro`
-> 2. `dumpster-rental-service-hubbard.astro`
-> 3. `garbage-collection-service-hubbard.astro`
-> 4. `waste-management-service-hubbard.astro` (parent Hubbard page with simpler Organization-only schema)
+> Apply Batch 6 — port the homepage to `src/pages/index.astro`, replacing the current placeholder. Source: pre-migration `src/App.jsx` (kitchen-sink file containing routing + Nav + Footer + the inline homepage components: Hero, Services, FAQ, FindUs, CTA).
 >
-> All patterns needed for Batch 5 are already established and verified:
-> - Per-page schema via `<Fragment slot="head">` + `<script is:inline type="application/ld+json" set:html={JSON.stringify({...})} />` (axtell template — see 4.3)
-> - Image handling with byte-identical `<img>` attribute preservation (about-us template — see 3.5)
-> - Multi-reveal staggered animations with `data-reveal-delay="0.X"` (axtell + about-us templates)
+> Key items:
+> - Extract ONLY the homepage section from App.jsx; the Nav/Footer/routing parts are already covered by `Layout.astro` + `Nav.astro` + `Footer.astro`
+> - Port the 38-`@type` LocalBusiness + AggregateRating + Review homepage schema (currently in `index.html` static `<head>`) into `<Fragment slot="head">` on `index.astro`
+> - Port the FAQPage schema for the homepage FAQ section
+> - Multi-reveal staggered animations on Hero / Services / FAQ / FindUs blocks
+> - Internal links from homepage → all service pages preserved verbatim (these DO exist and must NOT be removed)
+> - After index.astro lands, the static `<head>` block in `index.html` is no longer source-of-truth — Layout.astro fully owns head
+>
+> All patterns needed for Batch 6 are already established and verified:
+> - Per-page schema via `<Fragment slot="head">` (axtell + 4 Hubbard pages)
+> - React island consumption via `client:idle` (reviews + 2 Hubbard pages — ReviewWidget on homepage if applicable)
+> - Multi-reveal staggered animations with `data-reveal-delay="0.X"`
 > - Schema byte-identity verification via re-running JSON.stringify on identical objects
 >
-> Same verification discipline as Batches 3-4: inventory + cross-check vs migration-baseline, byte-level dash/hyphen checks, prose word-diff, structural counts, build + astro check + curl assertions.
+> Same verification discipline as Batches 3-5: inventory + cross-check vs migration-baseline, byte-level dash/hyphen checks, prose word-diff, structural counts, build + astro check + curl assertions.
 >
-> Show me each page's diff for approval before applying. After all 4 apply: hold for Batch 6 (homepage) approval.
+> Show me the homepage diff for approval before applying. After Batch 6 applies cleanly: smoke gate (`<title>` in `<head>` for all 13 pages) → Checkpoint 4 (hardened verifier + Lighthouse + visual diff) → deploy.
 >
 > Re-read `MIGRATION-RESUME.md` for the established patterns and migration-discipline reminders.
 
