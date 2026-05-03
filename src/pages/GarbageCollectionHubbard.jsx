@@ -1,4 +1,5 @@
 import { useReveal, PageHead, InnerHero, CallCTA, PHONE, PHONE_LINK } from '../shared';
+import ReviewWidget from '../components/ReviewWidget';
 
 export default function GarbageCollectionHubbard() {
   const intro = useReveal();
@@ -13,7 +14,11 @@ export default function GarbageCollectionHubbard() {
         title="Garbage Collection Service Hubbard TX | Rankin Waste Management"
         description="Professional garbage collection service in Hubbard, TX. Weekly pickup, rural service, and bulk trash removal. Reliable waste management for homes and businesses."
       />
-      <InnerHero title="Garbage Collection Service in Hubbard" />
+      <InnerHero
+        title="Garbage Collection Service in Hubbard"
+        bgImage="/images/services/garbage-collection.webp"
+        bgImageAlt="Rankin Waste truck collecting garbage on a Hubbard residential street"
+      />
 
       {/* Service Schema */}
       <script
@@ -59,46 +64,91 @@ export default function GarbageCollectionHubbard() {
       />
 
       <section className="px-5 sm:px-6 lg:px-[clamp(2rem,5vw,4rem)] py-12 md:py-20 lg:py-28">
-        <div className="max-w-[800px] mx-auto">
+        <div className="max-w-[1300px] mx-auto">
 
           {/* Intro */}
-          <div ref={intro.ref} style={intro.style} className="mb-12 md:mb-16">
+          <div ref={intro.ref} style={intro.style} className="mb-12 md:mb-16 text-center">
             <p className="text-text-muted text-base sm:text-lg leading-relaxed">
               In Hubbard, reliable waste removal keeps homes and businesses clean. You can expect professional pickup on schedule with proper disposal methods. Our local service handles all waste types efficiently.
             </p>
           </div>
 
           {/* Garbage Pickup */}
-          <div ref={pickup.ref} style={pickup.style} className="mb-12 md:mb-16">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Garbage Pickup in Hubbard</h2>
-            <p className="text-text-muted text-base sm:text-lg leading-relaxed mb-4 md:mb-6">
-              Residential homeowners need weekly trash removal they can count on. We provide scheduled curbside pickup with containers included and consistent service you can rely on. Our garbage collection service covers all Hubbard neighborhoods.
-            </p>
-            <p className="text-text-muted text-base sm:text-lg leading-relaxed">
-              Weekly pickup keeps your home clean and your family healthy. We arrive on the same day each week so you never miss collection. Our trucks handle standard household waste and recyclables with professional care.
-            </p>
+          <div ref={pickup.ref} style={pickup.style} className="mb-16 md:mb-24 grid md:grid-cols-2 gap-6 md:gap-16 items-center">
+            <div className="rounded-2xl overflow-hidden">
+              <img
+                src="/images/garbage-collection/weekly-pickup.webp"
+                srcSet="/images/garbage-collection/weekly-pickup-mobile.webp 800w, /images/garbage-collection/weekly-pickup.webp 1400w"
+                sizes="(min-width: 768px) 50vw, 100vw"
+                alt="Black trash bags set out for weekly garbage pickup in Hubbard"
+                width="1400"
+                height="933"
+                loading="lazy"
+                decoding="async"
+                className="w-full aspect-[3/2] object-cover"
+              />
+            </div>
+            <div>
+              <h2 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Garbage Pickup in Hubbard</h2>
+              <p className="text-text-muted text-base sm:text-lg leading-relaxed mb-4 md:mb-6">
+                Residential homeowners need weekly trash removal they can count on. We provide scheduled curbside pickup with containers included and consistent service you can rely on. Our garbage collection service covers all Hubbard neighborhoods.
+              </p>
+              <p className="text-text-muted text-base sm:text-lg leading-relaxed">
+                Weekly pickup keeps your home clean and your family healthy. We arrive on the same day each week so you never miss collection. Our trucks handle standard household waste and recyclables with professional care.
+              </p>
+            </div>
           </div>
 
           {/* Rural */}
-          <div ref={rural.ref} style={rural.style} className="mb-12 md:mb-16">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Rural Garbage Collection in Hubbard</h2>
-            <p className="text-text-muted text-base sm:text-lg leading-relaxed mb-4 md:mb-6">
-              Properties outside city limits, farms, and remote homes face unique challenges with waste removal. We offer flexible pickup locations and accommodate longer routes with same-day service available. Our rural collection serves properties throughout Hubbard regardless of location.
-            </p>
-            <p className="text-text-muted text-base sm:text-lg leading-relaxed">
-              Country roads and distant driveways don't stop our service. We work with your property layout to find the best pickup spot. Farm waste, household trash, and rural debris all receive proper handling and disposal.
-            </p>
+          <div ref={rural.ref} style={rural.style} className="mb-16 md:mb-24 grid md:grid-cols-2 gap-6 md:gap-16 items-center">
+            <div className="md:order-2 rounded-2xl overflow-hidden">
+              <img
+                src="/images/garbage-collection/rural-collection.webp"
+                srcSet="/images/garbage-collection/rural-collection-mobile.webp 800w, /images/garbage-collection/rural-collection.webp 1400w"
+                sizes="(min-width: 768px) 50vw, 100vw"
+                alt="Worker carrying a trash bag through a rural field at sunset for garbage collection"
+                width="1400"
+                height="933"
+                loading="lazy"
+                decoding="async"
+                className="w-full aspect-[3/2] object-cover"
+              />
+            </div>
+            <div className="md:order-1">
+              <h2 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Rural Garbage Collection in Hubbard</h2>
+              <p className="text-text-muted text-base sm:text-lg leading-relaxed mb-4 md:mb-6">
+                Properties outside city limits, farms, and remote homes face unique challenges with waste removal. We offer flexible pickup locations and accommodate longer routes with same-day service available. Our rural collection serves properties throughout Hubbard regardless of location.
+              </p>
+              <p className="text-text-muted text-base sm:text-lg leading-relaxed">
+                Country roads and distant driveways don't stop our service. We work with your property layout to find the best pickup spot. Farm waste, household trash, and rural debris all receive proper handling and disposal.
+              </p>
+            </div>
           </div>
 
           {/* Bulk */}
-          <div ref={bulk.ref} style={bulk.style} className="mb-12 md:mb-16">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Bulk Trash Pickup in Hubbard</h2>
-            <p className="text-text-muted text-base sm:text-lg leading-relaxed mb-4 md:mb-6">
-              Homeowners disposing of large items like furniture and appliances need specialized removal service. We handle heavy item removal through scheduled appointments with proper disposal methods for all materials. Our bulk pickup serves spring cleaning and moving situations across Hubbard.
-            </p>
-            <p className="text-text-muted text-base sm:text-lg leading-relaxed">
-              Large appliances require special handling that regular pickup cannot provide. We remove couches, washing machines, mattresses, and other oversized items safely. Schedule your bulk pickup when you need extra space or during seasonal cleanouts. For larger projects you'd rather load yourself, ask about our trash trailer rentals.
-            </p>
+          <div ref={bulk.ref} style={bulk.style} className="mb-16 md:mb-24 grid md:grid-cols-2 gap-6 md:gap-16 items-center">
+            <div className="rounded-2xl overflow-hidden">
+              <img
+                src="/images/garbage-collection/bulk-pickup.webp"
+                srcSet="/images/garbage-collection/bulk-pickup-mobile.webp 800w, /images/garbage-collection/bulk-pickup.webp 1400w"
+                sizes="(min-width: 768px) 50vw, 100vw"
+                alt="Large pile of bulk waste and debris ready for haul-off in Hubbard"
+                width="1400"
+                height="788"
+                loading="lazy"
+                decoding="async"
+                className="w-full aspect-[16/9] object-cover"
+              />
+            </div>
+            <div>
+              <h2 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Bulk Trash Pickup in Hubbard</h2>
+              <p className="text-text-muted text-base sm:text-lg leading-relaxed mb-4 md:mb-6">
+                Homeowners disposing of large items like furniture and appliances need specialized removal service. We handle heavy item removal through scheduled appointments with proper disposal methods for all materials. Our bulk pickup serves spring cleaning and moving situations across Hubbard.
+              </p>
+              <p className="text-text-muted text-base sm:text-lg leading-relaxed">
+                Large appliances require special handling that regular pickup cannot provide. We remove couches, washing machines, mattresses, and other oversized items safely. Schedule your bulk pickup when you need extra space or during seasonal cleanouts. For larger projects you'd rather load yourself, ask about our trash trailer rentals.
+              </p>
+            </div>
           </div>
 
           {/* CTA */}
@@ -111,6 +161,10 @@ export default function GarbageCollectionHubbard() {
           </div>
 
         </div>
+      </section>
+
+      <section id="reviews" className="bg-dark-elevated">
+        <ReviewWidget />
       </section>
     </>
   );
