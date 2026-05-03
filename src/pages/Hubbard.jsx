@@ -1,4 +1,5 @@
 import { useReveal, PageHead, InnerHero, CallCTA, PHONE, PHONE_LINK } from '../shared';
+import ReviewWidget from '../components/ReviewWidget';
 
 export default function Hubbard() {
   const intro = useReveal();
@@ -169,6 +170,10 @@ export default function Hubbard() {
           </div>
 
         </div>
+      </section>
+
+      <section id="reviews" className="bg-dark-elevated">
+        <ReviewWidget />
       </section>
     </>
   );
