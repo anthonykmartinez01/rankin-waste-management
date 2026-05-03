@@ -379,8 +379,8 @@ const Services = () => {
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-medium tracking-tight">Our Services</h2>
         </div>
 
-        <div ref={intro.ref} style={intro.style} className="max-w-[1100px] mx-auto space-y-16 md:space-y-20">
-          <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+        <div ref={intro.ref} style={intro.style} className="max-w-[1200px] mx-auto space-y-20 md:space-y-24">
+          <div className="grid md:grid-cols-2 gap-8 md:gap-16 items-center">
             <div className="rounded-2xl overflow-hidden">
               <img
                 src="/images/services/waste-management.webp"
@@ -406,7 +406,7 @@ const Services = () => {
             </div>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+          <div className="grid md:grid-cols-2 gap-8 md:gap-16 items-center">
             <div className="md:order-2 rounded-2xl overflow-hidden">
               <img
                 src="/images/services/garbage-collection.webp"
@@ -432,7 +432,7 @@ const Services = () => {
             </div>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+          <div className="grid md:grid-cols-2 gap-8 md:gap-16 items-center">
             <div className="rounded-2xl overflow-hidden">
               <img
                 src="/images/services/junk-removal.webp"
@@ -458,7 +458,7 @@ const Services = () => {
             </div>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+          <div className="grid md:grid-cols-2 gap-8 md:gap-16 items-center">
             <div className="md:order-2 rounded-2xl overflow-hidden">
               <img
                 src="/images/services/dumpster-rental.webp"
