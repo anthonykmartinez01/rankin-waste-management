@@ -455,7 +455,7 @@ const Services = () => {
                 height="343"
                 loading="lazy"
                 decoding="async"
-                className="w-full aspect-[4/3] object-cover object-center"
+                className="w-full aspect-[2/1] object-cover object-center"
               />
             </div>
             <div>
