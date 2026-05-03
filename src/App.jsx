@@ -336,7 +336,7 @@ const WhyChooseUs = () => {
         <div ref={header.ref} style={header.style} className="text-center mb-12 md:mb-16">
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-medium tracking-tight">Why Choose Rankin Waste Management?</h2>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="max-w-[900px] mx-auto flex flex-col gap-5 md:gap-6">
           {cards.map((card, i) => (
             <WhyCard key={card.title} card={card} delay={i * 0.1} />
           ))}
@@ -349,9 +349,23 @@ const WhyChooseUs = () => {
 const WhyCard = ({ card, delay }) => {
   const anim = useReveal(delay);
   return (
-    <div ref={anim.ref} style={anim.style} className="bg-dark-card border border-border-subtle rounded-sm p-6 sm:p-8">
-      <h3 className="text-lg sm:text-xl font-semibold tracking-tight mb-2">{card.title}</h3>
-      <p className="text-text-muted text-sm sm:text-base leading-relaxed">{card.desc}</p>
+    <div ref={anim.ref} style={anim.style} className="bg-dark-card border border-border-subtle rounded-xl p-6 sm:p-8 flex items-start gap-4 sm:gap-5">
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="3"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="w-6 h-6 sm:w-7 sm:h-7 text-orange-500 shrink-0 mt-1"
+        aria-hidden="true"
+      >
+        <polyline points="20 6 9 17 4 12" />
+      </svg>
+      <div>
+        <h3 className="text-lg sm:text-xl font-semibold tracking-tight mb-2">{card.title}</h3>
+        <p className="text-text-muted text-sm sm:text-base leading-relaxed">{card.desc}</p>
+      </div>
     </div>
   );
 };
