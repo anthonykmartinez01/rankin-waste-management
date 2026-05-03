@@ -436,12 +436,12 @@ const Services = () => {
             <div className="rounded-2xl overflow-hidden">
               <img
                 src="/images/services/junk-removal.webp"
-                alt="Rankin Waste branded bin used for junk removal service"
+                alt="Rankin Waste pickup truck pulling black trailer for junk removal"
                 width="680"
-                height="510"
+                height="343"
                 loading="lazy"
                 decoding="async"
-                className="w-full aspect-[4/3] object-cover"
+                className="w-full aspect-[4/3] object-cover object-center"
               />
             </div>
             <div>
