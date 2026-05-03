@@ -2,16 +2,16 @@
 
 **Last session ended:** 2026-05-03 (continued)
 **Branch:** `astro-migration`
-**HEAD commit:** `c97d79f` — `feat(astro): batch 3.5 — port about-us to Astro, byte-identical content`
-**Status:** ✅ **Foundation Complete + Batch 3 complete (5 / 13 pages translated)**
+**HEAD commit:** `f5870a8` — `feat(astro): batch 4.3 — port axtell to Astro with per-page Organization schema in head, byte-identical content`
+**Status:** ✅ **Foundation Complete + Batches 3 & 4 complete (8 / 13 pages translated)**
 
 ---
 
 ## Where we are
 
-The Astro foundation is fully built and verified. The 12 legacy React SPA page components are deleted, replaced by the Astro layout + component layer. **5 of 13 pages translated** (Batch 3 complete). Batches 4–6 cover the remaining 8 pages.
+The Astro foundation is fully built and verified. The 12 legacy React SPA page components are deleted, replaced by the Astro layout + component layer. **8 of 13 pages translated** (Batches 3 & 4 complete). Batches 5 & 6 cover the remaining 5 pages.
 
-### Pages translated (Batch 3 complete)
+### Pages translated (Batches 3 & 4 complete)
 
 | # | Page | Commit | Verification |
 |---|---|---|---|
@@ -20,8 +20,26 @@ The Astro foundation is fully built and verified. The 12 legacy React SPA page c
 | 3 | `/residential` | `f49f9cd` | 16/16 assertions PASS |
 | 4 | `/trash-trailer-rentals` | `201a79f` | 14/14 assertions PASS |
 | 5 | `/about-us` | `c97d79f` | 19/19 assertions PASS |
+| 6 | `/contact-us` | `0ae688d` | 17/17 assertions PASS |
+| 7 | `/reviews` | `1fdefc5` | 25/25 assertions PASS |
+| 8 | `/service-areas/axtell` | `f5870a8` | 25/25 assertions PASS |
 
-Translation pattern fully locked in across Batch 3: Layout + InnerHero + data-reveal (with optional `data-reveal-delay`) + CallCTA + byte-identical content + per-page byte-level dash verification + prose word-diff vs master.
+**Batch 3 total: 82/82 assertions PASS. Batch 4 total: 67/67 assertions PASS. Combined: 149/149.**
+
+### Translation patterns locked in across Batches 3 + 4
+
+- Layout title + description from `migration-baseline.md` §2
+- InnerHero with title (and optional bgImage)
+- `data-reveal` attributes (with optional `data-reveal-delay="0.X"`) — supports 1–6 staggered reveals per page
+- CallCTA component (and optional separate inline phone link with `text-orange-500 hover:text-orange-400 font-semibold` styling)
+- **Per-page schema via `<Fragment slot="head">` + `<script is:inline type="application/ld+json" set:html={JSON.stringify({...})} />`** (Batch 4.3, axtell)
+- **React island consumption via `<Component client:idle />`** (Batch 4.2, reviews — `<ReviewWidget client:idle />` server-renders content, defers React hydration)
+- **Third-party iframe with per-page inline script loader** (Batch 4.1, contact-us — form_embed.js with idempotent querySelector check)
+- `<img>` tags preserved byte-identical (raw `<img>` per CLAUDE.md follow-up; not yet migrated to `astro:assets <Image />`)
+- `className` → `class` throughout
+- Byte-identical content with per-page byte-level dash verification (ASCII vs en/em-dash via `od -c` / hex byte counts)
+- Prose word-diff vs master (expecting only JSX `); }` close artifacts as the visible delta)
+- Schema byte-identity verified by re-running `JSON.stringify` on identical objects in both files (axtell schema = 388 bytes both)
 
 ### Foundation pieces in place
 - Astro 5.18 + React 19 + Tailwind v4 toolchain (Batch 1)
@@ -44,21 +62,20 @@ node scripts/verify-ssg.mjs  # head-only assertions; runs against dist/<route>/i
 
 ## Next planned batch
 
-**Batch 4 — port reviews + contact-us + service-areas/axtell:**
+**Batch 5 — port the 4 Hubbard service pages:**
 
-This batch introduces three new patterns not seen in Batch 3:
-- **First page with a React island** (`reviews.astro` uses `<ReviewWidget client:idle />`)
-- **First page with per-page JSON-LD schema** (`axtell.astro` has Organization + PostalAddress + City schema; possibly `contact-us.astro` has none, will verify)
-- **First page with a third-party iframe + page-specific styling** (`contact-us.astro` embeds the GHL form iframe; the GHL CSS + JS are already site-wide via Layout, but the contact page is the only one where they have any effect)
+The most uniform batch — all 4 pages share the same structural pattern (alternating image+text grids, Service + BreadcrumbList schemas, similar h2/h3 layout). The patterns from Batch 4's axtell schema and Batch 3's image handling carry over directly.
 
-Pages, in suggested order:
-1. `src/pages/contact-us.astro` (GHL iframe — relatively simple structurally; one iframe + a few paragraphs around it)
-2. `src/pages/reviews.astro` (ReviewWidget island — should be straightforward since the island is already ported and verified in 2c.ii)
-3. `src/pages/service-areas/axtell.astro` (Organization schema — first per-page JSON-LD, will introduce the `<Fragment slot="head">` pattern documented in the established translation pattern below)
+Pages, in suggested order (simplest service-schema → most complex):
+1. `src/pages/junk-removal-service-hubbard.astro`
+2. `src/pages/dumpster-rental-service-hubbard.astro`
+3. `src/pages/garbage-collection-service-hubbard.astro`
+4. `src/pages/waste-management-service-hubbard.astro` (the parent Hubbard page; per `migration-baseline.md` §2 it has only Organization + PostalAddress + City schema, simpler than the others which add Service + BreadcrumbList)
 
-After Batch 4:
-- Batch 5: 4 Hubbard service pages (Service + BreadcrumbList schemas, alternating image+text grids — will reuse the schema-as-Fragment-slot pattern established in Batch 4's axtell page)
-- Batch 6: `index.astro` homepage (largest single file — Hero, FAQ, Services, FindUs, etc. + the 38-`@type` JSON-LD homepage schema)
+**Note:** the pre-migration source for the 4 Hubbard pages includes alternating image+text grid sections with reveal animations on each section. Image attribute handling already established in Batch 3 (about-us). Schema handling already established in Batch 4 (axtell — Fragment slot="head" pattern with is:inline directive).
+
+After Batch 5:
+- Batch 6: `index.astro` homepage (largest single file — Hero, FAQ, Services, FindUs, etc. + the 38-`@type` JSON-LD homepage schema; replaces the placeholder index.astro)
 - Smoke gate: `<title>` in `<head>` for all 13 prerendered pages
 - Checkpoint 4: hardened verifier + Lighthouse + visual diff matrix on 5 pages × 2 viewports
 - Deploy
@@ -166,20 +183,25 @@ git show master:src/components/ReviewWidget.jsx # already ported as .tsx, but re
 
 Paste this into Claude Code when picking up:
 
-> Resume the Astro migration on branch `astro-migration` from commit `c97d79f` (Batch 3 complete, 5/13 pages translated).
+> Resume the Astro migration on branch `astro-migration` from commit `f5870a8` (Batches 3 & 4 complete, 8/13 pages translated).
 >
-> Apply Batch 4 — port the 3 mid-complexity pages that introduce new patterns (React island, per-page schema, iframe embed):
-> 1. `contact-us.astro` (GHL form iframe + few paragraphs)
-> 2. `reviews.astro` (uses `<ReviewWidget client:idle />` island already ported in 2c.ii)
-> 3. `service-areas/axtell.astro` (Organization + PostalAddress + City JSON-LD schema; introduces the `<Fragment slot="head">` schema-injection pattern)
+> Apply Batch 5 — port the 4 Hubbard service pages, which share the most uniform structure of any batch (alternating image+text grids, Service + BreadcrumbList schemas):
+> 1. `junk-removal-service-hubbard.astro`
+> 2. `dumpster-rental-service-hubbard.astro`
+> 3. `garbage-collection-service-hubbard.astro`
+> 4. `waste-management-service-hubbard.astro` (parent Hubbard page with simpler Organization-only schema)
 >
-> For each page: byte-identical content (verify with `git show master:src/pages/<X>.jsx`), schema preserved verbatim where present (use `<script type="application/ld+json" set:html={JSON.stringify({...})} />` inside `<Fragment slot="head">`), `data-reveal` attributes wherever pre-migration used `useReveal()`, Layout title+description copied verbatim from `migration-baseline.md` §2.
+> All patterns needed for Batch 5 are already established and verified:
+> - Per-page schema via `<Fragment slot="head">` + `<script is:inline type="application/ld+json" set:html={JSON.stringify({...})} />` (axtell template — see 4.3)
+> - Image handling with byte-identical `<img>` attribute preservation (about-us template — see 3.5)
+> - Multi-reveal staggered animations with `data-reveal-delay="0.X"` (axtell + about-us templates)
+> - Schema byte-identity verification via re-running JSON.stringify on identical objects
 >
-> Same verification discipline as Batch 3: inventory + cross-check vs migration-baseline, byte-level checks for hyphens/dashes, prose word-diff vs master, structural counts (paragraphs/h2/h3/h4/ul/li/schema/CallCTA/data-reveal/img counts), build + astro check + curl assertions.
+> Same verification discipline as Batches 3-4: inventory + cross-check vs migration-baseline, byte-level dash/hyphen checks, prose word-diff, structural counts, build + astro check + curl assertions.
 >
-> Show me each page's diff for approval before applying. After all 3 apply: hold for Batch 5 approval.
+> Show me each page's diff for approval before applying. After all 4 apply: hold for Batch 6 (homepage) approval.
 >
-> Re-read `MIGRATION-RESUME.md` for the established pattern, schema-injection example for axtell, and the migration-discipline reminders.
+> Re-read `MIGRATION-RESUME.md` for the established patterns and migration-discipline reminders.
 
 ---
 
