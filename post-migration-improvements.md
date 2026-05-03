@@ -56,6 +56,28 @@ Last updated: 2026-05-02 (Checkpoint 1 expanded)
 
 ---
 
+## P1 — FAQ rendering
+
+### FAQ-1. FaqAccordion island could be replaced with native `<details>`/`<summary>`
+- The homepage FAQ section is currently rendered by `src/components/FaqAccordion.tsx` (a React island hydrated `client:idle`), ported byte-identical from pre-migration `src/App.jsx` `FAQItem` + `linkifyPhone` + `ChevronIcon`.
+- Could be replaced post-migration with native `<details>`/`<summary>` for **zero-JS** rendering.
+- **Visual difference:** native is binary open/close (no animation); current React version has a height-transition animation (max-h 0 → max-h-96 with opacity). Replacing with native loses the smooth transition.
+- **Trade-off:** lose smooth transition but ship 0 KB of JS for the FAQ. Aligns with CLAUDE.md "Minimize JavaScript; prefer zero-JS static pages where possible."
+- **Fix as P1 post-migration once stability is verified.** Could be paired with FAQ-2 (single FAQ-rework commit).
+
+---
+
+## P3 — FAQ schema parity
+
+### FAQ-2. FAQPage JSON-LD schema uses ASCII hyphens; visible body uses em-dashes
+- The FAQPage JSON-LD schema in `src/pages/index.astro` head fragment contains 8 Q/A pairs. Items 3 (`name`) and 5 (`acceptedAnswer.text`) use ASCII hyphen with spaces (`' - '`).
+- The visible body FAQ data in `src/data/faqs.ts` uses em-dash (U+2014) for the same Q/A in items 3 and 5.
+- This mismatch was present pre-migration (separate hand-authored schema in static `index.html` vs. JSX FAQ data in `App.jsx` lines 137 and 139).
+- **Both preserved verbatim per delivery-layer-only migration scope.**
+- **Fix as P3 post-migration:** schema text strings should match visible body text strings for Google's FAQ rich-result eligibility (Google's FAQ guidance recommends schema matching visible content). Reconcile by updating the schema's items 3 and 5 to use em-dashes (matching body), in a single commit.
+
+---
+
 ## P2 — Schema coverage gaps
 
 These pages currently have no JSON-LD schema. None are required, but each has a clear schema candidate that could improve rich-result eligibility:
