@@ -46,6 +46,16 @@ Last updated: 2026-05-02 (Checkpoint 1 expanded)
 
 ---
 
+## P1 — Internal linking
+
+### IL1. Parent Hubbard page doesn't link to its 3 child Hubbard service pages
+- `/waste-management-service-hubbard` (the parent Hubbard page) does not link to its 3 child Hubbard service pages: `/junk-removal-service-hubbard`, `/dumpster-rental-service-hubbard`, `/garbage-collection-service-hubbard`.
+- Pre-migration also lacked these links — preserved verbatim per delivery-layer-only migration scope.
+- For local SEO, parent pages should link to child service pages to distribute link equity and help Google understand site hierarchy.
+- **Add as P1 internal-linking improvement after migration is verified stable.** Each of the 4 service rows on the parent page is a natural anchor: weekly residential / garbage removal / curbside collection / rural service — at least one of these (likely "garbage removal" → `/garbage-collection-service-hubbard`) should become a contextual link. Junk removal and dumpster rental can be added as a "related services" block above or below the existing rows, or as inline links inside relevant copy.
+
+---
+
 ## P2 — Schema coverage gaps
 
 These pages currently have no JSON-LD schema. None are required, but each has a clear schema candidate that could improve rich-result eligibility:
