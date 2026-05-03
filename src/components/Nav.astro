@@ -1,0 +1,201 @@
+---
+// src/components/Nav.astro
+//
+// Top utility bar + main nav + mobile menu drawer. Byte-identical to
+// pre-migration Nav component in src/App.jsx (lines 152–219). Tailwind
+// classes preserved verbatim. <Link to="..."> from react-router-dom
+// becomes plain <a href="..."> (vanilla navigation, since RR was dropped
+// in Batch 1).
+//
+// MOBILE MENU SPEC — preserved verbatim per documented contract:
+//   - No open/close animation (instant show/hide via data-mobile-state)
+//   - Close on link click
+//   - CTA opens modal AND closes drawer
+//   - aria-label="Toggle menu" (no aria-expanded)
+//
+// NOT IN SPEC, intentionally preserved as gaps (POST-MIGRATION P1, see
+// post-migration-improvements.md #A1):
+//   - No aria-expanded on toggle button
+//   - No focus management (no focus into drawer on open, no focus trap,
+//     no focus return to toggle on close)
+//   - No body scroll lock when drawer open
+//   - No Escape-to-close
+//   - No backdrop / click-outside-to-close
+//
+// Modal trigger uses the bridge documented in Layout.astro: dispatch
+// CustomEvent 'open-service-modal' on document. ServiceRequestModal
+// island (sub-batch 2c) listens and opens.
+//
+// Hardcoded values (verified byte-identical against pre-migration):
+//   - SMS link 'sms:+12542056125' — pre-migration App.jsx:165 hardcodes;
+//     no SMS_LINK constant exists pre-migration. Number matches
+//     business.phoneLink's '+12542056125' but different protocol.
+//   - Logo lockup text 'Rankin Waste' — pre-migration App.jsx:174 hardcodes;
+//     no BRAND_SHORT constant exists pre-migration.
+import { PHONE, PHONE_LINK } from '../data/business';
+import PhoneIcon from './icons/PhoneIcon.astro';
+
+const NAV_LINKS = [
+  { label: 'Residential', href: '/residential' },
+  { label: 'Trash Trailer Rentals', href: '/trash-trailer-rentals' },
+  { label: 'About Us', href: '/about-us' },
+  { label: 'Contact Us', href: '/contact-us' },
+  { label: 'Reviews', href: '/reviews' },
+];
+---
+
+<div class="fixed top-0 w-full z-50">
+  {/* Top utility bar */}
+  <div class="w-full bg-dark/95 backdrop-blur-lg border-b border-border-subtle">
+    <div class="h-10 flex justify-between items-center px-6 lg:px-[clamp(2rem,5vw,4rem)] text-[0.85rem] text-white/90">
+      <a href={PHONE_LINK} class="flex items-center gap-2 font-semibold hover:text-orange-500 transition-colors duration-300">
+        <PhoneIcon class="w-4 h-4 text-orange-500" />
+        {PHONE}
+      </a>
+      <div class="flex items-center gap-5 font-semibold">
+        <a href={PHONE_LINK} class="hover:text-orange-500 transition-colors duration-300">Call Us</a>
+        <a href="sms:+12542056125" class="hover:text-orange-500 transition-colors duration-300">Text Us</a>
+      </div>
+    </div>
+  </div>
+
+  {/* Main nav bar — data-mobile-state attribute drives drawer/icon visibility */}
+  <nav
+    data-mobile-state="closed"
+    class="w-full h-20 flex justify-between items-center px-6 lg:px-[clamp(2rem,5vw,4rem)]"
+    style="background: linear-gradient(to bottom, rgba(8,8,8,0.85) 0%, rgba(8,8,8,0) 100%); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);"
+  >
+    {/* Logo lockup — full-page navigation (was <Link> from react-router-dom) */}
+    <a href="/" class="flex items-center gap-3 font-bold text-sm tracking-[0.15em] uppercase">
+      <img src="/rw-logo.webp" alt="RW" class="h-6 w-auto object-contain brightness-0 invert" />
+      Rankin Waste
+    </a>
+
+    {/* Desktop nav links + CTA */}
+    <div class="hidden lg:flex items-center gap-8 text-[0.9rem] font-medium">
+      {NAV_LINKS.map((link) => (
+        <a href={link.href} class="opacity-70 hover:opacity-100 transition-opacity duration-300">
+          {link.label}
+        </a>
+      ))}
+      <button
+        data-desktop-cta
+        type="button"
+        class="bg-orange-500 text-white px-5 py-2.5 rounded-full font-semibold text-[0.9rem] hover:bg-orange-600 transition-colors duration-300 min-h-[44px] flex items-center"
+      >
+        New Service Request
+      </button>
+    </div>
+
+    {/*
+      Mobile menu toggle button. aria-label only (no aria-expanded by spec).
+      Both icon SVGs are always rendered; component-scoped CSS hides the
+      inactive one based on nav[data-mobile-state].
+    */}
+    <button
+      data-mobile-menu-toggle
+      type="button"
+      class="lg:hidden text-white p-2 min-w-[44px] min-h-[44px] flex items-center justify-center"
+      aria-label="Toggle menu"
+    >
+      {/* Closed state: hamburger — byte-identical to pre-migration App.jsx:198 */}
+      <svg data-icon-closed xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+      </svg>
+      {/* Open state: X — byte-identical to pre-migration App.jsx:194 */}
+      <svg data-icon-open xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+
+    {/*
+      Mobile drawer. Always in DOM; visibility driven by parent
+      [data-mobile-state] via component-scoped CSS below. Tailwind classes
+      byte-identical to pre-migration App.jsx:205.
+    */}
+    <div
+      data-mobile-menu-drawer
+      class="absolute top-20 left-0 w-full bg-dark/95 backdrop-blur-lg border-t border-border-subtle lg:hidden flex flex-col px-6 py-6 gap-4"
+    >
+      {NAV_LINKS.map((link) => (
+        <a
+          data-mobile-link
+          href={link.href}
+          class="text-white/70 hover:text-white font-medium text-[0.9rem] py-2 transition-colors duration-300"
+        >
+          {link.label}
+        </a>
+      ))}
+      <button
+        data-mobile-cta
+        type="button"
+        class="bg-orange-500 text-white px-5 py-3 rounded-full font-semibold text-[0.9rem] hover:bg-orange-600 transition-colors duration-300 min-h-[44px] mt-2"
+      >
+        New Service Request
+      </button>
+    </div>
+  </nav>
+</div>
+
+<style>
+  /*
+    Visibility driven by data-mobile-state on <nav>. Default 'closed':
+      - Hide the open-state icon
+      - Hide the drawer
+      - Show the closed-state icon (default — no rule needed)
+    On 'open':
+      - Hide the closed-state icon
+      - Show the open-state icon (no rule — default visibility)
+      - Show the drawer (no rule — default flex from Tailwind)
+    No transitions; instant show/hide per documented spec.
+    Component-scoped to Nav.astro (not is:global) — these attribute
+    selectors won't leak to any other component.
+  */
+  nav[data-mobile-state='closed'] [data-icon-open],
+  nav[data-mobile-state='open'] [data-icon-closed],
+  nav[data-mobile-state='closed'] [data-mobile-menu-drawer] {
+    display: none;
+  }
+</style>
+
+<script is:inline>
+  (() => {
+    const nav = document.querySelector('nav[data-mobile-state]');
+    const toggle = nav && nav.querySelector('[data-mobile-menu-toggle]');
+    const drawer = nav && nav.querySelector('[data-mobile-menu-drawer]');
+    const desktopCta = document.querySelector('[data-desktop-cta]');
+    const mobileCta = drawer && drawer.querySelector('[data-mobile-cta]');
+    const mobileLinks = drawer ? drawer.querySelectorAll('[data-mobile-link]') : [];
+
+    if (!nav || !toggle || !drawer) return;
+
+    const setOpen = (open) => {
+      nav.setAttribute('data-mobile-state', open ? 'open' : 'closed');
+    };
+
+    toggle.addEventListener('click', () => {
+      setOpen(nav.getAttribute('data-mobile-state') !== 'open');
+    });
+
+    // Close drawer on link click — matches pre-migration React handler
+    // onClick={() => setMobileMenuOpen(false)} on each NavLink in the drawer.
+    mobileLinks.forEach((a) => a.addEventListener('click', () => setOpen(false)));
+
+    // Mobile CTA: dispatch open-service-modal AND close drawer.
+    // Matches pre-migration: onClick={() => { openModal(); setMobileMenuOpen(false); }}
+    if (mobileCta) {
+      mobileCta.addEventListener('click', () => {
+        document.dispatchEvent(new CustomEvent('open-service-modal'));
+        setOpen(false);
+      });
+    }
+
+    // Desktop CTA: dispatch open-service-modal only (no drawer involved).
+    // Matches pre-migration: onClick={openModal} on the desktop button.
+    if (desktopCta) {
+      desktopCta.addEventListener('click', () => {
+        document.dispatchEvent(new CustomEvent('open-service-modal'));
+      });
+    }
+  })();
+</script>

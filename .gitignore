@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 
+# Astro
+.astro
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
@@ -25,3 +28,7 @@ dist-ssr
 
 # Local Netlify folder
 .netlify
+
+# Checkpoint 4 verification artifacts (regenerable from scripts/verify-ssg.mjs + visual-diff.mjs)
+checkpoint-4-results/
+checkpoint-4-screenshots/

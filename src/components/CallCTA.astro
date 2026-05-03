@@ -1,0 +1,23 @@
+---
+// src/components/CallCTA.astro
+// Byte-identical to CallCTA from src/shared.jsx (lines 159-164).
+// Phone-link button with PhoneIcon and 'Call {PHONE}' label.
+// Optional class prop appends to base classes (replacement append, matching
+// React's `${className}` template behavior — not class:list merge).
+import { PHONE, PHONE_LINK } from '../data/business';
+import PhoneIcon from './icons/PhoneIcon.astro';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+---
+
+<a
+  href={PHONE_LINK}
+  class={`inline-flex items-center gap-2 bg-orange-500 text-white px-7 py-3.5 rounded-full font-bold text-base hover:bg-orange-600 transition-colors duration-300 min-h-[44px] ${className}`}
+>
+  <PhoneIcon class="w-5 h-5" />
+  Call {PHONE}
+</a>

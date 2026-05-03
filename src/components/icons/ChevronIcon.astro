@@ -1,0 +1,13 @@
+---
+// src/components/icons/ChevronIcon.astro
+// Byte-identical to ChevronIcon from src/App.jsx — has an `open` prop that
+// adds rotate-180 class for accordion expansion state.
+interface Props {
+  open?: boolean;
+}
+const { open = false } = Astro.props;
+const className = `w-5 h-5 text-orange-500 shrink-0 transition-transform duration-300 ${open ? 'rotate-180' : ''}`;
+---
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class={className}>
+  <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+</svg>

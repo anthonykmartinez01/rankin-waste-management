@@ -1,0 +1,121 @@
+---
+// src/components/Footer.astro
+// Byte-identical to Footer from src/App.jsx (lines 829-919).
+// Tailwind classes preserved verbatim.
+//
+// React conversions:
+//   - className → class
+//   - <Link to="..."> from react-router-dom → <a href="...">
+//   - JSX style object {{ border: 0, display: 'block' }} → CSS string
+//   - allowFullScreen="" (JSX empty string) → allowfullscreen (HTML attribute)
+//   - referrerPolicy → referrerpolicy (HTML standard, lowercase)
+//   - <LogoMark /> inlined as <img> (kept inline per scope; not extracted
+//     to its own .astro component during migration)
+//
+// Hardcoded values verified byte-identical against pre-migration:
+//   - 'Rankin Waste' brand text (App.jsx:836; no BRAND_SHORT constant)
+//   - Address strings, hours strings, copyright text
+//
+// Hours data note: Footer displays 'Monday – Friday / 8AM – 6PM' which
+// is INCONSISTENT with src/data/business.ts (7AM Mon-Fri + Sat 8AM-4PM)
+// and the LocalBusiness JSON-LD schema (Mo-Fr 07:00-18:00, Sa 08:00-16:00).
+// Pre-migration footer source had this discrepancy; preserved verbatim
+// per delivery-layer scope. See post-migration-improvements.md #7a for
+// the P1 NAP cleanup pass post-migration.
+import { PHONE, PHONE_LINK } from '../data/business';
+import PhoneIcon from './icons/PhoneIcon.astro';
+import MapPinIcon from './icons/MapPinIcon.astro';
+import ClockIcon from './icons/ClockIcon.astro';
+import FacebookIcon from './icons/FacebookIcon.astro';
+---
+
+<footer class="bg-dark-card px-6 lg:px-[clamp(2rem,5vw,4rem)] py-14 md:py-16 border-t border-border-subtle">
+  <div class="max-w-[1200px] mx-auto">
+    {/* Brand — centered on top */}
+    <div class="flex flex-col items-center text-center mb-12 md:mb-16">
+      <div class="flex items-center gap-3">
+        <img src="/rw-logo.webp" alt="RW" class="h-6 w-auto object-contain brightness-0 invert" />
+        <span class="font-bold text-sm tracking-[0.15em] uppercase">Rankin Waste</span>
+      </div>
+    </div>
+
+    {/* Three columns */}
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 mb-12">
+      {/* Contact */}
+      <div>
+        <h4 class="text-sm uppercase tracking-wider font-bold text-orange-500 mb-5">Contact</h4>
+        <div class="space-y-5 text-sm">
+          <p class="flex items-center gap-3">
+            <PhoneIcon class="w-5 h-5 text-orange-500 shrink-0" />
+            <a href={PHONE_LINK} class="font-semibold hover:text-orange-500 transition-colors duration-300">{PHONE}</a>
+          </p>
+          <div class="flex items-start gap-3">
+            <MapPinIcon class="w-5 h-5 text-orange-500 shrink-0 mt-0.5" />
+            <address class="not-italic">
+              <div class="font-semibold mb-1">Address</div>
+              <div class="text-text-muted leading-relaxed">
+                175 PR335<br />
+                Hubbard, TX 76648
+              </div>
+            </address>
+          </div>
+          <div class="flex items-start gap-3">
+            <ClockIcon class="w-5 h-5 text-orange-500 shrink-0 mt-0.5" />
+            <div>
+              <div class="font-semibold mb-1">Hours</div>
+              <div class="text-text-muted leading-relaxed">
+                Monday – Friday<br />
+                8AM – 6PM
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mt-6 rounded-sm overflow-hidden border border-border-subtle w-full max-w-[260px] aspect-square">
+          <iframe
+            title="Rankin Waste Management location map"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3389.136596108881!2d-96.79978992297144!3d31.848498030854834!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x864f158c8dee18d9%3A0x32d36537ab608362!2sRankin%20Waste%20Management!5e0!3m2!1sen!2sus!4v1776957097390!5m2!1sen!2sus"
+            width="100%"
+            height="100%"
+            style="border: 0; display: block;"
+            allowfullscreen
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          />
+        </div>
+      </div>
+
+      {/* Company */}
+      <div>
+        <h4 class="text-sm uppercase tracking-wider font-bold text-orange-500 mb-5">Company</h4>
+        <ul class="space-y-4 text-sm">
+          <li><a href="/terms-of-service" class="font-semibold hover:text-orange-500 transition-colors duration-300">Terms & Conditions</a></li>
+          <li><a href="/privacy-policy" class="font-semibold hover:text-orange-500 transition-colors duration-300">Privacy Policy</a></li>
+          <li><a href="/sitemap.xml" class="font-semibold hover:text-orange-500 transition-colors duration-300">Sitemap</a></li>
+        </ul>
+      </div>
+
+      {/* Quick Links */}
+      <div>
+        <h4 class="text-sm uppercase tracking-wider font-bold text-orange-500 mb-5">Quick Links</h4>
+        <ul class="space-y-4 text-sm">
+          <li><a href="/residential" class="font-semibold hover:text-orange-500 transition-colors duration-300">Residential</a></li>
+          <li><a href="/trash-trailer-rentals" class="font-semibold hover:text-orange-500 transition-colors duration-300">Trash Trailer Rentals</a></li>
+          <li><a href="/about-us" class="font-semibold hover:text-orange-500 transition-colors duration-300">About Us</a></li>
+          <li><a href="/contact-us" class="font-semibold hover:text-orange-500 transition-colors duration-300">Contact Us</a></li>
+          <li><a href="/reviews" class="font-semibold hover:text-orange-500 transition-colors duration-300">Reviews</a></li>
+          <li>
+            <a href="https://www.facebook.com/p/Rankin-waste-management-100057417520840/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="inline-flex items-center gap-2 font-semibold hover:text-orange-500 transition-colors duration-300">
+              <FacebookIcon />
+              Facebook
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    {/* Tagline */}
+    <div class="text-center text-text-muted text-sm pt-8 border-t border-border-subtle">
+      &copy; 2026 Rankin Waste Management | Locally Owned &amp; Operated by Tommy &amp; Sydney Rankin | Hubbard, TX
+    </div>
+  </div>
+</footer>

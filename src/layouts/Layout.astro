@@ -1,0 +1,276 @@
+---
+// src/layouts/Layout.astro
+//
+// Base layout for every page. Manages full <head> with per-page title /
+// description passed via props. Computes canonical from
+// SITE_URL + Astro.url.pathname → 'https://rankinwaste.com/' for homepage,
+// 'https://rankinwaste.com/<route>' (no trailing slash) for inner pages,
+// per astro.config.mjs `trailingSlash: 'never'`.
+//
+// The 6 universal OG/Twitter tags are baked in here byte-identical to
+// pre-migration index.html. Per-page tags are computed from props.
+//
+// PRESERVED BEHAVIORS — confirmed against pre-migration index.html + PageHead:
+//
+//   1. og:image:alt and twitter:image:alt always emit, defaulting to
+//      'Rankin Waste Management truck serving Hubbard, TX'. Pre-migration
+//      index.html (the SPA shell, lines 18 + 27) shipped these tags on
+//      every page; PageHead only OVERRODE them when imageAlt was passed
+//      (only JunkRemovalHubbard does). Behavior here is byte-identical.
+//
+//   2. GHL Form CSS block + GHL Form Layout JS block ship site-wide via
+//      <style is:global> and <script is:inline> below. Pre-migration
+//      index.html shipped these on every page (selectors are no-ops
+//      except on /contact-us). Verbatim port. Scoping to /contact-us
+//      only is logged as P3 follow-up #8a in post-migration-improvements.md.
+//
+// REVEAL ANIMATION CONTRACT — byte-identical to deleted useReveal hook
+// (src/shared.jsx, removed pre-Batch-2):
+//   - threshold 0.15, rootMargin '0px 0px -40px 0px'
+//   - transition 0.7s cubic-bezier(0.16, 1, 0.3, 1) per opacity + transform
+//   - initial state opacity 0, transform translateY(24px)
+//   - revealed state opacity 1, transform translateY(0)
+//   - per-element delay via data-reveal-delay attribute (parseFloat || 0)
+//   - once-only (unobserve on first intersection)
+//   - prefers-reduced-motion: reduce → CSS shows revealed immediately,
+//     script bails before observing
+//
+// MODAL TRIGGER BRIDGE — Nav, Footer, hero CTAs etc. dispatch a
+// CustomEvent 'open-service-modal' on document. The ServiceRequestModal
+// island (added in sub-batch 2c) listens and opens. This decouples
+// non-island elements from the React modal.
+import '../styles/global.css';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import ServiceRequestModal from '../components/ServiceRequestModal.tsx';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Override OG/Twitter image. Absolute URL or absolute path. */
+  image?: string;
+  /** Override OG/Twitter image alt text. */
+  imageAlt?: string;
+}
+
+const { title, description, image, imageAlt } = Astro.props;
+
+const SITE_URL = 'https://rankinwaste.com';
+const DEFAULT_OG_IMAGE = `${SITE_URL}/truck-side.webp`;
+const DEFAULT_OG_IMAGE_ALT = 'Rankin Waste Management truck serving Hubbard, TX';
+
+// Canonical: SITE_URL + pathname. With trailingSlash:'never' Astro.url.pathname
+// returns '/' for homepage and '/about-us' (no trailing slash) for inner pages.
+// Matches migration-baseline §5c byte-for-byte.
+const canonical = `${SITE_URL}${Astro.url.pathname}`;
+
+// Resolve image: absolute URL passes through, otherwise prepend SITE_URL.
+const ogImage = image
+  ? (image.startsWith('http') ? image : `${SITE_URL}${image}`)
+  : DEFAULT_OG_IMAGE;
+const resolvedImageAlt = imageAlt ?? DEFAULT_OG_IMAGE_ALT;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    {/* Per-page tags (set via Layout props) */}
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    {/* Open Graph (per-page) */}
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content={resolvedImageAlt} />
+
+    {/* Open Graph (universal — byte-identical to pre-migration index.html) */}
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:site_name" content="Rankin Waste Management" />
+    <meta property="og:image:width" content="1600" />
+    <meta property="og:image:height" content="1067" />
+
+    {/* Twitter / X Card (per-page + universal) */}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={resolvedImageAlt} />
+
+    {/* Self-hosted font preloads (matches pre-migration index.html) */}
+    <link rel="preload" href="/fonts/lato-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/lato-700.woff2" as="font" type="font/woff2" crossorigin />
+
+    {/* Favicon */}
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    {/* Per-page additional head injection: schema scripts, hero preloads, etc. */}
+    <slot name="head" />
+
+    {/*
+      GHL Form Dark Theme — byte-identical site-wide port from pre-migration
+      index.html. Selectors only match elements on /contact-us; no-op on
+      every other page. See post-migration-improvements.md #8a for the
+      P3 follow-up to scope this to /contact-us only.
+    */}
+    <style is:global>
+      /* RANKIN WASTE DARK THEME FOR GHL FORM */
+      .ghl-form-wrap { background-color: #1a1a1a !important; }
+      .form-builder, .hl_wrapper--inner, .hl_wrapper--inner-full { background-color: #1a1a1a !important; }
+      .form-builder--wrap, .form-builder--wrap-full { background-color: #1a1a1a !important; }
+      .form-field-container, .field-container, .form-field-wrapper { background-color: #1a1a1a !important; }
+      .f-even, .f-odd { background-color: #1a1a1a !important; }
+      .form-side { background-color: #1a1a1a !important; border-color: #1a1a1a !important; }
+      .field-label, .label-alignment { color: #ffffff !important; font-size: 14px !important; }
+      .form-control { background-color: #2a2a2a !important; border: 1px solid #444444 !important; color: #ffffff !important; border-radius: 4px !important; }
+      .ghl-form-wrap input::placeholder { color: #999999 !important; opacity: 1 !important; }
+      .multiselect, .multiselect__tags { background-color: #2a2a2a !important; border-color: #444444 !important; }
+      .multiselect__placeholder { color: #999999 !important; }
+      .multiselect__input, .multiselect__single { background: #2a2a2a !important; color: #ffffff !important; }
+      .button-element { background-color: #e8913a !important; color: #ffffff !important; border: none !important; border-radius: 4px !important; font-weight: 600 !important; }
+      .button-element:hover { background-color: #d47f2e !important; }
+      .checkbox-container, .checkbox-container *, .terms-and-conditions, .terms-and-conditions * { color: #ffffff !important; }
+      .checkbox-container + .checkbox-container { display: none !important; }
+      .terms-and-conditions + .terms-and-conditions { display: none !important; }
+      .heading-element .text-element { display: none !important; }
+    </style>
+
+    {/*
+      Reveal animation — initial-state CSS. Byte-identical visual contract
+      to deleted useReveal hook in src/shared.jsx. Per-element delay is
+      applied inline by the script in <body> at intersection time.
+    */}
+    <style is:global>
+      [data-reveal] {
+        opacity: 0;
+        transform: translateY(24px);
+        transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        will-change: opacity, transform;
+      }
+      [data-reveal][data-revealed] {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      @media (prefers-reduced-motion: reduce) {
+        [data-reveal] {
+          opacity: 1;
+          transform: none;
+          transition: none;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="min-h-screen bg-dark text-white">
+    <Nav />
+
+    <main>
+      <slot />
+    </main>
+
+    <Footer />
+    <ServiceRequestModal client:idle />
+
+    {/*
+      Reveal animation script — byte-identical to deleted useReveal hook
+      (src/shared.jsx). is:inline ships as a regular <script> tag with no
+      module wrapper, runs as soon as parsed. Reduced-motion is handled
+      by CSS above; this script bails early in that case.
+
+      ORDERING NOTE — DO NOT REFACTOR:
+      The script sets el.style.transition synchronously, then schedules
+      el.setAttribute('data-revealed', '') via requestAnimationFrame. This
+      ordering is intentional: it ensures the inline transition (with
+      parsed delay) is committed to the element's computed style before
+      the [data-revealed] attribute change triggers the property update.
+      Without the rAF, some browsers compute the new revealed-state styles
+      in the same task as the transition assignment and skip animation
+      (snap to revealed instantly). Do not "clean up" by collapsing the
+      two operations into one synchronous block.
+    */}
+    <script is:inline>
+      (() => {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        const observer = new IntersectionObserver((entries) => {
+          for (const entry of entries) {
+            if (!entry.isIntersecting) continue;
+            const el = entry.target;
+            const delay = parseFloat(el.getAttribute('data-reveal-delay')) || 0;
+            // Override transition with per-element delay baked in (matches the
+            // exact transition string deleted useReveal produced).
+            el.style.transition =
+              'opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1) ' + delay + 's, ' +
+              'transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) ' + delay + 's';
+            // rAF — see ORDERING NOTE above. Do not collapse.
+            requestAnimationFrame(() => el.setAttribute('data-revealed', ''));
+            observer.unobserve(el);
+          }
+        }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+        document.querySelectorAll('[data-reveal]').forEach((el) => observer.observe(el));
+      })();
+    </script>
+
+    {/*
+      GHL Form Layout JS — byte-identical site-wide port from pre-migration
+      index.html (lines 196–243). Runs DOMContentLoaded → setTimeout 1500ms
+      → mutate GHL form DOM (sets backgrounds, hides extra checkboxes,
+      reorganizes fields into rows). On non-/contact-us pages, all selectors
+      return empty NodeLists and the script is a no-op. See
+      post-migration-improvements.md #8a for the P3 follow-up to scope to
+      /contact-us only.
+    */}
+    <script is:inline>
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(function() {
+        document.querySelectorAll('.form-control').forEach(function(el) {
+          el.style.setProperty('background-color', '#2a2a2a', 'important');
+          el.style.setProperty('border', '1px solid #444', 'important');
+          el.style.setProperty('color', '#fff', 'important');
+        });
+        var btn = document.querySelector('.button-element');
+        if (btn) btn.style.setProperty('background-color', '#e8913a', 'important');
+        document.querySelectorAll('.multiselect, .multiselect__tags').forEach(function(el) {
+          el.style.setProperty('background-color', '#2a2a2a', 'important');
+        });
+        var cbs = document.querySelectorAll('.checkbox-container');
+        if (cbs.length > 1) cbs[1].style.setProperty('display', 'none', 'important');
+        var tcs = document.querySelectorAll('.terms-and-conditions');
+        if (tcs.length > 1) tcs[1].style.setProperty('display', 'none', 'important');
+        document.querySelectorAll('.heading-element .text-element').forEach(function(el) {
+          el.style.setProperty('display', 'none', 'important');
+        });
+        var fieldWrappers = document.querySelectorAll('.fields-container > .form-field-wrapper');
+        if (fieldWrappers.length >= 4) {
+          var row1 = document.createElement('div');
+          row1.style.cssText = 'display:flex !important; gap:16px; width:100%;';
+          fieldWrappers[0].style.setProperty('flex', '1', 'important');
+          fieldWrappers[0].style.setProperty('min-width', '0', 'important');
+          fieldWrappers[1].style.setProperty('flex', '1', 'important');
+          fieldWrappers[1].style.setProperty('min-width', '0', 'important');
+          fieldWrappers[0].parentNode.insertBefore(row1, fieldWrappers[0]);
+          row1.appendChild(fieldWrappers[0]);
+          row1.appendChild(fieldWrappers[1]);
+          var updatedWrappers = document.querySelectorAll('.fields-container > .form-field-wrapper');
+          if (updatedWrappers.length >= 2) {
+            var row2 = document.createElement('div');
+            row2.style.cssText = 'display:flex !important; gap:16px; width:100%;';
+            updatedWrappers[0].style.setProperty('flex', '1', 'important');
+            updatedWrappers[0].style.setProperty('min-width', '0', 'important');
+            updatedWrappers[1].style.setProperty('flex', '1', 'important');
+            updatedWrappers[1].style.setProperty('min-width', '0', 'important');
+            updatedWrappers[0].parentNode.insertBefore(row2, updatedWrappers[0]);
+            row2.appendChild(updatedWrappers[0]);
+            row2.appendChild(updatedWrappers[1]);
+          }
+        }
+      }, 1500);
+    });
+    </script>
+  </body>
+</html>

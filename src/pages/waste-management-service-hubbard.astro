@@ -1,0 +1,224 @@
+---
+// src/pages/waste-management-service-hubbard.astro
+// Byte-identical content port of pre-migration src/pages/Hubbard.jsx.
+//
+// This is the PARENT Hubbard service page. Unlike the 3 child Hubbard
+// pages (junk-removal, dumpster-rental, garbage-collection) which each
+// emit Service + BreadcrumbList schemas, this page emits ONE schema:
+// Organization (389 bytes), same shape as Axtell's Organization (388
+// bytes) — they differ only in areaServed.name ("Hubbard, TX" vs
+// "Axtell, TX", a 1-byte difference).
+//
+// Schema content byte-identity:
+//   - Organization: 389 bytes (verified via JSON.stringify on the pre-
+//     migration object — identical to Astro version)
+//   - The 283-byte name/url/telephone/email/address identity block is
+//     byte-identical to:
+//       * Axtell's Organization schema (388-byte total)
+//       * The 306-byte provider sub-objects in the 3 child Hubbard
+//         Service schemas (those add @type:"Organization" inside the
+//         Service.provider key, so 306B incl. @type vs 283B without)
+//
+// Page structure: InnerHero (bgImage variant) + intro paragraph +
+// 4-row alternating image+text grid (md:grid-cols-2) + CTA box +
+// ReviewWidget island consumed at the bottom (same pattern as the
+// garbage-collection child).
+//
+// Container max-width is 1300px (same as garbage-collection child;
+// wider than the other Hubbard children's 800px).
+//
+// Six independent reveal animations: intro (no delay), weekly,
+// garbage, curbside, rural, cta — all 5 non-intro use 0.1 delay.
+//
+// Four page-content images, all under /images/hubbard/, all
+// aspect-[4/3]:
+//   - weekly-residential (1400×1050)  — image-LEFT (default order)
+//   - garbage-removal    (1400×888)   — image-RIGHT (md:order-2 swap)
+//   - curbside-collection(1400×933)   — image-LEFT (default order)
+//   - rural-service      (1400×933)   — image-RIGHT (md:order-2 swap)
+// Note image 2 (garbage-removal) has height=888 — preserved verbatim
+// from pre-migration; the other three are 1050 / 933 / 933.
+//
+// Two em-dashes (U+2014, byte 0xE2 0x80 0x94) preserved in body:
+//   - Rural row:  'pickup routes — we fill that gap'
+//   - CTA:        'flat-rate pricing — and trusted'
+// All other dashes are ASCII U+002D: flat-rate, five-star, Family-owned.
+//
+// PageHead has NO image override — defaults to '/truck-side.webp'
+// (same default as dumpster-rental + garbage-collection children).
+//
+// NO internal links from this parent page to its 3 child Hubbard
+// service pages. Pre-migration also lacked these links — preserved
+// verbatim per delivery-layer-only scope. Logged as P1 internal-
+// linking improvement (IL1) in post-migration-improvements.md.
+import Layout from '../layouts/Layout.astro';
+import InnerHero from '../components/InnerHero.astro';
+import CallCTA from '../components/CallCTA.astro';
+import ReviewWidget from '../components/ReviewWidget.tsx';
+import { PHONE, PHONE_LINK } from '../data/business';
+---
+
+<Layout
+  title="Waste Management Service Hubbard TX | Rankin Waste Management"
+  description="Professional waste management service in Hubbard, TX. Weekly residential pickup, curbside collection, and rural trash service. Reliable garbage removal for homes and businesses."
+>
+  <Fragment slot="head">
+    {/* Organization Schema (parent Hubbard page — single schema, no Service, no BreadcrumbList) */}
+    <script is:inline type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Rankin Waste Management",
+      "url": "https://rankinwaste.com",
+      "telephone": "(254) 205-6125",
+      "email": "rankinwaste@gmail.com",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "175 PR335",
+        "addressLocality": "Hubbard",
+        "addressRegion": "TX",
+        "postalCode": "76648",
+        "addressCountry": "US"
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": "Hubbard, TX"
+      }
+    })} />
+  </Fragment>
+
+  <InnerHero
+    title="Waste Management Service in Hubbard"
+    bgImage="/images/services/waste-management.webp"
+    bgImageAlt="Rankin Waste branded curbside trash bin next to service truck"
+  />
+
+  <section class="px-5 sm:px-6 lg:px-[clamp(2rem,5vw,4rem)] py-12 md:py-20 lg:py-28">
+    <div class="max-w-[1300px] mx-auto">
+
+      {/* Intro */}
+      <div data-reveal class="mb-12 md:mb-16 text-center">
+        <p class="text-text-muted text-base sm:text-lg leading-relaxed">
+          In Hubbard, residents and businesses need reliable waste removal solutions. We provide complete trash collection services across the area. Find the right pickup schedule and service type for your property. Professional waste management keeps your property clean and compliant with local regulations.
+        </p>
+      </div>
+
+      {/* Weekly Residential — image left */}
+      <div data-reveal data-reveal-delay="0.1" class="mb-16 md:mb-24 grid md:grid-cols-2 gap-6 md:gap-16 items-center">
+        <div class="rounded-2xl overflow-hidden">
+          <img
+            src="/images/hubbard/weekly-residential.webp"
+            srcset="/images/hubbard/weekly-residential-mobile.webp 800w, /images/hubbard/weekly-residential.webp 1400w"
+            sizes="(min-width: 768px) 50vw, 100vw"
+            alt="Black household trash bag set out for weekly residential pickup"
+            width="1400"
+            height="1050"
+            loading="lazy"
+            decoding="async"
+            class="w-full aspect-[4/3] object-cover"
+          />
+        </div>
+        <div>
+          <h2 class="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Weekly residential trash pickup in Hubbard</h2>
+          <p class="text-text-muted text-base sm:text-lg leading-relaxed mb-4 md:mb-6">
+            Homeowners need consistent weekly waste removal to maintain their properties. Regular pickup prevents overflow and maintains neighborhood cleanliness without the hassle of storing trash for extended periods.
+          </p>
+          <p class="text-text-muted text-base sm:text-lg leading-relaxed">
+            Our waste management service in Hubbard covers all residential streets with early morning collection. We arrive before most residents start their day, keeping your neighborhood quiet and your bins emptied on schedule.
+          </p>
+        </div>
+      </div>
+
+      {/* Garbage Removal — image RIGHT (md:order-2 / md:order-1 swap; height=888) */}
+      <div data-reveal data-reveal-delay="0.1" class="mb-16 md:mb-24 grid md:grid-cols-2 gap-6 md:gap-16 items-center">
+        <div class="md:order-2 rounded-2xl overflow-hidden">
+          <img
+            src="/images/hubbard/garbage-removal.webp"
+            srcset="/images/hubbard/garbage-removal-mobile.webp 800w, /images/hubbard/garbage-removal.webp 1400w"
+            sizes="(min-width: 768px) 50vw, 100vw"
+            alt="Gloved hands tying off white trash bags during garbage removal"
+            width="1400"
+            height="888"
+            loading="lazy"
+            decoding="async"
+            class="w-full aspect-[4/3] object-cover"
+          />
+        </div>
+        <div class="md:order-1">
+          <h2 class="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Garbage removal in Hubbard</h2>
+          <p class="text-text-muted text-base sm:text-lg leading-relaxed mb-4 md:mb-6">
+            Property owners facing large cleanouts, renovations, or excess waste accumulation require thorough removal services. Complete debris removal eliminates the need for multiple trips to dump sites while handling items too large for regular pickup.
+          </p>
+          <p class="text-text-muted text-base sm:text-lg leading-relaxed">
+            We serve Hubbard businesses and residential properties with flexible scheduling. Our team handles everything from construction debris to household cleanouts, making your project cleanup simple and efficient. For larger projects, ask about our trash trailer rentals.
+          </p>
+        </div>
+      </div>
+
+      {/* Curbside Collection — image left */}
+      <div data-reveal data-reveal-delay="0.1" class="mb-16 md:mb-24 grid md:grid-cols-2 gap-6 md:gap-16 items-center">
+        <div class="rounded-2xl overflow-hidden">
+          <img
+            src="/images/hubbard/curbside-collection.webp"
+            srcset="/images/hubbard/curbside-collection-mobile.webp 800w, /images/hubbard/curbside-collection.webp 1400w"
+            sizes="(min-width: 768px) 50vw, 100vw"
+            alt="Multiple white trash bags tied with orange ribbons ready for curbside collection"
+            width="1400"
+            height="933"
+            loading="lazy"
+            decoding="async"
+            class="w-full aspect-[4/3] object-cover"
+          />
+        </div>
+        <div>
+          <h2 class="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Curbside trash collection in Hubbard</h2>
+          <p class="text-text-muted text-base sm:text-lg leading-relaxed mb-4 md:mb-6">
+            Residents who prefer convenient pickup without walking to collection points benefit from curbside service. Simple bin placement eliminates heavy lifting and transport, making waste disposal effortless for families and elderly residents.
+          </p>
+          <p class="text-text-muted text-base sm:text-lg leading-relaxed">
+            Our curbside service operates throughout Hubbard neighborhoods with accessible street access. Place your bins at the curb by collection time, and we take care of the rest while you focus on your daily routine.
+          </p>
+        </div>
+      </div>
+
+      {/* Rural Service — image RIGHT (md:order-2 / md:order-1 swap) */}
+      <div data-reveal data-reveal-delay="0.1" class="mb-16 md:mb-24 grid md:grid-cols-2 gap-6 md:gap-16 items-center">
+        <div class="md:order-2 rounded-2xl overflow-hidden">
+          <img
+            src="/images/hubbard/rural-service.webp"
+            srcset="/images/hubbard/rural-service-mobile.webp 800w, /images/hubbard/rural-service.webp 1400w"
+            sizes="(min-width: 768px) 50vw, 100vw"
+            alt="Person in denim jacket and yellow gloves picking up litter in a rural field"
+            width="1400"
+            height="933"
+            loading="lazy"
+            decoding="async"
+            class="w-full aspect-[4/3] object-cover"
+          />
+        </div>
+        <div class="md:order-1">
+          <h2 class="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Rural trash service in Hubbard</h2>
+          <p class="text-text-muted text-base sm:text-lg leading-relaxed mb-4 md:mb-6">
+            Properties outside main town limits often have limited waste disposal options and need specialized service. Rural properties often fall outside city pickup routes — we fill that gap with consistent, dependable service.
+          </p>
+          <p class="text-text-muted text-base sm:text-lg leading-relaxed">
+            We cover outlying Hubbard areas and farm properties within our service radius. Our routes extend beyond city limits to serve rural homes and agricultural operations that require dependable waste management solutions.
+          </p>
+        </div>
+      </div>
+
+      {/* CTA */}
+      <div data-reveal data-reveal-delay="0.1" class="bg-dark-elevated border border-border-subtle rounded-2xl p-6 sm:p-8 md:p-12 text-center">
+        <h2 class="text-xl sm:text-2xl md:text-3xl font-bold mb-3 md:mb-4">Get Reliable Waste Management in Hubbard</h2>
+        <p class="text-text-muted text-base sm:text-lg leading-relaxed mb-6 md:mb-8">
+          Call Rankin Waste Management at <a href={PHONE_LINK} class="text-orange-500 hover:text-orange-400 font-semibold">{PHONE}</a> to set up your service. Family-owned, no contracts, flat-rate pricing — and trusted by 700+ neighbors with 250+ five-star reviews.
+        </p>
+        <CallCTA />
+      </div>
+
+    </div>
+  </section>
+
+  <section id="reviews" class="bg-dark-elevated">
+    <ReviewWidget client:idle />
+  </section>
+</Layout>

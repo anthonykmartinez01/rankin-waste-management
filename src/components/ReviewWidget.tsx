@@ -1,6 +1,24 @@
+// src/components/ReviewWidget.tsx
+//
+// Google Reviews carousel widget. Byte-identical port of pre-migration
+// src/components/ReviewWidget.jsx. The only changes are .jsx -> .tsx with
+// explicit TypeScript annotations; content (REVIEWS array, CSS string,
+// schemaData, all JSX) is preserved verbatim.
+//
+// Hydration: <ReviewWidget client:idle /> — defer until main thread
+// idle since carousel doesn't block first paint.
+
 import React, { useState, useRef } from "react";
 
-const REVIEWS = [
+interface Review {
+  name: string;
+  initials: string;
+  date: string;
+  text: string;
+  tag: string;
+}
+
+const REVIEWS: Review[] = [
   { name: "Kayla Jones", initials: "KJ", date: "3 hours ago", text: "If you're looking for a waste service that truly goes above and beyond, Rankin Waste Management is it. Tommy and Sydney are reliable, affordable, and somehow still the kind of people who show up for everything like ballgames, school events, and anything that supports our kids and community. They run their business the way small-town businesses should be run, treating people like family, not just customers. What really sets them apart is that they're not just serving the community, they're part of it. 10/10 recommend.", tag: "Community" },
   { name: "Mary McCaghren", initials: "MM", date: "Yesterday", text: "If you live out in the country, you know trash pickup can be a little adventurous. Dogs, rogue livestock, protective roosters! But Rankin Waste Management shows up like clockwork. Rain, shine, or that classic Texas \"is it a tornado or just Thursday in spring?\" weather\u2014they're out there getting it done. Out here, reliable trash pickup is a luxury and these folks deliver. If they can handle rural routes without blinking, they deserve every one of these five stars.", tag: "Rural Service" },
   { name: "Kelly Meier", initials: "KM", date: "3 days ago", text: "We had problems with our previous trash collecting company and when I needed to change, Rankin was so professional. It was nice to talk to an actual person on the phone rather than a computer and their customer service is off the charts. Whatever we need, they respond right away. I cannot recommend them enough.", tag: "Customer Service" },
@@ -17,7 +35,13 @@ const REVIEWS = [
   { name: "Randy McDonald", initials: "RM", date: "3 days ago", text: "I have lived at this address for over 20 years and this has been by far the best garbage pick up that we have ever had.", tag: "20+ Years" },
 ];
 
-const GoogleG = ({ className, width = 20, height = 20 }) => (
+interface IconProps {
+  className?: string;
+  width?: number;
+  height?: number;
+}
+
+const GoogleG = ({ className, width = 20, height = 20 }: IconProps) => (
   <svg className={className} width={width} height={height} viewBox="0 0 24 24">
     <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" />
     <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
@@ -26,7 +50,7 @@ const GoogleG = ({ className, width = 20, height = 20 }) => (
   </svg>
 );
 
-const StarSVG = ({ className, width = 22, height = 22 }) => (
+const StarSVG = ({ className, width = 22, height = 22 }: IconProps) => (
   <svg className={className} width={width} height={height} viewBox="0 0 24 24">
     <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
   </svg>
@@ -115,18 +139,22 @@ const schemaData = {
   })),
 };
 
-export default function ReviewWidget({ hideHeader = false }) {
-  const [expandedCards, setExpandedCards] = useState({});
-  const carouselRef = useRef(null);
+interface ReviewWidgetProps {
+  hideHeader?: boolean;
+}
 
-  const toggleExpand = (index) => {
+export default function ReviewWidget({ hideHeader = false }: ReviewWidgetProps) {
+  const [expandedCards, setExpandedCards] = useState<Record<number, boolean>>({});
+  const carouselRef = useRef<HTMLDivElement | null>(null);
+
+  const toggleExpand = (index: number) => {
     setExpandedCards((prev) => ({
       ...prev,
       [index]: !prev[index],
     }));
   };
 
-  const scroll = (direction) => {
+  const scroll = (direction: "next" | "prev") => {
     const el = carouselRef.current;
     if (!el) return;
     el.scrollBy({

@@ -1,0 +1,42 @@
+---
+// src/components/InnerHero.astro
+// Byte-identical to InnerHero from src/shared.jsx (lines 128-155).
+//
+// Two layouts: with bgImage (full-bleed image background, dark overlay,
+// centered title, taller min-height) and without (solid bg-dark-elevated,
+// title in container, shorter top padding). Pre-migration branched on
+// `if (bgImage)` and returned different JSX. Astro version branches at
+// template level via {bgImage ? ... : ...}.
+
+interface Props {
+  title: string;
+  bgImage?: string;
+  bgImageAlt?: string;
+}
+
+const { title, bgImage, bgImageAlt = '' } = Astro.props;
+---
+
+{bgImage ? (
+  <div class="relative flex items-center pt-32 pb-20 md:pt-36 md:pb-24 lg:pt-40 lg:pb-28 min-h-[420px] md:min-h-[480px] lg:min-h-[535px] border-b border-border-subtle overflow-hidden">
+    <img
+      src={bgImage}
+      alt={bgImageAlt}
+      aria-hidden={bgImageAlt ? undefined : 'true'}
+      loading="eager"
+      fetchpriority="high"
+      decoding="async"
+      class="absolute inset-0 w-full h-full object-cover"
+    />
+    <div class="absolute inset-0 bg-black/60" aria-hidden="true" />
+    <div class="relative max-w-[1200px] mx-auto px-6 lg:px-[clamp(2rem,5vw,4rem)] text-center">
+      <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight">{title}</h1>
+    </div>
+  </div>
+) : (
+  <div class="pt-36 pb-12 md:pt-40 md:pb-16 bg-dark-elevated border-b border-border-subtle">
+    <div class="max-w-[1200px] mx-auto px-6 lg:px-[clamp(2rem,5vw,4rem)]">
+      <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight">{title}</h1>
+    </div>
+  </div>
+)}
