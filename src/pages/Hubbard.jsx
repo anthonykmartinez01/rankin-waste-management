@@ -46,7 +46,7 @@ export default function Hubbard() {
       />
 
       <section className="px-5 sm:px-6 lg:px-[clamp(2rem,5vw,4rem)] py-12 md:py-20 lg:py-28">
-        <div className="max-w-[1100px] mx-auto">
+        <div className="max-w-[1300px] mx-auto">
 
           {/* Intro */}
           <div ref={intro.ref} style={intro.style} className="mb-12 md:mb-16 text-center">
@@ -60,6 +60,8 @@ export default function Hubbard() {
             <div className="rounded-2xl overflow-hidden">
               <img
                 src="/images/hubbard/weekly-residential.webp"
+                srcSet="/images/hubbard/weekly-residential-mobile.webp 800w, /images/hubbard/weekly-residential.webp 1400w"
+                sizes="(min-width: 768px) 50vw, 100vw"
                 alt="Black household trash bag set out for weekly residential pickup"
                 width="1400"
                 height="1050"
@@ -84,6 +86,8 @@ export default function Hubbard() {
             <div className="md:order-2 rounded-2xl overflow-hidden">
               <img
                 src="/images/hubbard/garbage-removal.webp"
+                srcSet="/images/hubbard/garbage-removal-mobile.webp 800w, /images/hubbard/garbage-removal.webp 1400w"
+                sizes="(min-width: 768px) 50vw, 100vw"
                 alt="Gloved hands tying off white trash bags during garbage removal"
                 width="1400"
                 height="888"
@@ -108,6 +112,8 @@ export default function Hubbard() {
             <div className="rounded-2xl overflow-hidden">
               <img
                 src="/images/hubbard/curbside-collection.webp"
+                srcSet="/images/hubbard/curbside-collection-mobile.webp 800w, /images/hubbard/curbside-collection.webp 1400w"
+                sizes="(min-width: 768px) 50vw, 100vw"
                 alt="Multiple white trash bags tied with orange ribbons ready for curbside collection"
                 width="1400"
                 height="933"
@@ -132,6 +138,8 @@ export default function Hubbard() {
             <div className="md:order-2 rounded-2xl overflow-hidden">
               <img
                 src="/images/hubbard/rural-service.webp"
+                srcSet="/images/hubbard/rural-service-mobile.webp 800w, /images/hubbard/rural-service.webp 1400w"
+                sizes="(min-width: 768px) 50vw, 100vw"
                 alt="Person in denim jacket and yellow gloves picking up litter in a rural field"
                 width="1400"
                 height="933"

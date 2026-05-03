@@ -398,6 +398,8 @@ const Services = () => {
             <div className="rounded-2xl overflow-hidden">
               <img
                 src="/images/services/waste-management.webp"
+                srcSet="/images/services/waste-management-mobile.webp 800w, /images/services/waste-management.webp 1400w"
+                sizes="(min-width: 768px) 50vw, 100vw"
                 alt="Rankin Waste branded curbside trash bin next to service truck"
                 width="1400"
                 height="933"
@@ -424,6 +426,8 @@ const Services = () => {
             <div className="md:order-2 rounded-2xl overflow-hidden">
               <img
                 src="/images/services/garbage-collection.webp"
+                srcSet="/images/services/garbage-collection-mobile.webp 800w, /images/services/garbage-collection.webp 1400w"
+                sizes="(min-width: 768px) 50vw, 100vw"
                 alt="Rankin Waste garbage truck with RW-branded bins on a rural road"
                 width="1400"
                 height="1050"
@@ -476,6 +480,8 @@ const Services = () => {
             <div className="md:order-2 rounded-2xl overflow-hidden">
               <img
                 src="/images/services/dumpster-rental.webp"
+                srcSet="/images/services/dumpster-rental-mobile.webp 800w, /images/services/dumpster-rental.webp 1400w"
+                sizes="(min-width: 768px) 50vw, 100vw"
                 alt="Black metal roll-off dumpster at a construction site"
                 width="1400"
                 height="764"
