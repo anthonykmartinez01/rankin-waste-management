@@ -49,18 +49,27 @@ import { PHONE, PHONE_LINK } from '../data/business';
   description="Professional garbage collection service in Hubbard, TX. Weekly pickup, rural service, and bulk trash removal. Reliable waste management for homes and businesses."
 >
   <Fragment slot="head">
-    {/* Service Schema */}
+    {/* Service schema with provider LocalBusiness, OfferCatalog (3 offers),
+        and AggregateRating + Reviews under provider (NOT under Service root —
+        Service is not an eligible parent type for review/aggregateRating per
+        Google's review-snippet docs; same lesson as waste-management-service-
+        hubbard). Replaces the slim 506-byte original. Updated 2026-05-04. */}
     <script is:inline type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "Service",
-      "serviceType": "Garbage Collection",
+      "@id": "https://rankinwaste.com/garbage-collection-service-hubbard/#service",
       "name": "Garbage Collection Service in Hubbard, TX",
+      "description": "Reliable garbage collection in Hubbard for homes, rural properties, and bulk-item cleanouts. Weekly curbside pickup, flexible rural routes, and scheduled bulk trash removal — all from a family-owned local team with 250+ five-star reviews.",
+      "serviceType": "Garbage Collection",
+      "category": "Garbage Collection Service",
+      "url": "https://rankinwaste.com/garbage-collection-service-hubbard/",
       "provider": {
-        "@type": "Organization",
+        "@type": "LocalBusiness",
+        "@id": "https://rankinwaste.com/#business",
         "name": "Rankin Waste Management",
-        "url": "https://rankinwaste.com",
-        "telephone": "(254) 205-6125",
-        "email": "rankinwaste@gmail.com",
+        "telephone": "+1-254-205-6125",
+        "url": "https://rankinwaste.com/",
+        "image": "https://rankinwaste.com/rw-logo.webp",
         "address": {
           "@type": "PostalAddress",
           "streetAddress": "175 PR335",
@@ -68,11 +77,96 @@ import { PHONE, PHONE_LINK } from '../data/business';
           "addressRegion": "TX",
           "postalCode": "76648",
           "addressCountry": "US"
-        }
+        },
+        "priceRange": "$$",
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+            "opens": "08:00",
+            "closes": "18:00"
+          }
+        ],
+        "sameAs": [
+          "https://www.facebook.com/p/Rankin-waste-management-100057417520840/"
+        ],
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "5.0",
+          "reviewCount": "284",
+          "bestRating": "5",
+          "worstRating": "1"
+        },
+        "review": [
+          {
+            "@type": "Review",
+            "author": { "@type": "Person", "name": "Randy McDonald" },
+            "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+            "reviewBody": "I have lived at this address for over 20 years and this has been by far the best garbage pick up that we have ever had."
+          },
+          {
+            "@type": "Review",
+            "author": { "@type": "Person", "name": "Mary McCaghren" },
+            "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+            "reviewBody": "If you live out in the country, you know trash pickup can be a little adventurous. Dogs, rogue livestock, protective roosters! But Rankin Waste Management shows up like clockwork. Rain, shine, or that classic Texas weather — they're out there getting it done. Out here, reliable trash pickup is a luxury and these folks deliver."
+          },
+          {
+            "@type": "Review",
+            "author": { "@type": "Person", "name": "Linda Mcnutt" },
+            "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+            "reviewBody": "Rankin Waste Management has been our weekly waste pick up for several years and have been reliable and often pick up extra bags for us at no extra cost. I would certainly recommend them."
+          },
+          {
+            "@type": "Review",
+            "author": { "@type": "Person", "name": "Lynn Moore" },
+            "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+            "reviewBody": "We could not ask for better people and a great company. You are always on time and notifying us when we have time/day changes due to holiday or other circumstances. We would highly recommend this company for all your waste management."
+          }
+        ]
       },
       "areaServed": {
         "@type": "City",
-        "name": "Hubbard, TX"
+        "name": "Hubbard",
+        "containedInPlace": {
+          "@type": "State",
+          "name": "Texas"
+        }
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Garbage Collection Services in Hubbard",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Garbage Pickup in Hubbard",
+              "description": "Weekly curbside garbage pickup for Hubbard homeowners. Same day every week, container included, household trash and recyclables handled — the kind of consistent service that makes you stop thinking about trash day altogether.",
+              "areaServed": { "@type": "City", "name": "Hubbard" },
+              "provider": { "@id": "https://rankinwaste.com/#business" }
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Rural Garbage Collection in Hubbard",
+              "description": "Live on a long driveway, a farm, or a county road outside town? We'll come get it. Flexible pickup spots, longer routes, same-day options — country properties get the same dependable service as in-town homes.",
+              "areaServed": { "@type": "City", "name": "Hubbard" },
+              "provider": { "@id": "https://rankinwaste.com/#business" }
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Bulk Trash Pickup in Hubbard",
+              "description": "Got a couch, mattress, washing machine, or pile of furniture to get rid of? Schedule a bulk pickup and we'll haul it off — proper disposal, no DIY trips to the dump. Perfect for spring cleaning, moves, and seasonal cleanouts. Bigger loads? Ask about trash trailer rentals.",
+              "areaServed": { "@type": "City", "name": "Hubbard" },
+              "provider": { "@id": "https://rankinwaste.com/#business" }
+            }
+          }
+        ]
       }
     })} />
 
