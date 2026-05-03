@@ -125,13 +125,34 @@ export const PageHead = ({ title, description, image, imageAlt }) => {
 
 /* ═══════════════════════ INNER PAGE HERO ═══════════════════════ */
 
-export const InnerHero = ({ title }) => (
-  <div className="pt-36 pb-12 md:pt-40 md:pb-16 bg-dark-elevated border-b border-border-subtle">
-    <div className="max-w-[1200px] mx-auto px-6 lg:px-[clamp(2rem,5vw,4rem)]">
-      <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight">{title}</h1>
+export const InnerHero = ({ title, bgImage, bgImageAlt = '' }) => {
+  if (bgImage) {
+    return (
+      <div className="relative pt-36 pb-20 md:pt-40 md:pb-28 lg:pt-44 lg:pb-36 border-b border-border-subtle overflow-hidden">
+        <img
+          src={bgImage}
+          alt={bgImageAlt}
+          aria-hidden={bgImageAlt ? undefined : 'true'}
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-black/60" aria-hidden="true" />
+        <div className="relative max-w-[1200px] mx-auto px-6 lg:px-[clamp(2rem,5vw,4rem)] text-center">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight">{title}</h1>
+        </div>
+      </div>
+    );
+  }
+  return (
+    <div className="pt-36 pb-12 md:pt-40 md:pb-16 bg-dark-elevated border-b border-border-subtle">
+      <div className="max-w-[1200px] mx-auto px-6 lg:px-[clamp(2rem,5vw,4rem)]">
+        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight">{title}</h1>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 /* ═══════════════════════ CTA BUTTON ═══════════════════════ */
 

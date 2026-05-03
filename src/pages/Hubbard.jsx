@@ -14,7 +14,11 @@ export default function Hubbard() {
         title="Waste Management Service Hubbard TX | Rankin Waste Management"
         description="Professional waste management service in Hubbard, TX. Weekly residential pickup, curbside collection, and rural trash service. Reliable garbage removal for homes and businesses."
       />
-      <InnerHero title="Waste Management Service in Hubbard" />
+      <InnerHero
+        title="Waste Management Service in Hubbard"
+        bgImage="/images/services/waste-management.webp"
+        bgImageAlt="Rankin Waste branded curbside trash bin next to service truck"
+      />
 
       {/* Schema Markup */}
       <script
@@ -45,20 +49,10 @@ export default function Hubbard() {
         <div className="max-w-[800px] mx-auto">
 
           {/* Intro */}
-          <div ref={intro.ref} style={intro.style} className="mb-12 md:mb-16">
-            <p className="text-text-muted text-base sm:text-lg leading-relaxed mb-6 md:mb-8">
+          <div ref={intro.ref} style={intro.style} className="mb-12 md:mb-16 text-center">
+            <p className="text-text-muted text-base sm:text-lg leading-relaxed">
               In Hubbard, residents and businesses need reliable waste removal solutions. We provide complete trash collection services across the area. Find the right pickup schedule and service type for your property. Professional waste management keeps your property clean and compliant with local regulations.
             </p>
-            <div className="flex justify-center">
-              <img
-                src="/truck-trailer.webp"
-                alt="Rankin Waste Management truck towing a dumpster trailer in Hubbard, TX"
-                width="600"
-                height="303"
-                loading="lazy"
-                className="w-full max-w-[600px] h-auto rounded-sm border border-border-subtle"
-              />
-            </div>
           </div>
 
           {/* Weekly Residential */}
