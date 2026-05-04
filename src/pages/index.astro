@@ -68,6 +68,7 @@ import Layout from '../layouts/Layout.astro';
 import ReviewWidget from '../components/ReviewWidget.tsx';
 import FaqAccordion from '../components/FaqAccordion.tsx';
 import PhoneIcon from '../components/icons/PhoneIcon.astro';
+import MapPinIcon from '../components/icons/MapPinIcon.astro';
 import { FAQS } from '../data/faqs';
 import { PHONE, PHONE_LINK } from '../data/business';
 ---
@@ -519,9 +520,30 @@ import { PHONE, PHONE_LINK } from '../data/business';
   <section id="find-us" class="bg-dark-elevated px-6 lg:px-[clamp(2rem,5vw,4rem)] py-20 md:py-28">
     <div class="max-w-[1100px] mx-auto">
       <h2 data-reveal class="text-2xl md:text-3xl lg:text-4xl font-medium tracking-tight text-center mb-10 md:mb-12">
-        Find Us in Hubbard, TX
+        Areas We Serve
       </h2>
-      <div data-reveal data-reveal-delay="0.1" class="rounded-sm overflow-hidden border border-border-subtle aspect-[16/9] md:aspect-[2/1]">
+      <ul data-reveal data-reveal-delay="0.1" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-3 md:gap-y-4 max-w-[900px] mx-auto mb-12 md:mb-16">
+        {[
+          'Axtell, TX 76624',
+          'Birome, TX 76673',
+          'Dawson, TX 76639',
+          'Hubbard, TX 76648',
+          'Malone, TX 76660',
+          'Mertens, TX 76666',
+          'Mt Calm, TX 76673',
+          'Navarro Mills, TX 76679',
+          'Peoria, TX 76645',
+          'Prairie Hill, TX',
+          'Purdon, TX 76679',
+          'Whitney, TX 76692',
+        ].map((area) => (
+          <li class="flex items-center gap-3 text-text-muted text-base md:text-lg">
+            <MapPinIcon class="w-5 h-5 text-orange-500 flex-shrink-0" />
+            <span>{area}</span>
+          </li>
+        ))}
+      </ul>
+      <div data-reveal data-reveal-delay="0.2" class="rounded-sm overflow-hidden border border-border-subtle aspect-[16/9] md:aspect-[2/1]">
         <iframe
           title="Rankin Waste Management on Google Maps"
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3389.136596108881!2d-96.79978992297144!3d31.848498030854834!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x864f158c8dee18d9%3A0x32d36537ab608362!2sRankin%20Waste%20Management!5e0!3m2!1sen!2sus!4v1776957097390!5m2!1sen!2sus"
@@ -533,9 +555,6 @@ import { PHONE, PHONE_LINK } from '../data/business';
           referrerpolicy="no-referrer-when-downgrade"
         ></iframe>
       </div>
-      <p data-reveal data-reveal-delay="0.2" class="text-text-muted text-center text-base md:text-lg leading-relaxed mt-8 md:mt-10 max-w-[800px] mx-auto">
-        We're based in Hubbard, TX, family-owned and operated, proudly serving Axtell, Dawson, Malone, Mertens, Purdon, and the surrounding rural communities.
-      </p>
     </div>
   </section>
 
