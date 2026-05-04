@@ -176,7 +176,7 @@ const ROUTES = [
     ogImage: 'https://rankinwaste.com/images/services/junk-removal.webp',
     dataRevealCount: 7,
     schemas: [
-      { key: 'Service', bytes: 5080 },
+      { key: 'Service', bytes: 5112 },
       { key: 'BreadcrumbList', bytes: 297 },
     ],
     custom: (body, head) => [
@@ -230,7 +230,7 @@ const ROUTES = [
     ogImage: 'https://rankinwaste.com/truck-side.webp',
     dataRevealCount: 5,
     schemas: [
-      { key: 'Service', bytes: 4392 },
+      { key: 'Service', bytes: 4424 },
       { key: 'BreadcrumbList', bytes: 309 },
     ],
     custom: (body, head) => [
