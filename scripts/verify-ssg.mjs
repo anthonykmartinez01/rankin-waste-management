@@ -176,7 +176,7 @@ const ROUTES = [
     ogImage: 'https://rankinwaste.com/images/services/junk-removal.webp',
     dataRevealCount: 7,
     schemas: [
-      { key: 'Service', bytes: 5121 },
+      { key: 'Service', bytes: 6170 },
       { key: 'BreadcrumbList', bytes: 297 },
     ],
     custom: (body, head) => [
@@ -184,8 +184,8 @@ const ROUTES = [
         /<h1[^>]*>\s*Junk Removal Service in Hubbard\s*<\/h1>/.test(body)],
       ['Service serviceType "Junk Removal"', head.includes('"serviceType":"Junk Removal"')],
       ['Service @id present', head.includes('"@id":"https://rankinwaste.com/junk-removal-service-hubbard/#service"')],
-      ['Service has 5 OfferCatalog items',
-        (head.match(/"@type":"Offer","itemOffered":/g) || []).length === 5],
+      ['Service has 7 OfferCatalog items',
+        (head.match(/"@type":"Offer","itemOffered":/g) || []).length === 7],
       ['Service aggregateRating reviewCount=284 (under provider)', head.includes('"reviewCount":"284"')],
       ['Service review array has 3 reviews', (head.match(/"@type":"Review","author":/g) || []).length === 3],
       ['BreadcrumbList 2 ListItems', (head.match(/"@type":"ListItem"/g) || []).length === 2],
