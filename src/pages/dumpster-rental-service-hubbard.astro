@@ -34,17 +34,19 @@ import { PHONE, PHONE_LINK } from '../data/business';
   imageAlt="Black metal roll-off dumpster at a construction site"
 >
   <Fragment slot="head">
-    {/* Service schema — rich version with provider LocalBusiness +
-        OfferCatalog (3 offers) + AggregateRating + 3 Reviews. Reviews
-        and aggregateRating nested under provider (not Service root)
-        for Google rich-result eligibility. Replaces the earlier
-        500-byte slim Service schema. */}
+    {/* Service schema — provided by user 2026-05-04, applied verbatim
+        per explicit instruction. NOTE: aggregateRating + review are
+        on the Service root (not under provider.LocalBusiness), which
+        is NOT Google's preferred shape — Rich Results Test will likely
+        flag this with "Invalid object type for field <parent_node>"
+        on the review field. Apply the review-under-provider fix only
+        if the user requests it. */}
     <script is:inline type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "Service",
       "@id": "https://rankinwaste.com/dumpster-rental-service-hubbard/#service",
       "name": "Dumpster Rental Service in Hubbard, TX",
-      "description": "Dumpster rentals in Hubbard for residential cleanouts, ongoing commercial waste, and construction roll-off containers. Right-sized containers, flexible rental periods, local delivery and pickup — and you're talking directly to Tommy and Sydney, not corporate dispatch.",
+      "description": "Local dumpster rentals in Hubbard for cleanouts, renovations, commercial waste, and construction debris. Right-sized containers, flexible rental periods, and same-day delivery available — family-owned, flat-rate pricing, no contracts.",
       "serviceType": "Dumpster Rental",
       "category": "Dumpster Rental Service",
       "url": "https://rankinwaste.com/dumpster-rental-service-hubbard/",
@@ -53,7 +55,6 @@ import { PHONE, PHONE_LINK } from '../data/business';
         "@id": "https://rankinwaste.com/#business",
         "name": "Rankin Waste Management",
         "telephone": "+1-254-205-6125",
-        "email": "rankinwaste@gmail.com",
         "url": "https://rankinwaste.com/",
         "image": "https://rankinwaste.com/rw-logo.webp",
         "address": {
@@ -75,33 +76,6 @@ import { PHONE, PHONE_LINK } from '../data/business';
         ],
         "sameAs": [
           "https://www.facebook.com/p/Rankin-waste-management-100057417520840/"
-        ],
-        "aggregateRating": {
-          "@type": "AggregateRating",
-          "ratingValue": "5.0",
-          "reviewCount": "284",
-          "bestRating": "5",
-          "worstRating": "1"
-        },
-        "review": [
-          {
-            "@type": "Review",
-            "author": { "@type": "Person", "name": "Megan Lee" },
-            "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
-            "reviewBody": "We switched to Rankin after spending hundreds on mediocre service. Rankin has exceeded our expectations! They are communicative, passionate about their business and keeping it, and local! I love that they now provide trash cans! Give them a text or call, I promise you'll get an answer for every question!"
-          },
-          {
-            "@type": "Review",
-            "author": { "@type": "Person", "name": "Cody Lane" },
-            "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
-            "reviewBody": "Switched to Rankin after being with Frontier for over ten years and have not regretted it one bit. We have had the best customer service and experience overall."
-          },
-          {
-            "@type": "Review",
-            "author": { "@type": "Person", "name": "Jason Seay" },
-            "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
-            "reviewBody": "Just got off the phone to switch our service to this company. No computer to deal with, spoke to the owner. She was very cordial, prices are great, simple, no hassle. We start next month! Oh to be free from the Trash Mafia! Go Rankin!"
-          }
         ]
       },
       "areaServed": {
@@ -121,7 +95,7 @@ import { PHONE, PHONE_LINK } from '../data/business';
             "itemOffered": {
               "@type": "Service",
               "name": "Residential Dumpster Rental in Hubbard",
-              "description": "Right-sized containers for garage cleanouts, basement clearing, home renovations, and yard projects. Convenient driveway placement, scheduled pickup, same-day delivery available for most Hubbard neighborhoods.",
+              "description": "Garage cleanout, basement clearing, big yard project? We drop a right-sized container in your driveway, you fill it on your own time, and we haul it off when you're done. Same-day delivery available for most Hubbard neighborhoods.",
               "areaServed": { "@type": "City", "name": "Hubbard" },
               "provider": { "@id": "https://rankinwaste.com/#business" }
             }
@@ -131,7 +105,7 @@ import { PHONE, PHONE_LINK } from '../data/business';
             "itemOffered": {
               "@type": "Service",
               "name": "Commercial Dumpster Rental in Hubbard",
-              "description": "Ongoing waste management for retail stores, restaurants, offices, and other Hubbard businesses. Flexible pickup schedules, dependable service contracts — coverage across downtown and surrounding commercial zones.",
+              "description": "Retail stores, restaurants, offices — local businesses need waste service that just works. Ongoing contracts, flexible pickup schedules, and coverage across downtown Hubbard and the surrounding commercial zones.",
               "areaServed": { "@type": "City", "name": "Hubbard" },
               "provider": { "@id": "https://rankinwaste.com/#business" }
             }
@@ -141,13 +115,40 @@ import { PHONE, PHONE_LINK } from '../data/business';
             "itemOffered": {
               "@type": "Service",
               "name": "Roll-off Dumpster Service in Hubbard",
-              "description": "Heavy-duty roll-off containers for construction crews, contractors, and large-scale cleanouts. Easy-load access for drywall, roofing, and demolition debris. Permits handled when required. Larger projects? Ask about trash trailer rentals.",
+              "description": "Built for contractors, builders, and demo crews. Heavy-duty roll-off containers for construction debris, roofing tear-offs, and demolition material — easy loading access, permits handled when required. For other large-haul jobs, ask about trash trailer rentals.",
               "areaServed": { "@type": "City", "name": "Hubbard" },
               "provider": { "@id": "https://rankinwaste.com/#business" }
             }
           }
         ]
-      }
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "5.0",
+        "reviewCount": "284",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "review": [
+        {
+          "@type": "Review",
+          "author": { "@type": "Person", "name": "Kayla Jones" },
+          "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+          "reviewBody": "If you're looking for a waste service that truly goes above and beyond, Rankin Waste Management is it. Tommy and Sydney are reliable, affordable, and somehow still the kind of people who show up for everything like ballgames, school events, and anything that supports our kids and community. They run their business the way small-town businesses should be run, treating people like family, not just customers. 10/10 recommend."
+        },
+        {
+          "@type": "Review",
+          "author": { "@type": "Person", "name": "Megan Lee" },
+          "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+          "reviewBody": "We switched to Rankin after spending hundreds on mediocre service. Rankin has exceeded our expectations! They are communicative, passionate about their business and keeping it, and local! I love that they now provide trash cans! Give them a text or call, I promise you'll get an answer for every question!"
+        },
+        {
+          "@type": "Review",
+          "author": { "@type": "Person", "name": "Buffy Nehring" },
+          "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+          "reviewBody": "They are a family owned business. They are always on time for pickup. They provide amazing customer service. They have quick response should you have questions. They treat you like family not just another account. They have great pricing. I highly recommend them."
+        }
+      ]
     })} />
 
     {/* Breadcrumb Schema (unchanged from migration) */}

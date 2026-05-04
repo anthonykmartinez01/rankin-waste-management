@@ -209,7 +209,7 @@ const ROUTES = [
     ogImage: 'https://rankinwaste.com/images/services/dumpster-rental.webp',
     dataRevealCount: 5,
     schemas: [
-      { key: 'Service', bytes: 4074 },
+      { key: 'Service', bytes: 4354 },
       { key: 'BreadcrumbList', bytes: 303 },
     ],
     custom: (body, head) => [
@@ -219,9 +219,8 @@ const ROUTES = [
       ['Service @id present', head.includes('"@id":"https://rankinwaste.com/dumpster-rental-service-hubbard/#service"')],
       ['Service has 3 OfferCatalog items',
         (head.match(/"@type":"Offer","itemOffered":/g) || []).length === 3],
-      ['Service aggregateRating reviewCount=284 (under provider)', head.includes('"reviewCount":"284"')],
+      ['Service aggregateRating reviewCount=284', head.includes('"reviewCount":"284"')],
       ['Service review array has 3 reviews', (head.match(/"@type":"Review","author":/g) || []).length === 3],
-      ['Service.provider includes email', head.includes('"email":"rankinwaste@gmail.com"')],
       ['BreadcrumbList 2 ListItems', (head.match(/"@type":"ListItem"/g) || []).length === 2],
       ['bgImage hero present', body.includes('/images/services/dumpster-rental.webp')],
       ['3 page-content imgs (dumpster-rental/*)',
