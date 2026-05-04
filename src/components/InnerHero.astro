@@ -21,9 +21,12 @@ interface Props {
   // 'contain': image fits within the hero, no crop, may letterbox.
   //   Best for low-res sources where stretching would visibly blur.
   bgImageFit?: 'cover' | 'contain';
+  // Tailwind object-position utility (e.g. 'object-top', 'object-bottom',
+  // 'object-center'). Default: object-center (browser default).
+  bgImagePosition?: string;
 }
 
-const { title, bgImage, bgImageAlt = '', bgImageMobile, bgImageFit = 'cover' } = Astro.props;
+const { title, bgImage, bgImageAlt = '', bgImageMobile, bgImageFit = 'cover', bgImagePosition = '' } = Astro.props;
 const objectFitClass = bgImageFit === 'contain' ? 'object-contain' : 'object-cover';
 ---
 
@@ -40,7 +43,7 @@ const objectFitClass = bgImageFit === 'contain' ? 'object-contain' : 'object-cov
         loading="eager"
         fetchpriority="high"
         decoding="async"
-        class={`absolute inset-0 w-full h-full ${objectFitClass}`}
+        class={`absolute inset-0 w-full h-full ${objectFitClass} ${bgImagePosition}`}
       />
     </picture>
     <div class="absolute inset-0 bg-black/60" aria-hidden="true" />
