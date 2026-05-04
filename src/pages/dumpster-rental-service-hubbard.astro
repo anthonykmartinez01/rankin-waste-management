@@ -35,12 +35,13 @@ import { PHONE, PHONE_LINK } from '../data/business';
 >
   <Fragment slot="head">
     {/* Service schema — provided by user 2026-05-04, applied verbatim
-        per explicit instruction. NOTE: aggregateRating + review are
-        on the Service root (not under provider.LocalBusiness), which
-        is NOT Google's preferred shape — Rich Results Test will likely
-        flag this with "Invalid object type for field <parent_node>"
-        on the review field. Apply the review-under-provider fix only
-        if the user requests it. */}
+        EXCEPT for two known fixes carried forward from prior pages:
+          1. aggregateRating + review nested under provider.LocalBusiness
+             (NOT Service root) — Google's review-snippet docs require
+             an eligible parent type (LocalBusiness, not Service)
+          2. email field added to provider.LocalBusiness for NAP parity
+             with the other 3 Hubbard pages
+        All other content preserved exactly as pasted. */}
     <script is:inline type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "Service",
@@ -55,6 +56,7 @@ import { PHONE, PHONE_LINK } from '../data/business';
         "@id": "https://rankinwaste.com/#business",
         "name": "Rankin Waste Management",
         "telephone": "+1-254-205-6125",
+        "email": "rankinwaste@gmail.com",
         "url": "https://rankinwaste.com/",
         "image": "https://rankinwaste.com/rw-logo.webp",
         "address": {
@@ -76,6 +78,33 @@ import { PHONE, PHONE_LINK } from '../data/business';
         ],
         "sameAs": [
           "https://www.facebook.com/p/Rankin-waste-management-100057417520840/"
+        ],
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "5.0",
+          "reviewCount": "284",
+          "bestRating": "5",
+          "worstRating": "1"
+        },
+        "review": [
+          {
+            "@type": "Review",
+            "author": { "@type": "Person", "name": "Kayla Jones" },
+            "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+            "reviewBody": "If you're looking for a waste service that truly goes above and beyond, Rankin Waste Management is it. Tommy and Sydney are reliable, affordable, and somehow still the kind of people who show up for everything like ballgames, school events, and anything that supports our kids and community. They run their business the way small-town businesses should be run, treating people like family, not just customers. 10/10 recommend."
+          },
+          {
+            "@type": "Review",
+            "author": { "@type": "Person", "name": "Megan Lee" },
+            "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+            "reviewBody": "We switched to Rankin after spending hundreds on mediocre service. Rankin has exceeded our expectations! They are communicative, passionate about their business and keeping it, and local! I love that they now provide trash cans! Give them a text or call, I promise you'll get an answer for every question!"
+          },
+          {
+            "@type": "Review",
+            "author": { "@type": "Person", "name": "Buffy Nehring" },
+            "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+            "reviewBody": "They are a family owned business. They are always on time for pickup. They provide amazing customer service. They have quick response should you have questions. They treat you like family not just another account. They have great pricing. I highly recommend them."
+          }
         ]
       },
       "areaServed": {
@@ -121,34 +150,7 @@ import { PHONE, PHONE_LINK } from '../data/business';
             }
           }
         ]
-      },
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "5.0",
-        "reviewCount": "284",
-        "bestRating": "5",
-        "worstRating": "1"
-      },
-      "review": [
-        {
-          "@type": "Review",
-          "author": { "@type": "Person", "name": "Kayla Jones" },
-          "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
-          "reviewBody": "If you're looking for a waste service that truly goes above and beyond, Rankin Waste Management is it. Tommy and Sydney are reliable, affordable, and somehow still the kind of people who show up for everything like ballgames, school events, and anything that supports our kids and community. They run their business the way small-town businesses should be run, treating people like family, not just customers. 10/10 recommend."
-        },
-        {
-          "@type": "Review",
-          "author": { "@type": "Person", "name": "Megan Lee" },
-          "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
-          "reviewBody": "We switched to Rankin after spending hundreds on mediocre service. Rankin has exceeded our expectations! They are communicative, passionate about their business and keeping it, and local! I love that they now provide trash cans! Give them a text or call, I promise you'll get an answer for every question!"
-        },
-        {
-          "@type": "Review",
-          "author": { "@type": "Person", "name": "Buffy Nehring" },
-          "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
-          "reviewBody": "They are a family owned business. They are always on time for pickup. They provide amazing customer service. They have quick response should you have questions. They treat you like family not just another account. They have great pricing. I highly recommend them."
-        }
-      ]
+      }
     })} />
 
     {/* Breadcrumb Schema (unchanged from migration) */}
