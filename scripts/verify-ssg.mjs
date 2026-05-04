@@ -173,7 +173,7 @@ const ROUTES = [
     title: 'Junk Removal Service Hubbard TX | Rankin Waste Management',
     description: 'Professional junk removal service in Hubbard, TX. We handle furniture, appliances, cleanouts and construction debris. Same-day pickup with upfront quotes from Rankin Waste Management.',
     canonical: 'https://rankinwaste.com/junk-removal-service-hubbard',
-    ogImage: 'https://rankinwaste.com/junk-removal-trailer.webp',
+    ogImage: 'https://rankinwaste.com/images/services/junk-removal.webp',
     dataRevealCount: 7,
     schemas: [
       { key: 'Service', bytes: 5080 },

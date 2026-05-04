@@ -3,8 +3,9 @@
 //
 // Restructured 2026-05-04 to match /waste-management-service-hubbard
 // layout: bgImage InnerHero + max-w-[1300px] container + 5 alternating
-// image+text grid rows + CTA box (with phone + "New Service Request"
-// button). NO ReviewWidget on this page per content decision.
+// image+text grid rows + ReviewWidget section (added per user direction
+// after initial restructure) + CTA box (with phone + "New Service
+// Request" button).
 //
 // Two head schemas: Service (replaced — was 554-byte slim version, now
 // rich version with provider LocalBusiness, OfferCatalog 5 offers,
@@ -30,8 +31,8 @@ import { PHONE, PHONE_LINK } from '../data/business';
 <Layout
   title="Junk Removal Service Hubbard TX | Rankin Waste Management"
   description="Professional junk removal service in Hubbard, TX. We handle furniture, appliances, cleanouts and construction debris. Same-day pickup with upfront quotes from Rankin Waste Management."
-  image="/junk-removal-trailer.webp"
-  imageAlt="Rankin Waste Management trailer hauling junk and debris in Hubbard, TX"
+  image="/images/services/junk-removal.webp"
+  imageAlt="Rankin Waste pickup truck pulling black trailer for junk removal"
 >
   <Fragment slot="head">
     {/* Service schema — rich version with provider LocalBusiness +
