@@ -16,13 +16,19 @@ interface Props {
   bgImage?: string;
   bgImageAlt?: string;
   bgImageMobile?: string;
+  // 'cover' (default): image fills the hero, may crop. Best for hi-res
+  //   sources (1400px+) where edge cropping is acceptable.
+  // 'contain': image fits within the hero, no crop, may letterbox.
+  //   Best for low-res sources where stretching would visibly blur.
+  bgImageFit?: 'cover' | 'contain';
 }
 
-const { title, bgImage, bgImageAlt = '', bgImageMobile } = Astro.props;
+const { title, bgImage, bgImageAlt = '', bgImageMobile, bgImageFit = 'cover' } = Astro.props;
+const objectFitClass = bgImageFit === 'contain' ? 'object-contain' : 'object-cover';
 ---
 
 {bgImage ? (
-  <div class="relative flex items-center pt-32 pb-20 md:pt-36 md:pb-24 lg:pt-40 lg:pb-28 min-h-[420px] md:min-h-[480px] lg:min-h-[535px] border-b border-border-subtle overflow-hidden">
+  <div class="relative flex items-center pt-32 pb-20 md:pt-36 md:pb-24 lg:pt-40 lg:pb-28 min-h-[420px] md:min-h-[480px] lg:min-h-[535px] border-b border-border-subtle overflow-hidden bg-dark-elevated">
     <picture>
       {bgImageMobile && (
         <source media="(max-width: 767px)" srcset={bgImageMobile} type="image/webp" />
@@ -34,7 +40,7 @@ const { title, bgImage, bgImageAlt = '', bgImageMobile } = Astro.props;
         loading="eager"
         fetchpriority="high"
         decoding="async"
-        class="absolute inset-0 w-full h-full object-cover"
+        class={`absolute inset-0 w-full h-full ${objectFitClass}`}
       />
     </picture>
     <div class="absolute inset-0 bg-black/60" aria-hidden="true" />
