@@ -131,8 +131,8 @@ import { PHONE, PHONE_LINK } from '../data/business';
             "@type": "Offer",
             "itemOffered": {
               "@type": "Service",
-              "name": "Furniture Removal in Hubbard",
-              "description": "Replacing a couch, getting rid of old beds, or downsizing? We bring the right equipment to move heavy furniture without scuffing your walls or floors — and we know how to navigate the narrow stairs and doorways in Hubbard homes.",
+              "name": "Appliance Removal in Hubbard",
+              "description": "Old fridge, broken washer, dryer that finally quit? We disconnect, haul, and recycle the metal — no wrestling appliances down stairs or through tight doorways yourself. Eco-friendly disposal for components that can be recycled.",
               "areaServed": { "@type": "City", "name": "Hubbard" },
               "provider": { "@id": "https://rankinwaste.com/#business" }
             }
@@ -141,8 +141,8 @@ import { PHONE, PHONE_LINK } from '../data/business';
             "@type": "Offer",
             "itemOffered": {
               "@type": "Service",
-              "name": "Appliance Removal in Hubbard",
-              "description": "Old fridge, broken washer, dryer that finally quit? We disconnect, haul, and recycle the metal — no wrestling appliances down stairs or through tight doorways yourself. Eco-friendly disposal for components that can be recycled.",
+              "name": "Furniture Removal in Hubbard",
+              "description": "Replacing a couch, getting rid of old beds, or downsizing? We bring the right equipment to move heavy furniture without scuffing your walls or floors — and we know how to navigate the narrow stairs and doorways in Hubbard homes.",
               "areaServed": { "@type": "City", "name": "Hubbard" },
               "provider": { "@id": "https://rankinwaste.com/#business" }
             }
@@ -161,8 +161,8 @@ import { PHONE, PHONE_LINK } from '../data/business';
             "@type": "Offer",
             "itemOffered": {
               "@type": "Service",
-              "name": "Construction Debris Removal in Hubbard",
-              "description": "Renovation or demo waste piling up? We're a dumpster alternative with the labor included — we load and haul drywall, flooring, lumber, and demolition debris so you can focus on the build. Larger projects? Ask about trash trailer rentals.",
+              "name": "Yard Debris Removal in Hubbard",
+              "description": "Lawn cleanup, storm damage, or a seasonal pile-up of branches and leaves? We clear yard debris year-round — branches, leaves, grass clippings, storm-damaged material — and route it to proper composting facilities. Scheduled pickup, all Hubbard residential areas covered, Texas-compliant disposal.",
               "areaServed": { "@type": "City", "name": "Hubbard" },
               "provider": { "@id": "https://rankinwaste.com/#business" }
             }
@@ -171,8 +171,8 @@ import { PHONE, PHONE_LINK } from '../data/business';
             "@type": "Offer",
             "itemOffered": {
               "@type": "Service",
-              "name": "Yard Debris Removal in Hubbard",
-              "description": "Lawn cleanup, storm damage, or a seasonal pile-up of branches and leaves? We clear yard debris year-round — branches, leaves, grass clippings, storm-damaged material — and route it to proper composting facilities. Scheduled pickup, all Hubbard residential areas covered, Texas-compliant disposal.",
+              "name": "Construction Debris Removal in Hubbard",
+              "description": "Renovation or demo waste piling up? We're a dumpster alternative with the labor included — we load and haul drywall, flooring, lumber, and demolition debris so you can focus on the build. Larger projects? Ask about trash trailer rentals.",
               "areaServed": { "@type": "City", "name": "Hubbard" },
               "provider": { "@id": "https://rankinwaste.com/#business" }
             }
@@ -219,7 +219,7 @@ import { PHONE, PHONE_LINK } from '../data/business';
         </p>
       </div>
 
-      {/* Junk Removal — image left */}
+      {/* Row 1 — Junk Removal — image LEFT */}
       <div data-reveal data-reveal-delay="0.1" class="mb-16 md:mb-24 grid md:grid-cols-2 gap-6 md:gap-16 items-center">
         <div class="rounded-2xl overflow-hidden">
           <img
@@ -242,32 +242,9 @@ import { PHONE, PHONE_LINK } from '../data/business';
         </div>
       </div>
 
-      {/* Furniture Removal — image RIGHT (md:order-2 / md:order-1 swap) */}
+      {/* Row 2 — Appliance Removal — image RIGHT (md:order-2 / md:order-1 swap) */}
       <div data-reveal data-reveal-delay="0.1" class="mb-16 md:mb-24 grid md:grid-cols-2 gap-6 md:gap-16 items-center">
         <div class="md:order-2 rounded-2xl overflow-hidden">
-          <img
-            src="/images/junk-removal/furniture.webp"
-            srcset="/images/junk-removal/furniture-mobile.webp 800w, /images/junk-removal/furniture.webp 1400w"
-            sizes="(min-width: 768px) 50vw, 100vw"
-            alt="Discarded armchair set out for furniture removal pickup"
-            width="1400"
-            height="1050"
-            loading="lazy"
-            decoding="async"
-            class="w-full aspect-[4/3] object-cover"
-          />
-        </div>
-        <div class="md:order-1">
-          <h2 class="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Furniture removal in Hubbard</h2>
-          <p class="text-text-muted text-base sm:text-lg leading-relaxed">
-            When you're replacing old couches, beds, tables, or downsizing your home, we take care of the furniture you no longer need. We bring proper equipment to handle heavy lifting without damaging your property. We know how to navigate the narrow stairs and doorways common in Hubbard homes.
-          </p>
-        </div>
-      </div>
-
-      {/* Appliance Removal — image left */}
-      <div data-reveal data-reveal-delay="0.1" class="mb-16 md:mb-24 grid md:grid-cols-2 gap-6 md:gap-16 items-center">
-        <div class="rounded-2xl overflow-hidden">
           <img
             src="/images/junk-removal/appliances.webp"
             srcset="/images/junk-removal/appliances-mobile.webp 800w, /images/junk-removal/appliances.webp 1400w"
@@ -280,7 +257,7 @@ import { PHONE, PHONE_LINK } from '../data/business';
             class="w-full aspect-[4/3] object-cover"
           />
         </div>
-        <div>
+        <div class="md:order-1">
           <h2 class="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Appliance removal in Hubbard</h2>
           <p class="text-text-muted text-base sm:text-lg leading-relaxed">
             Whether you're upgrading refrigerators, washers, dryers, or dealing with broken units, we remove appliances of all sizes. We handle safe disconnection when needed and provide eco-friendly disposal or recycling for metal components. Our service covers all residential areas throughout the Hubbard area. You don't need to worry about getting large appliances down stairs or through tight spaces.
@@ -288,7 +265,30 @@ import { PHONE, PHONE_LINK } from '../data/business';
         </div>
       </div>
 
-      {/* House Cleanouts — image RIGHT */}
+      {/* Row 3 — Furniture Removal — image LEFT */}
+      <div data-reveal data-reveal-delay="0.1" class="mb-16 md:mb-24 grid md:grid-cols-2 gap-6 md:gap-16 items-center">
+        <div class="rounded-2xl overflow-hidden">
+          <img
+            src="/images/junk-removal/furniture.webp"
+            srcset="/images/junk-removal/furniture-mobile.webp 800w, /images/junk-removal/furniture.webp 1400w"
+            sizes="(min-width: 768px) 50vw, 100vw"
+            alt="Discarded armchair set out for furniture removal pickup"
+            width="1400"
+            height="1050"
+            loading="lazy"
+            decoding="async"
+            class="w-full aspect-[4/3] object-cover"
+          />
+        </div>
+        <div>
+          <h2 class="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Furniture removal in Hubbard</h2>
+          <p class="text-text-muted text-base sm:text-lg leading-relaxed">
+            When you're replacing old couches, beds, tables, or downsizing your home, we take care of the furniture you no longer need. We bring proper equipment to handle heavy lifting without damaging your property. We know how to navigate the narrow stairs and doorways common in Hubbard homes.
+          </p>
+        </div>
+      </div>
+
+      {/* Row 4 — House & garage cleanouts — image RIGHT */}
       <div data-reveal data-reveal-delay="0.1" class="mb-16 md:mb-24 grid md:grid-cols-2 gap-6 md:gap-16 items-center">
         <div class="md:order-2 rounded-2xl overflow-hidden">
           <img
@@ -311,9 +311,32 @@ import { PHONE, PHONE_LINK } from '../data/business';
         </div>
       </div>
 
-      {/* Construction Debris — image left */}
+      {/* Row 5 — Yard Debris Removal — image LEFT */}
       <div data-reveal data-reveal-delay="0.1" class="mb-16 md:mb-24 grid md:grid-cols-2 gap-6 md:gap-16 items-center">
         <div class="rounded-2xl overflow-hidden">
+          <img
+            src="/images/junk-removal/yard-debris.webp"
+            srcset="/images/junk-removal/yard-debris-mobile.webp 800w, /images/junk-removal/yard-debris.webp 1400w"
+            sizes="(min-width: 768px) 50vw, 100vw"
+            alt="Black dumpster filled with branches, leaves, and yard debris on a Hubbard residential driveway"
+            width="1400"
+            height="1050"
+            loading="lazy"
+            decoding="async"
+            class="w-full aspect-[4/3] object-cover"
+          />
+        </div>
+        <div>
+          <h2 class="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Yard debris removal in Hubbard</h2>
+          <p class="text-text-muted text-base sm:text-lg leading-relaxed">
+            Homeowners with lawn cleanup needs, storm debris, and seasonal yard waste count on our yard debris removal service. We clear your property of organic waste, ensure proper composting facility disposal, and provide scheduled pickup. We serve residential areas throughout Hubbard and handle Texas native vegetation disposal requirements. Our team removes branches, leaves, grass clippings, and storm-damaged materials from your property year-round.
+          </p>
+        </div>
+      </div>
+
+      {/* Row 6 — Construction Debris Removal — image RIGHT */}
+      <div data-reveal data-reveal-delay="0.1" class="mb-16 md:mb-24 grid md:grid-cols-2 gap-6 md:gap-16 items-center">
+        <div class="md:order-2 rounded-2xl overflow-hidden">
           <img
             src="/images/junk-removal/construction-debris.webp"
             srcset="/images/junk-removal/construction-debris-mobile.webp 800w, /images/junk-removal/construction-debris.webp 1400w"
@@ -326,10 +349,33 @@ import { PHONE, PHONE_LINK } from '../data/business';
             class="w-full aspect-[4/3] object-cover"
           />
         </div>
-        <div>
+        <div class="md:order-1">
           <h2 class="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Construction debris removal in Hubbard</h2>
           <p class="text-text-muted text-base sm:text-lg leading-relaxed">
             Contractors and homeowners with renovation or demolition waste can use our services as a dumpster alternative with labor included. We handle loading and hauling of construction materials, drywall, flooring, and demolition debris. We are familiar with Hubbard building sites and local disposal requirements. For larger projects you'd rather load yourself, ask about our trash trailer rentals. You focus on your project while we manage the cleanup and debris removal.
+          </p>
+        </div>
+      </div>
+
+      {/* Row 7 — Electronic Waste Removal & Disposal — image LEFT */}
+      <div data-reveal data-reveal-delay="0.1" class="mb-16 md:mb-24 grid md:grid-cols-2 gap-6 md:gap-16 items-center">
+        <div class="rounded-2xl overflow-hidden">
+          <img
+            src="/images/junk-removal/e-waste.webp"
+            srcset="/images/junk-removal/e-waste-mobile.webp 800w, /images/junk-removal/e-waste.webp 1400w"
+            sizes="(min-width: 768px) 50vw, 100vw"
+            alt="Bin filled with old computers, monitors, and electronic equipment at a recycling facility"
+            width="1400"
+            height="1050"
+            loading="lazy"
+            decoding="async"
+            class="w-full aspect-[4/3] object-cover"
+          />
+        </div>
+        <div>
+          <h2 class="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Electronic waste removal & disposal in Hubbard</h2>
+          <p class="text-text-muted text-base sm:text-lg leading-relaxed">
+            Residents disposing old computers, TVs, and phones rely on our electronic waste removal service, as do businesses upgrading equipment. You receive environmentally safe e-waste recycling, data destruction when needed, and certified disposal tracking. We stay compliant with Texas e-waste regulations and offer pickup for Hubbard area properties. Our service handles televisions, computer monitors, cell phones, printers, and other electronic devices safely.
           </p>
         </div>
       </div>
