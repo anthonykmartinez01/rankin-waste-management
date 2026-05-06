@@ -51,9 +51,13 @@ interface Props {
   image?: string;
   /** Override OG/Twitter image alt text. */
   imageAlt?: string;
+  /** When true, emits noindex,nofollow,noarchive robots meta + canonical
+      omitted from sitemap. Use for legal/utility pages we don't want in
+      Google's index (terms, privacy). */
+  noindex?: boolean;
 }
 
-const { title, description, image, imageAlt } = Astro.props;
+const { title, description, image, imageAlt, noindex = false } = Astro.props;
 
 const SITE_URL = 'https://rankinwaste.com';
 const DEFAULT_OG_IMAGE = `${SITE_URL}/truck-side.webp`;
@@ -81,6 +85,9 @@ const resolvedImageAlt = imageAlt ?? DEFAULT_OG_IMAGE_ALT;
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    {noindex && (
+      <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
+    )}
 
     {/* Open Graph (per-page) */}
     <meta property="og:title" content={title} />
