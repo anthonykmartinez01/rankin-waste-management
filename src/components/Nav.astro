@@ -34,13 +34,18 @@
 //     no BRAND_SHORT constant exists pre-migration.
 import { PHONE, PHONE_LINK } from '../data/business';
 import PhoneIcon from './icons/PhoneIcon.astro';
+import ChevronIcon from './icons/ChevronIcon.astro';
 
-const NAV_LINKS = [
-  { label: 'Residential', href: '/residential' },
-  { label: 'Trash Trailer Rentals', href: '/trash-trailer-rentals' },
-  { label: 'About Us', href: '/about-us' },
-  { label: 'Contact Us', href: '/contact-us' },
-  { label: 'Reviews', href: '/reviews' },
+// Header now exposes a single "Services" dropdown listing the four
+// primary GBP service categories. Other top-level pages (Residential,
+// Trash Trailer Rentals, About Us, Contact Us, Reviews) remain
+// reachable via footer + internal links / sitemap, just not in the
+// main nav.
+const SERVICE_LINKS = [
+  { label: 'Waste Management Service', href: '/waste-management-service-hubbard' },
+  { label: 'Garbage Collection Service', href: '/garbage-collection-service-hubbard' },
+  { label: 'Junk Removal Service', href: '/junk-removal-service-hubbard' },
+  { label: 'Dumpster Rental Service', href: '/dumpster-rental-service-hubbard' },
 ];
 ---
 
@@ -73,11 +78,22 @@ const NAV_LINKS = [
 
     {/* Desktop nav links + CTA */}
     <div class="hidden lg:flex items-center gap-8 text-[0.9rem] font-medium">
-      {NAV_LINKS.map((link) => (
-        <a href={link.href} class="opacity-70 hover:opacity-100 transition-opacity duration-300">
-          {link.label}
-        </a>
-      ))}
+      <details data-desktop-services class="relative">
+        <summary class="list-none cursor-pointer flex items-center gap-1.5 opacity-70 hover:opacity-100 transition-opacity duration-300 select-none">
+          Services
+          <ChevronIcon />
+        </summary>
+        <div class="absolute right-0 top-full mt-3 w-72 bg-dark/95 backdrop-blur-lg border border-border-subtle rounded-lg shadow-xl py-2">
+          {SERVICE_LINKS.map((link) => (
+            <a
+              href={link.href}
+              class="block px-5 py-3 text-white/80 hover:text-white hover:bg-white/5 transition-colors duration-200"
+            >
+              {link.label}
+            </a>
+          ))}
+        </div>
+      </details>
       <button
         data-desktop-cta
         type="button"
@@ -115,21 +131,29 @@ const NAV_LINKS = [
     */}
     <div
       data-mobile-menu-drawer
-      class="absolute top-20 left-0 w-full bg-dark/95 backdrop-blur-lg border-t border-border-subtle lg:hidden flex flex-col px-6 py-6 gap-4"
+      class="absolute top-20 left-0 w-full bg-dark/95 backdrop-blur-lg border-t border-border-subtle lg:hidden flex flex-col px-6 py-6 gap-2"
     >
-      {NAV_LINKS.map((link) => (
-        <a
-          data-mobile-link
-          href={link.href}
-          class="text-white/70 hover:text-white font-medium text-[0.9rem] py-2 transition-colors duration-300"
-        >
-          {link.label}
-        </a>
-      ))}
+      <details data-mobile-services class="group">
+        <summary class="list-none cursor-pointer flex items-center justify-between text-white/70 hover:text-white font-medium text-[0.9rem] py-2 transition-colors duration-300 select-none">
+          <span>Services</span>
+          <ChevronIcon />
+        </summary>
+        <div class="flex flex-col pl-4 mt-2 gap-1 border-l border-border-subtle">
+          {SERVICE_LINKS.map((link) => (
+            <a
+              data-mobile-link
+              href={link.href}
+              class="text-white/70 hover:text-white text-[0.9rem] py-2 pl-3 transition-colors duration-300"
+            >
+              {link.label}
+            </a>
+          ))}
+        </div>
+      </details>
       <button
         data-mobile-cta
         type="button"
-        class="bg-orange-500 text-white px-5 py-3 rounded-full font-semibold text-[0.9rem] hover:bg-orange-600 transition-colors duration-300 min-h-[44px] mt-2"
+        class="bg-orange-500 text-white px-5 py-3 rounded-full font-semibold text-[0.9rem] hover:bg-orange-600 transition-colors duration-300 min-h-[44px] mt-4"
       >
         New Service Request
       </button>
@@ -195,6 +219,17 @@ const NAV_LINKS = [
     if (desktopCta) {
       desktopCta.addEventListener('click', () => {
         document.dispatchEvent(new CustomEvent('open-service-modal'));
+      });
+    }
+
+    // Desktop services dropdown: close on outside click or link click.
+    const desktopServices = document.querySelector('[data-desktop-services]');
+    if (desktopServices) {
+      desktopServices.querySelectorAll('a').forEach((a) => {
+        a.addEventListener('click', () => desktopServices.removeAttribute('open'));
+      });
+      document.addEventListener('click', (e) => {
+        if (!desktopServices.contains(e.target)) desktopServices.removeAttribute('open');
       });
     }
   })();
