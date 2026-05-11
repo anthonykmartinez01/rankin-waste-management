@@ -204,7 +204,7 @@ const ROUTES = [
     path: '/dumpster-rental-service-hubbard',
     file: 'dist/dumpster-rental-service-hubbard/index.html',
     title: 'Dumpster Rental Service Hubbard TX | Rankin Waste Management',
-    description: 'Professional dumpster rental service in Hubbard, TX. Residential cleanouts and commercial waste containers. Local delivery and pickup by Rankin Waste Management.',
+    description: 'Dumpster rental in Hubbard, TX — 16-ft trash trailers with 20-yard capacity. Same-day delivery, week-long rentals, flat-rate pricing, no contracts. Family-owned by Tommy & Sydney Rankin. Call (254) 205-6125.',
     canonical: 'https://rankinwaste.com/dumpster-rental-service-hubbard',
     ogImage: 'https://rankinwaste.com/images/services/dumpster-rental.webp',
     dataRevealCount: 5,
