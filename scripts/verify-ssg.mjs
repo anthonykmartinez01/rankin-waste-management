@@ -209,7 +209,7 @@ const ROUTES = [
     ogImage: 'https://rankinwaste.com/images/services/dumpster-rental.webp',
     dataRevealCount: 4,
     schemas: [
-      { key: 'Service', bytes: 3906 },
+      { key: 'Service', bytes: 4269 },
       { key: 'BreadcrumbList', bytes: 303 },
     ],
     custom: (body, head) => [
