@@ -207,7 +207,7 @@ const ROUTES = [
     description: 'Professional dumpster rental service in Hubbard, TX. Residential cleanouts and commercial waste containers. Local delivery and pickup by Rankin Waste Management.',
     canonical: 'https://rankinwaste.com/dumpster-rental-service-hubbard',
     ogImage: 'https://rankinwaste.com/images/services/dumpster-rental.webp',
-    dataRevealCount: 4,
+    dataRevealCount: 5,
     schemas: [
       { key: 'Service', bytes: 4269 },
       { key: 'BreadcrumbList', bytes: 303 },
