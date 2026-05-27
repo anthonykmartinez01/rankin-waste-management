@@ -79,10 +79,12 @@ import { PHONE, PHONE_LINK } from '../data/business';
         "postalCode": "76648",
         "addressCountry": "US"
       },
-      "areaServed": {
-        "@type": "City",
-        "name": "Hubbard, TX"
-      }
+      "areaServed": [
+        { "@type": "City", "name": "Hubbard, TX" },
+        { "@type": "AdministrativeArea", "name": "Hill County, TX" },
+        { "@type": "AdministrativeArea", "name": "McLennan County, TX" },
+        { "@type": "AdministrativeArea", "name": "Navarro County, TX" }
+      ]
     })} />
 
     {/* Service schema with provider LocalBusiness, OfferCatalog (4 offers),
@@ -160,14 +162,19 @@ import { PHONE, PHONE_LINK } from '../data/business';
           }
         ]
       },
-      "areaServed": {
-        "@type": "City",
-        "name": "Hubbard",
-        "containedInPlace": {
-          "@type": "State",
-          "name": "Texas"
-        }
-      },
+      "areaServed": [
+        {
+          "@type": "City",
+          "name": "Hubbard, TX",
+          "containedInPlace": {
+            "@type": "State",
+            "name": "Texas"
+          }
+        },
+        { "@type": "AdministrativeArea", "name": "Hill County, TX" },
+        { "@type": "AdministrativeArea", "name": "McLennan County, TX" },
+        { "@type": "AdministrativeArea", "name": "Navarro County, TX" }
+      ],
       "hasOfferCatalog": {
         "@type": "OfferCatalog",
         "name": "Waste Management Services in Hubbard",
@@ -219,6 +226,7 @@ import { PHONE, PHONE_LINK } from '../data/business';
 
   <InnerHero
     title="Waste Management Service in Hubbard"
+    subtitle="Serving Hubbard, Hill County, McLennan County & Navarro County, TX"
     bgImage="/images/services/waste-management.webp"
     bgImageMobile="/images/services/waste-management-mobile.webp"
     bgImageAlt="Rankin Waste branded curbside trash bin next to service truck"
@@ -230,7 +238,7 @@ import { PHONE, PHONE_LINK } from '../data/business';
       {/* Intro */}
       <div data-reveal class="mb-12 md:mb-16 text-center">
         <p class="text-text-muted text-base sm:text-lg leading-relaxed">
-          In Hubbard, residents and businesses need reliable waste removal solutions. We provide complete trash collection services across the area. Find the right pickup schedule and service type for your property. Professional waste management keeps your property clean and compliant with local regulations.
+          Rankin Waste Management provides reliable waste removal across Hubbard and the surrounding three counties — Hill, McLennan, and Navarro — covering in-town residents, rural properties, and local businesses alike. We offer complete trash collection services with the right pickup schedule and service type for your property, keeping things clean and compliant with local regulations.
         </p>
       </div>
 

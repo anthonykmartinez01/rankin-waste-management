@@ -13,6 +13,11 @@
 
 interface Props {
   title: string;
+  // Optional subhead rendered directly under the H1. Use for short
+  // service-area lines (e.g. "Serving Hubbard, Hill County..." ) — keeps
+  // the H1 itself tight and GBP-aligned while still surfacing wider
+  // coverage above the fold.
+  subtitle?: string;
   bgImage?: string;
   bgImageAlt?: string;
   bgImageMobile?: string;
@@ -26,7 +31,7 @@ interface Props {
   bgImagePosition?: string;
 }
 
-const { title, bgImage, bgImageAlt = '', bgImageMobile, bgImageFit = 'cover', bgImagePosition = '' } = Astro.props;
+const { title, subtitle, bgImage, bgImageAlt = '', bgImageMobile, bgImageFit = 'cover', bgImagePosition = '' } = Astro.props;
 const objectFitClass = bgImageFit === 'contain' ? 'object-contain' : 'object-cover';
 ---
 
@@ -49,12 +54,18 @@ const objectFitClass = bgImageFit === 'contain' ? 'object-contain' : 'object-cov
     <div class="absolute inset-0 bg-black/60" aria-hidden="true" />
     <div class="relative max-w-[1200px] mx-auto px-6 lg:px-[clamp(2rem,5vw,4rem)] text-center">
       <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight">{title}</h1>
+      {subtitle && (
+        <p class="mt-3 md:mt-4 text-base md:text-lg lg:text-xl text-white/85 font-medium tracking-tight">{subtitle}</p>
+      )}
     </div>
   </div>
 ) : (
   <div class="pt-36 pb-12 md:pt-40 md:pb-16 bg-dark-elevated border-b border-border-subtle">
     <div class="max-w-[1200px] mx-auto px-6 lg:px-[clamp(2rem,5vw,4rem)]">
       <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight">{title}</h1>
+      {subtitle && (
+        <p class="mt-3 md:mt-4 text-base md:text-lg lg:text-xl text-text-muted font-medium tracking-tight">{subtitle}</p>
+      )}
     </div>
   </div>
 )}

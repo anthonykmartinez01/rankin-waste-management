@@ -176,7 +176,7 @@ const ROUTES = [
     ogImage: 'https://rankinwaste.com/images/services/junk-removal.webp',
     dataRevealCount: 9,
     schemas: [
-      { key: 'Service', bytes: 6170 },
+      { key: 'Service', bytes: 6351 },
       { key: 'BreadcrumbList', bytes: 297 },
     ],
     custom: (body, head) => [
@@ -209,7 +209,7 @@ const ROUTES = [
     ogImage: 'https://rankinwaste.com/images/services/dumpster-rental.webp',
     dataRevealCount: 5,
     schemas: [
-      { key: 'Service', bytes: 4323 },
+      { key: 'Service', bytes: 4504 },
       { key: 'BreadcrumbList', bytes: 307 },
     ],
     custom: (body, head) => [
@@ -240,7 +240,7 @@ const ROUTES = [
     ogImage: 'https://rankinwaste.com/truck-side.webp',
     dataRevealCount: 5,
     schemas: [
-      { key: 'Service', bytes: 4424 },
+      { key: 'Service', bytes: 4605 },
       { key: 'BreadcrumbList', bytes: 309 },
     ],
     custom: (body, head) => [
@@ -267,8 +267,8 @@ const ROUTES = [
     ogImage: 'https://rankinwaste.com/truck-side.webp',
     dataRevealCount: 6,
     schemas: [
-      { key: 'Organization', bytes: 389 },
-      { key: 'Service', bytes: 5194 },
+      { key: 'Organization', bytes: 566 },
+      { key: 'Service', bytes: 5375 },
     ],
     custom: (body, head) => [
       ['H1 = "Waste Management Service in Hubbard"',
@@ -277,7 +277,11 @@ const ROUTES = [
       ['Service schema present (rich-result eligible)', head.includes('"@type":"Service","@id":"https://rankinwaste.com/waste-management-service-hubbard/#service"')],
       ['Service has 4 OfferCatalog items', (head.match(/"@type":"Offer","itemOffered":/g) || []).length === 4],
       ['Service aggregateRating reviewCount=284', head.includes('"reviewCount":"284"')],
-      ['areaServed City "Hubbard, TX" (Organization)', head.includes('"areaServed":{"@type":"City","name":"Hubbard, TX"}')],
+      ['areaServed includes Hubbard + 3 counties (Organization)',
+        head.includes('"areaServed":[{"@type":"City","name":"Hubbard, TX"}') &&
+        head.includes('"name":"Hill County, TX"') &&
+        head.includes('"name":"McLennan County, TX"') &&
+        head.includes('"name":"Navarro County, TX"')],
       ['bgImage hero present', body.includes('/images/services/waste-management.webp')],
       ['4 page-content imgs',
         (body.match(/\/images\/hubbard\/[a-z-]+\.webp/g) || []).length >= 4],

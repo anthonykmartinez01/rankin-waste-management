@@ -125,14 +125,19 @@ import { PHONE, PHONE_LINK } from '../data/business';
           }
         ]
       },
-      "areaServed": {
-        "@type": "City",
-        "name": "Hubbard",
-        "containedInPlace": {
-          "@type": "State",
-          "name": "Texas"
-        }
-      },
+      "areaServed": [
+        {
+          "@type": "City",
+          "name": "Hubbard, TX",
+          "containedInPlace": {
+            "@type": "State",
+            "name": "Texas"
+          }
+        },
+        { "@type": "AdministrativeArea", "name": "Hill County, TX" },
+        { "@type": "AdministrativeArea", "name": "McLennan County, TX" },
+        { "@type": "AdministrativeArea", "name": "Navarro County, TX" }
+      ],
       "hasOfferCatalog": {
         "@type": "OfferCatalog",
         "name": "Garbage Collection Services in Hubbard",
@@ -184,6 +189,7 @@ import { PHONE, PHONE_LINK } from '../data/business';
 
   <InnerHero
     title="Garbage Collection Service in Hubbard"
+    subtitle="Serving Hubbard, Hill County, McLennan County & Navarro County, TX"
     bgImage="/images/services/garbage-collection.webp"
     bgImageMobile="/images/services/garbage-collection-mobile.webp"
     bgImageAlt="Rankin Waste truck collecting garbage on a Hubbard residential street"
@@ -195,7 +201,7 @@ import { PHONE, PHONE_LINK } from '../data/business';
       {/* Intro */}
       <div data-reveal class="mb-12 md:mb-16 text-center">
         <p class="text-text-muted text-base sm:text-lg leading-relaxed">
-          In Hubbard, reliable waste removal keeps homes and businesses clean. You can expect professional pickup on schedule with proper disposal methods. Our local service handles all waste types efficiently.
+          Reliable garbage collection keeps homes and businesses clean across Hubbard and the surrounding three counties — Hill, McLennan, and Navarro. You can expect professional pickup on schedule with proper disposal methods, whether you're in town or on a rural property well outside the city limits. Our local service handles all waste types efficiently.
         </p>
       </div>
 

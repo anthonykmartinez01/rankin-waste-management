@@ -107,14 +107,19 @@ import { PHONE, PHONE_LINK } from '../data/business';
           }
         ]
       },
-      "areaServed": {
-        "@type": "City",
-        "name": "Hubbard",
-        "containedInPlace": {
-          "@type": "State",
-          "name": "Texas"
-        }
-      },
+      "areaServed": [
+        {
+          "@type": "City",
+          "name": "Hubbard, TX",
+          "containedInPlace": {
+            "@type": "State",
+            "name": "Texas"
+          }
+        },
+        { "@type": "AdministrativeArea", "name": "Hill County, TX" },
+        { "@type": "AdministrativeArea", "name": "McLennan County, TX" },
+        { "@type": "AdministrativeArea", "name": "Navarro County, TX" }
+      ],
       "hasOfferCatalog": {
         "@type": "OfferCatalog",
         "name": "Dump Trailer Rental Services in Hubbard",
@@ -156,6 +161,7 @@ import { PHONE, PHONE_LINK } from '../data/business';
 
   <InnerHero
     title="Dump Trailer Rental Service in Hubbard"
+    subtitle="Serving Hubbard, Hill County, McLennan County & Navarro County, TX"
     bgImage="/images/services/dumpster-rental.webp"
     bgImageMobile="/images/services/dumpster-rental-mobile.webp"
     bgImageAlt="Black dump trailer loaded with debris parked in a Hubbard field at sunset"
@@ -195,7 +201,7 @@ import { PHONE, PHONE_LINK } from '../data/business';
             Homeowners tackling garage cleanouts, attic and shed clearings, home renovations, yard projects, and move-outs need a waste solution that's easier to load than a steel roll-off and big enough to actually finish the job. Our 14-yard dump trailers give you the capacity you need with lower walls you don't have to heave debris over and tires that won't damage your driveway.
           </p>
           <p class="text-text-muted text-base sm:text-lg leading-relaxed mb-4 md:mb-6">
-            We deliver across every residential area in Hubbard, including in-town homes, county-line properties, and rural addresses well outside the city limits. Standard rentals start at 3 days, with additional days available upon request, so you can load at your own pace. Most Hubbard customers can get same-day or next-day delivery — just give us a call in the morning. From single-room remodels and yard overhauls to full estate cleanouts, this is the right service for almost any home project.
+            We deliver across every residential area in Hubbard, Hill County, McLennan County, and Navarro County, including in-town homes, county-line properties, and rural addresses well outside the city limits. Standard rentals start at 3 days, with additional days available upon request, so you can load at your own pace. Most Hubbard customers can get same-day or next-day delivery — just give us a call in the morning. From single-room remodels and yard overhauls to full estate cleanouts, this is the right service for almost any home project.
           </p>
           <a href="/trash-trailer-rentals" class="inline-flex items-center gap-1 text-orange-500 hover:text-orange-300 font-semibold text-sm sm:text-base transition-colors duration-300">
             Learn more about our trash trailer rentals &rarr;

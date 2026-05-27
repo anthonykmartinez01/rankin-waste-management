@@ -105,14 +105,19 @@ import { PHONE, PHONE_LINK } from '../data/business';
           }
         ]
       },
-      "areaServed": {
-        "@type": "City",
-        "name": "Hubbard",
-        "containedInPlace": {
-          "@type": "State",
-          "name": "Texas"
-        }
-      },
+      "areaServed": [
+        {
+          "@type": "City",
+          "name": "Hubbard, TX",
+          "containedInPlace": {
+            "@type": "State",
+            "name": "Texas"
+          }
+        },
+        { "@type": "AdministrativeArea", "name": "Hill County, TX" },
+        { "@type": "AdministrativeArea", "name": "McLennan County, TX" },
+        { "@type": "AdministrativeArea", "name": "Navarro County, TX" }
+      ],
       "hasOfferCatalog": {
         "@type": "OfferCatalog",
         "name": "Junk Removal Services in Hubbard",
@@ -204,6 +209,7 @@ import { PHONE, PHONE_LINK } from '../data/business';
 
   <InnerHero
     title="Junk Removal Service in Hubbard"
+    subtitle="Serving Hubbard, Hill County, McLennan County & Navarro County, TX"
     bgImage="/images/services/junk-removal.webp"
     bgImageMobile="/images/services/junk-removal-mobile.webp"
     bgImageAlt="Rankin Waste pickup truck pulling black trailer for junk removal"
@@ -215,7 +221,7 @@ import { PHONE, PHONE_LINK } from '../data/business';
       {/* Intro */}
       <div data-reveal class="mb-12 md:mb-16 text-center">
         <p class="text-text-muted text-base sm:text-lg leading-relaxed">
-          In Hubbard, residents and businesses need reliable waste removal when clutter builds up or projects create debris. Our junk removal service in Hubbard handles everything from old furniture to construction waste. Same-day pickup available with upfront quotes. We take care of the removal and make sure your waste is disposed of properly.
+          Residents and businesses across Hubbard and the surrounding three counties — Hill, McLennan, and Navarro — need reliable junk removal when clutter builds up or projects create debris. Our service handles everything from old furniture to construction waste, whether you're in town or on a rural property well outside the city limits. Same-day pickup available with upfront quotes. We take care of the removal and make sure your waste is disposed of properly.
         </p>
       </div>
 
