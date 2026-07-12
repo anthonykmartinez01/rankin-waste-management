@@ -1,0 +1,39 @@
+---
+// src/pages/404.astro
+//
+// Custom 404. Astro builds this to dist/404.html, which Netlify serves for
+// any unmatched route (with a real 404 status). It is also the redirect
+// target for scheduleGuard() — future-dated pages bounce here until their
+// publish date passes. `noindex` keeps it (and, by extension, any not-yet-
+// live scheduled page pointing here) out of the search index.
+import Layout from '../layouts/Layout.astro';
+import CallCTA from '../components/CallCTA.astro';
+---
+
+<Layout
+  title="Page Not Found | Rankin Waste Management"
+  description="The page you're looking for isn't here. Call Rankin Waste Management at (254) 205-6125 or head back home."
+  noindex
+>
+  <section class="px-6 lg:px-[clamp(2rem,5vw,4rem)] pt-40 pb-24 md:pt-44 md:pb-32">
+    <div class="max-w-[640px] mx-auto text-center">
+      <p class="text-orange-500 font-bold text-5xl md:text-6xl tracking-tight mb-4">404</p>
+      <h1 class="text-3xl md:text-4xl font-bold tracking-tight mb-5">Page Not Found</h1>
+      <p class="text-text-muted text-base sm:text-lg leading-relaxed mb-8">
+        The page you're looking for doesn't exist or may have moved. Let's get you back on track &mdash; head home, or give us a call and we'll point you the right way.
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <CallCTA />
+        <a
+          href="/"
+          class="inline-flex items-center justify-center px-7 py-3.5 rounded-full font-bold text-base border border-border-subtle text-white hover:border-orange-500 hover:text-orange-300 transition-colors duration-300 min-h-[44px]"
+        >
+          Back Home
+        </a>
+      </div>
+      <p class="mt-8 text-sm">
+        <a href="/service-areas" class="text-text-muted hover:text-orange-500 transition-colors duration-300">Browse our service areas &rarr;</a>
+      </p>
+    </div>
+  </section>
+</Layout>

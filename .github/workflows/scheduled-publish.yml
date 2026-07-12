@@ -1,0 +1,69 @@
+# ─────────────────────────────────────────────────────────────────────────
+# WHY THIS WORKFLOW EXISTS
+# ─────────────────────────────────────────────────────────────────────────
+# rankinwaste.com is hosted on Netlify, but the Netlify site is NOT git-linked.
+# A `git push` deploys NOTHING on its own — that's intentional, so work in
+# progress (including not-yet-live scheduled pages) can be pushed safely any
+# time without leaking to production.
+#
+# The trade-off: scheduled pages (see src/lib/schedule.ts) can't go live by
+# themselves either. Publishing is decided at BUILD time — a future-dated page
+# is redirected to /404 and left out of the sitemap until a build runs after
+# its date. Nothing rebuilds unless a human deploys... or this workflow does.
+#
+# THIS is that missing piece: it rebuilds and redeploys the site once a day so
+# a page dated "tomorrow" actually appears tomorrow with no manual deploy. It
+# deploys with the Netlify CLI directly (production), NOT via any git auto-
+# deploy — there isn't one.
+# ─────────────────────────────────────────────────────────────────────────
+
+name: Scheduled Publish
+
+on:
+  schedule:
+    # 08:00 UTC daily = 3:00 AM CDT (UTC-5, summer) / 2:00 AM CST (UTC-6, winter).
+    # A page dated YYYY-MM-DD is eligible at 00:00 UTC that day; this run
+    # (08:00 UTC) is the one that actually deploys it — so an Aug 15 page goes
+    # live ~3:00 AM Central on the morning of Aug 15.
+    # NOTE: GitHub cron can lag several minutes under load; it is not exact.
+    - cron: "0 8 * * *"
+  # Lets you trigger a production deploy by hand from the Actions tab
+  # (e.g. to publish a page the moment its date passes, without waiting for 8 UTC).
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+# Never let two publishes overlap.
+concurrency:
+  group: scheduled-publish
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22" # matches netlify.toml NODE_VERSION
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build site
+        # Build time = "now" for the schedule gate. Pages whose date has passed
+        # by this moment build live; still-future pages redirect to /404 and are
+        # dropped from the sitemap.
+        run: npm run build
+
+      - name: Deploy to Netlify (production)
+        run: npx --yes netlify-cli@17 deploy --dir=dist --prod --message "Scheduled publish $(date -u +'%Y-%m-%dT%H:%MZ')"
+        env:
+          # Netlify CLI reads both of these from the environment automatically.
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}

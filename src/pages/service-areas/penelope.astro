@@ -22,6 +22,14 @@ import ReviewWidget from '../../components/ReviewWidget.tsx';
 import FaqAccordion from '../../components/FaqAccordion.tsx';
 import type { Faq } from '../../data/faqs';
 import { PHONE, PHONE_LINK } from '../../data/business';
+import { scheduleGuard } from '../../lib/schedule';
+
+// ── Scheduled-publishing guard (copy these 3 lines to schedule any page) ──
+// Inert here: '/service-areas/penelope' is not in src/lib/schedule.ts, so the
+// guard returns null and the page renders normally. Add a future date for
+// this path to the registry and it would redirect to /404 until that date.
+const guard = scheduleGuard(Astro);
+if (guard) return guard;
 
 const PENELOPE_FAQS: Faq[] = [
   {
