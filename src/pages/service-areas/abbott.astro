@@ -1,0 +1,340 @@
+---
+// src/pages/service-areas/abbott.astro
+//
+// Abbott, TX location page. Linked from the /service-areas hub. Follows the
+// Penelope/Hubbard design: bgImage InnerHero + alternating image/text sections
+// + FaqAccordion (with FAQPage schema) + ReviewWidget + CTA.
+//
+// NOT scheduled — published immediately (no scheduleGuard on this page).
+//
+// SOURCE COPY: adapted from client-provided HTML with light grammar cleanup of
+// dropped-word artifacts (sentences that began mid-clause). Meaning + voice
+// preserved. Abbott, TX is in Hill County (Willie Nelson's hometown); the
+// source is consistent on that.
+import Layout from '../../layouts/Layout.astro';
+import InnerHero from '../../components/InnerHero.astro';
+import CallCTA from '../../components/CallCTA.astro';
+import ReviewWidget from '../../components/ReviewWidget.tsx';
+import FaqAccordion from '../../components/FaqAccordion.tsx';
+import type { Faq } from '../../data/faqs';
+import { PHONE, PHONE_LINK } from '../../data/business';
+
+const ABBOTT_FAQS: Faq[] = [
+  {
+    q: 'How do you handle trash pickup for homes way off the main road near Abbott?',
+    a: 'We build extra time into our routes for homes set back on long gravel driveways near Abbott. Since our office is a short haul away in Hubbard, we already know these county roads well. That means your pickup day stays consistent, even on rural stretches without curbside access.',
+  },
+  {
+    q: "What's different about trash service for older farm properties around Abbott?",
+    a: 'Older Abbott properties often have barns, sheds, or chicken coops holding years of extra junk. That means more than weekly trash, like old fencing, feed sacks, or broken equipment parts. We handle bulk pickup and cleanouts for these outbuildings, not just the regular household can.',
+  },
+  {
+    q: 'Will muddy driveways after rain delay my pickup near Abbott?',
+    a: "Rain can soften gravel and caliche driveways around Abbott, so we plan pickups with that in mind. Our drivers know which properties have long drives or cattle guards before reaching the house. If a gate's locked or a driveway looks too soft, we call ahead first.",
+  },
+];
+---
+
+<Layout
+  title="Waste Management Service Near Abbott, TX | Rankin Waste"
+  description="Reliable weekly trash pickup and rural waste service near Abbott, TX. Family-owned, no contracts, flat-rate pricing. 250+ five-star reviews. Call (254) 205-6125."
+  image="/images/abbott/hero.webp"
+  imageAlt="Rankin Waste collection service at a rural farm driveway near Abbott, TX"
+>
+  <Fragment slot="head">
+    {/* Service schema — provider LocalBusiness + AggregateRating + reviews +
+        areaServed (Abbott + counties). Matches the Penelope/Hubbard pattern. */}
+    <script is:inline type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "@id": "https://rankinwaste.com/service-areas/abbott/#service",
+      "name": "Waste Management Service Near Abbott, TX",
+      "description": "Weekly curbside trash pickup and rural waste service near Abbott, TX. Family-owned, no contracts, flat-rate pricing — junk removal, bulk trash, cleanouts, and dumpster rental for rural homes, farms, and long gravel driveways served from nearby Hubbard.",
+      "serviceType": "Waste management service",
+      "category": "Waste Management Service",
+      "url": "https://rankinwaste.com/service-areas/abbott/",
+      "provider": {
+        "@type": "LocalBusiness",
+        "@id": "https://rankinwaste.com/#business",
+        "name": "Rankin Waste Management",
+        "telephone": "+1-254-205-6125",
+        "email": "rankinwaste@gmail.com",
+        "url": "https://rankinwaste.com/",
+        "image": "https://rankinwaste.com/rw-logo.webp",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "175 PR335",
+          "addressLocality": "Hubbard",
+          "addressRegion": "TX",
+          "postalCode": "76648",
+          "addressCountry": "US"
+        },
+        "priceRange": "$$",
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+            "opens": "08:00",
+            "closes": "18:00"
+          }
+        ],
+        "sameAs": [
+          "https://www.facebook.com/p/Rankin-waste-management-100057417520840/"
+        ],
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "5.0",
+          "reviewCount": "284",
+          "bestRating": "5",
+          "worstRating": "1"
+        },
+        "review": [
+          {
+            "@type": "Review",
+            "author": { "@type": "Person", "name": "Linda Mcnutt" },
+            "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+            "reviewBody": "Rankin Waste Management has been our weekly waste pick up for several years and have been reliable and often pick up extra bags for us at no extra cost. I would certainly recommend them."
+          },
+          {
+            "@type": "Review",
+            "author": { "@type": "Person", "name": "Buffy Nehring" },
+            "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+            "reviewBody": "They are a family owned business. They are always on time for pickup. They provide amazing customer service. They have quick response should you have questions. They treat you like family not just another account. They have great pricing. I highly recommend them."
+          }
+        ]
+      },
+      "areaServed": [
+        {
+          "@type": "City",
+          "name": "Abbott, TX",
+          "containedInPlace": { "@type": "AdministrativeArea", "name": "Hill County, TX" }
+        },
+        { "@type": "AdministrativeArea", "name": "Hill County, TX" },
+        { "@type": "AdministrativeArea", "name": "McLennan County, TX" },
+        { "@type": "AdministrativeArea", "name": "Navarro County, TX" },
+        { "@type": "AdministrativeArea", "name": "Limestone County, TX" }
+      ]
+    })} />
+
+    {/* FAQPage schema — mirrors the visible FaqAccordion below. */}
+    <script is:inline type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": ABBOTT_FAQS.map((f) => ({
+        "@type": "Question",
+        "name": f.q,
+        "acceptedAnswer": { "@type": "Answer", "text": f.a }
+      }))
+    })} />
+
+    {/* BreadcrumbList — Home → Service Areas → Abbott. */}
+    <script is:inline type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://rankinwaste.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Service Areas", "item": "https://rankinwaste.com/service-areas" },
+        { "@type": "ListItem", "position": 3, "name": "Abbott, TX", "item": "https://rankinwaste.com/service-areas/abbott" }
+      ]
+    })} />
+  </Fragment>
+
+  <InnerHero
+    title="Waste Management Service Near Abbott, TX"
+    subtitle="Serving Abbott & Rural Hill County, TX"
+    bgImage="/images/abbott/hero.webp"
+    bgImageMobile="/images/abbott/hero-mobile.webp"
+    bgImageAlt="Rankin Waste collection service at a rural farm driveway near Abbott, TX"
+  />
+
+  <section class="px-5 sm:px-6 lg:px-[clamp(2rem,5vw,4rem)] py-12 md:py-20 lg:py-28">
+    <div class="max-w-[1300px] mx-auto">
+
+      {/* Breadcrumb — visible internal link back to the hub */}
+      <nav aria-label="Breadcrumb" class="mb-8 md:mb-12">
+        <ol class="flex flex-wrap items-center gap-2 text-sm text-text-muted">
+          <li><a href="/" class="hover:text-orange-500 transition-colors duration-300">Home</a></li>
+          <li aria-hidden="true">/</li>
+          <li><a href="/service-areas" class="hover:text-orange-500 transition-colors duration-300">Service Areas</a></li>
+          <li aria-hidden="true">/</li>
+          <li class="text-white font-medium" aria-current="page">Abbott, TX</li>
+        </ol>
+      </nav>
+
+      {/* Intro */}
+      <div data-reveal class="mb-14 md:mb-20 text-center max-w-[820px] mx-auto">
+        <p class="text-text-muted text-base sm:text-lg leading-relaxed">
+          Out past the interstate and the grain elevators, Abbott is farm country &mdash; long gravel driveways, homes set back off the county road, and properties that hold more than a city lot ever could. From our yard just down the road in Hubbard, Rankin Waste Management brings dependable weekly trash service to rural Abbott, TX, built for these roads instead of a city grid.
+        </p>
+      </div>
+
+      {/* Section 1 — Waste Pickup for Abbott's Rural Homes and Farms — image LEFT */}
+      <div data-reveal data-reveal-delay="0.1" class="mb-16 md:mb-24">
+        <div class="grid md:grid-cols-2 gap-6 md:gap-12 lg:gap-16 items-start mb-6 md:mb-8">
+          <div class="rounded-2xl overflow-hidden">
+            <img
+              src="/images/abbott/farm-to-market.webp"
+              srcset="/images/abbott/farm-to-market-mobile.webp 768w, /images/abbott/farm-to-market.webp 1024w"
+              sizes="(min-width: 768px) 50vw, 100vw"
+              alt="Waste truck driving a rural farm-to-market road near Abbott, Texas farmland"
+              width="1024"
+              height="1024"
+              loading="lazy"
+              decoding="async"
+              class="w-full aspect-[4/3] object-cover"
+            />
+          </div>
+          <div>
+            <h2 class="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Waste Pickup for Abbott's Rural Homes and Farms</h2>
+            <p class="text-text-muted text-base sm:text-lg leading-relaxed">
+              Abbott isn't a town with curbs and sidewalks on every block. Out here, you've got long gravel driveways, fence lines, and homes set back a good ways from the county road. That changes how trash pickup has to work &mdash; a truck built for a city subdivision doesn't always make sense for a place like this. That's why we're out here every week, driving the same farm-to-market roads and rural routes that connect Abbott to the rest of Hill County.
+            </p>
+          </div>
+        </div>
+        <div class="space-y-5 text-text-muted text-base sm:text-lg leading-relaxed">
+          <p>A lot of the houses around Abbott sit on bigger lots, some with a barn, a shop building, or an old chicken coop that's not used anymore. That means more than regular household trash. Folks call us for yard debris removal after clearing brush along a fence line. Others need help with construction debris removal once a shed project wraps up or a porch gets rebuilt. And plenty of rural homeowners just want a straightforward trash service that shows up on the same day, every week, without them having to think about it.</p>
+          <p>Here's what we see a lot in Abbott and the surrounding rural stretches:</p>
+          <ul class="list-disc pl-5 space-y-2 marker:text-orange-500">
+            <li>Weekly residential trash pickup for homes way off the main road</li>
+            <li>Curbside trash collection where a curb is really just gravel shoulder</li>
+            <li>Rural trash service for properties without regular city routes</li>
+            <li>Bulk trash pickup after a big cleanup weekend</li>
+            <li>Appliance removal when an old fridge or washer finally gives out in the barn or back porch</li>
+          </ul>
+          <p>A lot of these homes have been in the same family a long time. That means garages and outbuildings packed with stuff from a few generations back. When someone finally decides to clear out a garage or do a full house cleanout after a family member passes or moves to town, it's not a small job. We handle house and garage cleanouts for exactly this reason, because rural properties tend to hold on to more than a city lot ever could.</p>
+          <p>Farm life also means a different kind of trash &mdash; old fencing, feed sacks, broken equipment parts, stuff that doesn't fit in a regular can. Some weeks it's just the normal garbage pickup. Other weeks it's a full trailer load after working cattle or clearing a pasture. We've hauled it all, and we don't expect rural customers to sort their junk into neat little categories before we show up.</p>
+          <p>Electronic waste is another one people forget about. Old TVs, computers, and farm electronics pile up in a shop or spare room for years before anyone deals with them. We take care of electronic waste removal and disposal so it doesn't just sit there collecting dust.</p>
+          <p>Some Abbott properties are rentals, and renters out here deal with the same rural trash headaches as homeowners &mdash; maybe more, since they're not always sure who to call. We keep it simple either way. No sorting through a confusing list of providers, no waiting on a city system that wasn't built for county roads in the first place.</p>
+          <p>This is dependable trash service built for rural Texas, not a leftover city plan stretched out to fit the country. We know what a gravel driveway means for a trash truck, and we plan our routes around it.</p>
+        </div>
+      </div>
+
+      {/* Section 2 — How Our Team Reaches the Abbott, TX Area — image RIGHT */}
+      <div data-reveal data-reveal-delay="0.1" class="mb-16 md:mb-24">
+        <div class="grid md:grid-cols-2 gap-6 md:gap-12 lg:gap-16 items-start mb-6 md:mb-8">
+          <div class="md:order-2 rounded-2xl overflow-hidden">
+            <img
+              src="/images/abbott/cattle-gate.webp"
+              srcset="/images/abbott/cattle-gate-mobile.webp 768w, /images/abbott/cattle-gate.webp 1024w"
+              sizes="(min-width: 768px) 50vw, 100vw"
+              alt="Rankin Waste worker opening a rural cattle gate for waste pickup near an Abbott, TX property"
+              width="1024"
+              height="1024"
+              loading="lazy"
+              decoding="async"
+              class="w-full aspect-[4/3] object-cover"
+            />
+          </div>
+          <div class="md:order-1">
+            <h2 class="text-2xl md:text-3xl font-bold mb-4 md:mb-6">How Our Team Reaches the Abbott, TX Area</h2>
+            <p class="text-text-muted text-base sm:text-lg leading-relaxed">
+              Our office sits at 175 PR335 in Hubbard, just a short haul down the county roads from Abbott. That drive is one we make often, past the cotton fields and the old grain elevator that still marks the edge of town for most folks around here. We know the back roads better than the GPS does.
+            </p>
+          </div>
+        </div>
+        <div class="space-y-5 text-text-muted text-base sm:text-lg leading-relaxed">
+          <p>Getting to your place in Abbott usually goes something like this:</p>
+          <ol class="list-decimal pl-5 space-y-2 marker:text-orange-500 marker:font-semibold">
+            <li>We leave the Hubbard office on PR335 and head toward FM 308.</li>
+            <li>From there we <a href="https://www.txdot.gov/projects/hearings-meetings/waco/archive/i35-west.html" target="_blank" rel="noopener noreferrer" class="text-orange-500 hover:text-orange-300 font-medium transition-colors duration-300">connect to I-35</a>, running north toward the Abbott exit.</li>
+            <li>We take the exit into town, passing near the old depot and the grain silos that most Abbott folks use as a landmark for directions.</li>
+            <li>From there it's a quick turn onto the county roads that lead out to the farmhouses and rural properties scattered around Abbott proper.</li>
+          </ol>
+          <p>Most of our routes out here are gravel and caliche, not city streets, and that changes how we plan a pickup day. A truck loaded with junk hauls different on a dirt road than it does on pavement, so we build in extra time for the rural stretches. We're not guessing at directions when we head your way &mdash; we've been down these roads plenty of times already.</p>
+          <p>Abbott's a small place, tucked between the interstate and farmland, so there's no traffic jam slowing us down like you'd get in a bigger city. That works in your favor. A pickup scheduled for morning stays a morning pickup, mud season or not. We do have to watch the weather though. After a hard rain some of those rural driveways get soft, and we plan around that so we're not stuck or tearing up someone's yard trying to get the truck close to the house.</p>
+          <p>We also know which properties sit further out past the main roads &mdash; the ones with long gravel drives and maybe a cattle guard or two before you reach the house. That's common out here, and it's just part of doing business in this part of Texas. Our drivers are used to it, and they know to call ahead if a gate's locked or if a driveway looks too soft to risk after weather.</p>
+          <p>Being close by matters for a business like ours. We're not sending a truck from three counties over &mdash; we're already in the neighborhood, running these same roads for other pickups nearby. That means less waiting around for you, and a crew that already knows the lay of the land before we even pull up. Living and working this close to Abbott isn't just convenient for us, it's part of why we can keep showing up week after week without missing a beat.</p>
+        </div>
+      </div>
+
+      {/* Section 3 — What Makes Abbott's Waste Needs Different — image LEFT */}
+      <div data-reveal data-reveal-delay="0.1" class="mb-4 md:mb-8">
+        <div class="grid md:grid-cols-2 gap-6 md:gap-12 lg:gap-16 items-start mb-6 md:mb-8">
+          <div class="rounded-2xl overflow-hidden">
+            <img
+              src="/images/abbott/downtown.webp"
+              srcset="/images/abbott/downtown-mobile.webp 768w, /images/abbott/downtown.webp 1024w"
+              sizes="(min-width: 768px) 50vw, 100vw"
+              alt="Waste truck parked on Abbott, Texas main street near the grain elevator at dusk"
+              width="1024"
+              height="1024"
+              loading="lazy"
+              decoding="async"
+              class="w-full aspect-[4/3] object-cover"
+            />
+          </div>
+          <div>
+            <h2 class="text-2xl md:text-3xl font-bold mb-4 md:mb-6">What Makes Abbott's Waste Needs Different</h2>
+            <p class="text-text-muted text-base sm:text-lg leading-relaxed">
+              Abbott isn't a subdivision with matching mailboxes and a homeowners association telling folks what color their trash cans should be. It's a small farming community off I-35 &mdash; the kind of place where Willie Nelson grew up picking cotton, and where most properties still sit on acreage instead of a quarter-acre lot. That changes what trash service needs to look like out here.
+            </p>
+          </div>
+        </div>
+        <div class="space-y-5 text-text-muted text-base sm:text-lg leading-relaxed">
+          <p>Long gravel driveways are normal in Abbott. So are properties set way back from the county road &mdash; sometimes past a gate, sometimes with a dog that needs to know we're coming. A regular city hauler working a tight grid of curbside cans doesn't always know how to handle that. We do, because we're already out here every week working these same roads.</p>
+          <p>Rural properties around Abbott tend to collect things a suburban lot never sees. An old barn gets cleared out and suddenly there's a pile of scrap wood, rusted fencing, and who-knows-what from three owners back. A grain bin gets replaced. A shed full of farm junk finally gets tackled on a Saturday. This is real stuff that doesn't fit in a regular trash can, and it's a big reason folks call us for junk removal instead of trying to haul it themselves to Hillsboro or Waco.</p>
+          <p>We also see a good mix of property types out here &mdash; some year-round homesteads, some weekend places, some rental houses on the edge of town. That means we can't run one-size-fits-all service. What works for a rural garbage collection route on a family farm is different from what a small rental property needs on a weekly pickup schedule.</p>
+          <p>Some of the common jobs we handle in and around Abbott include:</p>
+          <ul class="list-disc pl-5 space-y-2 marker:text-orange-500">
+            <li>Curbside trash collection for homes set well off the main road</li>
+            <li>Rural trash service for properties without regular municipal pickup</li>
+            <li>Appliance removal when an old fridge or washer finally gives out</li>
+            <li>House and garage cleanouts after a move or an estate situation</li>
+            <li>Yard debris removal after storm damage or a big trim-back project</li>
+          </ul>
+          <p>And construction debris removal comes up more than people expect. A lot of Abbott homes are older, and when someone finally gets around to fixing up a porch or tearing out an old fence line, the debris pile grows fast. That's not something you want sitting by the barn for two months waiting on a dump run.</p>
+          <p>We're a family-owned outfit, and we treat Abbott like the small town it is. No call centers, no guessing which contractor shows up. We know the roads, we know the properties, and we show up &mdash; because that's how it's always worked out here.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  {/* Reviews */}
+  <section id="reviews" class="bg-dark-elevated">
+    <ReviewWidget client:idle />
+  </section>
+
+  {/* FAQ */}
+  <section id="faq" class="px-5 sm:px-6 lg:px-[clamp(2rem,5vw,4rem)] py-12 md:py-20 lg:py-28">
+    <div class="max-w-[1000px] mx-auto">
+      <div data-reveal class="text-center mb-10 md:mb-14">
+        <h2 class="text-2xl md:text-3xl lg:text-4xl font-medium tracking-tight">Frequently Asked Questions</h2>
+        <p class="text-text-muted text-base sm:text-lg mt-3">Common questions about trash service near Abbott, TX</p>
+      </div>
+      <div class="max-w-[800px] mx-auto">
+        <FaqAccordion faqs={ABBOTT_FAQS} client:idle />
+      </div>
+    </div>
+  </section>
+
+  {/* CTA */}
+  <section class="px-5 sm:px-6 lg:px-[clamp(2rem,5vw,4rem)] pb-12 md:pb-20 lg:pb-28">
+    <div class="max-w-[1300px] mx-auto">
+      <div data-reveal data-reveal-delay="0.1" class="bg-dark-elevated border border-border-subtle rounded-2xl p-6 sm:p-8 md:p-12 text-center">
+        <h2 class="text-xl sm:text-2xl md:text-3xl font-bold mb-3 md:mb-4">Ready to Get Started Near Abbott?</h2>
+        <p class="text-text-muted text-base sm:text-lg leading-relaxed mb-6 md:mb-8 max-w-[560px] mx-auto">
+          Call Rankin Waste Management at <a href={PHONE_LINK} class="text-orange-500 hover:text-orange-400 font-semibold">{PHONE}</a> for reliable trash service. Family-owned, no contracts, flat-rate pricing &mdash; and trusted by neighbors across rural Hill County with 250+ five-star reviews.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <CallCTA />
+          <button id="abbott-modal-trigger" type="button" class="border border-white/30 text-white px-7 py-3.5 rounded-full font-semibold text-base hover:bg-white/10 transition-colors duration-300 min-h-[44px]">
+            New Service Request
+          </button>
+        </div>
+        <p class="mt-8 text-sm">
+          <a href="/service-areas" class="text-text-muted hover:text-orange-500 transition-colors duration-300">&larr; View all service areas</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <script is:inline>
+    (function () {
+      var b = document.getElementById('abbott-modal-trigger');
+      if (b) b.addEventListener('click', function () {
+        document.dispatchEvent(new CustomEvent('open-service-modal'));
+      });
+    })();
+  </script>
+</Layout>

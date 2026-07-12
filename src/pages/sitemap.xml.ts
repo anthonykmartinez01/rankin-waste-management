@@ -36,6 +36,7 @@ const ROUTES: SitemapEntry[] = [
   { path: '/service-areas', lastmod: '2026-06-15', changefreq: 'monthly', priority: '0.8' },
   { path: '/service-areas/axtell', lastmod: '2026-05-03', changefreq: 'monthly', priority: '0.8' },
   { path: '/service-areas/penelope', lastmod: '2026-07-12', changefreq: 'monthly', priority: '0.8' },
+  { path: '/service-areas/abbott', lastmod: '2026-07-12', changefreq: 'monthly', priority: '0.8' },
   { path: '/waste-management-service-hubbard', lastmod: '2026-05-03', changefreq: 'monthly', priority: '0.9' },
   { path: '/junk-removal-service-hubbard', lastmod: '2026-05-03', changefreq: 'monthly', priority: '0.9' },
   { path: '/dumpster-rental-service-hubbard', lastmod: '2026-05-03', changefreq: 'monthly', priority: '0.9' },
