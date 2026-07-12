@@ -1,0 +1,90 @@
+---
+// src/pages/service-areas/purdon.astro
+// Purdon, TX (Navarro County). Scheduled via src/lib/schedule.ts.
+import LocationPage from '../../components/LocationPage.astro';
+import type { LocationSection, Faq } from '../../components/location-types';
+import { scheduleGuard } from '../../lib/schedule';
+
+const guard = scheduleGuard(Astro);
+if (guard) return guard;
+
+const sections: LocationSection[] = [
+  {
+    heading: `How Rural Homes Handle Waste Collection`,
+    img: 'rural-route',
+    imgAlt: `Rural trash pickup route along a county road near Purdon, TX`,
+    lead: `Out here in Purdon, trash day doesn't work like it does in town. Your driveway might run a quarter mile back from the county road. Your nearest neighbor might be a field away. That changes everything about how waste collection gets done.`,
+    blocks: [
+      { type: 'p', text: `Most folks around Purdon set their bins at the end of a long gravel drive, right where it meets PR335 or one of the other numbered county roads that crisscross this part of Navarro County. We drive these roads every week for weekly residential trash pickup, and we've learned which turns get muddy after a hard rain and which ones need a slower approach in the truck.` },
+      { type: 'p', text: `A lot of homes out here sit on bigger lots than you'd find in a subdivision. That means more yard debris, more room for a burn pile that maybe shouldn't be burned, and more stuff that piles up in the barn or the shed over the years. Curbside trash collection alone doesn't always cut it for a place like that.` },
+      { type: 'p', text: `Rural trash service has to bend around real life. Some weeks it's just the regular bags. Other weeks it's an old water heater, a stack of fence posts, or branches from a tree that finally came down in a storm. We handle bulk trash pickup for exactly that reason, because rural properties don't produce trash on a neat little schedule.` },
+      { type: 'p', text: `Livestock feed bags, old fencing wire, cattle panels that got bent past use, none of that fits in a standard bin. And it shouldn't have to.` },
+      { type: 'p', text: `We've picked up from places where the driveway forks twice before you reach the house. We've picked up from spots where the mailbox is the only marker for a quarter mile. That's rural garbage collection in Purdon, and it's most of what we do.` },
+      { type: 'p', text: `One thing that trips people up moving from a city is timing. In town, a missed pickup means walking your bin back in an hour. Out here, if the truck comes and goes before your bin's at the road, you're looking at another full week with it sitting there. So we try to keep our route timing steady, same days, same general window, so you're not guessing.` },
+      { type: 'p', text: `Weather plays a bigger role too. A washed-out low-water crossing can change a whole route for a day. We plan around that instead of skipping a house.` },
+      { type: 'p', text: `Rural service isn't complicated. It just takes someone who knows the roads, the distances, and the way property lines work out here instead of guessing from a city map.` },
+    ],
+  },
+  {
+    heading: `How Our Team Reaches the Purdon, TX Area`,
+    img: 'access',
+    imgAlt: `Trash bin at a county-road driveway near Purdon, TX`,
+    lead: `Our truck rolls out of Hubbard most mornings before the sun's even all the way up, and Purdon is one of the first stops on our route. We're not some big city outfit trying to figure out rural roads for the first time. We grew up running these same farm-to-market roads, and we know exactly which gravel driveways get soft after a hard rain.`,
+    blocks: [
+      { type: 'p', text: `Getting from our office at 175 PR335 in Hubbard to your place near Purdon usually takes us about fifteen to twenty minutes, depending on which side of town you're on and whether we hit any tractors moving between fields. Here's how our drivers typically make the trip:` },
+      { type: 'ol', items: [
+        `We head out from the Hubbard shop and pick up PR335 heading toward the county line.`,
+        `From there we connect onto the rural routes that cut through toward Purdon, watching for the usual livestock crossings and slower farm traffic.`,
+        `Once we're close, we work our way through the smaller county roads that branch off toward the homes and properties tucked back from the main stretch.`,
+        `Last stretch is usually a gravel or caliche driveway, which our trucks are built to handle without tearing up your yard.`,
+      ] },
+      { type: 'p', text: `Purdon isn't exactly on the way to anywhere else, so a lot of bigger companies just skip it or tack on some kind of long-haul fee. We don't do that. This is part of our regular run, not a special trip.` },
+      { type: 'p', text: `The roads flood in certain spots after a big Texas storm, and we plan around it. Our drivers check conditions before they ever leave the yard, so if a low-water crossing is acting up, we've already mapped another way in. That kind of local know-how doesn't come from a GPS app, it comes from driving these roads week after week.` },
+      { type: 'p', text: `Because a lot of the properties out here sit on bigger lots with long driveways, we build in extra time for each stop instead of rushing through like it's a subdivision pickup. Some of these homes are set back a few hundred feet from the road, and our team knows that ahead of time because we've already been there before.` },
+      { type: 'p', text: `Weather changes our timing more than distance does. When the roads are dry and clear, we can usually make it out to the Purdon area without any trouble at all. But after heavy rain, we might adjust our route order for the day, hitting the higher, drier roads first and saving the low spots for later once things settle.` },
+      { type: 'p', text: `We're out here every week, rain or shine, and that steady presence is what makes the trip from Hubbard to Purdon feel like second nature instead of a special errand.` },
+    ],
+  },
+  {
+    heading: `What Makes Purdon, TX Different for Trash Pickup`,
+    img: 'community',
+    imgAlt: `Waste service at the community crossroads in Purdon, TX`,
+    lead: `Purdon doesn't have a stoplight. It's got long gravel driveways, cattle guards, and county roads that turn to soup after a hard rain. That changes how trash pickup has to work out here. A truck built for a subdivision cul-de-sac doesn't cut it on PR roads that wind past pastures and old farmhouses.`,
+    blocks: [
+      { type: 'p', text: `We're out here every week, and the routes look nothing like a city map. Some houses sit a quarter mile off the main road. Others share a long driveway with two or three other families. And a good number of properties still run septic, keep livestock, or have a burn pile out back for brush, none of that changes the trash situation, but it tells you this isn't a place built around curbside bins on a tidy street.` },
+      { type: 'p', text: `Here's what shapes trash service around Purdon:` },
+      { type: 'ul', items: [
+        `Gravel and caliche roads that need the right kind of truck, not just any collection vehicle`,
+        `Properties spread out on acreage instead of packed close together`,
+        `Older farmhouses and newer manufactured homes sitting side by side on the same road`,
+        `Seasonal debris from storms, fallen limbs, and cleared brush that piles up fast`,
+        `No city sanitation department to call when something goes wrong`,
+      ] },
+      { type: 'p', text: `That last point matters more than people think. Purdon is unincorporated. There's no city trash truck coming through on a set city schedule. Folks either haul their own garbage into town, or they find a rural trash service that shows up. We built our route around that gap. Weekly residential trash pickup out here means working with rural driveways, gates, and sometimes a dog that wants to say hello before we grab the can.` },
+      { type: 'p', text: `Junk removal looks different too. When a family clears out a garage after a loss in the family, or finally tackles that shed that's been filling up for ten years, it's not a small job. We've hauled old appliances, broken furniture, and years of stored-up stuff off properties all around Purdon. Bulk trash pickup is common here in a way it just isn't in town, folks save up projects for when the truck comes by, because a special trip into Corsicana or Hubbard isn't always worth the gas.` },
+      { type: 'p', text: `Construction debris shows up a lot too. Barns get rebuilt, fences get replaced, old mobile homes get gutted. That kind of debris doesn't fit in a regular can, and most services won't touch it. We will.` },
+      { type: 'p', text: `So what makes Purdon different isn't just the distance from anywhere else. It's the mix of houses, land, and lifestyle that a standard trash contract was never built for. Out here, reliable pickup means knowing which roads flood, which gates stick, and which families need a text before we roll up. That's not something you learn from an app. You learn it by driving these roads yourself, week after week.` },
+    ],
+  },
+];
+
+const faqs: Faq[] = [
+  { q: `How often does trash pickup happen for homes near Purdon?`, a: `We run weekly residential trash pickup on the same day and window every week near Purdon. Our truck leaves Hubbard early and reaches Purdon in about fifteen to twenty minutes on a normal day. Keeping a steady schedule means you're not left guessing when to set your bin at the end of your gravel drive.` },
+  { q: `Why do long driveways near Purdon affect trash collection?`, a: `Long gravel or caliche driveways near Purdon mean our drivers build in extra time at each stop. Many homes sit a few hundred feet or more off the county road, so pickup can't move as fast as it would in a subdivision. Our trucks are built to handle those driveways without tearing up your yard.` },
+  { q: `What happens to my Purdon pickup if a low-water crossing floods?`, a: `We reroute around flooded low-water crossings instead of skipping your house near Purdon. Drivers check road conditions before leaving Hubbard, so a soft or washed-out spot on PR335 or a nearby county road doesn't cost you a whole extra week of waiting.` },
+];
+---
+
+<LocationPage
+  town="Purdon"
+  county="Navarro County"
+  slug="purdon"
+  title="Waste Management Service Near Purdon, TX | Rankin Waste"
+  h1="Waste Management Service Near Purdon, TX"
+  description="Reliable weekly trash pickup and rural waste service near Purdon, TX. Family-owned, no contracts, flat-rate pricing. 250+ five-star reviews. Call (254) 205-6125."
+  subtitle="Serving Purdon & Rural Navarro County, TX"
+  heroAlt="Rankin Waste rural driveway pickup near Purdon, TX"
+  intro={`Purdon is unincorporated country — no stoplight, no city truck, just county roads winding past pastures and farmhouses. From our yard in nearby Hubbard, Rankin Waste Management fills that gap with dependable weekly trash service for Purdon and rural Navarro County, TX.`}
+  sections={sections}
+  faqs={faqs}
+/>

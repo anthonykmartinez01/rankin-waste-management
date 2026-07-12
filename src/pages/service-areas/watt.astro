@@ -1,0 +1,101 @@
+---
+// src/pages/service-areas/watt.astro
+// Watt, TX (Limestone County — source copy wrongly said Freestone County).
+// Scheduled via src/lib/schedule.ts.
+import LocationPage from '../../components/LocationPage.astro';
+import type { LocationSection, Faq } from '../../components/location-types';
+import { scheduleGuard } from '../../lib/schedule';
+
+const guard = scheduleGuard(Astro);
+if (guard) return guard;
+
+const sections: LocationSection[] = [
+  {
+    heading: `How Rural Homes Handle Trash and Recycling Pickup`,
+    img: 'rural-route',
+    imgAlt: `Waste service on a rural gravel road near Watt, TX`,
+    lead: `Out here in Watt, most driveways run long. Some stretch a quarter mile before you even hit the porch. That changes how trash pickup has to work. A truck can't just roll down a city block and hit twenty houses in ten minutes. Out here, it's one gravel road, then another, then a gate you have to know how to open.`,
+    blocks: [
+      { type: 'p', text: `We've learned the roads around Watt the hard way, one missed turn at a time. Now we know which driveways flood after a hard rain and which ones need a truck that can handle loose caliche. That local knowledge matters more than people think.` },
+      { type: 'p', text: `Weekly residential trash pickup out here isn't the same as in town. Folks set their cans out at the end of long driveways, sometimes near a mailbox a hundred yards from the actual house. We watch for that. We don't guess.` },
+      { type: 'p', text: `Rural garbage collection also means dealing with more than just kitchen trash. A lot of homes around Watt sit on a few acres, so there's brush, old fencing, and yard debris that piles up between pickups. Curbside trash collection out here often includes bagged leaves, broken limbs, and the odd bag of feed sacks nobody wants sitting in the barn.` },
+      { type: 'p', text: `Bulk trash pickup gets used a lot too. Rural homes tend to hold onto things longer, an old water heater, a stack of lumber, a dead chest freezer out by the shop. City services usually won't touch that stuff. We do.` },
+      { type: 'p', text: `Recycling out here works a little different as well. There's no curb-side bin service running weekly like you'd see in a subdivision. Most rural households save up cans, cardboard, and scrap metal, then set it out for pickup in bigger batches. We build our routes around that rhythm instead of forcing folks into a schedule that doesn't fit rural life.` },
+      { type: 'p', text: `Some weeks it's just regular household garbage. Other weeks, a family's cleaning out a garage or clearing a fence line, and the pile at the end of the driveway looks a lot bigger. We plan for that. Rural trash service means flexing with the property, not the other way around.` },
+      { type: 'p', text: `A few things make rural pickup around Watt different from town service:` },
+      { type: 'ul', items: [
+        `Long driveways and gravel roads instead of curb cuts and sidewalks`,
+        `Larger loads between pickups, since trash builds up over more acreage`,
+        `Mixed loads that include yard debris, old appliances, and household garbage together`,
+        `Gates, cattle guards, and sometimes livestock that need a careful approach`,
+        `Trash cans set far from the road, not right at a curb`,
+      ] },
+      { type: 'p', text: `We're out here every week, running these same roads. And that's not a small thing when your place sits ten minutes from the nearest neighbor. So instead of treating rural homes like an afterthought, we build the route around them. That's just how trash pickup should work out here.` },
+    ],
+  },
+  {
+    heading: `Getting to Your Property from Our Hubbard Location`,
+    img: 'access',
+    imgAlt: `Farm-gate access for waste pickup near Watt, TX`,
+    lead: `We roll out of our yard at 175 PR335 in Hubbard most mornings before the sun's all the way up, and Watt is one of the stops we know by heart. This isn't some route we punched into a GPS last week. Our trucks have worn a path out this way for years, past the same fence lines and the same mailboxes, picking up trash and hauling off junk for folks who live spread out along the county roads.`,
+    blocks: [
+      { type: 'p', text: `Getting from Hubbard to Watt means leaving the pavement behind for a stretch. That's just how it is out here. Rural Texas roads aren't laid out in neat grids like you'd find in a subdivision. They wind past pastures, cross low water bridges, and sometimes narrow down to one lane where the brush grows close. Our drivers know which turns get soft after a hard rain and which gravel stretches wash out first. That kind of knowledge doesn't come from a map app.` },
+      { type: 'p', text: `Here's roughly how our team makes the trip out to your place:` },
+      { type: 'ol', items: [
+        `We pull out from the Hubbard yard and head toward the farm-to-market roads that connect the smaller communities out this way.`,
+        `We follow the county roads that branch off toward Watt, slowing down where the road narrows or where livestock sometimes wander close to the shoulder.`,
+        `We turn onto the smaller lanes and private drives that lead back to individual homesteads and rural properties, the kind you won't find with a street sign half the time.`,
+        `We pull the truck up as close as the driveway allows, load up your trash or junk, and head to the next stop on the route.`,
+      ] },
+      { type: 'p', text: `A lot of folks in Watt live down long driveways or off roads that don't show up right on every map. We've learned to look for the details, a certain gate, a stand of trees, a mailbox that's leaning a bit. That's rural living, and we get it because we live it too.` },
+      { type: 'p', text: `Some weeks the drive takes a little longer. Heavy rain can turn a dirt road into a mess, and that slows everybody down out here, not just us. But we build that into our schedule. We're not a big city outfit trying to squeeze fifty stops into a tight window downtown. We're built for this kind of driving, and we plan our routes so the distance between Hubbard and Watt never turns into a missed pickup.` },
+      { type: 'p', text: `We've hauled off old appliances from barns, cleared out junk piles after a garage cleanout, and handled regular weekly trash pickup for houses that don't have a curb, let alone a street light. Every one of those jobs meant driving the same back roads to get there.` },
+      { type: 'p', text: `So when you call us for service out in Watt, you're not waiting on some far-off dispatch center to figure out where you live. We already know. Our truck's probably passed your road a hundred times this year alone.` },
+    ],
+  },
+  {
+    heading: `What Makes Waste Pickup Near Watt, TX Different`,
+    img: 'community',
+    imgAlt: `Waste service at the rural crossroads community of Watt, TX`,
+    lead: `Out here, trash day isn't as simple as rolling a bin to the curb every Tuesday. Watt sits out in Limestone County, and the roads that connect these properties aren't lined up in neat city blocks. Long gravel driveways, wide-open acreage, a few houses set way back from the main road, that's the layout we work with every week.`,
+    blocks: [
+      { type: 'p', text: `We're out here often, so we know which gates stick and which driveways flood after a hard rain. That local knowledge changes how pickup runs.` },
+      { type: 'p', text: `A city truck built for tight subdivision streets doesn't do so well on the loose gravel and long stretches between mailboxes that Watt residents deal with. We plan routes around that reality, not against it.` },
+      { type: 'p', text: `Homes near Watt tend to sit on bigger lots, and that brings its own set of trash needs. More land often means more yard debris, more old farm equipment piling up in a shed, more room for a barn that's finally getting cleaned out. Weekly residential trash pickup here has to account for all of that, not just a can at the curb.` },
+      { type: 'p', text: `Rural service means fewer trucks pass through, so missing a pickup day hits different than it would in town. There's no second truck coming by later that afternoon.` },
+      { type: 'p', text: `Here's what tends to set Watt-area pickups apart from a standard in-town route:` },
+      { type: 'ul', items: [
+        `Long gravel or dirt driveways that need careful truck handling`,
+        `Larger properties generating more yard debris and bulk items`,
+        `Fewer neighbors sharing a road, so consistency matters more`,
+        `Older outbuildings and barns that often need a full cleanout`,
+        `Weather that can turn a soft driveway into a problem fast`,
+      ] },
+      { type: 'p', text: `We handle rural trash service and rural garbage collection because that's what this area needs, not because it sounds good on a website. Curbside trash collection out here might mean the curb is a fence line, and we've adjusted for that.` },
+      { type: 'p', text: `A lot of folks near Watt also call us for junk removal after clearing out a garage or an old shed. Furniture removal comes up more than you'd think, especially when a family member moves a parent into town and leaves a house full of stuff behind. We've handled appliance removal and disposal for washers and fridges that sat in a barn for years. Construction debris removal comes up too, since rural properties often have someone building a shop or fixing up a fence line.` },
+      { type: 'p', text: `And bulk trash pickup matters more out here than in a subdivision. There's no dumpster around the corner to toss an old mattress in. If you're doing a bigger cleanout, our residential dumpster rental option saves a few trips hauling stuff to town yourself.` },
+      { type: 'p', text: `What makes this area different isn't complicated. It's the distance, the driveways, the bigger properties, and the fact that most folks near Watt just want someone reliable who shows up when they say they will. That's the whole job, really.` },
+    ],
+  },
+];
+
+const faqs: Faq[] = [
+  { q: `How often does trash pickup happen for homes near Watt with long gravel driveways?`, a: `We run a weekly route through Watt, but the loads look different than in town. Since driveways can stretch a quarter mile, we plan extra time for each stop. Rural households often save up cans, cardboard, and bigger debris between pickups, so we build our schedule around that pace instead of a strict curbside routine.` },
+  { q: `Can you handle old appliances and yard debris from acreage properties around Watt?`, a: `Yes, we regularly haul off items city trash services won't touch. Homes near Watt often sit on several acres, so bulk items like water heaters, lumber, and fencing pile up between pickups. We treat these mixed loads as part of normal rural service, not an extra hassle.` },
+  { q: `Do gates or livestock near Watt properties affect how pickup gets scheduled?`, a: `Yes, our drivers plan for that every week. Many properties around Watt have gates, cattle guards, or livestock near the road, so we approach each driveway carefully rather than rushing through. We know which gates stick and which spots need extra caution, so pickup stays on track without surprises.` },
+];
+---
+
+<LocationPage
+  town="Watt"
+  county="Limestone County"
+  slug="watt"
+  title="Waste Management Service Near Watt, TX | Rankin Waste"
+  h1="Waste Management Service Near Watt, TX"
+  description="Reliable weekly trash pickup and rural waste service near Watt, TX. Family-owned, no contracts, flat-rate pricing. 250+ five-star reviews. Call (254) 205-6125."
+  subtitle="Serving Watt & Rural Limestone County, TX"
+  heroAlt="Rankin Waste pickup at a rural ranch home near Watt, TX"
+  intro={`Out past the pavement toward Mexia, Watt is wide-open acreage — long gravel driveways, gates, and homes set far apart. From our yard in nearby Hubbard, Rankin Waste Management brings reliable weekly trash service to Watt and rural Limestone County, TX.`}
+  sections={sections}
+  faqs={faqs}
+/>

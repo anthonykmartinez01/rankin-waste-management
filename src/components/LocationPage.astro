@@ -1,0 +1,245 @@
+---
+// src/components/LocationPage.astro
+//
+// Reusable template for /service-areas/<town> location pages. Renders the
+// exact design established by the Abbott/Penelope pages (bgImage InnerHero +
+// alternating image/text sections + FaqAccordion + ReviewWidget + CTA) plus
+// the per-page Service + FAQPage + BreadcrumbList schema — all driven by props
+// so every location page is byte-for-byte consistent.
+//
+// Each page file supplies the data and runs the scheduleGuard itself (the
+// guard must live in the page frontmatter so it can `return` a redirect).
+import Layout from '../layouts/Layout.astro';
+import InnerHero from './InnerHero.astro';
+import CallCTA from './CallCTA.astro';
+import ReviewWidget from './ReviewWidget.tsx';
+import FaqAccordion from './FaqAccordion.tsx';
+import type { Faq } from '../data/faqs';
+import type { LocationSection } from './location-types';
+import { PHONE, PHONE_LINK } from '../data/business';
+
+interface Props {
+  town: string;            // e.g. 'Axtell'
+  county: string;          // e.g. 'McLennan County'
+  slug: string;            // e.g. 'axtell' → /service-areas/axtell
+  title: string;           // SEO <title>
+  h1: string;              // visible hero title (handles 'in' vs 'Near')
+  description: string;
+  subtitle: string;        // hero subhead
+  heroAlt: string;
+  intro: string;
+  sections: LocationSection[];
+  faqs: Faq[];
+}
+
+const { town, county, slug, title, h1, description, subtitle, heroAlt, intro, sections, faqs } = Astro.props;
+
+const base = `/images/${slug}`;
+const pageUrl = `https://rankinwaste.com/service-areas/${slug}`;
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "@id": `${pageUrl}/#service`,
+  "name": h1,
+  "description": `Weekly curbside trash pickup and rural waste service in ${town}, TX. Family-owned, no contracts, flat-rate pricing — junk removal, bulk trash, cleanouts, and dumpster rental for rural homes, farms, and long gravel driveways served from nearby Hubbard in ${county}.`,
+  "serviceType": "Waste management service",
+  "category": "Waste Management Service",
+  "url": `${pageUrl}/`,
+  "provider": {
+    "@type": "LocalBusiness",
+    "@id": "https://rankinwaste.com/#business",
+    "name": "Rankin Waste Management",
+    "telephone": "+1-254-205-6125",
+    "email": "rankinwaste@gmail.com",
+    "url": "https://rankinwaste.com/",
+    "image": "https://rankinwaste.com/rw-logo.webp",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "175 PR335",
+      "addressLocality": "Hubbard",
+      "addressRegion": "TX",
+      "postalCode": "76648",
+      "addressCountry": "US"
+    },
+    "priceRange": "$$",
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "opens": "08:00",
+        "closes": "18:00"
+      }
+    ],
+    "sameAs": ["https://www.facebook.com/p/Rankin-waste-management-100057417520840/"],
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5.0",
+      "reviewCount": "284",
+      "bestRating": "5",
+      "worstRating": "1"
+    },
+    "review": [
+      {
+        "@type": "Review",
+        "author": { "@type": "Person", "name": "Linda Mcnutt" },
+        "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+        "reviewBody": "Rankin Waste Management has been our weekly waste pick up for several years and have been reliable and often pick up extra bags for us at no extra cost. I would certainly recommend them."
+      },
+      {
+        "@type": "Review",
+        "author": { "@type": "Person", "name": "Buffy Nehring" },
+        "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+        "reviewBody": "They are a family owned business. They are always on time for pickup. They provide amazing customer service. They have quick response should you have questions. They treat you like family not just another account. They have great pricing. I highly recommend them."
+      }
+    ]
+  },
+  "areaServed": [
+    { "@type": "City", "name": `${town}, TX`, "containedInPlace": { "@type": "AdministrativeArea", "name": `${county}, TX` } },
+    { "@type": "AdministrativeArea", "name": "Hill County, TX" },
+    { "@type": "AdministrativeArea", "name": "McLennan County, TX" },
+    { "@type": "AdministrativeArea", "name": "Navarro County, TX" },
+    { "@type": "AdministrativeArea", "name": "Limestone County, TX" }
+  ]
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map((f) => ({
+    "@type": "Question",
+    "name": f.q,
+    "acceptedAnswer": { "@type": "Answer", "text": f.a }
+  }))
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://rankinwaste.com/" },
+    { "@type": "ListItem", "position": 2, "name": "Service Areas", "item": "https://rankinwaste.com/service-areas" },
+    { "@type": "ListItem", "position": 3, "name": `${town}, TX`, "item": pageUrl }
+  ]
+};
+---
+
+<Layout title={title} description={description} image={`${base}/hero.webp`} imageAlt={heroAlt}>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  </Fragment>
+
+  <InnerHero
+    title={h1}
+    subtitle={subtitle}
+    bgImage={`${base}/hero.webp`}
+    bgImageMobile={`${base}/hero-mobile.webp`}
+    bgImageAlt={heroAlt}
+  />
+
+  <section class="px-5 sm:px-6 lg:px-[clamp(2rem,5vw,4rem)] py-12 md:py-20 lg:py-28">
+    <div class="max-w-[1300px] mx-auto">
+
+      <nav aria-label="Breadcrumb" class="mb-8 md:mb-12">
+        <ol class="flex flex-wrap items-center gap-2 text-sm text-text-muted">
+          <li><a href="/" class="hover:text-orange-500 transition-colors duration-300">Home</a></li>
+          <li aria-hidden="true">/</li>
+          <li><a href="/service-areas" class="hover:text-orange-500 transition-colors duration-300">Service Areas</a></li>
+          <li aria-hidden="true">/</li>
+          <li class="text-white font-medium" aria-current="page">{town}, TX</li>
+        </ol>
+      </nav>
+
+      <div data-reveal class="mb-14 md:mb-20 text-center max-w-[820px] mx-auto">
+        <p class="text-text-muted text-base sm:text-lg leading-relaxed">{intro}</p>
+      </div>
+
+      {sections.map((section, i) => (
+        <div data-reveal data-reveal-delay="0.1" class={i === sections.length - 1 ? 'mb-4 md:mb-8' : 'mb-16 md:mb-24'}>
+          <div class="grid md:grid-cols-2 gap-6 md:gap-12 lg:gap-16 items-start mb-6 md:mb-8">
+            <div class={`rounded-2xl overflow-hidden ${i % 2 === 1 ? 'md:order-2' : ''}`}>
+              <img
+                src={`${base}/${section.img}.webp`}
+                srcset={`${base}/${section.img}-mobile.webp 768w, ${base}/${section.img}.webp 1024w`}
+                sizes="(min-width: 768px) 50vw, 100vw"
+                alt={section.imgAlt}
+                width="1024"
+                height="1024"
+                loading="lazy"
+                decoding="async"
+                class="w-full aspect-[4/3] object-cover"
+              />
+            </div>
+            <div class={i % 2 === 1 ? 'md:order-1' : ''}>
+              <h2 class="text-2xl md:text-3xl font-bold mb-4 md:mb-6">{section.heading}</h2>
+              <p class="text-text-muted text-base sm:text-lg leading-relaxed">{section.lead}</p>
+            </div>
+          </div>
+          <div class="space-y-5 text-text-muted text-base sm:text-lg leading-relaxed">
+            {section.blocks.map((b) => (
+              b.type === 'p' ? (
+                <p>{b.text}</p>
+              ) : b.type === 'ol' ? (
+                <ol class="list-decimal pl-5 space-y-2 marker:text-orange-500 marker:font-semibold">
+                  {b.items.map((it) => <li>{it}</li>)}
+                </ol>
+              ) : (
+                <ul class="list-disc pl-5 space-y-2 marker:text-orange-500">
+                  {b.items.map((it) => <li>{it}</li>)}
+                </ul>
+              )
+            ))}
+          </div>
+        </div>
+      ))}
+
+    </div>
+  </section>
+
+  <section id="reviews" class="bg-dark-elevated">
+    <ReviewWidget client:idle />
+  </section>
+
+  <section id="faq" class="px-5 sm:px-6 lg:px-[clamp(2rem,5vw,4rem)] py-12 md:py-20 lg:py-28">
+    <div class="max-w-[1000px] mx-auto">
+      <div data-reveal class="text-center mb-10 md:mb-14">
+        <h2 class="text-2xl md:text-3xl lg:text-4xl font-medium tracking-tight">Frequently Asked Questions</h2>
+        <p class="text-text-muted text-base sm:text-lg mt-3">Common questions about trash service near {town}, TX</p>
+      </div>
+      <div class="max-w-[800px] mx-auto">
+        <FaqAccordion faqs={faqs} client:idle />
+      </div>
+    </div>
+  </section>
+
+  <section class="px-5 sm:px-6 lg:px-[clamp(2rem,5vw,4rem)] pb-12 md:pb-20 lg:pb-28">
+    <div class="max-w-[1300px] mx-auto">
+      <div data-reveal data-reveal-delay="0.1" class="bg-dark-elevated border border-border-subtle rounded-2xl p-6 sm:p-8 md:p-12 text-center">
+        <h2 class="text-xl sm:text-2xl md:text-3xl font-bold mb-3 md:mb-4">Ready to Get Started Near {town}?</h2>
+        <p class="text-text-muted text-base sm:text-lg leading-relaxed mb-6 md:mb-8 max-w-[560px] mx-auto">
+          Call Rankin Waste Management at <a href={PHONE_LINK} class="text-orange-500 hover:text-orange-400 font-semibold">{PHONE}</a> for reliable trash service. Family-owned, no contracts, flat-rate pricing &mdash; and trusted by neighbors across rural {county} with 250+ five-star reviews.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <CallCTA />
+          <button id={`${slug}-modal-trigger`} type="button" class="border border-white/30 text-white px-7 py-3.5 rounded-full font-semibold text-base hover:bg-white/10 transition-colors duration-300 min-h-[44px]">
+            New Service Request
+          </button>
+        </div>
+        <p class="mt-8 text-sm">
+          <a href="/service-areas" class="text-text-muted hover:text-orange-500 transition-colors duration-300">&larr; View all service areas</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <script is:inline define:vars={{ slug }}>
+    (function () {
+      var b = document.getElementById(slug + '-modal-trigger');
+      if (b) b.addEventListener('click', function () {
+        document.dispatchEvent(new CustomEvent('open-service-modal'));
+      });
+    })();
+  </script>
+</Layout>

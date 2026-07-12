@@ -1,0 +1,97 @@
+---
+// src/pages/service-areas/echols.astro
+// Corrected spelling: source files said "Echlos"; the real community is
+// "Echols" in Limestone County, TX. Scheduled via src/lib/schedule.ts.
+import LocationPage from '../../components/LocationPage.astro';
+import type { LocationSection, Faq } from '../../components/location-types';
+import { scheduleGuard } from '../../lib/schedule';
+
+const guard = scheduleGuard(Astro);
+if (guard) return guard;
+
+const sections: LocationSection[] = [
+  {
+    heading: `How Single-Family Homes Near Echols, TX Handle Weekly Pickup`,
+    img: 'rural-route',
+    imgAlt: `Residential street trash service in the Echols, TX area`,
+    lead: `Drive down most any road out here and you'll see the same thing, long driveways, a few acres between neighbors, and a trash can that sits way back from the road until pickup day. Single-family homes near Echols, TX aren't packed in tight like a subdivision in the city. That changes how weekly pickup works. Our truck has to make longer stops, cover more ground between houses, and still hit every driveway on the same day, every week.`,
+    blocks: [
+      { type: 'p', text: `Most of the houses we service out here were built to last, older homes with big yards and outbuildings that tend to collect stuff over the years. That means weekly residential trash pickup is only part of the story. We're also hauling off things a city apartment never has to deal with.` },
+      { type: 'ul', items: [
+        `Old appliances sitting in the barn or garage`,
+        `Furniture that's been replaced but never hauled off`,
+        `Yard debris after storms or a big trim-back`,
+        `Leftover construction debris from a shop or fence project`,
+        `Electronic waste that's been piling up in a closet for years`,
+      ] },
+      { type: 'p', text: `We're out here every week, so we know which stretches of road get muddy after rain and which driveways are tricky to back down. That local knowledge matters more than people think.` },
+      { type: 'p', text: `A lot of the homes near Echols sit on rural routes, not city streets with curbs and sidewalks. So curbside trash collection looks a little different here. We work with homeowners on where to set the can so it's easy for us to reach and easy for them to remember. Some folks put it near the cattle guard, some set it by the mailbox. We adjust to what works for your place.` },
+      { type: 'p', text: `Because these are single-family homes on bigger lots, a lot of our customers end up needing more than just the weekly can. Garage cleanouts happen when someone's downsizing or clearing out a place after a family member moves. House cleanouts come up after a move or a big spring cleaning push. And bulk trash pickup gets used when someone's finally tackling that pile behind the shed they've been putting off for months.` },
+      { type: 'p', text: `We treat rural trash service different than a standard city account. Out here, missing a week isn't just inconvenient, it can mean trash sitting out for days in the heat or attracting critters. So we stick to a schedule and we stick to it hard. Our drivers get to know the property, the gate codes, the dogs that bark but don't bite.` },
+      { type: 'p', text: `Weekly pickup near Echols isn't a one-size-fits-all route. It's built around how rural single-family homes live, bigger properties, more stuff to manage, and a need for someone who shows up when they say they will. That's the job, and it's the one we've been doing for families out here for a long time.` },
+    ],
+  },
+  {
+    heading: `How Our Team Reaches the Echols, TX Area`,
+    img: 'access',
+    imgAlt: `Waste truck on a rural route reaching a property near Echols, TX`,
+    lead: `Our trucks roll out of the yard at 175 PR335 in Hubbard most mornings before the sun's even all the way up. Echols isn't some far-off stop on our route, it's part of the same backroad network we've been driving for years. We know which gates stick, which gravel drives wash out after a hard rain, and which mailboxes are easy to miss if you're not paying attention.`,
+    blocks: [
+      { type: 'p', text: `Getting to Echols from our Hubbard base isn't complicated, but it does take knowing the county roads instead of just trusting a GPS. Out here, a map app will sometimes send you down a road that's more mud than gravel. We don't need that. Our drivers have made this run enough times that the route is second nature.` },
+      { type: 'p', text: `Here's how our team typically gets to your place in Echols:` },
+      { type: 'ol', items: [
+        `We pull out of the Hubbard yard on PR335 and head toward the main farm-to-market road that connects our area to Echols.`,
+        `From there, we follow the county road system, watching for the turnoffs that lead into the smaller lanes and private drives common out here.`,
+        `We check our route sheet against the property, since rural addresses don't always match what a phone shows.`,
+        `We pull up to your curb, gate, or collection point, ready to load and go without you having to guess when we'll show.`,
+      ] },
+      { type: 'p', text: `Rural service means paying attention to details that don't matter in town. A driveway might be a quarter mile off the main road. A gate might need to stay latched behind us. Some homes near Echols sit back off the road far enough that you'd miss the mailbox if you didn't know to look for it. We've learned these things by driving out here, not by reading them off a screen.` },
+      { type: 'p', text: `And that local knowledge saves time on pickup day. We're not circling back or calling to ask which turn to take. Our team already knows the stretch of road, the curve past the old fence line, the spot where the pavement turns to gravel. That's the kind of thing you only pick up from doing this job week after week in the same stretch of country.` },
+      { type: 'p', text: `We also plan our loop so Echols pickups land on a regular day, not some random slot that changes every week. Rural trash service works when folks can count on a routine. So we build our route to hit the same roads on the same days, whether we're out for weekly residential trash pickup, curbside collection, or a bigger job like a house cleanout or yard debris haul.` },
+      { type: 'p', text: `Living a bit outside town doesn't mean you get skipped over or treated like an afterthought. Our whole business runs on serving the rural spots that bigger companies don't bother learning. Echols is one of those spots we've made a point to know well, road by road, house by house.` },
+    ],
+  },
+  {
+    heading: `What Rural Properties Need for Trash Service`,
+    img: 'community',
+    imgAlt: `Rural property trash bin setup near Echols, TX`,
+    lead: `Out here around Echols, the mailbox might sit a quarter mile from the front door. That changes everything about trash pickup. A truck built for a tight subdivision loop just doesn't work on a long gravel driveway with a cattle guard at the end of it.`,
+    blocks: [
+      { type: 'p', text: `We've driven enough of these county roads to know the difference between a house set close to the road and one tucked way back behind a stand of oaks. Curbside collection out here isn't really "curbside" at all, it's driveway service, gate service, sometimes a walk down a dirt path to get to where the cans sit.` },
+      { type: 'p', text: `Rural homes near Echols tend to generate different trash than a house in town. There's the regular kitchen bags, sure, but there's also fencing scraps, old feed sacks, broken irrigation line, and the occasional dead appliance sitting under a lean-to. That's why we don't just offer weekly residential trash pickup. We handle junk removal, appliance removal and disposal, and yard debris removal too, because one truck for one job doesn't cut it on a property with five acres and forty years of accumulated stuff.` },
+      { type: 'p', text: `A few things rural properties around Echols usually need from a trash service:` },
+      { type: 'ul', items: [
+        `Pickup that works with long driveways and gated entries, not just curb-to-curb routes`,
+        `Room for bulk trash pickup after a barn cleanout or a fence rebuild`,
+        `Construction debris removal for the shed project or the porch that finally got torn off`,
+        `Reliable rural garbage collection on a set day, even when the road's a little rough`,
+        `Occasional electronic waste removal for the old TV or busted computer sitting in the garage`,
+      ] },
+      { type: 'p', text: `We've picked up trash from places where the driveway floods after a hard rain, and places where you need four-wheel drive just to get the truck turned around. That's rural Texas. Nobody's road looks the same. So we plan our route knowing some stops take longer than others, and that's fine, that's the job.` },
+      { type: 'p', text: `A lot of the homes we service near Echols were built decades back, long before curbside bins were even a thing. Folks out here are used to hauling their own trash to a burn pile or a county drop-off, and switching to regular pickup can feel like a big change. We keep it simple. Same day, same route, no surprises.` },
+      { type: 'p', text: `Garage cleanouts are common too. We'll get a call from someone clearing out a parent's old place, three decades of tools and furniture packed into a two-car garage. That's not a job for a regular trash can. That's a job for a crew that knows how to load a truck fast and haul it off without tearing up the yard doing it.` },
+      { type: 'p', text: `Rural service isn't complicated, it just takes someone willing to drive the extra miles and know the roads. We do.` },
+    ],
+  },
+];
+
+const faqs: Faq[] = [
+  { q: `How often does trash pickup happen for homes near Echols, TX?`, a: `We pick up trash on the same day every week for homes near Echols, TX. Our trucks run this route from our Hubbard yard on a set schedule, so you never have to guess when we'll show up. Rural homes need a routine you can count on, especially in hot weather when trash can't sit out for days.` },
+  { q: `Do older homes near Echols, TX need more than just weekly trash pickup?`, a: `Yes, many homes near Echols, TX need extra help beyond the weekly can. These older properties often have barns, sheds, and outbuildings that collect old appliances, furniture, and construction debris over time. We offer garage cleanouts, bulk trash pickup, and yard debris hauling to handle what a weekly pickup alone can't manage.` },
+  { q: `How does your team handle long driveways and gates on Echols properties?`, a: `We adjust our pickup spot to fit your property near Echols, whether that's by a cattle guard, mailbox, or gate. Our drivers already know which gravel drives get muddy and which gates need to stay latched. You just tell us where to set the can, and we work around your setup every week.` },
+];
+---
+
+<LocationPage
+  town="Echols"
+  county="Limestone County"
+  slug="echols"
+  title="Waste Management Service Near Echols, TX | Rankin Waste"
+  h1="Waste Management Service Near Echols, TX"
+  description="Reliable weekly trash pickup and rural waste service near Echols, TX. Family-owned, no contracts, flat-rate pricing. 250+ five-star reviews. Call (254) 205-6125."
+  subtitle="Serving Echols & Rural Limestone County, TX"
+  heroAlt="Rankin Waste collection at a rural ranch home near Echols, TX"
+  intro={`Out toward Mexia, Echols is single-family homes on big rural lots — long driveways, outbuildings, and more to haul off than a city lot ever sees. From our base in nearby Hubbard, Rankin Waste Management runs reliable weekly trash service across Echols and rural Limestone County, TX.`}
+  sections={sections}
+  faqs={faqs}
+/>

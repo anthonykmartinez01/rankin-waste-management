@@ -1,0 +1,92 @@
+---
+// src/pages/service-areas/kirk.astro
+// Kirk, TX (Limestone County). Scheduled via src/lib/schedule.ts.
+import LocationPage from '../../components/LocationPage.astro';
+import type { LocationSection, Faq } from '../../components/location-types';
+import { scheduleGuard } from '../../lib/schedule';
+
+const guard = scheduleGuard(Astro);
+if (guard) return guard;
+
+const sections: LocationSection[] = [
+  {
+    heading: `Waste Pickup for Rural Kirk, TX Properties`,
+    img: 'rural-route',
+    imgAlt: `Waste truck on a gravel road at a ranch property near Kirk, TX`,
+    lead: `Out here in Kirk, a long driveway isn't unusual. Some of our customers live a quarter mile off the main road, past a cattle guard or two. The city trucks don't always make it this far out. We do.`,
+    blocks: [
+      { type: 'p', text: `Kirk sits in that stretch of Texas where properties spread out. Acreage, gravel roads, a barn or two, maybe some chickens. Weekly residential trash pickup around here looks different than it does in town. Bins get placed at the end of long drives, sometimes near a mailbox cluster shared by three or four neighbors. We know which gates stay open and which ones need a call ahead.` },
+      { type: 'p', text: `Rural garbage collection means working around real conditions, not a neat subdivision grid. And we've learned to read a property fast. Is the drive gravel or caliche? Will a full truck make the turn without tearing up the yard? Does the household run cattle or horses, and does that change where the bin needs to sit on collection day? Little details, but they matter out here.` },
+      { type: 'p', text: `A lot of our Kirk customers deal with more than just weekly trash. Clearing out an old barn, tearing down a fence line, cleaning up after a storm knocks branches everywhere, it adds up fast. That's where junk removal and yard debris removal come in handy. We've hauled off old appliances left behind in a shed, torn-up furniture from a flooded mobile home, and enough construction debris from a carport rebuild to fill a trailer twice over.` },
+      { type: 'p', text: `One thing we hear a lot from folks near Kirk: they tried a service based out of the city, and the truck just never showed up reliably. Rural stops get skipped when a company's routing everything from a warehouse two counties away. We're not that. Our team runs these roads regularly, so your pickup day happens on your pickup day.` },
+      { type: 'p', text: `Some Kirk properties are worked land, some are just quiet acreage with a house and a shop building. Either way, curbside trash collection needs to fit how the property runs. We work with you on where the bin sits, what day works with your schedule, and how to handle the occasional bulk trash pickup when you're clearing out a shed or replacing an old water heater.` },
+      { type: 'p', text: `House and garage cleanouts come up a lot around here too. Maybe a family member passed and left behind decades of stuff in an old farmhouse. Maybe you just bought a rural property and inherited someone else's junk pile. We've done both kinds of jobs plenty of times in this area.` },
+      { type: 'p', text: `Electronic waste removal matters more out here than folks expect. Old TVs, dead chest freezers, busted farm equipment electronics, they pile up in a shop or barn for years. We take care of that disposal the right way, not just dumping it in a ditch somewhere.` },
+      { type: 'p', text: `Rural trash service isn't complicated. It just takes a company willing to drive the roads.` },
+    ],
+  },
+  {
+    heading: `How Our Team Reaches the Kirk, TX Area`,
+    img: 'access',
+    imgAlt: `Trash bin at a cattle-guard driveway near Kirk, TX`,
+    lead: `Our office sits at 175 PR335 in Hubbard, and the drive out to Kirk feels like part of our regular week. We're not sending a truck from some far-off dispatch center. We're pulling out of our own gravel lot and heading straight for the same county roads you drive every day.`,
+    blocks: [
+      { type: 'p', text: `Getting to Kirk means leaving the paved stretch behind pretty quick. Once you're past the Hubbard city limit, the road narrows and the fields open up on both sides. And that's exactly the kind of drive our trucks are built for. We're not city trucks trying to squeeze down farm roads for the first time.` },
+      { type: 'p', text: `Here's the route our crew usually runs:` },
+      { type: 'ol', items: [
+        `Head out from our lot on PR335 toward the main county road.`,
+        `Follow the county road through open farmland until you hit the turnoff toward Kirk.`,
+        `Cut through on the rural connector roads that link the smaller communities out this way.`,
+        `Roll into the Kirk area, watching for gravel driveways and mailbox clusters that mark most homes out here.`,
+        `Pull up right to your curb, gate, or wherever the trash cart or junk pile is waiting.`,
+      ] },
+      { type: 'p', text: `We've made this drive enough times that we know which stretches turn soft after a hard rain. So we plan our pickup days with that in mind, not after the truck's already stuck. Our drivers know to swing wide around the low spots near the creek crossings, too, no need for you to flag that down for us.` },
+      { type: 'p', text: `A lot of rural service outfits treat these back roads like an afterthought. We don't. Kirk's homes are spread out, driveways are long, and some folks are set pretty far back from the main road. But that's just what rural Texas looks like, and it's the exact kind of route we've built our whole business around.` },
+      { type: 'p', text: `We don't ask Kirk customers to haul anything up to a main road or meet a truck somewhere convenient for us. We come to you, same as we would for a neighbor two doors down from our own place in Hubbard.` },
+      { type: 'p', text: `If your place is tucked behind a tree line or down a long dirt drive, just give us a heads up when you set up service. We'll note it on the route so our driver isn't guessing. Most of the time, though, our guys already know the turn.` },
+      { type: 'p', text: `Kirk isn't some far-flung stop we tack onto the end of a route. It's part of the regular loop, week in and week out. We're out on these roads enough that the drive doesn't feel long to us anymore. And for you, that just means a truck that shows up when it's supposed to, without any fuss about how far off the highway you live.` },
+    ],
+  },
+  {
+    heading: `What Makes Kirk, TX Homes Different`,
+    img: 'community',
+    imgAlt: `Waste service truck near the feed store on the main road in Kirk, TX`,
+    lead: `Drive out past the grain silos on FM 933 and you'll see it right away. Kirk isn't a subdivision with matching mailboxes and a homeowners association telling you what color to paint your fence. It's acreage, long gravel driveways, and homes that sit far enough apart that your neighbor's dog barking doesn't wake you up at night. That spacing changes how trash pickup works out here, and we've built our whole route around it.`,
+    blocks: [
+      { type: 'p', text: `Most properties around Kirk sit on a half acre or more. Some stretch back a quarter mile from the main road. A regular city trash truck route just doesn't fit that pattern, so we run our rural trash service different. We know which driveways have a gate code, which ones flood a little after heavy rain near the low water crossing, and which ones need us to swing the truck around a stock trailer parked out front.` },
+      { type: 'p', text: `Homes near Kirk tend to fall into a few categories, and we service all of them:` },
+      { type: 'ul', items: [
+        `Older farmhouses with detached garages and metal outbuildings`,
+        `Newer manufactured homes on permanent foundations`,
+        `Working ranch properties with barns and equipment sheds`,
+        `A handful of newer builds closer to the Hubbard Kirk Road stretch`,
+      ] },
+      { type: 'p', text: `That mix matters. A farmhouse that's been in the family for decades tends to collect stuff over the years, old furniture, appliances that quit working, scrap from projects nobody finished. We do junk removal and appliance removal for exactly that kind of buildup. And a lot of these places have a garage or barn that hasn't been cleaned out since the last owner moved in.` },
+      { type: 'p', text: `We've hauled off plenty of house and garage cleanouts from properties just off County Road 302, where folks are getting a place ready to sell or helping an aging parent downsize. It's common work out here. Rural homes accumulate things because there's room to store them, until one day there isn't.` },
+      { type: 'p', text: `Yard debris is another thing Kirk properties deal with more than in-town homes. Big trees, more acreage, more storms rolling through in spring. Branches come down, brush piles up, and burning isn't always an option depending on the week. We pick that up too.` },
+      { type: 'p', text: `Construction debris shows up a lot around here as well. Folks build a new shed, pour a slab, add on a room. That leaves scrap wood, shingles, and drywall behind, and it doesn't fit in a regular trash bin. We handle that on our runs through the area.` },
+      { type: 'p', text: `One thing we've noticed working out here for years: rural homeowners want service that just shows up and gets done, no fuss, no runaround. Nobody out past Kirk wants to sit on hold with some call center in another state. We're the truck that comes down your road, your turn off the highway, and we treat your property like it's part of our own route, because it is.` },
+    ],
+  },
+];
+
+const faqs: Faq[] = [
+  { q: `Will your truck actually make it down our long gravel driveway near Kirk?`, a: `Yes, our trucks are built for these roads, not city streets. We check whether your drive is gravel or caliche and make sure a full truck can turn without tearing up your yard. If your place is tucked behind a tree line, just let us know when you set up service.` },
+  { q: `How do you handle trash pickup for old farmhouses or shop buildings near Kirk?`, a: `We work around how your property actually runs, whether it's worked land or just a house and shop building. Many Kirk properties have old barns, sheds, or farmhouses with years of stuff piled up. We handle those cleanouts along with regular pickup, including old appliances and construction debris.` },
+  { q: `Do I need to haul my trash cart out to the main road for pickup near Kirk?`, a: `No, we come straight to your curb, gate, or wherever your cart sits. Kirk homes often sit a quarter mile off the main road, sometimes near a shared mailbox cluster. We note gate codes and long drives on your route, so our driver knows exactly where to go.` },
+];
+---
+
+<LocationPage
+  town="Kirk"
+  county="Limestone County"
+  slug="kirk"
+  title="Waste Management Service Near Kirk, TX | Rankin Waste"
+  h1="Waste Management Service Near Kirk, TX"
+  description="Reliable weekly trash pickup and rural waste service near Kirk, TX. Family-owned, no contracts, flat-rate pricing. 250+ five-star reviews. Call (254) 205-6125."
+  subtitle="Serving Kirk & Rural Limestone County, TX"
+  heroAlt="Rankin Waste pickup at a rural acreage property near Kirk, TX"
+  intro={`Kirk is acreage country — gravel drives, cattle guards, and homes set well off the main road. From our yard in nearby Hubbard, Rankin Waste Management brings dependable weekly trash service to Kirk and rural Limestone County, TX, built for these back roads instead of a city grid.`}
+  sections={sections}
+  faqs={faqs}
+/>

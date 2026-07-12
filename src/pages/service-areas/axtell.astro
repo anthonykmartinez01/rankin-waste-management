@@ -1,134 +1,98 @@
 ---
 // src/pages/service-areas/axtell.astro
-// Byte-identical content port of pre-migration src/pages/Axtell.jsx.
-//
-// First page in the migration with per-page JSON-LD schema, emitted via
-// <Fragment slot="head"> so the script lands inside <head> (crawler-
-// friendly and Lighthouse-SEO-friendly). Schema content (Organization +
-// PostalAddress + City for 'Axtell, TX') is byte-identical to pre-migration
-// (verified: JSON.stringify of both produces identical 388-byte output).
-//
-// Six independent reveal animations:
-//   intro: useReveal() (no delay)
-//   services: useReveal(0.1)
-//   why: useReveal(0.1)
-//   costs: useReveal(0.1)
-//   nearby: useReveal(0.1)
-//   cta: useReveal(0.1)
-//
-// One em-dash (U+2014, E2 80 94) in 'exactly like Axtell — places where'
-// preserved verbatim. All other dashes in the file are ASCII hyphens
-// (0x2D): compound modifiers like $25-35, 2-yard, Roll-Off, 24-hour, etc.
-//
-// Pre-migration imported Link from react-router-dom but never used it
-// (dead import). Not carried over.
-import Layout from '../../layouts/Layout.astro';
-import InnerHero from '../../components/InnerHero.astro';
-import CallCTA from '../../components/CallCTA.astro';
-import { PHONE, PHONE_LINK } from '../../data/business';
+// Rebuilt 2026-07-12 on the shared LocationPage component (was a standalone
+// port). Scheduled via the registry (see src/lib/schedule.ts).
+import LocationPage from '../../components/LocationPage.astro';
+import type { LocationSection, Faq } from '../../components/location-types';
+import { scheduleGuard } from '../../lib/schedule';
+
+const guard = scheduleGuard(Astro);
+if (guard) return guard;
+
+const sections: LocationSection[] = [
+  {
+    heading: `Waste Management for Homes Near Axtell`,
+    img: 'rural-route',
+    imgAlt: `Waste management truck on a rural road near an Axtell, TX driveway`,
+    lead: `Drive down FM 1712 on a Tuesday morning and you'll see it, trash cans lined up at the end of long gravel driveways, waiting on a service that shows up. Axtell isn't packed tight like a subdivision. Houses sit spread out on acreage, some with a barn out back, some with a few chickens pecking around the yard. That kind of spread-out living means trash pickup can't run on a city schedule. It has to run on a rural one, and that's exactly what we do.`,
+    blocks: [
+      { type: 'p', text: `Most of the homes we service near Axtell sit on bigger lots than what you'd find in Waco or Bellmead. That means more yard debris after a storm blows through, more room for stuff to pile up in a shed or garage over the years, and a real need for someone who'll come out past the pavement without charging extra just for the drive.` },
+      { type: 'p', text: `We know these roads. PR roads, FM roads, gravel drives that don't show up right on GPS, our truck's been down most of them. So when a family out past the school calls us for weekly trash pickup, we're not guessing where they live. We're already familiar with the turn.` },
+      { type: 'p', text: `A lot of what we haul for Axtell homes falls into a few common categories:` },
+      { type: 'ul', items: [
+        `Weekly curbside trash collection for houses on acreage and farm roads`,
+        `Yard debris removal after storms knock down limbs and brush`,
+        `Appliance removal when an old fridge or washer finally gives out`,
+        `Furniture removal during a move or a house cleanout`,
+        `Bulk trash pickup for the stuff that piles up between regular service days`,
+      ] },
+      { type: 'p', text: `Rural living has its own rhythm, and trash service should match it. A family living a quarter mile off the main road shouldn't have to haul their own garbage into town just because a company doesn't want to drive the extra stretch. We built our route around houses like that.` },
+      { type: 'p', text: `Garage cleanouts come up a lot around here too. Folks inherit a place, or they're finally clearing out a barn that's been collecting junk for twenty years. We handle that kind of job regularly for homes near Axtell, old tools, broken furniture, stuff nobody's touched in a decade. It adds up fast on rural property, more than most people expect until they start loading a trailer.` },
+      { type: 'p', text: `And it's not just houses. Some of our Axtell customers run a small operation out of their property, a little shop or a side business, and they need commercial dumpster rental alongside their regular residential service. We can set both up without making it complicated.` },
+      { type: 'p', text: `We're out here every week anyway, running the route past Axtell and the farm roads that feed into it. Adding your address doesn't throw off our day, it just makes sense with where we're already driving. That's the difference between a big company routing trucks from a call center and a local outfit that knows the gravel road you live on.` },
+      { type: 'p', text: `No hassle, no runaround, just a truck that shows up when it says it will.` },
+    ],
+  },
+  {
+    heading: `How Our Team Reaches the Axtell Area`,
+    img: 'access',
+    imgAlt: `Trash bin pickup at a rural farmhouse property near Axtell, TX`,
+    lead: `Our truck rolls out of 175 PR335 in Hubbard most mornings before the sun's fully up, and Axtell is one of the first stops on our route. We're not some big company sending a driver who's never seen your road before. We know Farm Road 339, where the pavement turns to gravel out past the old cotton gin, and which driveways get soft after a hard rain.`,
+    blocks: [
+      { type: 'p', text: `Getting from our Hubbard office to Axtell is a short, familiar drive for us, most days it takes less than twenty minutes depending on which part of town you're in. That's close enough that we can be flexible on pickup days, and close enough that if something gets missed, we can turn around and fix it without it eating up half our afternoon.` },
+      { type: 'p', text: `Here's the route our drivers usually run to get to you:` },
+      { type: 'ol', items: [
+        `Head out of the Hubbard yard onto PR335 toward the highway.`,
+        `Pick up Highway 31 West and stay on it as it curves past the farmland and scattered homesteads.`,
+        `Turn onto the county roads that feed into the Axtell area, slowing down where the roads narrow near the older properties.`,
+        `Work our way street by street, hitting the rural routes and the in-town blocks alike before circling back toward Hubbard.`,
+      ] },
+      { type: 'p', text: `A lot of the homes we service out here sit on long driveways or acreage, so our drivers know to look for the bin at the road, not tucked behind a barn or a fence line. And on collection mornings, we try to keep a steady schedule so you're not left guessing whether today's the day.` },
+      { type: 'p', text: `Some weeks the route changes a little. Maybe a construction debris pickup runs long, or a house cleanout takes an extra pass with the trailer. But we build in the time for that, because rushing through a rural route means missing driveways, and that's not how we do things.` },
+      { type: 'p', text: `We also keep an eye on the weather. Axtell gets its share of muddy stretches after a good Texas storm, and some of the back roads out that way can get tricky. Our drivers know which routes to avoid after heavy rain, and which ones hold up fine. That local knowledge saves everybody a headache, and it means your pickup still happens even when the roads get rough.` },
+      { type: 'p', text: `If you're new to the area, or your place is a little tucked away, just give us a heads up on landmarks near your driveway. We've found our way to plenty of hard-to-spot homes around Axtell over the years, and one more description of "the blue mailbox past the water tower" isn't going to slow us down.` },
+      { type: 'p', text: `We're out here every week anyway. Adding your address to the route isn't a hassle for us, it's just part of the job we already know how to do.` },
+    ],
+  },
+  {
+    heading: `What Rural Properties Need for Waste Pickup`,
+    img: 'community',
+    imgAlt: `Waste management truck on a farm-to-market road near Axtell, TX`,
+    lead: `Axtell isn't a place with alleyways and curbside bins waiting on trash day. Out here, most homes sit back off the road on a half acre or more, sometimes a lot more, with a long gravel driveway between the house and the mailbox. That changes everything about how trash pickup works.`,
+    blocks: [
+      { type: 'p', text: `A truck built for tight subdivision streets doesn't do much good on the loose gravel roads off Old Mexia Road or the farm-to-market stretches that wind past Axtell. We know these roads. We've driven them enough times to know which ones get soft after a hard rain and which driveways need a careful backup instead of a straight pull-through.` },
+      { type: 'p', text: `Rural properties also generate different kinds of waste than a house in town. Think about it this way:` },
+      { type: 'ul', items: [
+        `Old appliances left in a barn or shed that finally need to go`,
+        `Fence posts, tree limbs, and yard debris from clearing a back pasture`,
+        `Construction debris from a barn repair or a new outbuilding`,
+        `Furniture that's been sitting in storage since a family member moved`,
+        `Bagged household trash that piles up fast when the nearest dumpster is miles away`,
+      ] },
+      { type: 'p', text: `None of that fits in a single small can. And it shouldn't have to.` },
+      { type: 'p', text: `Homes around Axtell tend to be spread out, so weekly pickup has to be planned different than it is in a subdivision with houses stacked ten feet apart. We schedule routes that make sense for rural distances, not routes built for city blocks. One stop out here might be a quarter mile from the next one, that's just how the land lays out.` },
+      { type: 'p', text: `A lot of families in this area have lived on the same property for years, sometimes generations. The barn's older than the house, the shed's older than both. So when it's finally time to clean things out, whether it's a garage that's been collecting stuff since the 90s or a yard full of storm debris after a bad spring, the job is bigger than a normal trash day. That's where junk removal and house or garage cleanouts come in, alongside the regular weekly pickup. We also see a fair number of rental properties out this way, tenants who need reliable curbside trash collection but don't want to deal with hauling bags to a far-off dumpster themselves. Bulk trash pickup matters more out here than almost anywhere else. When you're not near a transfer station, having someone come get the mattress, the old water heater, or the pile of scrap from a fence project makes a real difference. We built our service around that reality, not around a city map that doesn't include Axtell at all.` },
+    ],
+  },
+];
+
+const faqs: Faq[] = [
+  { q: `How fast can you get a trash truck out to my place near Axtell?`, a: `Our drivers reach Axtell in less than twenty minutes from our Hubbard yard most mornings. Since we're already running this route weekly, adding your address doesn't slow us down. If a pickup gets missed on a rural road, we can turn around and fix it the same day without losing half our afternoon.` },
+  { q: `My driveway is a long gravel stretch off Old Mexia Road, can you still service my property?`, a: `Yes, long gravel driveways are common on Axtell properties, and our trucks are built for that. We ask that you leave your bin at the road instead of tucked near a barn or fence line. Our drivers already know which stretches near the old cotton gin get soft after rain.` },
+  { q: `I run a small shop on my Axtell property, can you handle both my home and business trash?`, a: `Yes, we set up residential pickup and commercial dumpster rental together for Axtell properties with a side business or shop. Since we're already driving your road weekly for regular trash service, coordinating both types of pickup doesn't complicate our schedule or yours.` },
+];
 ---
 
-<Layout
-  title="Waste Management Service in Axtell, TX | Rankin Waste Management"
-  description="Reliable waste management in Axtell. Family-owned with 250+ five-star reviews. Free estimates, 24-hour response. Call (254) 205-6125."
->
-  <Fragment slot="head">
-    <script is:inline type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "Rankin Waste Management",
-      "url": "https://rankinwaste.com",
-      "telephone": "(254) 205-6125",
-      "email": "rankinwaste@gmail.com",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "175 PR335",
-        "addressLocality": "Hubbard",
-        "addressRegion": "TX",
-        "postalCode": "76648",
-        "addressCountry": "US"
-      },
-      "areaServed": {
-        "@type": "City",
-        "name": "Axtell, TX"
-      }
-    })} />
-  </Fragment>
-
-  <InnerHero title="Waste Management Service in Axtell, TX" />
-
-  <section class="px-6 lg:px-[clamp(2rem,5vw,4rem)] py-20 md:py-28">
-    <div class="max-w-[800px] mx-auto">
-
-      {/* Intro */}
-      <div data-reveal class="mb-16">
-        <p class="text-text-muted text-lg leading-relaxed mb-6">
-          Running a household or business in Axtell means dealing with waste disposal week after week. Whether you live near the old Axtell school grounds or run a business along FM 939, Rankin Waste Management brings dependable service right to your property. Our trucks regularly travel from our Hubbard base through the rural roads connecting our communities, so we know the quickest routes to reach Axtell residents.
-        </p>
-        <p class="text-text-muted text-lg leading-relaxed">
-          As a family-owned company serving McLennan County, we handle everything from weekly residential pickup to large commercial accounts. With 250+ five-star reviews and a perfect 5.0 rating, Axtell residents trust us because we show up when promised and keep rates fair. Our 24-hour response time means you get answers fast when you need new service or have questions about your account.
-        </p>
-      </div>
-
-      {/* Services Available */}
-      <div data-reveal data-reveal-delay="0.1" class="mb-16">
-        <h2 class="text-2xl md:text-3xl font-bold mb-8">Services Available in Axtell</h2>
-
-        <h3 class="text-xl font-bold mb-3">Residential Waste Collection</h3>
-        <p class="text-text-muted text-lg leading-relaxed mb-8">
-          Weekly curbside pickup keeps your property clean without the hassle of hauling trash yourself. We provide the bins and handle all the heavy lifting. Most Axtell homes pay between $25-35 monthly for standard residential service.
-        </p>
-
-        <h3 class="text-xl font-bold mb-3">Commercial Dumpster Service</h3>
-        <p class="text-text-muted text-lg leading-relaxed mb-8">
-          From the convenience stores at the FM 939 intersection to farms needing cleanup containers, we match dumpster sizes to your actual needs. Our 2-yard, 4-yard, and 6-yard options fit most Axtell businesses without taking up unnecessary space.
-        </p>
-
-        <h3 class="text-xl font-bold mb-3">Roll-Off Container Rentals</h3>
-        <p class="text-text-muted text-lg leading-relaxed">
-          Home renovation or clearing out a property? Our roll-off containers handle construction debris, old furniture, and major cleanout projects. We drop off and pick up on your schedule.
-        </p>
-      </div>
-
-      {/* Why Axtell Residents Call Us */}
-      <div data-reveal data-reveal-delay="0.1" class="mb-16">
-        <h2 class="text-2xl md:text-3xl font-bold mb-6">Why Axtell Residents Call Us</h2>
-        <p class="text-text-muted text-lg leading-relaxed mb-6">
-          Living in a smaller community like Axtell often means limited options for essential services. Some national chains skip rural routes or charge extra fees for "out of area" service. We built our business serving communities exactly like Axtell — places where neighbors know each other and a handshake still means something.
-        </p>
-        <p class="text-text-muted text-lg leading-relaxed">
-          The unpaved sections and narrow county roads don't slow us down. Our drivers know which routes flood during heavy rains and how to navigate around farm equipment during harvest season. This local knowledge keeps your service consistent year-round.
-        </p>
-      </div>
-
-      {/* Costs */}
-      <div data-reveal data-reveal-delay="0.1" class="mb-16">
-        <h2 class="text-2xl md:text-3xl font-bold mb-6">Waste Management Costs in Axtell</h2>
-        <p class="text-text-muted text-lg leading-relaxed mb-6">
-          Residential waste service in Axtell typically runs $25-35 per month, depending on your location and pickup frequency. Commercial rates vary based on container size and collection schedule. Construction roll-offs start at $300 for a week-long rental.
-        </p>
-        <p class="text-text-muted text-lg leading-relaxed">
-          We provide free estimates over the phone in just minutes. Tell us your address and service needs, and we'll quote an exact monthly rate with no hidden fees.
-        </p>
-      </div>
-
-      {/* Nearby Areas */}
-      <div data-reveal data-reveal-delay="0.1" class="mb-16">
-        <h2 class="text-2xl md:text-3xl font-bold mb-6">Nearby Areas We Serve</h2>
-        <p class="text-text-muted text-lg leading-relaxed">
-          Beyond Axtell, our trucks serve neighboring communities throughout the region. We maintain regular routes to Prairie Hill, Mt. Calm, and Malone. If you have properties in multiple locations or need service outside Axtell, we can coordinate pickup schedules across all your sites.
-        </p>
-      </div>
-
-      {/* CTA */}
-      <div data-reveal data-reveal-delay="0.1" class="bg-dark-elevated border border-border-subtle rounded-2xl p-8 md:p-12 text-center">
-        <h2 class="text-2xl md:text-3xl font-bold mb-4">Ready to Start Service in Axtell?</h2>
-        <p class="text-text-muted text-lg leading-relaxed mb-8">
-          Call Rankin Waste Management at <a href={PHONE_LINK} class="text-orange-500 hover:text-orange-400 font-semibold">{PHONE}</a> to set up your waste service. We answer Monday through Friday from 8 AM to 6 PM, and most new accounts start within 48 hours. Have your Axtell address ready, and we'll provide your free quote right over the phone.
-        </p>
-        <CallCTA />
-      </div>
-
-    </div>
-  </section>
-</Layout>
+<LocationPage
+  town="Axtell"
+  county="McLennan County"
+  slug="axtell"
+  title="Waste Management Service in Axtell, TX | Rankin Waste"
+  h1="Waste Management Service in Axtell, TX"
+  description="Reliable weekly trash pickup and rural waste service in Axtell, TX. Family-owned, no contracts, flat-rate pricing. 250+ five-star reviews. Call (254) 205-6125."
+  subtitle="Serving Axtell & Rural McLennan County, TX"
+  heroAlt="Rankin Waste collection at a rural ranch driveway near Axtell, TX"
+  intro={`Axtell is spread-out country — houses on acreage, long gravel driveways, and farm roads that don't run on a city schedule. From our yard just up the road in Hubbard, Rankin Waste Management brings dependable weekly trash service to Axtell and rural McLennan County, TX, built for the way folks actually live out here.`}
+  sections={sections}
+  faqs={faqs}
+/>

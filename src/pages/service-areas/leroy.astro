@@ -1,0 +1,98 @@
+---
+// src/pages/service-areas/leroy.astro
+// Leroy, TX (McLennan County — source copy wrongly said Falls County).
+// Scheduled via src/lib/schedule.ts.
+import LocationPage from '../../components/LocationPage.astro';
+import type { LocationSection, Faq } from '../../components/location-types';
+import { scheduleGuard } from '../../lib/schedule';
+
+const guard = scheduleGuard(Astro);
+if (guard) return guard;
+
+const sections: LocationSection[] = [
+  {
+    heading: `Waste Collection for Rural Properties and Farms`,
+    img: 'rural-route',
+    imgAlt: `Waste truck on a rural road along a farmhouse route near Leroy, TX`,
+    lead: `Out here in Leroy, a trash can at the curb doesn't always mean the curb is close. Half the homes we service sit down a quarter-mile gravel drive, past a cattle guard, maybe a barn or two before you even hit the house. We know that. Our rural trash service is built around it, not the other way around.`,
+    blocks: [
+      { type: 'p', text: `Weekly residential trash pickup on a farm looks different than it does in town. You've got feed bags, fence wire, and the odd dead appliance sitting behind the shop. So we don't just haul what fits in a bin. We handle bulk trash pickup for the stuff that piles up between town runs, because nobody's driving forty-five minutes to the transfer station for one broken washer.` },
+      { type: 'p', text: `A lot of our Leroy customers are dealing with property that's been in the family a long time. That means old sheds full of things nobody's touched in years, and it means the occasional full house or garage cleanout when a place changes hands. We do those. We've cleared out barns that hadn't been sorted since the '80s and helped families empty a grandparent's place room by room. It's not glamorous work, but it matters to the folks who call us.` },
+      { type: 'p', text: `Rural properties also generate their own kind of yard debris. Mesquite trimmings, cedar brush, storm-downed limbs after a spring blow-through. Curbside collection in town doesn't touch that kind of volume. We do.` },
+      { type: 'p', text: `Here's what we're regularly picking up from farms and rural lots around Leroy:` },
+      { type: 'ul', items: [
+        `Appliance removal and disposal, old freezers, water heaters, dead washers sitting out by the shop`,
+        `Furniture removal from cleanouts and estate work`,
+        `Yard debris removal after brush clearing or storm damage`,
+        `Construction debris removal from barn repairs and fence rebuilds`,
+        `Electronic waste removal for old TVs, computers, and farm equipment electronics`,
+      ] },
+      { type: 'p', text: `Gravel roads and long driveways aren't a problem for our trucks, but they do change how we plan a route. We schedule rural pickups so we're not backtracking all over the county in one afternoon. And if your driveway floods after a hard rain or your gate's locked half the time, tell us. We adjust.` },
+      { type: 'p', text: `Some of our rural customers only need us once a week for the regular can. Others call for a one-time junk removal job when they're clearing out a barn or getting a place ready to sell. Both are fine by us. We're not a big city outfit trying to fit rural Texas into a box that doesn't work. We grew up around here. A farm's trash situation isn't the same as a subdivision's, and we've built our service around that difference, not against it.` },
+    ],
+  },
+  {
+    heading: `How Our Team Reaches Homes Near Leroy, TX`,
+    img: 'access',
+    imgAlt: `Cattle-guard property access for waste service near Leroy, TX`,
+    lead: `Our truck rolls out of the yard at 175 PR335 in Hubbard most mornings before the sun's fully up. Leroy sits close by, just a short drive down familiar farm-to-market roads we've traveled more times than we can count. We're not some big city outfit trying to figure out your gravel driveway on a map app. We know these roads.`,
+    blocks: [
+      { type: 'p', text: `Getting from our Hubbard location to your place in Leroy usually goes something like this:` },
+      { type: 'ol', items: [
+        `We head out from the yard on PR335 and connect to the main road toward Leroy.`,
+        `We follow the county roads that cut through the farmland between Hubbard and Leroy, the same stretch of road we've driven for years of pickups.`,
+        `Once we're near Leroy, we work our way through the side roads and lanes that lead back to your property, whether that's a long rural driveway or a short pull-off close to the road.`,
+        `We pull in, grab what needs grabbing, and we're back out without making a mess of your yard.`,
+      ] },
+      { type: 'p', text: `The drive isn't long, and that's the point. Being close means we can keep a real schedule for Leroy homes instead of squeezing you in whenever it's convenient. Weekly residential trash pickup only works if the truck shows up on the day it's supposed to. Same goes for curbside trash collection out on the rural routes where the mailbox might be a quarter mile from the front door.` },
+      { type: 'p', text: `Rural roads out here aren't always simple. Some stretches flood a little after a hard rain, some driveways have a tight turn near an old fence line, some gates need to be worked just right. We've learned all of that the slow way, one route at a time. And when a customer near Leroy calls about a bulk trash pickup or a load of yard debris that needs to go, we already have a decent idea of what their road looks like before we even pull out of Hubbard.` },
+      { type: 'p', text: `That familiarity matters more than people think.` },
+      { type: 'p', text: `A lot of trash companies run routes out of some regional hub two counties over. They send a different driver every few weeks, somebody who's never seen your driveway and doesn't know your dog barks at the gate. We're not that. Our team is out on these same roads week after week, so when we're doing a house cleanout or hauling off an old appliance, we're not wasting your time getting lost or calling for directions.` },
+      { type: 'p', text: `We keep our service area tight on purpose. Leroy isn't some far-flung stop tacked onto a route that stretches halfway across the state. It's part of the regular loop, close enough to Hubbard that getting to you doesn't eat up the whole morning. That's how we keep pickups on schedule and how we keep showing up when we say we will.` },
+    ],
+  },
+  {
+    heading: `What Makes Leroy, TX Properties Different`,
+    img: 'community',
+    imgAlt: `Waste collection truck in the Leroy, TX community at dusk`,
+    lead: `Drive down any road near Leroy and you won't see tight subdivisions with matching mailboxes. You'll see long gravel driveways, metal barns, and houses set back a good ways from the road. That's just how it is out here. Properties in this part of McLennan County tend to sit on real acreage, not quarter-acre lots squeezed together. And that changes everything about how trash and junk removal works.`,
+    blocks: [
+      { type: 'p', text: `Most homes we service near Leroy have room to spread out. A single property might have the main house, a workshop, an old barn, and a detached garage that's turned into storage over the years. That means when someone calls us for a cleanout, we're rarely just dealing with one building. We're often clearing out decades of stuff from a shed, a carport, and a back room all in the same visit.` },
+      { type: 'p', text: `The housing stock out here skews older too. Plenty of farmhouses have been in the same family for generations, passed down with all the furniture, tools, and boxes that come with them. When a property changes hands or a family finally decides to clean house, the job is bigger than what you'd find in a newer neighborhood in town.` },
+      { type: 'p', text: `We see a mix of property types on our routes near Leroy:` },
+      { type: 'ul', items: [
+        `Older farmhouses with detached storage buildings`,
+        `Working ranch properties with equipment and yard debris`,
+        `Mobile homes on larger rural lots`,
+        `Newer country homes built on family land`,
+        `Properties with long gravel or dirt driveways`,
+      ] },
+      { type: 'p', text: `That last one matters more than people think. A truck that can't turn around easy, or a driveway that floods after rain, changes how a pickup gets scheduled. We know which roads near Leroy get soft after a storm, and which driveways need a little extra care backing in. That's not something you learn from a map, you learn it from driving the route week after week.` },
+      { type: 'p', text: `Yard debris is a bigger deal out here too. Big lots mean big trees, and big trees mean branches after every storm that rolls through. Combine that with folks doing their own fencing repairs or clearing brush for a garden, and yard debris removal turns into a regular need, not a once-a-year thing.` },
+      { type: 'p', text: `Appliance removal comes up a lot near Leroy as well. Older homes often have an extra fridge in the garage or a washer that finally gave out after years of hard use. Rural families tend to hang onto appliances longer, fix them when they can, and then need them hauled off all at once when the replacement finally shows up.` },
+      { type: 'p', text: `Construction debris shows up regularly too. A lot of homeowners out here are doing their own repairs, adding a room, or replacing a fence themselves instead of hiring it out. That leaves scrap wood, old siding, and busted-up material that regular curbside pickup just isn't built to handle.` },
+      { type: 'p', text: `Rural living out here means doing things yourself, and it means the trash piling up looks different from what you'd find in a subdivision closer to Waco.` },
+    ],
+  },
+];
+
+const faqs: Faq[] = [
+  { q: `How often do you make it out to rural properties near Leroy for regular pickup?`, a: `We run Leroy on a set weekly schedule, not as an afterthought. Our yard sits close by in Hubbard, so Leroy is part of our regular loop instead of a stop tacked onto a longer route. That means your can gets picked up the same day each week, even out on the gravel roads.` },
+  { q: `We have an old barn and shed nobody's touched in years. Can you handle that kind of cleanout?`, a: `Yes, this is common work for us near Leroy. Many properties out here have a main house plus a workshop, barn, or garage full of decades-old stuff. We clear out sheds, carports, and back rooms in one visit, not just curbside cans.` },
+  { q: `Our driveway floods after rain and the gate sticks. Will that cause problems with pickup?`, a: `Just let us know and we'll work around it. We're used to long gravel driveways, tight turns near old fence lines, and gates that need a certain touch. If your road floods after a hard rain, tell us so we can adjust your pickup day instead of missing you.` },
+];
+---
+
+<LocationPage
+  town="Leroy"
+  county="McLennan County"
+  slug="leroy"
+  title="Waste Management Service in Leroy, TX | Rankin Waste"
+  h1="Waste Management Service in Leroy, TX"
+  description="Reliable weekly trash pickup and rural waste service in Leroy, TX. Family-owned, no contracts, flat-rate pricing. 250+ five-star reviews. Call (254) 205-6125."
+  subtitle="Serving Leroy & Rural McLennan County, TX"
+  heroAlt="Rankin Waste collection at a rural farm driveway near Leroy, TX"
+  intro={`Leroy is farm and ranch country — long gravel driveways, metal barns, and houses set back off the road on real acreage. From our yard just down the road in Hubbard, Rankin Waste Management runs reliable weekly trash service across Leroy and rural McLennan County, TX.`}
+  sections={sections}
+  faqs={faqs}
+/>
