@@ -64,6 +64,8 @@ jobs:
       - name: Deploy to Netlify (production)
         run: npx --yes netlify-cli@17 deploy --dir=dist --prod --message "Scheduled publish $(date -u +'%Y-%m-%dT%H:%MZ')"
         env:
-          # Netlify CLI reads both of these from the environment automatically.
+          # NETLIFY_AUTH_TOKEN is the only real secret — it authorizes the deploy.
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          # The site ID is NOT sensitive (it appears in every deploy/admin URL),
+          # so it's hardcoded here — no secret needed. Netlify CLI reads it from env.
+          NETLIFY_SITE_ID: 1b4ed3a0-3f95-4e8c-aca8-d2373d2bf248
