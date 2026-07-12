@@ -69,3 +69,7 @@ jobs:
           # The site ID is NOT sensitive (it appears in every deploy/admin URL),
           # so it's hardcoded here — no secret needed. Netlify CLI reads it from env.
           NETLIFY_SITE_ID: 1b4ed3a0-3f95-4e8c-aca8-d2373d2bf248
+      - name: Submit newly-due pages for indexing (KailenFlow)
+        env:
+          KAILENFLOW_INDEXING_KEY: ${{ secrets.KAILENFLOW_INDEXING_KEY }}
+        run: node scripts/kailenflow-indexing-ping.mjs
