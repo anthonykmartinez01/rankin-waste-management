@@ -1,0 +1,340 @@
+---
+// src/pages/service-areas/penelope.astro
+//
+// Penelope, TX service-area page. First location page linked from the
+// /service-areas hub. Follows the rich Hubbard service-page design:
+// bgImage InnerHero + alternating image/text sections + FaqAccordion
+// (with FAQPage schema) + ReviewWidget + CTA.
+//
+// SOURCE COPY: adapted from client-provided HTML. Two edits made:
+//   1. County reconciled to Hill County — the source contradicted itself
+//      ("Hill County" in one section, "Limestone County" in another).
+//      Penelope, TX is in Hill County (verified: Wikipedia, TX Almanac).
+//   2. Light grammar cleanup of dropped-word artifacts in the source
+//      (e.g. sentences that began mid-clause). Meaning + voice preserved.
+//
+// Internal linking: visible breadcrumb + "All Service Areas" link route
+// back to /service-areas (the hub). The hub links here in return.
+import Layout from '../../layouts/Layout.astro';
+import InnerHero from '../../components/InnerHero.astro';
+import CallCTA from '../../components/CallCTA.astro';
+import ReviewWidget from '../../components/ReviewWidget.tsx';
+import FaqAccordion from '../../components/FaqAccordion.tsx';
+import type { Faq } from '../../data/faqs';
+import { PHONE, PHONE_LINK } from '../../data/business';
+
+const PENELOPE_FAQS: Faq[] = [
+  {
+    q: 'How often do you actually make it out to Penelope for trash pickup?',
+    a: "We run weekly residential trash pickup and curbside collection throughout Penelope every single week, not just when it's convenient. Our trucks start each morning at our Hubbard yard and head straight down PR335 into Penelope. Because we're already running these routes regularly, we won't skip your place just because your driveway runs long or your road isn't paved.",
+  },
+  {
+    q: 'My house is older with a septic system and a long gravel driveway, does that cause problems for pickup?',
+    a: 'No, we handle older Penelope homes with septic systems and long gravel driveways all the time. Many properties out here were built years ago on land that used to be pasture, so we run trucks built for rural access instead of tight city trucks. We know which driveways flood after rain and plan routes around it.',
+  },
+  {
+    q: 'My driveway is set way back from the road, will your truck still come all the way in?',
+    a: "Yes, we back down long gravel lanes regularly for Penelope customers, whether it's a weekly pickup or a bulk trash job behind a barn. Just let us know if a gate needs opening or if there's a spot we should call ahead about. We're already in the area weekly, so a longer drive to your bins is nothing new.",
+  },
+];
+---
+
+<Layout
+  title="Waste Management Service in Penelope, TX | Rankin Waste"
+  description="Reliable weekly trash pickup and rural waste service in Penelope, TX. Family-owned, no contracts, flat-rate pricing. 250+ five-star reviews. Call (254) 205-6125."
+  image="/images/penelope/hero.webp"
+  imageAlt="Rankin Waste collection service at a rural acreage property near Penelope, TX"
+>
+  <Fragment slot="head">
+    {/* Service schema — rich version with provider LocalBusiness,
+        AggregateRating + reviews, and areaServed (Penelope + counties).
+        Matches the pattern on the Hubbard service pages. */}
+    <script is:inline type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "@id": "https://rankinwaste.com/service-areas/penelope/#service",
+      "name": "Waste Management Service in Penelope, TX",
+      "description": "Weekly curbside trash pickup and rural waste service in Penelope, TX. Family-owned, no contracts, flat-rate pricing — junk removal, bulk trash, cleanouts, and dumpster rental for rural homes and long gravel driveways in and around Hubbard.",
+      "serviceType": "Waste management service",
+      "category": "Waste Management Service",
+      "url": "https://rankinwaste.com/service-areas/penelope/",
+      "provider": {
+        "@type": "LocalBusiness",
+        "@id": "https://rankinwaste.com/#business",
+        "name": "Rankin Waste Management",
+        "telephone": "+1-254-205-6125",
+        "email": "rankinwaste@gmail.com",
+        "url": "https://rankinwaste.com/",
+        "image": "https://rankinwaste.com/rw-logo.webp",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "175 PR335",
+          "addressLocality": "Hubbard",
+          "addressRegion": "TX",
+          "postalCode": "76648",
+          "addressCountry": "US"
+        },
+        "priceRange": "$$",
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+            "opens": "08:00",
+            "closes": "18:00"
+          }
+        ],
+        "sameAs": [
+          "https://www.facebook.com/p/Rankin-waste-management-100057417520840/"
+        ],
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "5.0",
+          "reviewCount": "284",
+          "bestRating": "5",
+          "worstRating": "1"
+        },
+        "review": [
+          {
+            "@type": "Review",
+            "author": { "@type": "Person", "name": "Linda Mcnutt" },
+            "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+            "reviewBody": "Rankin Waste Management has been our weekly waste pick up for several years and have been reliable and often pick up extra bags for us at no extra cost. I would certainly recommend them."
+          },
+          {
+            "@type": "Review",
+            "author": { "@type": "Person", "name": "Buffy Nehring" },
+            "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+            "reviewBody": "They are a family owned business. They are always on time for pickup. They provide amazing customer service. They have quick response should you have questions. They treat you like family not just another account. They have great pricing. I highly recommend them."
+          }
+        ]
+      },
+      "areaServed": [
+        {
+          "@type": "City",
+          "name": "Penelope, TX",
+          "containedInPlace": { "@type": "AdministrativeArea", "name": "Hill County, TX" }
+        },
+        { "@type": "AdministrativeArea", "name": "Hill County, TX" },
+        { "@type": "AdministrativeArea", "name": "McLennan County, TX" },
+        { "@type": "AdministrativeArea", "name": "Navarro County, TX" },
+        { "@type": "AdministrativeArea", "name": "Limestone County, TX" }
+      ]
+    })} />
+
+    {/* FAQPage schema — mirrors the visible FaqAccordion below. */}
+    <script is:inline type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": PENELOPE_FAQS.map((f) => ({
+        "@type": "Question",
+        "name": f.q,
+        "acceptedAnswer": { "@type": "Answer", "text": f.a }
+      }))
+    })} />
+
+    {/* BreadcrumbList — Home → Service Areas → Penelope. */}
+    <script is:inline type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://rankinwaste.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Service Areas", "item": "https://rankinwaste.com/service-areas" },
+        { "@type": "ListItem", "position": 3, "name": "Penelope, TX", "item": "https://rankinwaste.com/service-areas/penelope" }
+      ]
+    })} />
+  </Fragment>
+
+  <InnerHero
+    title="Waste Management Service in Penelope, TX"
+    subtitle="Serving Penelope & Rural Hill County, TX"
+    bgImage="/images/penelope/hero.webp"
+    bgImageMobile="/images/penelope/hero-mobile.webp"
+    bgImageAlt="Rankin Waste collection service at a rural acreage property near Penelope, TX"
+  />
+
+  <section class="px-5 sm:px-6 lg:px-[clamp(2rem,5vw,4rem)] py-12 md:py-20 lg:py-28">
+    <div class="max-w-[1300px] mx-auto">
+
+      {/* Breadcrumb — visible internal link back to the hub */}
+      <nav aria-label="Breadcrumb" class="mb-8 md:mb-12">
+        <ol class="flex flex-wrap items-center gap-2 text-sm text-text-muted">
+          <li><a href="/" class="hover:text-orange-500 transition-colors duration-300">Home</a></li>
+          <li aria-hidden="true">/</li>
+          <li><a href="/service-areas" class="hover:text-orange-500 transition-colors duration-300">Service Areas</a></li>
+          <li aria-hidden="true">/</li>
+          <li class="text-white font-medium" aria-current="page">Penelope, TX</li>
+        </ol>
+      </nav>
+
+      {/* Intro */}
+      <div data-reveal class="mb-14 md:mb-20 text-center max-w-[820px] mx-auto">
+        <p class="text-text-muted text-base sm:text-lg leading-relaxed">
+          Drive down any county road out here and you'll notice something right away: houses sit far apart, gravel driveways run long, and the nearest neighbor might be a quarter mile off. That's Penelope. It's not a place where a one-size-fits-all trash truck route makes sense, and we've built our whole business around that fact &mdash; reliable, weekly waste service for the rural homes the big national haulers skip.
+        </p>
+      </div>
+
+      {/* Section 1 — Waste Collection for Penelope Properties — image LEFT */}
+      <div data-reveal data-reveal-delay="0.1" class="mb-16 md:mb-24">
+        <div class="grid md:grid-cols-2 gap-6 md:gap-12 lg:gap-16 items-start mb-6 md:mb-8">
+          <div class="rounded-2xl overflow-hidden">
+            <img
+              src="/images/penelope/rural-property.webp"
+              srcset="/images/penelope/rural-property-mobile.webp 768w, /images/penelope/rural-property.webp 1024w"
+              sizes="(min-width: 768px) 50vw, 100vw"
+              alt="Waste collection truck parked on a rural road near a Penelope, TX farmhouse driveway"
+              width="1024"
+              height="1024"
+              loading="lazy"
+              decoding="async"
+              class="w-full aspect-[4/3] object-cover"
+            />
+          </div>
+          <div>
+            <h2 class="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Waste Collection for Penelope, TX Properties</h2>
+            <p class="text-text-muted text-base sm:text-lg leading-relaxed">
+              Most properties around Penelope aren't packed into subdivisions with curbside pickup already figured out. You've got working farms, older homes passed down through families, and newer places built on land that used to be pasture. Some of you are on septic, some haul your own water, and plenty of you just never had a reliable trash company that would come out this far without charging extra or skipping weeks. We built our rural trash service to fix exactly that problem.
+            </p>
+          </div>
+        </div>
+        <div class="space-y-5 text-text-muted text-base sm:text-lg leading-relaxed">
+          <p>We handle weekly residential trash pickup for houses along the main roads and the ones tucked back on private lanes. And we do curbside trash collection for properties where that setup just works better &mdash; gate at the end of the drive, can by the road, done. Some weeks it's a straightforward pickup. Other times it's a bigger job:</p>
+          <ul class="list-disc pl-5 space-y-2 marker:text-orange-500">
+            <li>Weekly residential trash pickup and curbside collection for rural homes</li>
+            <li>Junk removal for old furniture, broken appliances, and clutter filling up a barn or shed</li>
+            <li>House and garage cleanouts when a property changes hands or a family's dealing with an estate</li>
+            <li>Yard debris removal after storms knock down limbs or you finally clear that back lot</li>
+            <li>Construction debris removal for folks building or fixing up out here</li>
+          </ul>
+          <p>We also take care of appliance removal and disposal &mdash; old washers, dead refrigerators, the stuff that's too heavy to haul yourself. Furniture removal too, because a lot of Penelope homes have been lived in for decades and eventually that couch has to go somewhere. Electronic waste removal is part of the list as well, for TVs and computers you don't want sitting in a shed forever.</p>
+          <p>Bulk trash pickup is a big one for this area. Rural properties tend to collect things &mdash; an old trailer, a stack of fencing, a pile of scrap from a project that never got finished. We come out, load it, and it's gone. No need to rent a truck and make three trips to town.</p>
+          <p>Some Penelope properties do better with a dumpster on-site instead of ongoing pickups. We offer residential dumpster rental for bigger cleanout jobs, and commercial dumpster rental if you're running a small operation out of your property or working through a renovation. Drop it, fill it at your own pace, we haul it off.</p>
+          <p>Rural garbage collection isn't glamorous work, but it matters. A family out here shouldn't have to load up a truck bed and drive twenty minutes to a dump just because they live outside the city loop. That's the whole reason this business exists &mdash; dependable garbage pickup for the people who get overlooked by the bigger outfits. We're out on these roads every week, so we know which gates stick, which driveways flood after a hard rain, and which properties need a call ahead before we pull in. That's not something you learn from an office. It's something you learn from showing up.</p>
+        </div>
+      </div>
+
+      {/* Section 2 — How Our Team Reaches Penelope — image RIGHT */}
+      <div data-reveal data-reveal-delay="0.1" class="mb-16 md:mb-24">
+        <div class="grid md:grid-cols-2 gap-6 md:gap-12 lg:gap-16 items-start mb-6 md:mb-8">
+          <div class="md:order-2 rounded-2xl overflow-hidden">
+            <img
+              src="/images/penelope/reaching.webp"
+              srcset="/images/penelope/reaching-mobile.webp 768w, /images/penelope/reaching.webp 1024w"
+              sizes="(min-width: 768px) 50vw, 100vw"
+              alt="Worker's hand opening a trash bin lid at a rural driveway near Penelope, TX"
+              width="1024"
+              height="1024"
+              loading="lazy"
+              decoding="async"
+              class="w-full aspect-[4/3] object-cover"
+            />
+          </div>
+          <div class="md:order-1">
+            <h2 class="text-2xl md:text-3xl font-bold mb-4 md:mb-6">How Our Team Reaches Penelope, TX</h2>
+            <p class="text-text-muted text-base sm:text-lg leading-relaxed">
+              Our trucks start every morning at 175 PR335 in Hubbard, and Penelope isn't far down the road from us. We're not some big company dispatching from a call center three states away. We're your neighbors, and we've driven these county roads more times than we can count. Getting from our yard to your driveway usually looks something like this:
+            </p>
+          </div>
+        </div>
+        <div class="space-y-5 text-text-muted text-base sm:text-lg leading-relaxed">
+          <ol class="list-decimal pl-5 space-y-2 marker:text-orange-500 marker:font-semibold">
+            <li>We pull out of the Hubbard property onto PR335 heading toward Penelope.</li>
+            <li>We connect to the farm-to-market roads that cut through this stretch of Hill County.</li>
+            <li>We roll past the open fields and scattered homesteads that mark the edge of town.</li>
+            <li>We turn onto your county road or private drive, gravel and all, right up to your bins.</li>
+          </ol>
+          <p>That's it. No highway maze, no confusing turns &mdash; just a straight shot through country we already know by heart.</p>
+          <p>A lot of Penelope's roads aren't paved all the way through, and some driveways stretch back a good distance from the main road. That's normal out here, and it's exactly why we run trucks built for rural service instead of the small tight-turn trucks you see in city subdivisions. We've backed down plenty of long gravel lanes to get a bulk trash pickup done or to haul off an old appliance from behind someone's barn. We know which roads turn soft after a hard rain, and we plan our routes around that. If your place sits back off the main road, we're used to it. We won't skip you because the drive is long.</p>
+          <p>We're out here every week anyway, running curbside trash collection and rural garbage collection routes for folks just down the road from you. So when a Penelope resident calls about a garage cleanout or needs a load of construction debris hauled off, we're not making a special trip across the county. We're already close by.</p>
+          <p>So if you're wondering whether a company based in Hubbard can really keep up with a Penelope pickup schedule, the answer is yes, easily. We've mapped these roads for years, and we plan our week around getting to rural homes without hassle. Your gravel driveway, your gate, your long stretch of county road &mdash; we've seen it before, and we'll see it again next week too.</p>
+        </div>
+      </div>
+
+      {/* Section 3 — What Makes Penelope Different — image LEFT */}
+      <div data-reveal data-reveal-delay="0.1" class="mb-4 md:mb-8">
+        <div class="grid md:grid-cols-2 gap-6 md:gap-12 lg:gap-16 items-start mb-6 md:mb-8">
+          <div class="rounded-2xl overflow-hidden">
+            <img
+              src="/images/penelope/community.webp"
+              srcset="/images/penelope/community-mobile.webp 768w, /images/penelope/community.webp 1024w"
+              sizes="(min-width: 768px) 50vw, 100vw"
+              alt="Waste collection truck driving through the rural Penelope, TX crossroads community at dusk"
+              width="1024"
+              height="1024"
+              loading="lazy"
+              decoding="async"
+              class="w-full aspect-[4/3] object-cover"
+            />
+          </div>
+          <div>
+            <h2 class="text-2xl md:text-3xl font-bold mb-4 md:mb-6">What Makes Penelope, TX Different</h2>
+            <p class="text-text-muted text-base sm:text-lg leading-relaxed">
+              Penelope isn't a town with curbside bins waiting on every corner. Out here, the county doesn't run trash pickup the way a big city does. That's just how rural Hill County works, and it's exactly why we built our whole business around this kind of land. Long gravel driveways. Fence lines instead of sidewalks. Houses set back far enough that a garbage truck from some far-off franchise route never bothers to show up on time, or at all.
+            </p>
+          </div>
+        </div>
+        <div class="space-y-5 text-text-muted text-base sm:text-lg leading-relaxed">
+          <p>Homes around Penelope tend to sit on bigger lots than what you'd find in town. That means more yard debris after a storm blows through, more room for an old shed to fill up with junk over the years, and more distance between neighbors who might otherwise share a hauler. It also means folks here need someone who'll turn down their road, not just service the main highway and call it a day. We see a pretty consistent mix of properties when we're out working this area:</p>
+          <ul class="list-disc pl-5 space-y-2 marker:text-orange-500">
+            <li>Older farmhouses with detached garages that turn into storage catch-alls</li>
+            <li>Working ranch properties with barns and equipment sheds needing cleanout</li>
+            <li>Single-family homes on acreage, spaced well apart from the next place</li>
+            <li>A few newer builds mixed in among the long-standing family homesteads</li>
+            <li>Rural mobile homes and manufactured houses tucked back off the main roads</li>
+          </ul>
+          <p>That mix matters. A family clearing out a barn needs something different than a homeowner just wanting weekly trash pickup handled without hassle. We do both, because both are common out here.</p>
+          <p>People in Penelope tend to stay put. Houses get passed down, additions get built on, and stuff accumulates over decades in a way it just doesn't in a subdivision where folks move every few years. So when a family finally decides to clean out a garage or an old house after a relative passes, it's not a small job. It's years of stuff, sometimes generations of it.</p>
+          <p>And that's really the difference. Big waste companies build routes around density. Penelope doesn't have density &mdash; it has distance. We built our service the other way around, planning routes that make sense for spread-out rural homes instead of expecting rural homes to fit a city model. We're out on these roads every week, and we know which turns get muddy after rain and which driveways need a truck that can handle gravel without any trouble. That's not something you learn from a map. It's something you learn from doing it, year after year, for the same families who keep calling us back.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  {/* Reviews */}
+  <section id="reviews" class="bg-dark-elevated">
+    <ReviewWidget client:idle />
+  </section>
+
+  {/* FAQ */}
+  <section id="faq" class="px-5 sm:px-6 lg:px-[clamp(2rem,5vw,4rem)] py-12 md:py-20 lg:py-28">
+    <div class="max-w-[1000px] mx-auto">
+      <div data-reveal class="text-center mb-10 md:mb-14">
+        <h2 class="text-2xl md:text-3xl lg:text-4xl font-medium tracking-tight">Frequently Asked Questions</h2>
+        <p class="text-text-muted text-base sm:text-lg mt-3">Common questions about trash service in Penelope, TX</p>
+      </div>
+      <div class="max-w-[800px] mx-auto">
+        <FaqAccordion faqs={PENELOPE_FAQS} client:idle />
+      </div>
+    </div>
+  </section>
+
+  {/* CTA */}
+  <section class="px-5 sm:px-6 lg:px-[clamp(2rem,5vw,4rem)] pb-12 md:pb-20 lg:pb-28">
+    <div class="max-w-[1300px] mx-auto">
+      <div data-reveal data-reveal-delay="0.1" class="bg-dark-elevated border border-border-subtle rounded-2xl p-6 sm:p-8 md:p-12 text-center">
+        <h2 class="text-xl sm:text-2xl md:text-3xl font-bold mb-3 md:mb-4">Ready to Get Started in Penelope?</h2>
+        <p class="text-text-muted text-base sm:text-lg leading-relaxed mb-6 md:mb-8 max-w-[560px] mx-auto">
+          Call Rankin Waste Management at <a href={PHONE_LINK} class="text-orange-500 hover:text-orange-400 font-semibold">{PHONE}</a> for reliable trash service. Family-owned, no contracts, flat-rate pricing &mdash; and trusted by neighbors across rural Hill County with 250+ five-star reviews.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <CallCTA />
+          <button id="penelope-modal-trigger" type="button" class="border border-white/30 text-white px-7 py-3.5 rounded-full font-semibold text-base hover:bg-white/10 transition-colors duration-300 min-h-[44px]">
+            New Service Request
+          </button>
+        </div>
+        <p class="mt-8 text-sm">
+          <a href="/service-areas" class="text-text-muted hover:text-orange-500 transition-colors duration-300">&larr; View all service areas</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <script is:inline>
+    (function () {
+      var b = document.getElementById('penelope-modal-trigger');
+      if (b) b.addEventListener('click', function () {
+        document.dispatchEvent(new CustomEvent('open-service-modal'));
+      });
+    })();
+  </script>
+</Layout>

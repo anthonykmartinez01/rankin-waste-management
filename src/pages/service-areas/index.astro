@@ -1,0 +1,153 @@
+---
+// src/pages/service-areas/index.astro
+//
+// Service Areas hub — central location page linking every community
+// Rankin Waste Management covers. Built on the site's established
+// patterns: Layout + InnerHero (no bgImage, matching /service-areas/axtell)
+// + data-reveal sections + branded dark cards + CallCTA.
+//
+// LOCATIONS split into two groups:
+//   - LOCATION_PAGES: towns with a dedicated page today. Rendered as
+//     clickable cards ("View services →"). As more location pages get
+//     built (Core 30), move the town from COVERED_AREAS up to here.
+//   - COVERED_AREAS: towns we serve (sourced from ServiceAreaMap.tsx)
+//     that don't have a dedicated page yet. Rendered as non-link cards
+//     so every clickable card leads somewhere real.
+//
+// Per-page head schema: BreadcrumbList (Home → Service Areas) + ItemList
+// of the dedicated location pages. Matches the inner-page schema pattern.
+import Layout from '../../layouts/Layout.astro';
+import InnerHero from '../../components/InnerHero.astro';
+import CallCTA from '../../components/CallCTA.astro';
+import MapPinIcon from '../../components/icons/MapPinIcon.astro';
+import { PHONE, PHONE_LINK } from '../../data/business';
+
+// Towns with a dedicated page — clickable cards.
+const LOCATION_PAGES = [
+  { city: 'Penelope', county: 'Hill County', href: '/service-areas/penelope' },
+  { city: 'Hubbard', county: 'Hill County', href: '/waste-management-service-hubbard' },
+  { city: 'Axtell', county: 'McLennan County', href: '/service-areas/axtell' },
+];
+
+// Towns we cover without a dedicated page yet (from ServiceAreaMap.tsx).
+const COVERED_AREAS = [
+  { city: 'Dawson', county: 'Navarro County' },
+  { city: 'Malone', county: 'Hill County' },
+  { city: 'Mertens', county: 'Hill County' },
+  { city: 'Purdon', county: 'Navarro County' },
+  { city: 'Whitney', county: 'Hill County' },
+  { city: 'Mount Calm', county: 'Hill County' },
+  { city: 'Peoria', county: 'Hill County' },
+  { city: 'Birome', county: 'Hill County' },
+  { city: 'Prairie Hill', county: 'Limestone County' },
+  { city: 'Navarro Mills', county: 'Navarro County' },
+];
+---
+
+<Layout
+  title="Service Areas | Rankin Waste Management — Hubbard, TX & Surrounding Counties"
+  description="See where Rankin Waste Management provides trash pickup, dumpster rental & junk removal — Hubbard, Axtell and communities across Hill, McLennan, Navarro & Limestone County, TX. Call (254) 205-6125."
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://rankinwaste.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Service Areas", "item": "https://rankinwaste.com/service-areas" }
+      ]
+    })} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "name": "Rankin Waste Management Service Areas",
+      "itemListElement": LOCATION_PAGES.map((loc, i) => ({
+        "@type": "ListItem",
+        "position": i + 1,
+        "name": `Waste Management Service in ${loc.city}, TX`,
+        "item": `https://rankinwaste.com${loc.href}`
+      }))
+    })} />
+  </Fragment>
+
+  <InnerHero
+    title="Service Areas"
+    subtitle="Serving Hill County, McLennan County, Navarro County & Limestone County, TX"
+  />
+
+  <section class="px-5 sm:px-6 lg:px-[clamp(2rem,5vw,4rem)] py-12 md:py-20 lg:py-28">
+    <div class="max-w-[1000px] mx-auto">
+
+      {/* Intro */}
+      <div data-reveal class="mb-12 md:mb-16 text-center max-w-[720px] mx-auto">
+        <p class="text-text-muted text-base sm:text-lg leading-relaxed">
+          Browse all the communities covered by Rankin Waste Management. From our home base in Hubbard, Tommy and Sydney run reliable routes across four counties &mdash; Hill, McLennan, Navarro, and Limestone. Click a location below to learn more about the services we offer in your area, or call us for a free quote in minutes.
+        </p>
+      </div>
+
+      {/* Dedicated location pages — clickable cards */}
+      <div data-reveal data-reveal-delay="0.1" class="mb-14 md:mb-20">
+        <h2 class="text-2xl md:text-3xl font-bold mb-6 md:mb-8">Explore Our Service Areas</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
+          {LOCATION_PAGES.map((loc) => (
+            <a
+              href={loc.href}
+              class="group block bg-dark-elevated border border-border-subtle rounded-xl p-6 transition-colors duration-300 hover:border-orange-500 min-h-[44px]"
+            >
+              <div class="flex items-start gap-3">
+                <MapPinIcon class="w-6 h-6 text-orange-500 shrink-0 mt-0.5" />
+                <div>
+                  <h3 class="text-xl font-bold group-hover:text-orange-300 transition-colors duration-300">{loc.city}, TX</h3>
+                  <p class="text-text-muted text-sm mt-1">{loc.county}</p>
+                </div>
+              </div>
+              <span class="mt-4 inline-flex items-center gap-1 text-orange-500 font-semibold text-sm">
+                View services
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.25" stroke="currentColor" class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                </svg>
+              </span>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      {/* Additional covered communities — informational cards */}
+      <div data-reveal data-reveal-delay="0.1" class="mb-14 md:mb-20">
+        <h2 class="text-2xl md:text-3xl font-bold mb-3 md:mb-4">Additional Communities We Serve</h2>
+        <p class="text-text-muted text-base sm:text-lg leading-relaxed mb-6 md:mb-8">
+          No dedicated page yet, but our trucks run these routes every week. If you're in one of these towns &mdash; or anywhere nearby &mdash; give us a call and we'll get you set up.
+        </p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
+          {COVERED_AREAS.map((area) => (
+            <div class="flex items-center gap-3 bg-dark-elevated border border-border-subtle rounded-xl p-5">
+              <MapPinIcon class="w-5 h-5 text-orange-500 shrink-0" />
+              <div>
+                <div class="font-semibold">{area.city}, TX</div>
+                <div class="text-text-muted text-sm">{area.county}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* CTA */}
+      <div data-reveal data-reveal-delay="0.1" class="bg-dark-elevated border border-border-subtle rounded-2xl p-8 md:p-12 text-center">
+        <h2 class="text-2xl md:text-3xl font-bold mb-4">Ready to Get Started?</h2>
+        <p class="text-text-muted text-base sm:text-lg leading-relaxed mb-8 max-w-[560px] mx-auto">
+          Don't see your town listed? We cover the rural roads the big national haulers skip. Call Rankin Waste Management at <a href={PHONE_LINK} class="text-orange-500 hover:text-orange-400 font-semibold">{PHONE}</a> for a free consultation and we'll quote your service right over the phone.
+        </p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <CallCTA />
+          <a
+            href="/contact-us"
+            class="inline-flex items-center justify-center px-7 py-3.5 rounded-full font-bold text-base border border-border-subtle text-white hover:border-orange-500 hover:text-orange-300 transition-colors duration-300 min-h-[44px]"
+          >
+            Contact Us
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</Layout>
