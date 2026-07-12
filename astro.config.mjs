@@ -11,10 +11,17 @@ export default defineConfig({
   // Inner pages have NO trailing slash, root is just '/'.
   trailingSlash: 'never',
 
-  // Emits dist/<route>/index.html. Netlify serves this at /<route>
-  // with no redirect — matches today's URL paths byte-for-byte.
+  // Emits flat dist/<route>.html files. Combined with trailingSlash:'never',
+  // Netlify serves these at /<route> (NO trailing slash) with a 200 — matching
+  // our canonicals — regardless of deploy method. (The old 'directory' format
+  // emitted <route>/index.html, which a raw CLI artifact deploy makes Netlify
+  // 301-redirect to a trailing slash; only Netlify's cloud build avoided that.
+  // 'file' avoids the whole problem so the GitHub Action deploy is consistent.)
+  //
+  // NOTE: in 'file' mode Astro.url.pathname includes '.html'; Layout.astro
+  // normalizes it (via normalizePath) before building the canonical/OG URLs.
   build: {
-    format: 'directory',
+    format: 'file',
   },
 
   integrations: [

@@ -43,6 +43,7 @@ import '../styles/global.css';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import ServiceRequestModal from '../components/ServiceRequestModal.tsx';
+import { normalizePath } from '../lib/schedule';
 
 interface Props {
   title: string;
@@ -63,10 +64,12 @@ const SITE_URL = 'https://rankinwaste.com';
 const DEFAULT_OG_IMAGE = `${SITE_URL}/truck-side.webp`;
 const DEFAULT_OG_IMAGE_ALT = 'Rankin Waste Management truck serving Hubbard, TX';
 
-// Canonical: SITE_URL + pathname. With trailingSlash:'never' Astro.url.pathname
-// returns '/' for homepage and '/about-us' (no trailing slash) for inner pages.
-// Matches migration-baseline §5c byte-for-byte.
-const canonical = `${SITE_URL}${Astro.url.pathname}`;
+// Canonical: SITE_URL + normalized pathname. With build.format:'file',
+// Astro.url.pathname carries a '.html' suffix (e.g. '/about-us.html'), so we
+// run it through normalizePath to strip '.html'/trailing slashes back to the
+// clean form ('/' for homepage, '/about-us' for inner pages). This keeps
+// canonical + OG URLs byte-identical to the pre-'file'-format output.
+const canonical = `${SITE_URL}${normalizePath(Astro.url.pathname)}`;
 
 // Resolve image: absolute URL passes through, otherwise prepend SITE_URL.
 const ogImage = image
