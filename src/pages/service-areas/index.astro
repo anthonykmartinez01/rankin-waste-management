@@ -20,6 +20,7 @@ import Layout from '../../layouts/Layout.astro';
 import InnerHero from '../../components/InnerHero.astro';
 import CallCTA from '../../components/CallCTA.astro';
 import MapPinIcon from '../../components/icons/MapPinIcon.astro';
+import ServiceAreaMap from '../../components/ServiceAreaMap.tsx';
 import { PHONE, PHONE_LINK } from '../../data/business';
 import { isScheduledFuture } from '../../lib/schedule';
 
@@ -43,21 +44,26 @@ const livePages = LOCATION_PAGES.filter((loc) => !isScheduledFuture(loc.href));
 
 // Towns we cover without a dedicated page yet (from ServiceAreaMap.tsx).
 const COVERED_AREAS = [
+  { city: 'Aquilla', county: 'Hill County' },
+  { city: 'Birome', county: 'Hill County' },
   { city: 'Dawson', county: 'Navarro County' },
+  { city: 'Hillsboro', county: 'Hill County' },
+  { city: 'Kopperl', county: 'Bosque County' },
+  { city: 'Laguna Park', county: 'Bosque County' },
   { city: 'Malone', county: 'Hill County' },
   { city: 'Mertens', county: 'Hill County' },
-  { city: 'Whitney', county: 'Hill County' },
   { city: 'Mount Calm', county: 'Hill County' },
-  { city: 'Peoria', county: 'Hill County' },
-  { city: 'Birome', county: 'Hill County' },
-  { city: 'Prairie Hill', county: 'Limestone County' },
   { city: 'Navarro Mills', county: 'Navarro County' },
+  { city: 'Peoria', county: 'Hill County' },
+  { city: 'Prairie Hill', county: 'Limestone County' },
+  { city: 'Whitney', county: 'Hill County' },
+  { city: 'Woodbury', county: 'Hill County' },
 ];
 ---
 
 <Layout
   title="Service Areas | Rankin Waste Management — Hubbard, TX & Surrounding Counties"
-  description="See where Rankin Waste Management provides trash pickup, dumpster rental & junk removal — Hubbard, Axtell and communities across Hill, McLennan, Navarro & Limestone County, TX. Call (254) 205-6125."
+  description="See where Rankin Waste Management provides trash pickup, dumpster rental & junk removal — Hubbard, Axtell and communities across Hill, McLennan, Navarro, Limestone & Bosque County, TX. Call (254) 205-6125."
 >
   <Fragment slot="head">
     <script is:inline type="application/ld+json" set:html={JSON.stringify({
@@ -83,7 +89,7 @@ const COVERED_AREAS = [
 
   <InnerHero
     title="Service Areas"
-    subtitle="Serving Hill County, McLennan County, Navarro County & Limestone County, TX"
+    subtitle="Serving Hill County, McLennan County, Navarro County, Limestone County & Bosque County, TX"
   />
 
   <section class="px-5 sm:px-6 lg:px-[clamp(2rem,5vw,4rem)] py-12 md:py-20 lg:py-28">
@@ -92,7 +98,17 @@ const COVERED_AREAS = [
       {/* Intro */}
       <div data-reveal class="mb-12 md:mb-16 text-center max-w-[720px] mx-auto">
         <p class="text-text-muted text-base sm:text-lg leading-relaxed">
-          Browse all the communities covered by Rankin Waste Management. From our home base in Hubbard, Tommy and Sydney run reliable routes across four counties &mdash; Hill, McLennan, Navarro, and Limestone. Click a location below to learn more about the services we offer in your area, or call us for a free quote in minutes.
+          Browse all the communities covered by Rankin Waste Management. From our home base in Hubbard, Tommy and Sydney run reliable routes across five counties &mdash; Hill, McLennan, Navarro, Limestone, and Bosque. Click a location below to learn more about the services we offer in your area, or call us for a free quote in minutes.
+        </p>
+      </div>
+
+      {/* Coverage map — same island as the homepage "Areas We Serve" section */}
+      <div data-reveal data-reveal-delay="0.1" class="mb-14 md:mb-20">
+        <div class="rounded-xl overflow-hidden border border-border-subtle aspect-square sm:aspect-[4/3] md:aspect-[2/1]">
+          <ServiceAreaMap client:visible />
+        </div>
+        <p class="text-text-muted text-sm text-center mt-3">
+          Coverage areas shown are approximate. Not sure if we reach your road? Give us a call. We cover a lot of rural ground the big haulers skip.
         </p>
       </div>
 

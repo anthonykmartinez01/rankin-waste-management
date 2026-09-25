@@ -66,6 +66,7 @@
 // /waste-management-service-hubbard — all without hideHeader).
 import Layout from '../layouts/Layout.astro';
 import ReviewWidget from '../components/ReviewWidget.tsx';
+import ServiceAreaMap from '../components/ServiceAreaMap.tsx';
 import FaqAccordion from '../components/FaqAccordion.tsx';
 import PhoneIcon from '../components/icons/PhoneIcon.astro';
 import MapPinIcon from '../components/icons/MapPinIcon.astro';
@@ -247,7 +248,7 @@ import { PHONE, PHONE_LINK } from '../data/business';
       </div>
 
       <p class="text-white/80 text-base sm:text-lg max-w-[600px] mx-auto mb-7 hero-content-animate">
-        Proudly serving Hill County, McLennan County, Navarro County &amp; Limestone County TX and surrounding rural communities with reliable, affordable trash service.
+        Proudly serving Hill County, McLennan County, Navarro County, Limestone County &amp; Bosque County TX and surrounding rural communities with reliable, affordable trash service.
       </p>
 
       <div class="flex flex-wrap justify-center gap-4 mb-8 hero-buttons-animate">
@@ -483,6 +484,38 @@ import { PHONE, PHONE_LINK } from '../data/business';
             </a>
           </div>
         </div>
+
+        {/* Row 5: Weekly Residential Dumpster (new 2026-09) — image LEFT */}
+        <div class="grid md:grid-cols-2 gap-6 md:gap-16 items-center">
+          <div class="rounded-2xl overflow-hidden">
+            <img
+              src="/images/services/weekly-dumpster.webp"
+              srcset="/images/services/weekly-dumpster-mobile.webp 800w, /images/services/weekly-dumpster.webp 1448w"
+              sizes="(min-width: 768px) 50vw, 100vw"
+              alt="Black 2-yard residential dumpster loaded with household trash at the edge of a rural driveway"
+              width="1448"
+              height="965"
+              loading="lazy"
+              decoding="async"
+              class="w-full aspect-[4/3] object-cover"
+            />
+          </div>
+          <div>
+            <h3 class="flex flex-wrap items-center gap-3 text-xl md:text-2xl font-semibold tracking-tight mb-5">
+              Weekly Residential Dumpster Service
+              <span class="rounded-full bg-orange-500/15 border border-orange-500/40 px-3 py-0.5 text-orange-300 text-xs font-semibold tracking-normal">New</span>
+            </h3>
+            <p class="text-text-muted text-base sm:text-lg leading-relaxed mb-4">
+              If your trash cart is full before pickup day, a 2-yard dumpster fixes that. It stays right at your home, holds about four carts' worth of trash, and we empty it every week on a set schedule.
+            </p>
+            <p class="text-text-muted text-base sm:text-lg leading-relaxed mb-5">
+              It's a good fit for big households, rural properties, and homes in the middle of a slow remodel. Same as all our service, there's no contract, and when you call, Tommy or Sydney picks up.
+            </p>
+            <a href="/weekly-residential-dumpster-service-hubbard" class="inline-flex items-center gap-1 min-h-[44px] text-orange-500 hover:text-orange-300 font-semibold text-sm sm:text-base transition-colors duration-300">
+              Learn more about weekly residential dumpsters in Hubbard &rarr;
+            </a>
+          </div>
+        </div>
       </div>
 
       {/* Services bottom CTA (NOT inside data-reveal envelope per pre-migration) */}
@@ -521,12 +554,16 @@ import { PHONE, PHONE_LINK } from '../data/business';
       <h2 data-reveal class="text-2xl md:text-3xl lg:text-4xl font-medium tracking-tight text-center mb-10 md:mb-12">
         Areas We Serve
       </h2>
-      <ul data-reveal data-reveal-delay="0.1" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-3 md:gap-y-4 max-w-[900px] mx-auto mb-12 md:mb-16">
+      <ul data-reveal data-reveal-delay="0.1" class="grid grid-cols-2 md:grid-cols-3 gap-x-4 sm:gap-x-8 gap-y-3 md:gap-y-4 max-w-[900px] mx-auto mb-8 md:mb-10">
         {[
+          'Aquilla, TX',
           'Axtell, TX',
           'Birome, TX',
           'Dawson, TX',
+          'Hillsboro, TX',
           'Hubbard, TX',
+          'Kopperl, TX',
+          'Laguna Park, TX',
           'Malone, TX',
           'Mertens, TX',
           'Mt Calm, TX',
@@ -535,25 +572,29 @@ import { PHONE, PHONE_LINK } from '../data/business';
           'Prairie Hill, TX',
           'Purdon, TX',
           'Whitney, TX',
+          'Woodbury, TX',
         ].map((area) => (
-          <li class="flex items-center gap-3 text-text-muted text-base md:text-lg">
-            <MapPinIcon class="w-5 h-5 text-orange-500 flex-shrink-0" />
+          <li class="flex items-start gap-2 sm:gap-3 text-text-muted text-base md:text-lg leading-snug">
+            <MapPinIcon class="w-5 h-5 mt-0.5 text-orange-500 flex-shrink-0" />
             <span>{area}</span>
           </li>
         ))}
       </ul>
-      <div data-reveal data-reveal-delay="0.2" class="rounded-sm overflow-hidden border border-border-subtle aspect-[16/9] md:aspect-[2/1]">
-        <iframe
-          title="Rankin Waste Management on Google Maps"
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3389.136596108881!2d-96.79978992297144!3d31.848498030854834!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x864f158c8dee18d9%3A0x32d36537ab608362!2sRankin%20Waste%20Management!5e0!3m2!1sen!2sus!4v1776957097390!5m2!1sen!2sus"
-          width="100%"
-          height="100%"
-          style="border:0; display:block"
-          allowfullscreen=""
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-        ></iframe>
+      <div data-reveal data-reveal-delay="0.15" class="text-center mb-12 md:mb-16">
+        <a
+          href="/service-areas"
+          class="inline-flex items-center gap-2 text-orange-500 hover:text-orange-300 font-semibold text-base md:text-lg transition-colors duration-300 min-h-[44px]"
+        >
+          View all service areas
+          <span aria-hidden="true">&rarr;</span>
+        </a>
       </div>
+      <div data-reveal data-reveal-delay="0.2" class="rounded-sm overflow-hidden border border-border-subtle aspect-square sm:aspect-[4/3] md:aspect-[2/1]">
+        <ServiceAreaMap client:visible />
+      </div>
+      <p class="text-text-muted text-sm text-center mt-3">
+        Coverage areas shown are approximate. Not sure if we reach your road? Give us a call. We cover a lot of rural ground the big haulers skip.
+      </p>
     </div>
   </section>
 

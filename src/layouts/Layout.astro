@@ -44,6 +44,7 @@ import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import ServiceRequestModal from '../components/ServiceRequestModal.tsx';
 import { normalizePath } from '../lib/schedule';
+import { announcement } from '../data/announcement';
 
 interface Props {
   title: string;
@@ -180,7 +181,8 @@ const resolvedImageAlt = imageAlt ?? DEFAULT_OG_IMAGE_ALT;
   <body class="min-h-screen bg-dark text-white">
     <Nav />
 
-    <main>
+    {/* pt-11 matches AnnouncementBanner's h-11 so heroes clear the taller fixed header. */}
+    <main class={announcement.enabled ? 'pt-11' : undefined}>
       <slot />
     </main>
 

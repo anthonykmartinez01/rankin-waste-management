@@ -35,6 +35,7 @@
 import { PHONE, PHONE_LINK } from '../data/business';
 import PhoneIcon from './icons/PhoneIcon.astro';
 import ChevronIcon from './icons/ChevronIcon.astro';
+import AnnouncementBanner from './AnnouncementBanner.astro';
 
 // Header now exposes a single "Services" dropdown listing the four
 // primary GBP service categories. Other top-level pages (Residential,
@@ -50,6 +51,9 @@ const SERVICE_LINKS = [
 ---
 
 <div class="fixed top-0 w-full z-50">
+  {/* Sitewide promo bar — toggle via src/data/announcement.ts */}
+  <AnnouncementBanner />
+
   {/* Top utility bar */}
   <div class="w-full bg-dark/95 backdrop-blur-lg border-b border-border-subtle">
     <div class="h-10 flex justify-between items-center px-6 lg:px-[clamp(2rem,5vw,4rem)] text-[0.85rem] text-white/90">

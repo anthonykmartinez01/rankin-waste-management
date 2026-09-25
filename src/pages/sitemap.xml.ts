@@ -46,6 +46,7 @@ const ROUTES: SitemapEntry[] = [
   { path: '/junk-removal-service-hubbard', lastmod: '2026-05-03', changefreq: 'monthly', priority: '0.9' },
   { path: '/dumpster-rental-service-hubbard', lastmod: '2026-05-03', changefreq: 'monthly', priority: '0.9' },
   { path: '/garbage-collection-service-hubbard', lastmod: '2026-05-03', changefreq: 'monthly', priority: '0.9' },
+  { path: '/weekly-residential-dumpster-service-hubbard', lastmod: '2026-09-25', changefreq: 'monthly', priority: '0.9' },
 ];
 
 export const GET: APIRoute = () => {

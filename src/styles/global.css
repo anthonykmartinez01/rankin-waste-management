@@ -137,6 +137,13 @@
   display: none !important;
 }
 
+/* ServiceAreaMap basemap: turns the light OpenStreetMap tiles into a muted
+   dark map that sits on the site's dark theme. Applied to the tile layer
+   only, so the brand-orange coverage circles are unaffected. */
+.rw-dark-tiles {
+  filter: invert(1) hue-rotate(180deg) grayscale(0.55) brightness(0.8) contrast(0.95);
+}
+
 /* Respect reduced motion preference */
 @media (prefers-reduced-motion: reduce) {
   .hero-image-animate,

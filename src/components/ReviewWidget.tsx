@@ -124,7 +124,7 @@ const schemaData = {
   "aggregateRating": {
     "@type": "AggregateRating",
     "ratingValue": "5.0",
-    "reviewCount": "284",
+    "reviewCount": "327",
     "bestRating": "5",
     "worstRating": "1"
   },
@@ -192,7 +192,7 @@ export default function ReviewWidget({ hideHeader = false }: ReviewWidgetProps) 
               ))}
             </div>
             <span className="rw-rating-text">
-              <strong>5.0</strong> from 250+ reviews
+              <strong>5.0</strong> from 300+ reviews
             </span>
           </div>
         </div>
