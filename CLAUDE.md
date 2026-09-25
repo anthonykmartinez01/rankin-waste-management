@@ -98,7 +98,8 @@ Client: Family-owned waste management business in Hubbard, TX (Hill County). Own
 - Don't switch to Astro — this is React/Vite by design
 - Phone number lives in `src/shared.jsx` only — never hardcode in page components, always import `PHONE` and `PHONE_LINK`
 - Sitemap is manual, NOT auto-generated — every new route needs a manual entry
-- Owners want personal-touch copy: emphasize Tommy + Sydney directly answering calls vs. corporate dispatch
+- Owners want personal-touch copy, BUT as of 2026-09-25 Tommy + Sydney no longer answer the phone. Never write that they (or "the owners") answer calls or pick up the phone. Say a real person on "our local team" answers, not a call center / dispatcher. Do not mention hiring. They can still be named as the family owners who oversee operations.
+- No em dashes in any new site copy (client preference). Never edit verbatim customer review text.
 - Target audience: rural Hill County, TX residents
 - The site brands the locally-owned advantage hard — keep that voice in any new copy
 

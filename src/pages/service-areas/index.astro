@@ -21,6 +21,7 @@ import InnerHero from '../../components/InnerHero.astro';
 import CallCTA from '../../components/CallCTA.astro';
 import MapPinIcon from '../../components/icons/MapPinIcon.astro';
 import ServiceAreaMap from '../../components/ServiceAreaMap.tsx';
+import { SERVICE_TOWNS } from '../../data/serviceArea';
 import { PHONE, PHONE_LINK } from '../../data/business';
 import { isScheduledFuture } from '../../lib/schedule';
 
@@ -43,22 +44,13 @@ const LOCATION_PAGES = [
 const livePages = LOCATION_PAGES.filter((loc) => !isScheduledFuture(loc.href));
 
 // Towns we cover without a dedicated page yet (from ServiceAreaMap.tsx).
-const COVERED_AREAS = [
-  { city: 'Aquilla', county: 'Hill County' },
-  { city: 'Birome', county: 'Hill County' },
-  { city: 'Dawson', county: 'Navarro County' },
-  { city: 'Hillsboro', county: 'Hill County' },
-  { city: 'Kopperl', county: 'Bosque County' },
-  { city: 'Laguna Park', county: 'Bosque County' },
-  { city: 'Malone', county: 'Hill County' },
-  { city: 'Mertens', county: 'Hill County' },
-  { city: 'Mount Calm', county: 'Hill County' },
-  { city: 'Navarro Mills', county: 'Navarro County' },
-  { city: 'Peoria', county: 'Hill County' },
-  { city: 'Prairie Hill', county: 'Limestone County' },
-  { city: 'Whitney', county: 'Hill County' },
-  { city: 'Woodbury', county: 'Hill County' },
-];
+// Derived from the same list the map draws (src/data/serviceArea.ts), so
+// this grid can never drift from the map: every served town without a
+// LIVE dedicated page above (a town whose page is still scheduled shows
+// here until it publishes).
+const COVERED_AREAS = SERVICE_TOWNS
+  .filter((t) => !livePages.some((loc) => loc.city === t.city))
+  .map((t) => ({ city: t.city, county: `${t.county} County` }));
 ---
 
 <Layout
@@ -104,7 +96,7 @@ const COVERED_AREAS = [
 
       {/* Coverage map — same island as the homepage "Areas We Serve" section */}
       <div data-reveal data-reveal-delay="0.1" class="mb-14 md:mb-20">
-        <div class="rounded-xl overflow-hidden border border-border-subtle aspect-square sm:aspect-[4/3] md:aspect-[2/1]">
+        <div class="rounded-xl overflow-hidden border border-border-subtle aspect-[4/5] sm:aspect-[4/3] md:aspect-[2/1]">
           <ServiceAreaMap client:visible />
         </div>
         <p class="text-text-muted text-sm text-center mt-3">
