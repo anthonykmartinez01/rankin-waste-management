@@ -44,10 +44,12 @@ export default async (request, context) => {
     return context.next();
   }
 
-  // No-slash path that's a "page route": rewrite internally to the
-  // directory's index.html. This serves the page content without
-  // Netlify's auto-add-slash 301.
-  return context.rewrite(url.pathname + '/index.html');
+  // No-slash path that's a "page route": rewrite internally to the flat
+  // <route>.html file. astro.config uses build.format: 'file' (since
+  // 2026-07), which emits dist/contact-us.html, NOT
+  // dist/contact-us/index.html. Rewriting to '/index.html' 404'd every
+  // inner page on any deploy that shipped this Edge Function (2026-09-25).
+  return context.rewrite(url.pathname + '.html');
 };
 
 export const config = {
