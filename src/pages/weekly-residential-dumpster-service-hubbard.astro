@@ -8,14 +8,15 @@
 // "New Service Request" modal trigger. Adds a FAQ block (FaqAccordion +
 // FAQPage schema) built from one array so visible Q/A and schema match.
 //
-// Photos: client-supplied shots of the actual 2-yard containers (open-top,
-// low-profile, no lid). Hero at public/images/services/weekly-dumpster*.webp
-// (3:2, matching the sibling heroes); content images under
-// public/images/weekly-dumpster/ (4:3 @ 1400w + 800w mobile). Source PNGs
-// were 1448x1086, so the hero is 1448w rather than upscaled to 1600w.
+// Sizes: 2, 3, 4 and 6 yards (see SIZES). PHOTOS REMOVED 2026-09-29 at the
+// client's request until photos of every size arrive. The 2-yard photos
+// still exist (public/images/services/weekly-dumpster*.webp = 3:2 hero,
+// public/images/weekly-dumpster/{garage,driveway}*.webp = 4:3 rows) and
+// can be restored as the hero bgImage, the size-section image, and the
+// image-left row in "Why Rankin".
 //
-// Copy must match those containers: no lid references, no stated
-// dimensions (unverified), no claims about how the truck empties them.
+// Copy rules: no stated dimensions (unverified), no claims about how the
+// truck empties them.
 //
 // Copy rule for this page: no em dashes anywhere in visible copy, meta,
 // or schema text (client preference).
@@ -33,8 +34,24 @@ import { PHONE, PHONE_LINK } from '../data/business';
 
 const PAGE_URL = 'https://rankinwaste.com/weekly-residential-dumpster-service-hubbard';
 
+// Sizes offered (client confirmed 2026-09-29: 2, 3, 4 and 6 yards).
+// Capacity figures are straight conversions, not hauler specs:
+//   1 cubic yard = ~202 gallons; carts = standard 96-gallon trash cart
+//   (rounded down). No bag-count equivalents (client removed them
+//   2026-09-29). Do NOT add dimensions per size; the 3/4/6-yard "fits" lines
+//   are deliberately non-dimensional.
+// Every size HAS A LID (client confirmed 2026-09-29). Never describe them
+// as open-top, low-profile, or "no lid to lift". The shared Style line
+// lives in the card template below.
+const SIZES = [
+  { yards: 2, gallons: '400', carts: 'four', fits: 'In most driveways or beside a garage' },
+  { yards: 3, gallons: '600', carts: 'six', fits: "Takes a little more room than the 2-yard. We'll confirm your spot before drop-off" },
+  { yards: 4, gallons: '800', carts: 'eight', fits: "Takes more room than the smaller sizes. We'll confirm your spot before drop-off" },
+  { yards: 6, gallons: '1,200', carts: 'twelve', fits: "Our largest size, so it needs the most room. We'll confirm your spot before drop-off" },
+];
+
 const SIGNS = [
-  { title: 'Your cart is full before pickup day', body: "If the lid won't close by midweek, you're stuffing bags in the garage or paying for a second cart. One 2-yard dumpster holds about four carts' worth." },
+  { title: 'Your cart is full before pickup day', body: "If the lid won't close by midweek, you're stuffing bags in the garage or paying for a second cart. Even our smallest 2-yard dumpster holds about four carts' worth." },
   { title: 'You have a big household', body: 'More people means more diapers, more takeout boxes, more of everything. A weekly dumpster keeps up without you rationing space.' },
   { title: 'You live on acreage', body: 'Rural properties just make more trash: feed sacks, shop scraps, bagged yard waste, and the odds and ends that pile up around a barn.' },
   { title: "You're fixing up the house a little at a time", body: 'Slow remodels make steady trash week after week. A dumpster that gets emptied on schedule handles that better than a one-time rental.' },
@@ -49,8 +66,8 @@ const STEPS = [
 ];
 
 const FAQS: Faq[] = [
-  { q: 'How big is a 2-yard dumpster for a Hubbard home?', a: "A 2-yard dumpster for a Hubbard home holds 2 cubic yards of trash, which is about four standard trash carts' worth. Ours are open-top and low-profile, so they fit in most driveways or beside a garage, and bags go right in without lifting a lid. We'll help you pick the right spot when we drop it off." },
-  { q: 'Is a weekly dumpster worth it over a regular trash cart in Hubbard?', a: "A weekly dumpster is worth it in Hubbard if your cart is full before pickup day most weeks. Instead of paying for extra carts or stacking bags by the road, you get one container with about four times the room. If your cart usually has space left over, our regular weekly pickup is the simpler choice." },
+  { q: 'What size dumpster does a Hubbard home need?', a: "Most Hubbard homes that outgrow a single trash cart do fine with a 2-yard dumpster, which holds about four carts' worth of trash. Bigger households, rural properties, and lots with more than one home often need a 3-, 4-, or 6-yard, which hold about six, eight, or twelve carts' worth. Tell us how much trash your household makes and we'll help you pick the right size." },
+  { q: 'Is a weekly dumpster worth it over a regular trash cart in Hubbard?', a: "A weekly dumpster is worth it in Hubbard if your cart is full before pickup day most weeks. Instead of paying for extra carts or stacking bags by the road, you get one container with at least four times the room. If your cart usually has space left over, our regular weekly pickup is the simpler choice." },
   { q: 'Do I have to sign a contract for dumpster service in Hubbard?', a: "No, you don't have to sign a contract for dumpster service in Hubbard with us. There are no long-term agreements and no cancellation fees. If your needs change, call (254) 205-6125 and we'll adjust or cancel your service." },
   { q: "What can't go in a residential dumpster in Hubbard?", a: "Texas law keeps a few items out of any regular trash in Hubbard, residential dumpsters included: car batteries, used motor oil, used oil filters, whole tires, and refrigerators, freezers, or AC units that still have refrigerant in them. Paint, pesticides, and harsh chemicals need special handling too. When in doubt, call us before you toss it." },
   { q: 'Can I get a weekly dumpster outside Hubbard city limits?', a: "In most cases, yes, you can get a weekly dumpster outside Hubbard city limits. We already run routes across the rural areas around Hubbard. The main thing we need is a spot our truck can safely reach. Call (254) 205-6125 with your address and we'll confirm." },
@@ -60,9 +77,7 @@ const FAQS: Faq[] = [
 
 <Layout
   title="Weekly Residential Dumpster Service Hubbard TX | Rankin Waste"
-  description="Weekly 2-yard residential dumpster service in Hubbard, TX and surrounding counties. Emptied every week, no contracts. Call (254) 205-6125."
-  image="/images/services/weekly-dumpster.webp"
-  imageAlt="Black 2-yard residential dumpster loaded with household trash at the edge of a rural driveway"
+  description="Weekly residential dumpster service in Hubbard, TX and surrounding counties. Choose a 2-, 3-, 4-, or 6-yard dumpster, emptied weekly. Call (254) 205-6125."
 >
   <Fragment slot="head">
     <script is:inline type="application/ld+json" set:html={JSON.stringify({
@@ -70,7 +85,7 @@ const FAQS: Faq[] = [
       "@type": "Service",
       "@id": `${PAGE_URL}/#service`,
       "name": "Weekly Residential Dumpster Service in Hubbard, TX",
-      "description": "A 2-yard residential dumpster placed at your home in Hubbard and emptied every week. Built for households that outgrow a standard trash cart: big families, rural properties, ongoing home projects, and shared lots. Family-owned, flat-rate pricing, no contracts.",
+      "description": "A 2, 3, 4, or 6 cubic yard residential dumpster placed at your home in Hubbard and emptied every week. Built for households that outgrow a standard trash cart: big families, rural properties, ongoing home projects, and shared lots. Family-owned, flat-rate pricing, no contracts.",
       "serviceType": "Residential Dumpster Service",
       "category": "Weekly Residential Dumpster Service",
       "url": PAGE_URL,
@@ -139,18 +154,16 @@ const FAQS: Faq[] = [
       "hasOfferCatalog": {
         "@type": "OfferCatalog",
         "name": "Residential Dumpster Service in Hubbard",
-        "itemListElement": [
-          {
-            "@type": "Offer",
-            "itemOffered": {
-              "@type": "Service",
-              "name": "Weekly 2-Yard Residential Dumpster in Hubbard",
-              "description": "A 2 cubic yard dumpster (about four standard trash carts of capacity) that stays at your home and is emptied once a week on a set schedule. No contracts and no cancellation fees.",
-              "areaServed": { "@type": "City", "name": "Hubbard" },
-              "provider": { "@id": "https://rankinwaste.com/#business" }
-            }
+        "itemListElement": SIZES.map((s) => ({
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": `Weekly ${s.yards}-Yard Residential Dumpster in Hubbard`,
+            "description": `A ${s.yards} cubic yard dumpster (about ${s.carts} standard trash carts of capacity) that stays at your home and is emptied once a week on a set schedule. No contracts and no cancellation fees.`,
+            "areaServed": { "@type": "City", "name": "Hubbard" },
+            "provider": { "@id": "https://rankinwaste.com/#business" }
           }
-        ]
+        }))
       }
     })} />
 
@@ -179,9 +192,6 @@ const FAQS: Faq[] = [
   <InnerHero
     title="Weekly Residential Dumpster Service in Hubbard"
     subtitle="Serving Hubbard, Hill County, McLennan County, Navarro County, Limestone County & Bosque County, TX"
-    bgImage="/images/services/weekly-dumpster.webp"
-    bgImageMobile="/images/services/weekly-dumpster-mobile.webp"
-    bgImageAlt="Black 2-yard residential dumpster loaded with household trash at the edge of a rural driveway"
   />
 
   <section class="px-5 sm:px-6 lg:px-[clamp(2rem,5vw,4rem)] py-12 md:py-20 lg:py-28">
@@ -193,10 +203,10 @@ const FAQS: Faq[] = [
           New: Available Now
         </span>
         <p class="text-text-muted text-base sm:text-lg leading-relaxed mb-4 md:mb-6">
-          If your trash cart is overflowing, a weekly residential dumpster in Hubbard fixes that for good. Rankin Waste Management now places a 2-yard dumpster right at your home and empties it every week, so you have room for everything a busy household throws out. And it's not just Hubbard: we bring weekly dumpsters to homes across Hill, McLennan, Navarro, Limestone, and Bosque counties, from Hillsboro and Whitney to Axtell, Dawson, and Prairie Hill. No hauling bags to the road, no lids that won't close, and no stacking extra bags beside the can hoping they get picked up.
+          If your trash cart is overflowing, a weekly residential dumpster in Hubbard fixes that for good. Rankin Waste Management now places a 2-, 3-, 4-, or 6-yard dumpster right at your home and empties it every week, so you have room for everything a busy household throws out. And it's not just Hubbard: we bring weekly dumpsters to homes across Hill, McLennan, Navarro, Limestone, and Bosque counties, from Hillsboro and Whitney to Axtell, Dawson, and Prairie Hill. No hauling bags to the road, no lids that won't close, and no stacking extra bags beside the can hoping they get picked up.
         </p>
         <p class="text-text-muted text-base sm:text-lg leading-relaxed">
-          It's part of our <a href="/dumpster-rental-service-hubbard" class="text-orange-500 hover:text-orange-300 underline underline-offset-2 transition-colors duration-300">dumpster rental service in Hubbard</a>, built for everyday household trash instead of a one-time project. You still get a real person when you call, there's still no contract to sign, and your pickup still runs on a set weekly schedule. Below you'll find who this service fits best, how it works, what fits inside a 2-yard dumpster, and answers to the questions we hear most.
+          It's part of our <a href="/dumpster-rental-service-hubbard" class="text-orange-500 hover:text-orange-300 underline underline-offset-2 transition-colors duration-300">dumpster rental service in Hubbard</a>, built for everyday household trash instead of a one-time project. You still get a real person when you call, there's still no contract to sign, and your pickup still runs on a set weekly schedule. Below you'll find who this service fits best, how it works, which dumpster size is right for your home, and answers to the questions we hear most.
         </p>
       </div>
 
@@ -204,7 +214,7 @@ const FAQS: Faq[] = [
       <div data-reveal data-reveal-delay="0.1" class="mb-16 md:mb-24">
         <h2 class="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Signs Your Hubbard Home Has Outgrown a Trash Cart</h2>
         <p class="text-text-muted text-base sm:text-lg leading-relaxed mb-6 md:mb-8 max-w-[900px]">
-          Plenty of households do fine with a regular cart. But a lot of homes around Hubbard don't fit that mold. Here's when a 2-yard dumpster starts to make real sense:
+          Plenty of households do fine with a regular cart. But a lot of homes around Hubbard don't fit that mold. Here's when a weekly dumpster starts to make real sense:
         </p>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
           {SIGNS.map((sign) => (
@@ -234,36 +244,31 @@ const FAQS: Faq[] = [
       </div>
 
       {/* Size / spec block (mirrors "Dump Trailer Sizes We Offer") */}
-      <div data-reveal data-reveal-delay="0.1" class="mb-16 md:mb-24 max-w-[900px] mx-auto">
-        <h2 class="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Our 2-Yard Residential Dumpster</h2>
-        <p class="text-text-muted text-base sm:text-lg leading-relaxed mb-6 md:mb-8">
-          We went with a 2-yard dumpster because it's the sweet spot for a home. It holds far more than a cart, but it's small enough to sit beside a driveway or garage without taking over the yard. For most busy households, that's plenty of room to get through a full week.
-        </p>
-
-        <div class="rounded-2xl overflow-hidden mb-6 md:mb-8">
-          <img
-            src="/images/weekly-dumpster/garage.webp"
-            srcset="/images/weekly-dumpster/garage-mobile.webp 800w, /images/weekly-dumpster/garage.webp 1400w"
-            sizes="(min-width: 768px) 900px, 100vw"
-            alt="2-yard residential dumpster with cardboard and bagged trash sitting beside a garage on a rural property"
-            width="1400"
-            height="1050"
-            loading="lazy"
-            decoding="async"
-            class="w-full aspect-[4/3] object-cover"
-          />
+      <div data-reveal data-reveal-delay="0.1" class="mb-16 md:mb-24 max-w-[1100px] mx-auto">
+        <div class="max-w-[900px] mx-auto">
+          <h2 class="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Our Residential Dumpster Sizes</h2>
+          <p class="text-text-muted text-base sm:text-lg leading-relaxed mb-6 md:mb-8">
+            We offer four sizes so you can match the dumpster to how much trash your home really makes. The 2-yard is the sweet spot for most homes: it holds far more than a cart but still fits beside a driveway or garage without taking over the yard. If your household needs more room, step up to a 3-, 4-, or 6-yard. Not sure which one? Call us and we'll help you pick.
+          </p>
         </div>
 
-        <h3 class="text-xl md:text-2xl font-bold mb-3 md:mb-4">2-Yard Dumpster at a Glance</h3>
-        <ul class="text-text-muted text-base sm:text-lg leading-relaxed mb-8 md:mb-10 space-y-2 list-disc pl-6 marker:text-orange-500">
-          <li><span class="font-semibold text-white">Capacity:</span> 2 cubic yards (about 400 gallons)</li>
-          <li><span class="font-semibold text-white">Style:</span> Open top and low-profile, so bags go right in with no lid to lift</li>
-          <li><span class="font-semibold text-white">Fits:</span> In most driveways or beside a garage</li>
-          <li><span class="font-semibold text-white">Cart equivalent:</span> About four standard 96-gallon trash carts</li>
-          <li><span class="font-semibold text-white">Bag equivalent:</span> Roughly 10 to 12 full-size 33-gallon trash bags</li>
-          <li><span class="font-semibold text-white">Pickup:</span> Emptied once a week on your scheduled day</li>
-          <li><span class="font-semibold text-white">Contract:</span> None. Adjust or cancel anytime with no fees</li>
-        </ul>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 mb-10 md:mb-14">
+          {SIZES.map((s) => (
+            <div class="bg-dark-elevated border border-border-subtle rounded-xl p-6 md:p-7">
+              <h3 class="text-xl md:text-2xl font-bold mb-3 md:mb-4">{s.yards}-Yard Dumpster at a Glance</h3>
+              <ul class="text-text-muted text-base leading-relaxed space-y-2 list-disc pl-5 marker:text-orange-500">
+                <li><span class="font-semibold text-white">Capacity:</span> {s.yards} cubic yards (about {s.gallons} gallons)</li>
+                <li><span class="font-semibold text-white">Style:</span> Comes with a lid to keep trash covered between pickups</li>
+                <li><span class="font-semibold text-white">Fits:</span> {s.fits}</li>
+                <li><span class="font-semibold text-white">Cart equivalent:</span> About {s.carts} standard 96-gallon trash carts</li>
+                <li><span class="font-semibold text-white">Pickup:</span> Emptied once a week on your scheduled day</li>
+                <li><span class="font-semibold text-white">Contract:</span> None. Adjust or cancel anytime</li>
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        <div class="max-w-[900px] mx-auto">
 
         <h3 class="text-xl md:text-2xl font-bold mb-3 md:mb-4">What Goes In, and What Stays Out</h3>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 mb-6">
@@ -295,6 +300,7 @@ const FAQS: Faq[] = [
         <p class="text-text-muted text-base sm:text-lg leading-relaxed">
           Paint, pesticides, and harsh cleaners need special handling too. The EPA's guide to <a href="https://www.epa.gov/hw/household-hazardous-waste-hhw" target="_blank" rel="noopener" class="text-orange-500 hover:text-orange-300 underline underline-offset-2 transition-colors duration-300">safely disposing of household hazardous waste</a> explains why. If you're not sure about something, give us a call before you toss it.
         </p>
+        </div>
       </div>
 
       {/* Dumpster vs. dump trailer */}
@@ -306,12 +312,12 @@ const FAQS: Faq[] = [
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 mb-6 md:mb-8">
           <div class="bg-dark-elevated border border-orange-500 rounded-xl p-6">
             <p class="text-orange-300 text-sm font-semibold uppercase tracking-wide mb-1">Ongoing</p>
-            <p class="text-xl font-bold mb-3">Weekly 2-Yard Dumpster</p>
+            <p class="text-xl font-bold mb-3">Weekly Dumpster</p>
             <ul class="text-text-muted text-base leading-relaxed space-y-1.5 list-disc pl-5 marker:text-orange-500">
               <li>Stays at your home long term</li>
               <li>Emptied every week</li>
               <li>Built for everyday household trash</li>
-              <li>2 cubic yards</li>
+              <li>2, 3, 4, or 6 cubic yards</li>
             </ul>
           </div>
           <div class="bg-dark-elevated border border-border-subtle rounded-xl p-6">
@@ -341,21 +347,9 @@ const FAQS: Faq[] = [
         </p>
       </div>
 
-      {/* Why Rankin: image left, text right (alternating-row pattern) */}
-      <div data-reveal data-reveal-delay="0.1" class="grid md:grid-cols-2 gap-6 md:gap-16 items-center">
-        <div class="rounded-2xl overflow-hidden">
-          <img
-            src="/images/weekly-dumpster/driveway.webp"
-            srcset="/images/weekly-dumpster/driveway-mobile.webp 800w, /images/weekly-dumpster/driveway.webp 1400w"
-            sizes="(min-width: 768px) 50vw, 100vw"
-            alt="Black 2-yard dumpster filled with cardboard boxes, parked in a residential driveway next to a home's front porch"
-            width="1400"
-            height="1050"
-            loading="lazy"
-            decoding="async"
-            class="w-full aspect-[4/3] object-cover"
-          />
-        </div>
+      {/* Why Rankin (photo removed 2026-09-29 until photos of every size
+          arrive; restore the image-left/text-right row when they do) */}
+      <div data-reveal data-reveal-delay="0.1" class="max-w-[900px] mx-auto">
         <div>
           <h2 class="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Why Hubbard Families Choose Rankin for Dumpster Service</h2>
           <p class="text-text-muted text-base sm:text-lg leading-relaxed mb-4 md:mb-6">

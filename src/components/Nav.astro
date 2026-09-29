@@ -38,15 +38,18 @@ import ChevronIcon from './icons/ChevronIcon.astro';
 import AnnouncementBanner from './AnnouncementBanner.astro';
 
 // Header now exposes a single "Services" dropdown listing the four
-// primary GBP service categories. Other top-level pages (Residential,
-// Trash Trailer Rentals, About Us, Contact Us, Reviews) remain
-// reachable via footer + internal links / sitemap, just not in the
-// main nav.
-const SERVICE_LINKS = [
+// primary GBP service categories, plus the weekly residential dumpster
+// page (added 2026-09-29) directly under its parent, Dumpster Rental.
+// `isNew` shows a "New" pill; drop it once the service is no longer new.
+// Other top-level pages (Residential, Trash Trailer Rentals, About Us,
+// Contact Us, Reviews) remain reachable via footer + internal links /
+// sitemap, just not in the main nav.
+const SERVICE_LINKS: { label: string; href: string; isNew?: boolean }[] = [
   { label: 'Waste Management Service', href: '/waste-management-service-hubbard' },
   { label: 'Garbage Collection Service', href: '/garbage-collection-service-hubbard' },
   { label: 'Junk Removal Service', href: '/junk-removal-service-hubbard' },
   { label: 'Dumpster Rental Service', href: '/dumpster-rental-service-hubbard' },
+  { label: 'Weekly Residential Dumpsters', href: '/weekly-residential-dumpster-service-hubbard', isNew: true },
 ];
 ---
 
@@ -87,13 +90,16 @@ const SERVICE_LINKS = [
           Services
           <ChevronIcon />
         </summary>
-        <div class="absolute right-0 top-full mt-3 w-72 bg-dark/95 backdrop-blur-lg border border-border-subtle rounded-lg shadow-xl py-2">
+        <div class="absolute right-0 top-full mt-3 w-80 bg-dark/95 backdrop-blur-lg border border-border-subtle rounded-lg shadow-xl py-2">
           {SERVICE_LINKS.map((link) => (
             <a
               href={link.href}
-              class="block px-5 py-3 text-white/80 hover:text-white hover:bg-white/5 transition-colors duration-200"
+              class="flex items-center gap-2 px-5 py-3 text-white/80 hover:text-white hover:bg-white/5 transition-colors duration-200"
             >
               {link.label}
+              {link.isNew && (
+                <span class="shrink-0 rounded-full bg-orange-500/15 border border-orange-500/40 px-2 py-px text-[11px] font-semibold text-orange-300">New</span>
+              )}
             </a>
           ))}
         </div>
@@ -147,9 +153,12 @@ const SERVICE_LINKS = [
             <a
               data-mobile-link
               href={link.href}
-              class="text-white/70 hover:text-white text-[0.9rem] py-2 pl-3 transition-colors duration-300"
+              class="flex items-center gap-2 text-white/70 hover:text-white text-[0.9rem] py-2 pl-3 transition-colors duration-300"
             >
               {link.label}
+              {link.isNew && (
+                <span class="shrink-0 rounded-full bg-orange-500/15 border border-orange-500/40 px-2 py-px text-[11px] font-semibold text-orange-300">New</span>
+              )}
             </a>
           ))}
         </div>
