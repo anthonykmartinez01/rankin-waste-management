@@ -40,7 +40,6 @@ export const schedule: Record<string, string> = {
   // Drip cadence: one new location page every other day (UTC), alphabetical.
   '/service-areas/axtell': '2026-07-13',
   '/service-areas/echols': '2026-07-15',
-  '/service-areas/kirk': '2026-07-17',
   '/service-areas/leroy': '2026-07-19',
   '/service-areas/purdon': '2026-07-21',
   '/service-areas/watt': '2026-07-23',

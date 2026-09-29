@@ -21,8 +21,21 @@
 // rewrite that doesn't trigger Netlify's auto-redirect logic. The
 // user's URL bar stays at the canonical no-slash form.
 
+// Pages that were deleted, mapped to where their old URLs should 301.
+// Checked first (with/without trailing slash or .html) so old links and
+// search results land somewhere useful in one hop. Mirrored in
+// public/_redirects for deploys that don't ship this Edge Function.
+const REMOVED_PAGES = {
+  '/service-areas/kirk': '/service-areas', // 2026-09-29: Kirk not served
+};
+
 export default async (request, context) => {
   const url = new URL(request.url);
+
+  const bare = url.pathname.replace(/\/+$/, '').replace(/\.html$/, '');
+  if (REMOVED_PAGES[bare]) {
+    return Response.redirect(new URL(REMOVED_PAGES[bare], url.origin).toString(), 301);
+  }
 
   // Root path: pass through, no redirect needed
   if (url.pathname === '/') {

@@ -1,0 +1,4 @@
+# Deleted pages -> 301 to the closest live page.
+# Mirrors REMOVED_PAGES in netlify/edge-functions/trailing-slash.js.
+/service-areas/kirk        /service-areas  301!
+/service-areas/kirk.html   /service-areas  301!

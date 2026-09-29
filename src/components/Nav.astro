@@ -39,7 +39,7 @@ import AnnouncementBanner from './AnnouncementBanner.astro';
 
 // Header now exposes a single "Services" dropdown listing the four
 // primary GBP service categories, plus the weekly residential dumpster
-// page (added 2026-09-29) directly under its parent, Dumpster Rental.
+// page (added 2026-09-29), placed after Garbage Collection per client.
 // `isNew` shows a "New" pill; drop it once the service is no longer new.
 // Other top-level pages (Residential, Trash Trailer Rentals, About Us,
 // Contact Us, Reviews) remain reachable via footer + internal links /
@@ -47,9 +47,9 @@ import AnnouncementBanner from './AnnouncementBanner.astro';
 const SERVICE_LINKS: { label: string; href: string; isNew?: boolean }[] = [
   { label: 'Waste Management Service', href: '/waste-management-service-hubbard' },
   { label: 'Garbage Collection Service', href: '/garbage-collection-service-hubbard' },
+  { label: 'Weekly Residential Dumpsters', href: '/weekly-residential-dumpster-service-hubbard', isNew: true },
   { label: 'Junk Removal Service', href: '/junk-removal-service-hubbard' },
   { label: 'Dumpster Rental Service', href: '/dumpster-rental-service-hubbard' },
-  { label: 'Weekly Residential Dumpsters', href: '/weekly-residential-dumpster-service-hubbard', isNew: true },
 ];
 ---
 
