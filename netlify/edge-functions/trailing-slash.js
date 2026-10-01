@@ -26,7 +26,8 @@
 // search results land somewhere useful in one hop. Mirrored in
 // public/_redirects for deploys that don't ship this Edge Function.
 const REMOVED_PAGES = {
-  '/service-areas/kirk': '/service-areas', // 2026-09-29: Kirk not served
+  '/service-areas/kirk': '/service-areas',   // 2026-09-29: Kirk not served
+  '/service-areas/echols': '/service-areas', // 2026-09-29: Echols not served
 };
 
 export default async (request, context) => {

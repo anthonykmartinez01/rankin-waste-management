@@ -37,7 +37,6 @@ const ROUTES: SitemapEntry[] = [
   { path: '/service-areas/axtell', lastmod: '2026-05-03', changefreq: 'monthly', priority: '0.8' },
   { path: '/service-areas/penelope', lastmod: '2026-07-12', changefreq: 'monthly', priority: '0.8' },
   { path: '/service-areas/abbott', lastmod: '2026-07-12', changefreq: 'monthly', priority: '0.8' },
-  { path: '/service-areas/echols', lastmod: '2026-07-15', changefreq: 'monthly', priority: '0.8' },
   { path: '/service-areas/leroy', lastmod: '2026-07-19', changefreq: 'monthly', priority: '0.8' },
   { path: '/service-areas/purdon', lastmod: '2026-07-21', changefreq: 'monthly', priority: '0.8' },
   { path: '/service-areas/watt', lastmod: '2026-07-23', changefreq: 'monthly', priority: '0.8' },
