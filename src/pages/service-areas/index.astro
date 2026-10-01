@@ -6,13 +6,14 @@
 // patterns: Layout + InnerHero (no bgImage, matching /service-areas/axtell)
 // + data-reveal sections + branded dark cards + CallCTA.
 //
-// LOCATIONS split into two groups:
-//   - LOCATION_PAGES: towns with a dedicated page today. Rendered as
-//     clickable cards ("View services →"). As more location pages get
-//     built (Core 30), move the town from COVERED_AREAS up to here.
-//   - COVERED_AREAS: towns we serve (sourced from ServiceAreaMap.tsx)
-//     that don't have a dedicated page yet. Rendered as non-link cards
-//     so every clickable card leads somewhere real.
+// LOCATIONS: one combined A-Z grid (client request 2026-10-01; it was
+// previously split into "Explore" + "Additional Communities"). Every served
+// town comes from src/data/serviceArea.ts. Towns with a LIVE dedicated page
+// (LOCATION_PAGES, minus still-scheduled ones) render as clickable cards
+// ("View services"); the rest render in the same card style with no link,
+// so every clickable card still leads somewhere real. When a new location
+// page is built (Core 30), add it to LOCATION_PAGES and its card becomes a
+// link automatically.
 //
 // Per-page head schema: BreadcrumbList (Home → Service Areas) + ItemList
 // of the dedicated location pages. Matches the inner-page schema pattern.
@@ -41,14 +42,14 @@ const LOCATION_PAGES = [
 // Only surface pages that are actually live (drops still-scheduled ones).
 const livePages = LOCATION_PAGES.filter((loc) => !isScheduledFuture(loc.href));
 
-// Towns we cover without a dedicated page yet (from ServiceAreaMap.tsx).
-// Derived from the same list the map draws (src/data/serviceArea.ts), so
-// this grid can never drift from the map: every served town without a
-// LIVE dedicated page above (a town whose page is still scheduled shows
-// here until it publishes).
-const COVERED_AREAS = SERVICE_TOWNS
-  .filter((t) => !livePages.some((loc) => loc.city === t.city))
-  .map((t) => ({ city: t.city, county: `${t.county} County` }));
+// Every served town, A-Z (SERVICE_TOWNS is already sorted), with the link
+// to its page when one is live. Same list the map draws, so the grid can
+// never drift from the map.
+const ALL_AREAS = SERVICE_TOWNS.map((t) => ({
+  city: t.city,
+  county: `${t.county} County`,
+  href: livePages.find((loc) => loc.city === t.city)?.href,
+}));
 ---
 
 <Layout
@@ -102,20 +103,21 @@ const COVERED_AREAS = SERVICE_TOWNS
         </p>
       </div>
 
-      {/* Dedicated location pages — clickable cards */}
+      {/* All served towns, one A-Z grid. Towns with a live page link to it;
+          the rest share the card style with no link. */}
       <div data-reveal data-reveal-delay="0.1" class="mb-14 md:mb-20">
         <h2 class="text-2xl md:text-3xl font-bold mb-6 md:mb-8">Explore Our Service Areas</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
-          {livePages.map((loc) => (
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+          {ALL_AREAS.map((area) => area.href ? (
             <a
-              href={loc.href}
+              href={area.href}
               class="group block bg-dark-elevated border border-border-subtle rounded-xl p-6 transition-colors duration-300 hover:border-orange-500 min-h-[44px]"
             >
               <div class="flex items-start gap-3">
                 <MapPinIcon class="w-6 h-6 text-orange-500 shrink-0 mt-0.5" />
                 <div>
-                  <h3 class="text-xl font-bold group-hover:text-orange-300 transition-colors duration-300">{loc.city}, TX</h3>
-                  <p class="text-text-muted text-sm mt-1">{loc.county}</p>
+                  <h3 class="text-xl font-bold group-hover:text-orange-300 transition-colors duration-300">{area.city}, TX</h3>
+                  <p class="text-text-muted text-sm mt-1">{area.county}</p>
                 </div>
               </div>
               <span class="mt-4 inline-flex items-center gap-1 text-orange-500 font-semibold text-sm">
@@ -125,23 +127,14 @@ const COVERED_AREAS = SERVICE_TOWNS
                 </svg>
               </span>
             </a>
-          ))}
-        </div>
-      </div>
-
-      {/* Additional covered communities — informational cards */}
-      <div data-reveal data-reveal-delay="0.1" class="mb-14 md:mb-20">
-        <h2 class="text-2xl md:text-3xl font-bold mb-3 md:mb-4">Additional Communities We Serve</h2>
-        <p class="text-text-muted text-base sm:text-lg leading-relaxed mb-6 md:mb-8">
-          No dedicated page yet, but our trucks run these routes every week. If you're in one of these towns &mdash; or anywhere nearby &mdash; give us a call and we'll get you set up.
-        </p>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
-          {COVERED_AREAS.map((area) => (
-            <div class="flex items-center gap-3 bg-dark-elevated border border-border-subtle rounded-xl p-5">
-              <MapPinIcon class="w-5 h-5 text-orange-500 shrink-0" />
-              <div>
-                <div class="font-semibold">{area.city}, TX</div>
-                <div class="text-text-muted text-sm">{area.county}</div>
+          ) : (
+            <div class="bg-dark-elevated border border-border-subtle rounded-xl p-6">
+              <div class="flex items-start gap-3">
+                <MapPinIcon class="w-6 h-6 text-orange-500 shrink-0 mt-0.5" />
+                <div>
+                  <h3 class="text-xl font-bold">{area.city}, TX</h3>
+                  <p class="text-text-muted text-sm mt-1">{area.county}</p>
+                </div>
               </div>
             </div>
           ))}

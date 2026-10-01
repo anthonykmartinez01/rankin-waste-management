@@ -43,12 +43,19 @@ const PAGE_URL = 'https://rankinwaste.com/weekly-residential-dumpster-service-hu
 // Every size HAS A LID (client confirmed 2026-09-29). Never describe them
 // as open-top, low-profile, or "no lid to lift". The shared Style line
 // lives in the card template below.
+// PRICING (client, 2026-10-01): the client does NOT know the billing period
+// (per week vs per month) or whether any area costs more. So prices are
+// shown exactly as given ("$92 + tax") with NO period, and every pricing
+// mention is paired with "confirm the rate and billing schedule for your
+// address". Never add "per month"/"per week"/"same price everywhere" until
+// the client confirms.
 const SIZES = [
-  { yards: 2, gallons: '400', carts: 'four', fits: 'In most driveways or beside a garage' },
-  { yards: 3, gallons: '600', carts: 'six', fits: "Takes a little more room than the 2-yard. We'll confirm your spot before drop-off" },
-  { yards: 4, gallons: '800', carts: 'eight', fits: "Takes more room than the smaller sizes. We'll confirm your spot before drop-off" },
-  { yards: 6, gallons: '1,200', carts: 'twelve', fits: "Our largest size, so it needs the most room. We'll confirm your spot before drop-off" },
+  { yards: 2, price: 92, gallons: '400', carts: 'four', fits: 'In most driveways or beside a garage' },
+  { yards: 3, price: 120, gallons: '600', carts: 'six', fits: "Takes a little more room than the 2-yard. We'll confirm your spot before drop-off" },
+  { yards: 4, price: 142, gallons: '800', carts: 'eight', fits: "Takes more room than the smaller sizes. We'll confirm your spot before drop-off" },
+  { yards: 6, price: 172, gallons: '1,200', carts: 'twelve', fits: "Our largest size, so it needs the most room. We'll confirm your spot before drop-off" },
 ];
+const STARTING_PRICE = Math.min(...SIZES.map((s) => s.price));
 
 const SIGNS = [
   { title: 'Your cart is full before pickup day', body: "If the lid won't close by midweek, you're stuffing bags in the garage or paying for a second cart. Even our smallest 2-yard dumpster holds about four carts' worth." },
@@ -68,6 +75,7 @@ const STEPS = [
 const FAQS: Faq[] = [
   { q: 'What size dumpster does a Hubbard home need?', a: "Most Hubbard homes that outgrow a single trash cart do fine with a 2-yard dumpster, which holds about four carts' worth of trash. Bigger households, rural properties, and lots with more than one home often need a 3-, 4-, or 6-yard, which hold about six, eight, or twelve carts' worth. Tell us how much trash your household makes and we'll help you pick the right size." },
   { q: 'Is a weekly dumpster worth it over a regular trash cart in Hubbard?', a: "A weekly dumpster is worth it in Hubbard if your cart is full before pickup day most weeks. Instead of paying for extra carts or stacking bags by the road, you get one container with at least four times the room. If your cart usually has space left over, our regular weekly pickup is the simpler choice." },
+  { q: 'How much does a weekly dumpster cost in Hubbard?', a: "A weekly residential dumpster in Hubbard starts at $92 + tax for a 2-yard. A 3-yard is $120 + tax, a 4-yard is $142 + tax, and a 6-yard is $172 + tax. Call (254) 205-6125 to confirm the rate and billing schedule for your address." },
   { q: 'Do I have to sign a contract for dumpster service in Hubbard?', a: "No, you don't have to sign a contract for dumpster service in Hubbard with us. There are no long-term agreements and no cancellation fees. If your needs change, call (254) 205-6125 and we'll adjust or cancel your service." },
   { q: "What can't go in a residential dumpster in Hubbard?", a: "Texas law keeps a few items out of any regular trash in Hubbard, residential dumpsters included: car batteries, used motor oil, used oil filters, whole tires, and refrigerators, freezers, or AC units that still have refrigerant in them. Paint, pesticides, and harsh chemicals need special handling too. When in doubt, call us before you toss it." },
   { q: 'Can I get a weekly dumpster outside Hubbard city limits?', a: "In most cases, yes, you can get a weekly dumpster outside Hubbard city limits. We already run routes across the rural areas around Hubbard. The main thing we need is a spot our truck can safely reach. Call (254) 205-6125 with your address and we'll confirm." },
@@ -77,7 +85,7 @@ const FAQS: Faq[] = [
 
 <Layout
   title="Weekly Residential Dumpster Service Hubbard TX | Rankin Waste"
-  description="Weekly residential dumpster service in Hubbard, TX and surrounding counties. Choose a 2-, 3-, 4-, or 6-yard dumpster, emptied weekly. Call (254) 205-6125."
+  description="Weekly residential dumpster service in Hubbard, TX and surrounding counties. Four sizes from $92 + tax, emptied weekly. Call (254) 205-6125."
 >
   <Fragment slot="head">
     <script is:inline type="application/ld+json" set:html={JSON.stringify({
@@ -156,6 +164,14 @@ const FAQS: Faq[] = [
         "name": "Residential Dumpster Service in Hubbard",
         "itemListElement": SIZES.map((s) => ({
           "@type": "Offer",
+          "price": s.price.toFixed(2),
+          "priceCurrency": "USD",
+          "priceSpecification": {
+            "@type": "PriceSpecification",
+            "price": s.price.toFixed(2),
+            "priceCurrency": "USD",
+            "valueAddedTaxIncluded": false
+          },
           "itemOffered": {
             "@type": "Service",
             "name": `Weekly ${s.yards}-Yard Residential Dumpster in Hubbard`,
@@ -258,6 +274,7 @@ const FAQS: Faq[] = [
               <h3 class="text-xl md:text-2xl font-bold mb-3 md:mb-4">{s.yards}-Yard Dumpster at a Glance</h3>
               <ul class="text-text-muted text-base leading-relaxed space-y-2 list-disc pl-5 marker:text-orange-500">
                 <li><span class="font-semibold text-white">Capacity:</span> {s.yards} cubic yards (about {s.gallons} gallons)</li>
+                <li><span class="font-semibold text-white">Price:</span> <span class="font-semibold text-orange-300">${s.price} + tax</span></li>
                 <li><span class="font-semibold text-white">Style:</span> Comes with a lid to keep trash covered between pickups</li>
                 <li><span class="font-semibold text-white">Fits:</span> {s.fits}</li>
                 <li><span class="font-semibold text-white">Cart equivalent:</span> About {s.carts} standard 96-gallon trash carts</li>
@@ -336,11 +353,23 @@ const FAQS: Faq[] = [
         </p>
       </div>
 
-      {/* Cost factors */}
+      {/* Pricing (see the PRICING note on SIZES: no billing period stated) */}
       <div data-reveal data-reveal-delay="0.1" class="mb-16 md:mb-24 max-w-[900px] mx-auto">
-        <h2 class="text-2xl md:text-3xl font-bold mb-4 md:mb-6">What Affects the Cost of a Weekly Dumpster in Hubbard?</h2>
+        <h2 class="text-2xl md:text-3xl font-bold mb-4 md:mb-6">How Much Does a Weekly Dumpster Cost in Hubbard?</h2>
+        <p class="text-text-muted text-base sm:text-lg leading-relaxed mb-6 md:mb-8">
+          A weekly residential dumpster in Hubbard starts at ${STARTING_PRICE} + tax for a 2-yard. Here's our pricing by size:
+        </p>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 md:gap-4 mb-6 md:mb-8">
+          {SIZES.map((s) => (
+            <div class="bg-dark-elevated border border-border-subtle rounded-xl p-4 md:p-5 text-center">
+              <p class="text-text-muted text-sm font-semibold uppercase tracking-wide mb-1">{s.yards}-Yard</p>
+              <p class="text-2xl md:text-3xl font-bold text-white">${s.price}</p>
+              <p class="text-text-muted text-sm">+ tax</p>
+            </div>
+          ))}
+        </div>
         <p class="text-text-muted text-base sm:text-lg leading-relaxed mb-4 md:mb-6">
-          The cost of a weekly dumpster in Hubbard depends on your address and what your household needs. Call us and we'll quote you a flat rate right over the phone, so you know the price before we ever drop the dumpster off.
+          Call us at <a href={PHONE_LINK} class="text-orange-500 hover:text-orange-300 font-semibold transition-colors duration-300">{PHONE}</a> to confirm the rate and billing schedule for your address, so you know exactly what you'll pay before we ever drop the dumpster off.
         </p>
         <p class="text-text-muted text-base sm:text-lg leading-relaxed">
           Got an old couch or other big piece of furniture that won't fit? We also handle <a href="/junk-removal-service-hubbard" class="text-orange-500 hover:text-orange-300 underline underline-offset-2 transition-colors duration-300">bulk junk removal around Hubbard</a>, so you don't have to find somewhere else to haul it.
