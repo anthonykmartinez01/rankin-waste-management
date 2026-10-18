@@ -1,6 +1,11 @@
 # Deleted pages -> 301 to the closest live page.
 # Mirrors REMOVED_PAGES in netlify/edge-functions/trailing-slash.js.
-/service-areas/kirk        /service-areas  301!
-/service-areas/kirk.html   /service-areas  301!
-/service-areas/echols      /service-areas  301!
-/service-areas/echols.html /service-areas  301!
+# Plain 301 (no Netlify "!" force flag): Cloudflare Pages ignores rules
+# written as "301!", and these pages no longer exist, so neither host needs
+# the force flag for the rule to apply.
+/service-areas/kirk        /service-areas  301
+/service-areas/kirk/       /service-areas  301
+/service-areas/kirk.html   /service-areas  301
+/service-areas/echols      /service-areas  301
+/service-areas/echols/     /service-areas  301
+/service-areas/echols.html /service-areas  301
