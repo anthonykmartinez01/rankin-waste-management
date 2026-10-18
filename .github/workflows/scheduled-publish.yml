@@ -2,31 +2,22 @@
 # WHY THIS WORKFLOW EXISTS
 # ─────────────────────────────────────────────────────────────────────────
 # rankinwaste.com is hosted on Netlify, but the Netlify site is NOT git-linked.
-# A `git push` deploys NOTHING on its own — that's intentional, so work in
-# progress (including not-yet-live scheduled pages) can be pushed safely any
-# time without leaking to production.
+# A push to master publishes the live site. This workflow rebuilds and deploys
+# production immediately on that push or merge. There is no daily timed deploy.
 #
-# The trade-off: scheduled pages (see src/lib/schedule.ts) can't go live by
-# themselves either. Publishing is decided at BUILD time — a future-dated page
-# is redirected to /404 and left out of the sitemap until a build runs after
-# its date. Nothing rebuilds unless a human deploys... or this workflow does.
+# Scheduled pages (see src/lib/schedule.ts) still publish at BUILD time. A
+# future-dated page is redirected to /404 and left out of the sitemap until a
+# build runs after its date. A push to master runs that build.
 #
-# THIS is that missing piece: it rebuilds and redeploys the site once a day so
-# a page dated "tomorrow" actually appears tomorrow with no manual deploy. It
-# deploys with the Netlify CLI directly (production), NOT via any git auto-
-# deploy — there isn't one.
+# It deploys with the Netlify CLI directly (production).
 # ─────────────────────────────────────────────────────────────────────────
 
 name: Scheduled Publish
 
 on:
-  schedule:
-    # 08:00 UTC daily = 3:00 AM CDT (UTC-5, summer) / 2:00 AM CST (UTC-6, winter).
-    # A page dated YYYY-MM-DD is eligible at 00:00 UTC that day; this run
-    # (08:00 UTC) is the one that actually deploys it — so an Aug 15 page goes
-    # live ~3:00 AM Central on the morning of Aug 15.
-    # NOTE: GitHub cron can lag several minutes under load; it is not exact.
-    - cron: "0 8 * * *"
+  # A push (or merge) to master rebuilds and deploys production.
+  push:
+    branches: [master]
   # Lets you trigger a production deploy by hand from the Actions tab
   # (e.g. to publish a page the moment its date passes, without waiting for 8 UTC).
   workflow_dispatch: {}
