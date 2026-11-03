@@ -1,13 +1,9 @@
 ---
 // src/pages/service-areas/axtell.astro
 // Rebuilt 2026-07-12 on the shared LocationPage component (was a standalone
-// port). Scheduled via the registry (see src/lib/schedule.ts).
+// port).
 import LocationPage from '../../components/LocationPage.astro';
 import type { LocationSection, Faq } from '../../components/location-types';
-import { scheduleGuard } from '../../lib/schedule';
-
-const guard = scheduleGuard(Astro);
-if (guard) return guard;
 
 const sections: LocationSection[] = [
   {

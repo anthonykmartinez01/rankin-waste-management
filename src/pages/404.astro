@@ -1,11 +1,9 @@
 ---
 // src/pages/404.astro
 //
-// Custom 404. Astro builds this to dist/404.html, which Netlify serves for
-// any unmatched route (with a real 404 status). It is also the redirect
-// target for scheduleGuard() — future-dated pages bounce here until their
-// publish date passes. `noindex` keeps it (and, by extension, any not-yet-
-// live scheduled page pointing here) out of the search index.
+// Custom 404. Astro builds this to dist/404.html, which Cloudflare Pages serves
+// for any unmatched route (with a real 404 status). `noindex` keeps it out of
+// the search index.
 import Layout from '../layouts/Layout.astro';
 import CallCTA from '../components/CallCTA.astro';
 ---

@@ -8,8 +8,8 @@
 //
 // LOCATIONS: one combined A-Z grid (client request 2026-10-01; it was
 // previously split into "Explore" + "Additional Communities"). Every served
-// town comes from src/data/serviceArea.ts. Towns with a LIVE dedicated page
-// (LOCATION_PAGES, minus still-scheduled ones) render as clickable cards
+// town comes from src/data/serviceArea.ts. Towns with a dedicated page
+// (LOCATION_PAGES) render as clickable cards
 // ("View services"); the rest render in the same card style with no link,
 // so every clickable card still leads somewhere real. When a new location
 // page is built (Core 30), add it to LOCATION_PAGES and its card becomes a
@@ -24,11 +24,8 @@ import MapPinIcon from '../../components/icons/MapPinIcon.astro';
 import ServiceAreaMap from '../../components/ServiceAreaMap.tsx';
 import { SERVICE_TOWNS } from '../../data/serviceArea';
 import { PHONE, PHONE_LINK } from '../../data/business';
-import { isScheduledFuture } from '../../lib/schedule';
 
-// Towns with a dedicated page — clickable cards. Scheduled (future-dated)
-// pages are filtered out below until their publish date passes, so a card
-// only appears once its page is actually live.
+// Towns with a dedicated page — clickable cards.
 const LOCATION_PAGES = [
   { city: 'Penelope', county: 'Hill County', href: '/service-areas/penelope' },
   { city: 'Abbott', county: 'Hill County', href: '/service-areas/abbott' },
@@ -39,16 +36,13 @@ const LOCATION_PAGES = [
   { city: 'Watt', county: 'Limestone County', href: '/service-areas/watt' },
 ];
 
-// Only surface pages that are actually live (drops still-scheduled ones).
-const livePages = LOCATION_PAGES.filter((loc) => !isScheduledFuture(loc.href));
-
 // Every served town, A-Z (SERVICE_TOWNS is already sorted), with the link
 // to its page when one is live. Same list the map draws, so the grid can
 // never drift from the map.
 const ALL_AREAS = SERVICE_TOWNS.map((t) => ({
   city: t.city,
   county: `${t.county} County`,
-  href: livePages.find((loc) => loc.city === t.city)?.href,
+  href: LOCATION_PAGES.find((loc) => loc.city === t.city)?.href,
 }));
 ---
 
@@ -69,7 +63,7 @@ const ALL_AREAS = SERVICE_TOWNS.map((t) => ({
       "@context": "https://schema.org",
       "@type": "ItemList",
       "name": "Rankin Waste Management Service Areas",
-      "itemListElement": livePages.map((loc, i) => ({
+      "itemListElement": LOCATION_PAGES.map((loc, i) => ({
         "@type": "ListItem",
         "position": i + 1,
         "name": `Waste Management Service in ${loc.city}, TX`,

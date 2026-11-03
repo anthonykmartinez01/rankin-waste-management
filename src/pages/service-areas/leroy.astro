@@ -1,13 +1,8 @@
 ---
 // src/pages/service-areas/leroy.astro
 // Leroy, TX (McLennan County — source copy wrongly said Falls County).
-// Scheduled via src/lib/schedule.ts.
 import LocationPage from '../../components/LocationPage.astro';
 import type { LocationSection, Faq } from '../../components/location-types';
-import { scheduleGuard } from '../../lib/schedule';
-
-const guard = scheduleGuard(Astro);
-if (guard) return guard;
 
 const sections: LocationSection[] = [
   {
