@@ -1,17 +1,9 @@
 // src/pages/sitemap.xml.ts
 //
-// Schedule-aware sitemap. Replaces the old hand-maintained public/sitemap.xml
-// so that future-dated pages (see src/lib/schedule.ts) are automatically
-// EXCLUDED until their publish date passes — a hidden page must never show up
-// in search-engine discovery. Prerendered at build time (static output), so
-// the exclusion is re-evaluated on every build/deploy, exactly like the page
-// guard.
-//
-// Still a manual route list, on purpose — same convention as before, just in
-// code now. When you add a new route, add it here (unless it's a utility page
+// Sitemap, prerendered at build time (static output). A manual route list, on
+// purpose. When you add a new route, add it here (unless it's a utility page
 // you want kept out of the index, like /404).
 import type { APIRoute } from 'astro';
-import { isScheduledFuture } from '../lib/schedule';
 
 export const prerender = true;
 
@@ -49,8 +41,6 @@ const ROUTES: SitemapEntry[] = [
 
 export const GET: APIRoute = () => {
   const urls = ROUTES
-    // Drop any page whose publish date hasn't passed yet.
-    .filter((r) => !isScheduledFuture(r.path))
     .map(
       (r) =>
         `  <url>\n    <loc>${SITE}${r.path}</loc>\n    <lastmod>${r.lastmod}</lastmod>\n    <changefreq>${r.changefreq}</changefreq>\n    <priority>${r.priority}</priority>\n  </url>`
